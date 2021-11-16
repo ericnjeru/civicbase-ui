@@ -1,0 +1,5 @@
+export { default } from './Tabs'
+export { default as TabPanel } from './TabPanel'
+export { default as TabContext } from './TabContext'
+export { default as TabItem } from './TabItem'
+export { default as TabLabel } from './TabLabel'
