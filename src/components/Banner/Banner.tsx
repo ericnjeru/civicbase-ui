@@ -35,7 +35,7 @@ const Banner = () => {
           <div css={tw`order-2 flex-shrink-0 sm:order-3 sm:ml-3`}>
             <button
               type="button"
-              css={tw`-mr-1 flex p-2 rounded-md hover:(bg-brand2 opacity-70) focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2`}
+              css={tw`-mr-1 flex p-2 rounded-md hover:(bg-brand2 opacity-70) focus:outline-none focus:ring-2 focus:ring-brand2 sm:-mr-2`}
             >
               <span css={tw`sr-only`}>Dismiss</span>
 
