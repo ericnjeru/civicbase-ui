@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "civic-base"
+  },
+  "targets": {
+    "civic-base": {
+      "hosting": {
+        "app": [
+          "civic-base"
+        ],
+        "storybook": [
+          "storybook-civic-base"
+        ]
+      }
+    }
   }
 }
