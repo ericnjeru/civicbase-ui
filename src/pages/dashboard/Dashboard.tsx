@@ -1,8 +1,10 @@
 import tw from 'twin.macro'
+import { FC } from 'react'
+import { RouteComponentProps } from '@reach/router'
 import SurveyCard from 'components/SurveyCard'
 import AddButton from 'components/AddButton'
 
-const Dashboard = () => {
+const Dashboard: FC<RouteComponentProps> = () => {
   return (
     <div css={tw`grid mobile:grid-cols-1 tablet:grid-cols-2 grid-cols-3  gap-8`}>
       <SurveyCard status="pilot" title="Pilot Survey" method="quadratic" />

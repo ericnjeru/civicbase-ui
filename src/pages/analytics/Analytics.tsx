@@ -1,11 +1,13 @@
 import tw from 'twin.macro'
+import { FC } from 'react'
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai'
+import { RouteComponentProps } from '@reach/router'
 import HeaderSection from 'components/HeaderSection'
 import * as Table from 'components/Table'
 import * as Stats from 'components/Stats'
 import Badge from 'components/Badge'
-import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai'
 
-const Analytics = () => {
+const Analytics: FC<RouteComponentProps> = () => {
   return (
     <>
       <HeaderSection />

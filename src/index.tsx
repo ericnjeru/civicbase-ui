@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import App from 'components/App'
 import reportWebVitals from './reportWebVitals'
 import GlobalStyles from './styles/GlobalStyles'
 import { ThemeProvider } from 'contexts/theme'
@@ -10,7 +9,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider>
       <GlobalStyles />
-      <App />
+      <Suspense fallback={<div></div>}>
+        <App />
+      </Suspense>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),

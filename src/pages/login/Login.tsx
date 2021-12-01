@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import tw from 'twin.macro'
+import { RouteComponentProps } from '@reach/router'
 import { OutlinedButton } from 'components/Button'
 import Card from 'components/Card'
 import Typography, { Title, Caption } from 'components/Typography'
@@ -84,7 +85,7 @@ const SignupBanner = ({ handleToggle }: { handleToggle: () => void }) => {
   )
 }
 
-const Login = () => {
+const Login: FC<RouteComponentProps> = () => {
   const [clicked, setClicked] = useState(false)
 
   return (
@@ -104,7 +105,8 @@ const Login = () => {
         <div
           style={{ top: '-1px', left: '-1px' }}
           css={[
-            tw`h-96 w-96 bg-blue-200 absolute border-0 z-10`,
+            tw`h-96 w-96 absolute border-0 z-10`,
+            tw`bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500`,
             clicked && tw`rounded-r-md transition-all ease-in-out duration-700 transform translate-x-96 `,
             !clicked && tw` rounded-l-md w-80 transition-all ease-in-out duration-700`,
           ]}

@@ -1,8 +1,10 @@
+import tw from 'twin.macro'
+import { RouteComponentProps } from '@reach/router'
+import { FC } from 'react'
 import { PrimaryButton } from 'components/Button'
 import Typography, { Title } from 'components/Typography'
-import tw from 'twin.macro'
 
-const NotFound = () => {
+const NotFound: FC<RouteComponentProps> = () => {
   return (
     <div css={tw`container mx-auto h-full flex justify-center items-center pb-44 flex-col`}>
       <div css={tw`flex divide-x-2 divide-gray-100`}>

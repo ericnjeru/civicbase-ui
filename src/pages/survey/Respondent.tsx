@@ -1,8 +1,9 @@
-import DynamicBar from 'components/DynamicBar'
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import tw from 'twin.macro'
+import { RouteComponentProps } from '@reach/router'
+import DynamicBar from 'components/DynamicBar'
 
-const Respondent = () => {
+const Respondent: FC<RouteComponentProps> = () => {
   const [credits, setCredits] = useState(50)
 
   const handleCredits = () => {

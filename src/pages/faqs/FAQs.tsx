@@ -1,9 +1,11 @@
-import * as Accordion from 'components/Accordion'
-import Typography, { Title } from 'components/Typography'
 import { useState } from 'react'
 import tw from 'twin.macro'
+import { FC } from 'react'
+import { RouteComponentProps } from '@reach/router'
+import * as Accordion from 'components/Accordion'
+import Typography, { Title } from 'components/Typography'
 
-const FAQs = () => {
+const FAQs: FC<RouteComponentProps> = () => {
   const [active, setActive] = useState<number>()
 
   return (
