@@ -20,7 +20,7 @@ const Header = () => {
   }
 
   return (
-    <div css={tw`flex items-center w-full`}>
+    <div css={tw`flex items-center w-full fixed`}>
       <div css={tw`w-full overflow-hidden flex items-center justify-between p-6`}>
         <Subtitle css={tw`m-0`}>QVSR2</Subtitle>
         <div css={tw`flex`}>
