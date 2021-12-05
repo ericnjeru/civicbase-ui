@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
 
+// TODO: remove this
 const config = {
   apiKey: 'AIzaSyChPtHht6YV1TnZlQ54gvdE8kyfTZfuF_M',
   authDomain: 'civic-base.firebaseapp.com',
