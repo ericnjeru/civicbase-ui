@@ -86,6 +86,7 @@ module.exports = {
         warn: colors.orange,
         danger: colors.rose,
         error: colors.red,
+        white: colors.white,
         bgColor0: '#fc5c65',
         bgColor1: '#26de81',
         bgColor2: '#10b9b1',
