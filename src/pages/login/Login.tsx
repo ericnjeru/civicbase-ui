@@ -1,15 +1,28 @@
-import { FC, useState } from 'react'
-import { BsArrowLeft } from 'react-icons/bs'
+import { FC, useCallback, useState } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import Card from 'components/Card'
-import tw, { theme } from 'twin.macro'
-import { Title } from 'components/Typography'
-import { IconButton } from 'components/Button'
+import tw from 'twin.macro'
+import Typography from 'components/Typography'
 import LoginForm from 'components/forms/Login'
 import SignupForm from 'components/forms/Signup'
+import ForgotPasswordForm from 'components/forms/ForgotPassword'
+import Step from './Step'
+import Header from './Header'
+
+type Steps = 'login' | 'signup' | 'verification' | 'forgot' | 'forgotConfirmation'
 
 const Login: FC<RouteComponentProps> = () => {
-  const [toggle, setToggle] = useState(true)
+  const [step, setStep] = useState<Steps>('login')
+
+  const isLogin = step === 'login'
+  const isSignup = step === 'signup'
+  const isVerification = step === 'verification'
+  const isForgot = step === 'forgot'
+  const isForgotConfirmation = step === 'forgotConfirmation'
+
+  const handleNext = useCallback((step) => {
+    setStep(step)
+  }, [])
 
   return (
     <div css={tw`flex justify-center h-full mobile:items-start items-center`}>
@@ -21,48 +34,43 @@ const Login: FC<RouteComponentProps> = () => {
         style={{ height: 800 }}
       >
         <div css={tw`text-center mt-8`}>
-          <div css={[tw`opacity-0`, toggle && tw`transition-all ease-in-out duration-700 opacity-100`]}>
-            {toggle && <Title css={tw`text-white`}>Civicbase</Title>}
-          </div>
+          <Header isActive={isLogin}>Civicbase</Header>
 
-          <div
-            css={[
-              tw`flex justify-between items-center opacity-0 mx-2`,
-              !toggle && tw`transition-all ease-in-out duration-700 opacity-100`,
-            ]}
-          >
-            <IconButton onClick={() => setToggle(true)}>
-              <BsArrowLeft size={28} color={theme`colors.white`} />
-            </IconButton>
-            <div css={tw`w-full`}>
-              <Title css={tw`text-white m-0`}>Sign Up</Title>
-            </div>
-          </div>
+          <Header isActive={isSignup} handleBack={() => setStep('login')}>
+            Sign Up
+          </Header>
+
+          <Header isActive={isVerification} handleBack={() => setStep('login')}>
+            Email Verification
+          </Header>
+
+          <Header isActive={isForgot || isForgotConfirmation} handleBack={() => handleNext('login')}>
+            Reset Password
+          </Header>
         </div>
 
-        <Card
-          css={[
-            tw`absolute top-60 w-full h-auto bottom-0 rounded-none border-0`,
-            tw`flex flex-col pt-12`,
-            !toggle && tw`transition-all ease-in-out duration-700 transform translate-y-full opacity-0`,
-            toggle && tw`transition-all ease-in-out duration-700 transform -translate-y-0 opacity-100`,
-          ]}
-          style={{ borderTopLeftRadius: toggle ? 56 : 0 }}
-        >
-          <LoginForm handleToggle={() => setToggle(false)} toggle={toggle} />
-        </Card>
+        <Step isActive={isLogin} css={tw`top-60`}>
+          <LoginForm next={() => setStep('signup')} handleForgotPassword={() => setStep('forgot')} />
+        </Step>
 
-        <Card
-          css={[
-            tw`absolute top-32 w-full h-auto bottom-0 rounded-tr-none rounded-none border-0`,
-            tw`flex flex-col transform translate-y-full pt-12`,
-            !toggle && tw`transition-all ease-in-out duration-700 transform -translate-y-0 opacity-100`,
-            toggle && tw`transition-all ease-in-out duration-700 transform translate-y-full opacity-0`,
-          ]}
-          style={{ borderTopLeftRadius: !toggle ? 56 : 0 }}
-        >
-          <SignupForm toggle={toggle} />
-        </Card>
+        <Step isActive={isSignup}>
+          <SignupForm shouldReset={!isSignup} next={() => setStep('verification')} />
+        </Step>
+
+        <Step isActive={isForgot}>
+          <ForgotPasswordForm next={() => handleNext('forgotConfirmation')} />
+        </Step>
+
+        <Step isActive={isForgotConfirmation}>
+          <Typography>We sent you an email so you can reset your password.</Typography>
+        </Step>
+
+        <Step isActive={isVerification}>
+          <Typography>
+            We are happy you signed up for Civicbase. To start exploring Civicbase App we sent you an email to verify
+            your email address.
+          </Typography>
+        </Step>
       </Card>
     </div>
   )
