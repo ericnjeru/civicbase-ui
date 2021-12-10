@@ -3,8 +3,17 @@ import { ReactNode } from 'react'
 import tw from 'twin.macro'
 import { FadeInOut } from 'components/Transition'
 import Typography from 'components/Typography'
+import { useAuth } from 'contexts/auth'
+import useAsync from 'hooks/use-async'
 
 export default function Example({ children }: { children: ReactNode }) {
+  const { run, isLoading } = useAsync()
+  const { logout } = useAuth()
+
+  const handleLogout = () => {
+    logout && run(logout())
+  }
+
   return (
     <div css={tw`h-full`}>
       <Menu as="div">
@@ -62,6 +71,8 @@ export default function Example({ children }: { children: ReactNode }) {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={handleLogout}
+                    disabled={isLoading}
                     css={[
                       active ? tw`bg-red-500 text-white` : tw`text-primary`,
                       tw`flex rounded-md items-center w-full px-2 py-2 text-sm justify-center`,
