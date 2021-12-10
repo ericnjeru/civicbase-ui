@@ -4,10 +4,8 @@ export const base = [
   tw`text-center text-base leading-none font-medium font-brand py-3 px-5 rounded-md cursor-pointer disabled:opacity-50 disabled:cursor-default outline-none focus:outline-none focus:(ring-2 ring-brand) bg-transparent`,
 ]
 export const primary = {
-  DEFAULT: [tw`text-white bg-brand hover:opacity-90 focus:bg-brand  disabled:(hover:bg-brand focus:bg-brand)`],
-  danger: [
-    tw`text-white bg-danger-500 hover:bg-danger-600 focus:bg-danger-600 disabled:(hover:bg-danger-500 focus:bg-danger-500)`,
-  ],
+  DEFAULT: [tw`text-white bg-brand hover:opacity-90 focus:bg-brand`],
+  danger: [tw`text-white bg-danger-500 hover:bg-danger-600 focus:bg-danger-600`],
 }
 export const secondary = {
   DEFAULT: [
