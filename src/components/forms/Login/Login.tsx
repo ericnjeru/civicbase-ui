@@ -8,13 +8,19 @@ import { PrimaryButton } from 'components/Button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { validationSchema } from './validation'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import { useAuth } from 'contexts/auth'
+import useAsync from 'hooks/use-async'
+import { PrimaryTextButton } from 'components/Button'
+import Spinner from 'components/Spinner'
 
 interface LoginFormValues {
   email: string
   password: string
 }
 
-const Login = ({ handleToggle, toggle }: { handleToggle: () => void; toggle: boolean }) => {
+const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotPassword: () => void }) => {
+  const { login } = useAuth()
+  const { run, error, isLoading, setError } = useAsync()
   const {
     register,
     handleSubmit,
@@ -29,15 +35,16 @@ const Login = ({ handleToggle, toggle }: { handleToggle: () => void; toggle: boo
   })
 
   useEffect(() => {
-    if (!toggle && reset) {
+    return () => {
       reset()
+      setError(null)
     }
-  }, [toggle, reset])
+  }, [reset, setError])
 
   return (
     <form
       onSubmit={handleSubmit((values) => {
-        console.log({ values })
+        login && run(login({ ...values }))
       })}
       css={tw`h-full`}
     >
@@ -45,21 +52,28 @@ const Login = ({ handleToggle, toggle }: { handleToggle: () => void; toggle: boo
         <div css={tw`grid grid-cols-1 gap-8`}>
           <div>
             <Label htmlFor="email">Email</Label>
-            <Input {...register('email')} error={!!errors.email} />
+            <Input {...register('email')} error={!!errors.email} disabled={isLoading} />
             <FieldErrorMessage css={tw`ml-2`} name="email" errors={errors} />
           </div>
 
           <div>
             <Label htmlFor="password">Password</Label>
-            <Input {...register('password')} error={!!errors.password} type="password" />
+            <Input {...register('password')} error={!!errors.password} type="password" disabled={isLoading} />
             <FieldErrorMessage css={tw`ml-2`} name="password" errors={errors} />
           </div>
 
-          <PrimaryButton css={tw`mt-8`} type="submit">
-            Login
+          {error && <Typography css={tw`text-center text-error-600`}>{error.message}</Typography>}
+
+          <PrimaryTextButton css={tw`focus:ring-0`} onClick={handleForgotPassword}>
+            Forgot password?
+          </PrimaryTextButton>
+
+          <PrimaryButton css={tw`mt-8 flex justify-center items-center space-x-4`} type="submit" disabled={isLoading}>
+            {isLoading && <Spinner variant="light" />}
+            <div>Login</div>
           </PrimaryButton>
         </div>
-        <Typography css={tw`text-center hover:(cursor-pointer text-brand )`} onClick={handleToggle}>
+        <Typography css={tw`text-center hover:(cursor-pointer text-brand )`} onClick={next}>
           Do not have account yet? Sign up!
         </Typography>
       </div>
