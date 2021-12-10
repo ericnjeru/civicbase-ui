@@ -34,7 +34,6 @@ export const signup = async (req: SignupRequest, res: Response) => {
     })
     .then(() => res.status(201).json({ code: 'auth/verify-email' }))
     .catch((error) => {
-      console.log({ error })
       if (error.code === 'auth/email-already-in-user') {
         return res.status(409).json({ ...error })
       } else {
@@ -45,10 +44,12 @@ export const signup = async (req: SignupRequest, res: Response) => {
 
 export const login = async (req: LoginRequest, res: Response) => {
   const auth = getAuth()
+  let uid: string
   const { email, password } = req.body
 
   signInWithEmailAndPassword(auth, email, password)
     .then(({ user }: any) => {
+      uid = user.uid
       if (!user.emailVerified) {
         return res.status(403).json({ message: 'Please verify your email address' })
       }
@@ -61,10 +62,16 @@ export const login = async (req: LoginRequest, res: Response) => {
       return admin
         .auth()
         .createSessionCookie(idToken, { expiresIn })
-        .then((token: string) => res.status(200).json(token))
+        .then((token: string) => {
+          db.doc(`/users/${uid}`)
+            .get()
+            .then((doc) => {
+              return res.status(200).json({ user: doc.data(), token })
+            })
+        })
         .catch((error) => res.status(401).json({ message: 'Unauthorized request', ...error }))
     })
-    .catch((error) => res.status(403).json({ message: 'Your email or password us incorrect', ...error }))
+    .catch((error) => res.status(403).json({ message: 'Your email or password is incorrect', ...error }))
 }
 
 export const reset = async (req: ResetPasswordRequest, res: Response) => {

@@ -1,5 +1,18 @@
-export const client = async (endpoint: string, { body, ...other }: any = {}) => {
-  const headers = { 'content-type': 'application/json' }
+import storage from 'utilities/storage'
+import { BodyRequest } from '../../types/request.d'
+
+interface Request {
+  body?: BodyRequest
+  headers?: HeadersInit
+}
+
+export const client = async (endpoint: string, { body, ...other }: Request = {}) => {
+  const headers: HeadersInit = { 'content-type': 'application/json' }
+
+  if (storage.hasToken) {
+    headers.Authorization = `Bearer ${storage.getToken()}`
+  }
+
   const config: RequestInit = {
     method: body ? 'POST' : 'GET',
     ...other,
@@ -21,6 +34,8 @@ export const client = async (endpoint: string, { body, ...other }: any = {}) => 
     if (response.ok) {
       return data
     } else {
+      storage.clearToken()
+
       return Promise.reject(data)
     }
   })

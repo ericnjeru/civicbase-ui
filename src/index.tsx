@@ -4,13 +4,16 @@ import App from 'components/App'
 import reportWebVitals from './reportWebVitals'
 import GlobalStyles from './styles/GlobalStyles'
 import { ThemeProvider } from 'contexts/theme'
+import { AuthProvider } from 'contexts/auth'
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider>
       <GlobalStyles />
       <Suspense fallback={<div></div>}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </Suspense>
     </ThemeProvider>
   </React.StrictMode>,
