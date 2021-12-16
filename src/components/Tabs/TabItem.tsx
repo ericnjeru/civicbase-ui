@@ -1,8 +1,12 @@
 import tw from 'twin.macro'
-import { ReactNode, useContext } from 'react'
+import { ButtonHTMLAttributes, ReactNode, useContext } from 'react'
 import TabContext from './TabContext'
 
-const Tab = ({ children, id }: { children: ReactNode; id: string }) => {
+const TabItem = ({
+  children,
+  id,
+  ...props
+}: { children: ReactNode; id: string } & ButtonHTMLAttributes<HTMLButtonElement>) => {
   const { active, onChange } = useContext(TabContext)
 
   return (
@@ -15,10 +19,12 @@ const Tab = ({ children, id }: { children: ReactNode; id: string }) => {
         // TODO: we need to think about this outline thing
         tw`focus:outline-none focus:ring focus:border-blue-300`,
       ]}
+      type="button"
+      {...props}
     >
       {children}
     </button>
   )
 }
 
-export default Tab
+export default TabItem
