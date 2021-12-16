@@ -8,7 +8,7 @@ import useAsync from 'hooks/use-async'
 
 export default function Example({ children }: { children: ReactNode }) {
   const { run, isLoading } = useAsync()
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
 
   const handleLogout = () => {
     logout && run(logout())
@@ -68,20 +68,22 @@ export default function Example({ children }: { children: ReactNode }) {
                 )}
               </Menu.Item>
 
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={handleLogout}
-                    disabled={isLoading}
-                    css={[
-                      active ? tw`bg-red-500 text-white` : tw`text-primary`,
-                      tw`flex rounded-md items-center w-full px-2 py-2 text-sm justify-center`,
-                    ]}
-                  >
-                    <Typography css={[active && tw`text-white`]}>Logout</Typography>
-                  </button>
-                )}
-              </Menu.Item>
+              {user && (
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={handleLogout}
+                      disabled={isLoading}
+                      css={[
+                        active ? tw`bg-red-500 text-white` : tw`text-primary`,
+                        tw`flex rounded-md items-center w-full px-2 py-2 text-sm justify-center`,
+                      ]}
+                    >
+                      <Typography css={[active && tw`text-white`]}>Logout</Typography>
+                    </button>
+                  )}
+                </Menu.Item>
+              )}
             </Menu.Items>
           </FadeInOut>
         </div>
