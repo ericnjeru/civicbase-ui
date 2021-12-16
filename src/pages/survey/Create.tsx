@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { RouteComponentProps } from '@reach/router'
-import SurveyForm from 'components/SurveyForm'
+import Survey from 'components/forms/Survey'
 
 const Create: FC<RouteComponentProps> = () => {
-  return <SurveyForm />
+  return <Survey />
 }
 
 export default Create
