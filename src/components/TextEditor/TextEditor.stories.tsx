@@ -9,6 +9,6 @@ export default {
 
 export const Basic = () => (
   <div css={tw`w-screen max-w-screen-lg`}>
-    <TextEditor />
+    <TextEditor onChange={() => {}} />
   </div>
 )

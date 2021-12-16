@@ -14,15 +14,23 @@ import {
   FaAlignRight,
 } from 'react-icons/fa'
 
-const TextEditor = ({ modified, error }: { modified?: boolean; error?: boolean }) => {
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+const TextEditor = ({
+  modified,
+  error,
+  value = EditorState.createEmpty(),
+  onChange,
+}: {
+  modified?: boolean
+  error?: boolean
+  value?: EditorState
+  onChange: (value: EditorState) => void
+}) => {
   const [focus, setFocus] = useState(false)
-
   const handleKeyCommand = (command: string, editorState: EditorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command)
 
     if (newState) {
-      setEditorState(newState)
+      onChange(newState)
       return 'handled'
     }
 
@@ -37,11 +45,11 @@ const TextEditor = ({ modified, error }: { modified?: boolean; error?: boolean }
   `
 
   const _toggleInlineStyle = (style: string) => {
-    setEditorState(RichUtils.toggleInlineStyle(editorState, style))
+    onChange(RichUtils.toggleInlineStyle(value, style))
   }
 
   const _toggleContentBlock = (style: string) => {
-    setEditorState(RichUtils.toggleBlockType(editorState, style))
+    onChange(RichUtils.toggleBlockType(value, style))
   }
 
   // const seletedStyle = editorState.getCurrentInlineStyle()
@@ -86,9 +94,9 @@ const TextEditor = ({ modified, error }: { modified?: boolean; error?: boolean }
         ]}
       >
         <Editor
-          editorState={editorState}
+          editorState={value}
           handleKeyCommand={handleKeyCommand}
-          onChange={setEditorState}
+          onChange={onChange}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
         />
