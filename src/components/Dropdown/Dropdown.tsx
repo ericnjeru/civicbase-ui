@@ -1,15 +1,25 @@
-import { useState } from 'react'
 import { Listbox } from '@headlessui/react'
 import { BsCheck } from 'react-icons/bs'
 import { HiOutlineSelector } from 'react-icons/hi'
 import { FadeInOut } from 'components/Transition'
 import tw from 'twin.macro'
 
-function Dropdown({ error, modified, values }: { error?: boolean; modified?: boolean; values: string[] }) {
-  const [selected, setSelected] = useState(values[0])
-
+function Dropdown({
+  error,
+  modified,
+  values,
+  onChange,
+  value,
+  ...props
+}: {
+  error?: boolean
+  modified?: boolean
+  values: string[]
+  value: string
+  onChange: (value: string) => void
+}) {
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox onChange={onChange} value={value} {...props}>
       <div css={tw`relative mt-1`}>
         <Listbox.Button
           css={[
@@ -20,14 +30,14 @@ function Dropdown({ error, modified, values }: { error?: boolean; modified?: boo
             error && tw`border-error-600 border-opacity-60`,
           ]}
         >
-          <span css={tw`block text-left truncate`}>{selected}</span>
+          <span css={tw`block text-left truncate`}>{value}</span>
           <span css={tw`absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none`}>
             <HiOutlineSelector size={20} aria-hidden="true" />
           </span>
         </Listbox.Button>
         <FadeInOut>
           <Listbox.Options
-            css={tw`absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm`}
+            css={tw`absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10`}
           >
             {values.map((value) => (
               <Listbox.Option key={value} css={tw`cursor-default select-none relative`} value={value}>
