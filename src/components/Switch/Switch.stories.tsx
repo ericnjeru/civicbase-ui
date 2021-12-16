@@ -10,14 +10,14 @@ export default {
 export const Basic = () => {
   const [enabled, setEnabled] = useState(false)
 
-  return <Switch enabled={enabled} setEnabled={setEnabled} />
+  return <Switch value={enabled} onChange={setEnabled} />
 }
 
 export const WithLabel = () => {
   const [enabled, setEnabled] = useState(false)
 
   return (
-    <Switch enabled={enabled} setEnabled={setEnabled}>
+    <Switch value={enabled} onChange={setEnabled}>
       Enable Notification
     </Switch>
   )
