@@ -10,7 +10,7 @@ export default {
 export const Basic = () => (
   <div css={tw`w-screen flex justify-center h-80`}>
     <div css={tw`w-5/6`}>
-      <DynamicBar total={30} />
+      <DynamicBar total={30} availableCredits={10} language="Credits" />
     </div>
   </div>
 )
