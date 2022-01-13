@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals'
 import GlobalStyles from './styles/GlobalStyles'
 import { ThemeProvider } from 'contexts/theme'
 import { AuthProvider } from 'contexts/auth'
+import { BannerProvider } from 'contexts/banner'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -12,7 +13,9 @@ ReactDOM.render(
       <GlobalStyles />
       <Suspense fallback={<div></div>}>
         <AuthProvider>
-          <App />
+          <BannerProvider>
+            <App />
+          </BannerProvider>
         </AuthProvider>
       </Suspense>
     </ThemeProvider>
