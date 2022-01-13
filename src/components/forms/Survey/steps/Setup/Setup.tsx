@@ -23,7 +23,7 @@ const Setup = () => {
         <div>
           <Label>Preferred Function</Label>
           <Controller
-            name="setup.function"
+            name="setup.method"
             control={control}
             render={({ field }) => <Dropdown values={methods} {...field} />}
           />
