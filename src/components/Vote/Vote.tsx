@@ -1,59 +1,78 @@
 import { IconButton } from 'components/Button'
-import Typography from 'components/Typography'
-import { useState } from 'react'
+import Typography, { Caption } from 'components/Typography'
 import { IoIosThumbsDown, IoIosThumbsUp } from 'react-icons/io'
 import tw, { theme } from 'twin.macro'
 
-const Display = ({ total, votes, isPositive }: { total: number; votes: number; isPositive: boolean }) => {
+const Display = ({ total, vote, creditSpent }: { total: number; vote: number; creditSpent: number }) => {
+  const getSize = () => {
+    const size = (creditSpent / total) * 100
+    const r = size < 0 ? size * -1 : size
+
+    if (r === 0) {
+      return 0
+    }
+
+    if (r < 25) {
+      return 25
+    }
+
+    return r
+  }
+
   return (
-    <div css={tw`h-28 w-28 border rounded-full flex justify-center items-center overflow-hidden relative`}>
-      <div css={tw`h-8 w-8 border rounded-full flex justify-center items-center bg-white z-10`}>{votes}</div>
-      <div
-        style={{ width: `${total}%`, height: `${total}%` }}
-        css={[
-          tw`bg-red-200 absolute rounded-full`,
-          tw`transition-all ease-in-out duration-700`,
-          isPositive && tw`bg-green-200`,
-        ]}
-      />
+    <div css={tw`flex flex-col items-center`}>
+      <div css={tw`h-28 w-28 border rounded-full flex justify-center items-center overflow-hidden relative`}>
+        <div css={tw`h-8 w-8  flex justify-center items-center  z-10`}>{vote}</div>
+        <div
+          style={{ width: `${getSize()}%`, height: `${getSize()}%` }}
+          css={[
+            tw`bg-red-200 absolute rounded-full`,
+            tw`transition-all ease-in-out duration-700`,
+            vote > 0 && tw`bg-green-200`,
+          ]}
+        />
+      </div>
+
+      <Caption css={tw`mt-2`}>{creditSpent} Credits</Caption>
     </div>
   )
 }
 
-const Vote = ({ voteUpLabel, voteDownLabel }: { voteUpLabel: string; voteDownLabel: string }) => {
-  const [isPositive, setPositive] = useState(false)
-  const [votes, setVotes] = useState(0)
-
-  const handleVote = () => {
-    //   TODO:
-    const x = Math.floor(Math.random() * (100 - 1 + 1) + 1)
-    setVotes(x)
-  }
-
-  const handleVoteUp = () => {
-    setPositive(true)
-    handleVote()
-  }
-  const handleVoteDown = () => {
-    setPositive(false)
-    handleVote()
-  }
-
+const Vote = ({
+  thumbsUp,
+  thumbsDown,
+  handleVote,
+  vote,
+  total,
+  creditSpent,
+  canVoteUp,
+  canVoteDown,
+}: {
+  thumbsUp: string
+  thumbsDown: string
+  handleVote: (direction: number) => void
+  vote: number
+  total: number
+  creditSpent: number
+  canVoteUp: boolean
+  canVoteDown: boolean
+}) => {
   return (
     <div css={tw`flex items-center`}>
       <div css={tw`mx-6`}>
-        <IconButton onClick={handleVoteUp}>
-          <IoIosThumbsUp size={28} color={theme`colors.bgColor1`} />
+        <IconButton onClick={() => handleVote(-1)} disabled={!canVoteDown}>
+          <IoIosThumbsDown size={28} color={canVoteDown ? theme`colors.bgColor0` : theme`colors.bgColor8`} />
         </IconButton>
-        <Typography>{voteUpLabel}</Typography>
+        <Typography>{thumbsDown}</Typography>
       </div>
-      <Display votes={44} total={votes} isPositive={isPositive} />
+
+      <Display vote={vote} total={total} creditSpent={creditSpent} />
 
       <div css={tw`mx-6`}>
-        <IconButton onClick={handleVoteDown}>
-          <IoIosThumbsDown size={28} color={theme`colors.bgColor0`} />
+        <IconButton onClick={() => handleVote(1)} disabled={!canVoteUp}>
+          <IoIosThumbsUp size={28} color={canVoteUp ? theme`colors.bgColor1` : theme`colors.bgColor8`} />
         </IconButton>
-        <Typography>{voteDownLabel}</Typography>
+        <Typography>{thumbsUp}</Typography>
       </div>
     </div>
   )
