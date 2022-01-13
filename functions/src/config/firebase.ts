@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
+import * as firebase from 'firebase/app'
 
 // TODO: remove this
 const config = {
@@ -22,4 +23,4 @@ admin.initializeApp({
 
 const db = admin.firestore()
 
-export { admin, db, config }
+export { admin, db, firebase, config }
