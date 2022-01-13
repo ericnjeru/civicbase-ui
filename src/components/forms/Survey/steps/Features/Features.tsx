@@ -20,6 +20,18 @@ const Features = () => {
           render={({ field }) => <Switch {...field}>Require respondent Identification</Switch>}
         />
 
+        <Controller
+          name="features.randomQuestions"
+          control={control}
+          render={({ field }) => <Switch {...field}>Random questions apresentation</Switch>}
+        />
+
+        <Controller
+          name="features.multipleAnswerFromSameSource"
+          control={control}
+          render={({ field }) => <Switch {...field}>Respondent can answer survey more than once</Switch>}
+        />
+
         {/* <Switch>Activate A/B test</Switch> */}
       </div>
     </div>
