@@ -1,22 +1,67 @@
 import { Menu } from '@headlessui/react'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useCallback } from 'react'
+import copy from 'copy-to-clipboard'
 import tw from 'twin.macro'
+import { IoDuplicateOutline } from 'react-icons/io5'
 import { FadeInOut } from 'components/Transition'
 import { BiCopy } from 'react-icons/bi'
-import { IoDuplicateOutline } from 'react-icons/io5'
 import { AiOutlineDelete } from 'react-icons/ai'
 import Typography from 'components/Typography'
+import useAsync from 'hooks/use-async'
+import { deleteSurvey, clone } from 'services/survey'
+import { useSurveys, SurveyActionKind } from 'contexts/surveys'
+import { useToast } from 'contexts/toast'
 
-export default function Example({ children, onMenuClose }: { children: ReactNode; onMenuClose: () => void }) {
-  const handleCopyId = () => {
+function SurveyCardMenu({
+  children,
+  onMenuClose,
+  surveyId,
+}: {
+  children: ReactNode
+  surveyId: string
+  onMenuClose: () => void
+}) {
+  const { dispatch } = useSurveys()
+  const { run, data } = useAsync()
+  const { trigger } = useToast()
+
+  const setLoading = useCallback(
+    (isLoading: boolean) => dispatch({ type: SurveyActionKind.LOADING, payload: { id: surveyId, isLoading } }),
+    [dispatch, surveyId],
+  )
+
+  const handleCopy = () => {
+    copy(surveyId)
     onMenuClose()
+    trigger('Copied to clipboard!')
   }
-  const handleDuplicate = () => {
-    onMenuClose()
-  }
+
   const handleDelete = () => {
+    setLoading(true)
+    run(deleteSurvey(surveyId))
     onMenuClose()
   }
+
+  const handleClone = () => {
+    setLoading(true)
+    run(clone(surveyId))
+    onMenuClose()
+  }
+
+  // CLONE
+  useEffect(() => {
+    if (data && data.id) {
+      dispatch({ type: SurveyActionKind.ADD, payload: data })
+      setLoading(false)
+    }
+  }, [data, dispatch, setLoading])
+
+  useEffect(() => {
+    if (data && data.message === 'Deleted.') {
+      dispatch({ type: SurveyActionKind.DELETE, payload: { id: surveyId } })
+      setLoading(false)
+    }
+  }, [surveyId, data, dispatch, setLoading])
 
   return (
     <Menu as="div">
@@ -30,7 +75,7 @@ export default function Example({ children, onMenuClose }: { children: ReactNode
             <Menu.Item>
               {({ active }) => (
                 <button
-                  onClick={handleCopyId}
+                  onClick={handleCopy}
                   css={[
                     active ? tw`bg-blue-500 text-white` : tw`text-gray-900`,
                     tw`flex rounded-md items-center w-full px-2 py-2 text-sm`,
@@ -42,17 +87,19 @@ export default function Example({ children, onMenuClose }: { children: ReactNode
               )}
             </Menu.Item>
 
+            {/* <CloneSurvey surveyId={surveyId} onClose={() => onMenuClose()} /> */}
+
             <Menu.Item>
               {({ active }) => (
                 <button
-                  onClick={handleDuplicate}
+                  onClick={handleClone}
                   css={[
                     active ? tw`bg-blue-500 text-white` : tw`text-gray-900`,
                     tw`flex rounded-md items-center w-full px-2 py-2 text-sm`,
                   ]}
                 >
                   <IoDuplicateOutline size={20} css={tw`mr-2`} aria-hidden="true" />
-                  <Typography css={[active && tw`text-white`]}>Duplicate</Typography>
+                  <Typography css={[active && tw`text-white`]}>Clone</Typography>
                 </button>
               )}
             </Menu.Item>
@@ -77,3 +124,5 @@ export default function Example({ children, onMenuClose }: { children: ReactNode
     </Menu>
   )
 }
+
+export default SurveyCardMenu
