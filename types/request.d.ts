@@ -1,4 +1,7 @@
-export type BodyRequest = LoginRequest | SignupRequest | ResetRequest
+import { SurveyForm } from './forms.d'
+import { Answer } from './answer.d'
+
+export type BodyRequest = LoginRequest | SignupRequest | ResetRequest | SurveyForm | Answer
 
 export interface LoginRequest {
   email: string
