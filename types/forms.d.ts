@@ -1,8 +1,8 @@
-import { Setup, Langage, Message, Question, Features, Qualtrics } from './survey'
+import { Setup, Language, Message, Question, Features, Qualtrics } from './survey'
 
 export type SurveyForm = {
   setup: Setup
-  language: Langage
+  language: Language
   message?: Message
   questions: Question[]
   features?: Features
