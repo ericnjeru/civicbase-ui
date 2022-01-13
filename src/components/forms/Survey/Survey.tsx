@@ -1,7 +1,10 @@
+import { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { EditorState } from 'draft-js'
 import { BiCog, BiMessageRoundedCheck, BiMessageRoundedDetail } from 'react-icons/bi'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { GiTerror } from 'react-icons/gi'
+import { useNavigate } from '@reach/router'
 import { IoLanguageOutline } from 'react-icons/io5'
 import { BsListCheck } from 'react-icons/bs'
 import { IoFlagSharp } from 'react-icons/io5'
@@ -12,30 +15,79 @@ import { validationSchema } from './validation'
 import SubmitSurvey from './Submit'
 import CustomTabItem from './CustomTabItem'
 import { SurveyForm } from '../../../../types/forms'
+import { createSurvey, editSurvey } from 'services/survey'
+import useAsync from 'hooks/use-async'
+import transform from './transform'
+import { useBanner } from 'contexts/banner'
+import { Survey as SurveyType } from '../../../../types/survey.d'
+import { useSurveys, SurveyActionKind } from 'contexts/surveys'
 
-const Survey = () => {
+const Survey = ({ survey }: { survey?: SurveyType }) => {
+  const getDefaultValues = (): any => {
+    if (survey?.id) {
+      return survey
+    } else {
+      return {
+        setup: {
+          credits: 1,
+          method: 'Quadratic',
+          topic: '',
+        },
+        language: {
+          jargon: 'Agree/Disagree',
+          token: 'Credits',
+        },
+        message: {
+          welcome: EditorState.createEmpty() as any,
+          completion: EditorState.createEmpty() as any,
+        },
+        questions: [],
+        features: {},
+      }
+    }
+  }
+  const [updatedSurvey, setUpdatedSurvey] = useState<SurveyType | undefined>()
+  const navigate = useNavigate()
+  const { trigger } = useBanner()
+  const { dispatch } = useSurveys()
+  const { run, isLoading, isSuccess, isError } = useAsync()
   const methods = useForm({
-    defaultValues: {
-      setup: {
-        credits: 1,
-        function: 'Quadratic',
-        topic: '',
-      },
-      language: {
-        jargon: 'Agree/Disagree',
-        token: 'Credits',
-      },
-      message: {
-        welcome: EditorState.createEmpty() as any,
-        completion: EditorState.createEmpty() as any,
-      },
-      questions: [],
-      features: {},
-    },
+    defaultValues: getDefaultValues(),
     resolver: zodResolver(validationSchema),
   })
 
-  const onSubmit: SubmitHandler<SurveyForm> = (data) => console.log(data)
+  // Update survey
+  useEffect(() => {
+    if (survey?.id && isSuccess && updatedSurvey) {
+      dispatch({ type: SurveyActionKind.UPDATE, payload: updatedSurvey })
+    }
+  }, [survey?.id, isSuccess, updatedSurvey, dispatch])
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/')
+    }
+  }, [isSuccess, navigate])
+
+  useEffect(() => {
+    if (isError) {
+      trigger({
+        title: `We couldn't create this survey `,
+        subtitle: 'Sorry, something must have gone wrong with our server, you can try again!',
+        icon: GiTerror,
+      })
+    }
+  }, [isError, trigger])
+
+  const onSubmit: SubmitHandler<SurveyForm> = (values) => {
+    if (survey?.id) {
+      const newSurvey = transform(values)
+      setUpdatedSurvey({ ...newSurvey, id: survey.id } as any)
+      run(editSurvey(newSurvey, survey.id))
+    } else {
+      run(createSurvey(transform(values)))
+    }
+  }
 
   return (
     <FormProvider {...methods}>
@@ -67,7 +119,7 @@ const Survey = () => {
                 Features
               </CustomTabItem>
 
-              <SubmitSurvey />
+              <SubmitSurvey isLoading={isLoading} isEditing={!!survey?.id} />
             </div>
 
             <div css={tw`w-full bg-white rounded-md p-4 pt-0`}>
