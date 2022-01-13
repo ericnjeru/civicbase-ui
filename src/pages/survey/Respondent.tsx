@@ -1,22 +1,25 @@
-import { useState, FC } from 'react'
-import tw from 'twin.macro'
+import { FC } from 'react'
 import { RouteComponentProps } from '@reach/router'
-import DynamicBar from 'components/DynamicBar'
+import useSurvey from 'hooks/use-survey'
+import * as Survey from 'features/Survey'
+import { MetadataProvider } from 'contexts/metadata'
 
-const Respondent: FC<RouteComponentProps> = () => {
-  const [credits, setCredits] = useState(50)
+const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId }) => {
+  const survey = useSurvey(surveyId)
 
-  const handleCredits = () => {
-    const x = Math.floor(Math.random() * (100 - 1 + 1) + 1)
-    setCredits(x)
+  if (survey.isLoading) {
+    return <Survey.Loading />
   }
 
-  console.log(handleCredits)
-  return (
-    <div css={tw`container mx-auto`}>
-      <DynamicBar total={credits} />
-    </div>
-  )
+  if (survey.data?.id) {
+    return (
+      <MetadataProvider>
+        <Survey.Main survey={survey.data} />
+      </MetadataProvider>
+    )
+  }
+
+  return <Survey.NotFound />
 }
 
 export default Respondent
