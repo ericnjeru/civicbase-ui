@@ -1,18 +1,19 @@
-import { CreateRequest, UpdateRequest } from '../../types/survey'
+import { CreateRequest } from '../../types/survey'
 import { Survey } from '../../../types/survey'
 import { db } from '../config/firebase'
-import { Response } from 'express'
+import { Response, Request } from 'express'
+import { incrementAccess } from '../utils/survey'
 
-enum FunctionIds {
-  quadratic = 'QV',
-  linear = 'L',
+enum MethodIds {
+  Quadratic = 'QV',
+  Linear = 'L',
 }
 
-// Add Ids to questions
+// Add default Ids to questions
 const setQuestions = (survey: Survey) => {
   return survey.questions.map((question, index: number) => ({
     ...question,
-    id: `${FunctionIds[survey.setup.function]}${index + 1}`,
+    id: `${MethodIds[survey.setup.method]}${index + 1}`,
   }))
 }
 
@@ -43,19 +44,121 @@ export const createSurvey = (req: CreateRequest, res: Response) => {
     .catch((error) => res.status(500).json({ ...error }))
 }
 
-export const updateSurvey = (req: UpdateRequest, res: Response) => {
-  const survey = req.body
-
-  if (survey.id) {
-    db.collection('surveys')
-      .doc(survey.id)
-      .update({
-        ...survey,
-        updatedAt: new Date().toISOString(),
-      })
-      .then(() => res.status(204)) // Need to check if we need to return the updated survey
-      .catch((error) => res.status(500).json({ ...error }))
-  } else {
-    res.status(500).json({ message: 'Survey has no ID and can not be updated' })
+export const updateSurvey = (req: CreateRequest, res: Response) => {
+  const { surveyId } = req.params
+  const survey = {
+    ...req.body,
+    updatedAt: new Date().toISOString(),
   }
+
+  db.collection('surveys')
+    .doc(surveyId)
+    .update(survey)
+    .then(() => res.status(201).json(surveyId))
+    .catch((error) => res.status(500).json({ ...error }))
 }
+
+export const surveys = (req: any, res: Response) => {
+  const { uid } = req.user
+
+  db.collection('surveys')
+    .where('uid', '==', uid)
+    .get()
+    .then((data) => {
+      const list: Survey[] = []
+
+      data.forEach((doc) => {
+        list.push({
+          ...(doc.data() as Survey),
+          id: doc.id,
+        })
+      })
+
+      res.status(200).json(list)
+    })
+    .catch((error) => res.status(500).json(error))
+}
+
+export const publishSurvey = (req: Request, res: Response) => {
+  const { surveyId } = req.params
+  const survey = db.collection('surveys').doc(surveyId)
+
+  survey
+    .update({
+      status: 'published',
+      publishedAt: new Date().toISOString(),
+    })
+    .then(() => res.status(200).json({ message: 'Published' }))
+    .catch((error) => res.status(500).json(error))
+}
+
+export const finishSurvey = (req: Request, res: Response) => {
+  const { surveyId } = req.params
+  const survey = db.collection('surveys').doc(surveyId)
+
+  survey
+    .update({
+      status: 'finished',
+      finishedAt: new Date().toISOString(),
+    })
+    .then(() => res.status(200).json({ message: 'Finished' }))
+    .catch((error) => res.status(500).json(error))
+}
+
+export const cloneSurvey = (req: Request, res: Response) => {
+  const { surveyId } = req.params
+
+  db.doc(`/surveys/${surveyId}`)
+    .get()
+    .then((doc: any) => {
+      const clonedSurvey: Survey = {
+        ...doc.data(),
+        setup: {
+          ...doc.data().setup,
+          topic: `clone - ${doc.data().setup.topic}`,
+        },
+        createdAt: new Date().toISOString(),
+        analytics: setAnalytics(),
+        status: 'pilot',
+        finishedAt: null,
+        publishedAt: null,
+      }
+
+      if (doc.exists && clonedSurvey) {
+        return db
+          .collection('surveys')
+          .add(clonedSurvey)
+          .then((doc) => res.status(201).json({ ...clonedSurvey, id: doc.id }))
+      }
+
+      return res.status(500).json('Can not clone survey')
+    })
+    .catch((error) => res.status(500).json(error))
+}
+
+export const deleteSurvey = (req: Request, res: Response) => {
+  const { surveyId } = req.params
+
+  db.doc(`/surveys/${surveyId}`)
+    .delete()
+    .then(() => res.status(200).json({ message: 'Deleted.' }))
+    .catch((error) => res.status(500).json(error))
+}
+
+export const getSurvey = (req: Request, res: Response) => {
+  const { surveyId } = req.params
+
+  db.doc(`/surveys/${surveyId}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        res.status(200).json({ ...doc.data(), id: doc.id })
+        incrementAccess(surveyId)
+      } else {
+        res.status(500).json({ message: 'survey does not exist' })
+      }
+    })
+    .catch((error) => res.status(500).json(error))
+}
+
+export const getSurveyAnalytics = () => {}
