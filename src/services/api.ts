@@ -4,12 +4,13 @@ import { BodyRequest } from '../../types/request.d'
 interface Request {
   body?: BodyRequest
   headers?: HeadersInit
+  method?: 'DELETE'
 }
 
-export const client = async (endpoint: string, { body, ...other }: Request = {}) => {
+const client = async (endpoint: string, { body, ...other }: Request = {}) => {
   const headers: HeadersInit = { 'content-type': 'application/json' }
 
-  if (storage.hasToken) {
+  if (storage.hasToken()) {
     headers.Authorization = `Bearer ${storage.getToken()}`
   }
 
@@ -40,3 +41,5 @@ export const client = async (endpoint: string, { body, ...other }: Request = {})
     }
   })
 }
+
+export default client

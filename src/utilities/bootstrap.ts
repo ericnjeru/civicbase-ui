@@ -4,7 +4,7 @@ import storage from './storage'
 const bootstrapAppData = async () => {
   let appData: any = { user: null }
 
-  if (storage.hasToken) {
+  if (storage.hasToken()) {
     const [user] = await Promise.all([auth.getUser()])
 
     appData = { user }
