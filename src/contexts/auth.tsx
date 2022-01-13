@@ -45,7 +45,7 @@ export const AuthProvider = (props: any): ReactElement => {
   }
 
   if (isError) {
-    if (storage.hasToken) {
+    if (storage.hasToken()) {
       logout()
     } else {
       // TODO reauthenticate
