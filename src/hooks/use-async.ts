@@ -63,8 +63,15 @@ function useAsync(initialState: any = {}) {
 
   const { data, error, status } = state
 
+  const setData = React.useCallback((data) => dispatch({ type: 'resolved', data }), [dispatch])
+  const setError = React.useCallback((error) => dispatch({ type: 'rejected', error }), [dispatch])
+
   const run = React.useCallback(
     (promise) => {
+      if (!promise || !promise.then) {
+        throw new Error('The argument passed to useAsync().run must be a promise')
+      }
+
       dispatch({ type: 'pending' })
       promise.then(
         (data: any) => {
@@ -77,9 +84,6 @@ function useAsync(initialState: any = {}) {
     },
     [dispatch],
   )
-
-  const setData = React.useCallback((data) => dispatch({ type: 'resolved', data }), [dispatch])
-  const setError = React.useCallback((error) => dispatch({ type: 'rejected', error }), [dispatch])
 
   return {
     isIdle: status === 'idle',
