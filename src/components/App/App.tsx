@@ -3,7 +3,9 @@ import tw from 'twin.macro'
 import Header from 'components/Header'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useAuth } from 'contexts/auth'
-// import Banner from 'components/Banner'
+import Banner from 'components/Banner'
+import Toast from 'components/Toast'
+import { ToastProvider } from 'contexts/toast'
 
 const AuthenticatedApp = lazy(() => import('./AuthenticatedApp'))
 const UnauthenticatedApp = lazy(() => import('./UnauthenticatedApp'))
@@ -15,12 +17,19 @@ const App = () => {
 
   return (
     <ErrorBoundary FallbackComponent={Fallback}>
-      <div css={tw`h-full overflow-hidden`}>
-        <Header />
-        {/* <Banner /> */}
+      <ToastProvider>
+        <div css={tw`h-full overflow-hidden relative`}>
+          <Header />
+          <Banner />
 
-        {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-      </div>
+          <div css={tw`overflow-y-auto h-full`}>
+            <div css={tw`container mx-auto pt-36 pb-12 h-full`}>
+              {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+            </div>
+          </div>
+          <Toast />
+        </div>
+      </ToastProvider>
     </ErrorBoundary>
   )
 }
