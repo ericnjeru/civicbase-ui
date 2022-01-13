@@ -28,6 +28,7 @@ module.exports = {
         'plugin:prettier/recommended', // Prettier plugin
       ],
       rules: {
+        'no-debugger': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-empty-function': 'off',
         'react/prop-types': 'off',
