@@ -2,7 +2,7 @@ import tw from 'twin.macro'
 import { BiCog } from 'react-icons/bi'
 import { FiSun, FiMoon } from 'react-icons/fi'
 import { AiOutlineMenu } from 'react-icons/ai'
-import { PrimaryButton, SecondaryButton, IconButton } from 'components/Button'
+import { PrimaryButton, SecondaryButton, IconButton, PrimaryTextButton } from 'components/Button'
 import { Subtitle } from 'components/Typography'
 import Menu from './Menu'
 import { useTheme } from 'contexts/theme'
@@ -24,8 +24,10 @@ const Header = () => {
 
   return (
     <div css={tw`flex items-center w-full fixed bg-primary z-10`}>
-      <div css={tw`w-full overflow-hidden flex items-center justify-between p-6`}>
-        <Subtitle css={tw`m-0`}>Civicbase</Subtitle>
+      <div css={tw`w-full overflow-hidden flex items-center justify-between px-6 py-4`}>
+        <PrimaryTextButton as="a" href="/">
+          <Subtitle css={tw`m-0`}>Civicbase</Subtitle>
+        </PrimaryTextButton>
         <div css={tw`flex space-x-4`}>
           <div css={tw`flex mobile:hidden`}>
             <PrimaryButton>Blog</PrimaryButton>
