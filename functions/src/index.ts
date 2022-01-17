@@ -12,6 +12,7 @@ import {
   cloneSurvey,
   deleteSurvey,
   getSurvey,
+  getSurveyForAnalytics,
 } from './api/survey'
 
 import { createAnswer } from './api/answer'
@@ -34,6 +35,7 @@ app.get('/publish/:surveyId', auth, publishSurvey)
 app.get('/finish/:surveyId', auth, finishSurvey)
 app.get('/clone/:surveyId', auth, cloneSurvey)
 app.delete('/delete/:surveyId', auth, deleteSurvey)
+app.get('/analytics/:surveyId', auth, getSurveyForAnalytics)
 
 app.post('/createAnswer', createAnswer)
 

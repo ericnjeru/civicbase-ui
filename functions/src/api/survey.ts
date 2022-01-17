@@ -1,5 +1,6 @@
 import { CreateRequest } from '../../types/survey'
 import { Survey } from '../../../types/survey'
+import { Answer } from '../../../types/answer'
 import { db } from '../config/firebase'
 import { Response, Request } from 'express'
 import { incrementAccess } from '../utils/survey'
@@ -9,6 +10,7 @@ enum MethodIds {
   Linear = 'L',
 }
 
+// TODO: move to utils survey
 // Add default Ids to questions
 const setQuestions = (survey: Survey) => {
   return survey.questions.map((question, index: number) => ({
@@ -17,12 +19,17 @@ const setQuestions = (survey: Survey) => {
   }))
 }
 
+// TODO: move to utils survey
 const setAnalytics = () => ({
   current: {
     respondents: 0,
     access: 0,
   },
   previous: {
+    respondents: 0,
+    access: 0,
+  },
+  history: {
     respondents: 0,
     access: 0,
   },
@@ -161,4 +168,61 @@ export const getSurvey = (req: Request, res: Response) => {
     .catch((error) => res.status(500).json(error))
 }
 
-export const getSurveyAnalytics = () => {}
+function updateHistory(surveyId: string) {
+  // TODO: sort out any
+  var survey: any = db.collection('surveys').doc(surveyId)
+  let p2, p1
+
+  db.doc(`/surveys/${surveyId}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        const document = doc.data()
+
+        if (document) {
+          p1 = survey.update({
+            'analytics.previous.access': document.analytics.current.access,
+            'analytics.previous.respondents': document.analytics.current.respondents,
+          })
+
+          if (
+            document.analytics.current.access !== document.analytics.history.access &&
+            document.analytics.current.respondents !== document.analytics.history.respondents
+          ) {
+            p2 = survey.update({
+              'analytics.history.access': document.analytics.previous.access,
+              'analytics.history.respondents': document.analytics.previous.respondents,
+            })
+          }
+        }
+      }
+    })
+
+  return Promise.all([p1, p2])
+}
+
+export const getSurveyForAnalytics = (req: Request, res: Response) => {
+  const { surveyId } = req.params
+
+  updateHistory(surveyId)
+    .then(() => {
+      db.doc(`/surveys/${surveyId}`)
+        .get()
+        .then((survey) => {
+          db.collection('answers')
+            .where('surveyId', '==', surveyId)
+            .get()
+            .then((data) => {
+              const answers: Answer[] = []
+
+              data.forEach((doc) => {
+                answers.push(doc.data() as Answer)
+              })
+
+              res.status(200).json({ survey: { ...survey.data(), id: survey.id }, answers })
+            })
+        })
+        .catch((error) => res.status(500).json(error))
+    })
+    .catch((error) => res.status(500).json(...error))
+}
