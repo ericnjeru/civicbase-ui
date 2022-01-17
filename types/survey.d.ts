@@ -57,6 +57,10 @@ export type Analytics = {
     respondents: number
     access: number
   }
+  history: {
+    respondents: number
+    access: number
+  }
 }
 
 export interface QuestionForSurvey extends Question {

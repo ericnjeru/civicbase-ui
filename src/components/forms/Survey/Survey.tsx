@@ -46,7 +46,7 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
       }
     }
   }
-  const [updatedSurvey, setUpdatedSurvey] = useState<SurveyType | undefined>()
+  const [newSurvey, setNewSurvey] = useState<SurveyType | undefined>()
   const navigate = useNavigate()
   const { trigger } = useBanner()
   const { dispatch } = useSurveys()
@@ -56,18 +56,16 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
     resolver: zodResolver(validationSchema),
   })
 
-  // Update survey
-  useEffect(() => {
-    if (survey?.id && isSuccess && updatedSurvey) {
-      dispatch({ type: SurveyActionKind.UPDATE, payload: updatedSurvey })
-    }
-  }, [survey?.id, isSuccess, updatedSurvey, dispatch])
-
   useEffect(() => {
     if (isSuccess) {
-      navigate('/')
+      if (survey?.id && newSurvey?.id) {
+        dispatch({ type: SurveyActionKind.UPDATE, payload: newSurvey })
+        navigate('/', { replace: true })
+      } else {
+        window.location.assign('/')
+      }
     }
-  }, [isSuccess, navigate])
+  }, [survey?.id, isSuccess, navigate, newSurvey, dispatch])
 
   useEffect(() => {
     if (isError) {
@@ -80,12 +78,13 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
   }, [isError, trigger])
 
   const onSubmit: SubmitHandler<SurveyForm> = (values) => {
+    const transformedSurvey = transform(values)
+    setNewSurvey({ ...transformedSurvey, id: survey?.id } as any)
+
     if (survey?.id) {
-      const newSurvey = transform(values)
-      setUpdatedSurvey({ ...newSurvey, id: survey.id } as any)
-      run(editSurvey(newSurvey, survey.id))
+      run(editSurvey(transformedSurvey, survey.id))
     } else {
-      run(createSurvey(transform(values)))
+      run(createSurvey(transformedSurvey))
     }
   }
 

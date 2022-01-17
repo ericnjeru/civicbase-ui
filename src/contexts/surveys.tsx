@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useContext, useReducer, useEffect } from 'react'
+import { createContext, ReactElement, useContext, useReducer, useEffect, useState } from 'react'
 import useAsync from 'hooks/use-async'
 import { getSurveys } from 'services/survey'
 import { Survey } from '../../types/survey'
@@ -79,11 +79,12 @@ const SurveysContext = createContext(initialContextData)
 
 export const SurveysProvider = (props: any): ReactElement => {
   const [surveys, dispatch] = useReducer(surveyReducer, [])
+  const [refresh, setRefresh] = useState(0)
   const { run, data, isLoading } = useAsync()
 
   useEffect(() => {
-    setTimeout(() => run(getSurveys()), 3000)
-  }, [run])
+    run(getSurveys())
+  }, [run, refresh])
 
   useEffect(() => {
     if (data) {
@@ -91,9 +92,12 @@ export const SurveysProvider = (props: any): ReactElement => {
     }
   }, [data])
 
-  const refresh = () => {}
-
-  return <SurveysContext.Provider value={{ isLoading, surveys, refresh, dispatch }} {...props} />
+  return (
+    <SurveysContext.Provider
+      value={{ isLoading, surveys, refresh: () => setRefresh(Math.random()), dispatch }}
+      {...props}
+    />
+  )
 }
 
 export const useSurveys = () => {

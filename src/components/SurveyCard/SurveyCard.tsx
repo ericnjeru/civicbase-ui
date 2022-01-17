@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import tw from 'twin.macro'
 import { useNavigate } from '@reach/router'
+import { AiOutlineArrowUp } from 'react-icons/ai'
 import { FiEdit2, FiEye } from 'react-icons/fi'
 import { BiCog } from 'react-icons/bi'
 import { IoAnalyticsOutline } from 'react-icons/io5'
@@ -13,6 +14,7 @@ import Ping from './Ping'
 import PublishSurvey from './PublishSurvey'
 import FinishSurvey from './FinishSurvey'
 import { SurveyState } from 'contexts/surveys'
+import useSurveyAnalytics from 'hooks/use-survey-analytics'
 
 const SurveyCard = ({ survey }: { survey: SurveyState }) => {
   const {
@@ -23,6 +25,7 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
   } = survey
   const navigate = useNavigate()
   const [hovered, setHovered] = useState(false)
+  const { respondentsIncrement } = useSurveyAnalytics(survey)
 
   return (
     <Card
@@ -72,8 +75,14 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
             hovered && tw`opacity-0`,
           ]}
         >
-          <Badge css={tw`mr-2`}>{status}</Badge>
-          <Badge>{method?.toLowerCase()}</Badge>
+          <Badge>{status}</Badge>
+          <Badge css={tw`mx-2`}>{method?.toLowerCase()}</Badge>
+          {respondentsIncrement && respondentsIncrement > 0 ? (
+            <Badge style={{ height: 'min-content' }} css={tw`bg-green-200 flex items-center text-green-900`}>
+              <AiOutlineArrowUp css={tw`mr-1 text-green-600`} />
+              {respondentsIncrement}%
+            </Badge>
+          ) : null}
         </div>
 
         <div

@@ -1,39 +1,83 @@
 import tw from 'twin.macro'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai'
 import { RouteComponentProps } from '@reach/router'
 import HeaderSection from 'components/HeaderSection'
 import * as Table from 'components/Table'
 import * as Stats from 'components/Stats'
 import Badge from 'components/Badge'
+import useAsync from 'hooks/use-async'
+import { analytics } from 'services/survey'
+import useSurveyAnalytics from 'hooks/use-survey-analytics'
 
-const Analytics: FC<RouteComponentProps> = () => {
+const Analytics: FC<RouteComponentProps> = ({ location }) => {
+  const surveyId = location?.pathname.split('analytics/').pop()
+  const { run, data } = useAsync()
+  const {
+    isAnalising,
+    totalAccess,
+    totalRespondents,
+    accessIncrement,
+    respondentsIncrement,
+    convertionRate,
+    convertionIncrement,
+  } = useSurveyAnalytics(data?.survey)
+
+  useEffect(() => {
+    if (surveyId) {
+      run(analytics(surveyId))
+    }
+  }, [surveyId, run])
+
+  if (!data?.survey) {
+    return <div>loading...</div>
+  }
+
+  const { survey, answers } = data
+
+  console.log('answers', answers)
+  console.log('survey', survey)
+
   return (
     <>
-      <HeaderSection />
+      <HeaderSection survey={survey} />
 
-      <div css={tw`mt-24`}>
-        <Stats.List>
-          <Stats.Item title="Total Respondents" metric="82">
-            <Badge style={{ height: 'min-content' }} css={tw`bg-green-200 flex items-center text-green-900`}>
-              <AiOutlineArrowUp css={tw`mr-1 text-green-600`} />
-              12%
-            </Badge>
-          </Stats.Item>
-          <Stats.Item title="Total Access" metric="104">
-            <Badge style={{ height: 'min-content' }} css={tw`bg-green-200 flex items-center text-green-900`}>
-              <AiOutlineArrowUp css={tw`mr-1 text-green-600`} />
-              25%
-            </Badge>
-          </Stats.Item>
-          <Stats.Item title="Convertion Rate" metric="87%">
-            <Badge style={{ height: 'min-content' }} css={tw`bg-red-200 flex items-center text-red-900`}>
-              <AiOutlineArrowDown css={tw`mr-1 text-red-600`} />
-              1.07%
-            </Badge>
-          </Stats.Item>
-        </Stats.List>
-      </div>
+      {!isAnalising && (
+        <div css={tw`mt-24`}>
+          <Stats.List>
+            <Stats.Item title="Total Respondents" metric={totalRespondents || 0}>
+              <Badge style={{ height: 'min-content' }} css={tw`bg-green-200 flex items-center text-green-900`}>
+                <AiOutlineArrowUp css={tw`mr-1 text-green-600`} />
+                {respondentsIncrement}%
+              </Badge>
+            </Stats.Item>
+            <Stats.Item title="Total Access" metric={totalAccess || 0}>
+              <Badge style={{ height: 'min-content' }} css={tw`bg-green-200 flex items-center text-green-900`}>
+                <AiOutlineArrowUp css={tw`mr-1 text-green-600`} />
+                {accessIncrement}%
+              </Badge>
+            </Stats.Item>
+            <Stats.Item title="Convertion Rate" metric={`${convertionRate}%`}>
+              <Badge
+                style={{ height: 'min-content' }}
+                css={[
+                  tw`flex items-center`,
+                  convertionIncrement && convertionIncrement > 0
+                    ? tw`bg-green-200 text-green-900`
+                    : tw`bg-red-200 text-red-900`,
+                ]}
+              >
+                {convertionIncrement && convertionIncrement > 0 ? (
+                  <AiOutlineArrowUp css={tw`mr-1 text-green-600`} />
+                ) : (
+                  <AiOutlineArrowDown css={tw`mr-1 text-red-600`} />
+                )}
+                {convertionIncrement}%
+              </Badge>
+            </Stats.Item>
+          </Stats.List>
+        </div>
+      )}
 
       <div css={tw`mt-24`}>
         <Table.Main>
