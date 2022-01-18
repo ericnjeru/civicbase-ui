@@ -1,18 +1,18 @@
 import tw from 'twin.macro'
 import DynamicBar from 'components/DynamicBar'
-import { Survey as SurveyProps } from '../../../types/survey'
+import { Survey as SurveyProps } from '../../../../types/survey'
 import { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
 import { PrimaryButton } from 'components/Button'
 import { useEffect } from 'react'
 import useMethod from 'hooks/use-method'
 import { useMetadata } from 'contexts/metadata'
-import { Answer } from '../../../types/answer.d'
+import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 
-const Survey = ({ survey }: { survey: SurveyProps }) => {
-  const { run } = useAsync()
+const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () => void }) => {
+  const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useMethod(survey)
   const { metadata, pageLoad } = useMetadata()
   const {
@@ -23,6 +23,12 @@ const Survey = ({ survey }: { survey: SurveyProps }) => {
   useEffect(() => {
     pageLoad()
   }, [])
+
+  useEffect(() => {
+    if (isSuccess) {
+      handleNext()
+    }
+  }, [isSuccess, handleNext])
 
   const handleSubmit = () => {
     const answer: Answer = {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import tw from 'twin.macro'
-import { EditorState } from 'draft-js'
+import { EditorState, convertFromRaw } from 'draft-js'
 import { BiCog, BiMessageRoundedCheck, BiMessageRoundedDetail } from 'react-icons/bi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GiTerror } from 'react-icons/gi'
@@ -25,7 +25,20 @@ import { useSurveys, SurveyActionKind } from 'contexts/surveys'
 const Survey = ({ survey }: { survey?: SurveyType }) => {
   const getDefaultValues = (): any => {
     if (survey?.id) {
-      return survey
+      const welcomeMessage = survey.message?.welcome && convertFromRaw(JSON.parse(survey.message?.welcome))
+      const completionMEssage = survey.message?.completion && convertFromRaw(JSON.parse(survey.message?.completion))
+
+      return {
+        ...survey,
+        message: {
+          welcome: survey.message?.welcome
+            ? EditorState.createWithContent(welcomeMessage)
+            : (EditorState.createEmpty() as any),
+          completion: survey.message?.completion
+            ? EditorState.createWithContent(completionMEssage)
+            : (EditorState.createEmpty() as any),
+        },
+      }
     } else {
       return {
         setup: {
