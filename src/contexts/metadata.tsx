@@ -1,5 +1,10 @@
-import { createContext, ReactElement, useContext, useState } from 'react'
+import { createContext, ReactElement, useContext, useEffect, useState } from 'react'
+import { useLocation } from '@reach/router'
+import { parse } from 'query-string'
 
+type Params = {
+  [key: string]: number | string
+}
 interface MetadataContextProps {
   startAt: string
   pageLoadAt: string | null
@@ -9,6 +14,7 @@ interface MetadataContextProps {
 interface MetadataContext {
   pageLoad: () => void
   metadata: MetadataContextProps
+  params: Params
 }
 
 const initialContextData: MetadataContext = {
@@ -18,6 +24,7 @@ const initialContextData: MetadataContext = {
     questionPageLoadAt: null,
   },
   pageLoad: () => {},
+  params: {},
 }
 
 const initialMetadata: MetadataContextProps = {
@@ -30,6 +37,18 @@ const MetadataContext = createContext<MetadataContext>(initialContextData)
 
 export const MetadataProvider = (props: any): ReactElement => {
   const [metadata, setMetadata] = useState(initialMetadata)
+  const [params, setParams] = useState<Params>({})
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.search) {
+      const p = parse(location.search) as Params
+
+      if (p) {
+        setParams(p)
+      }
+    }
+  }, [location])
 
   const pageLoad = () => {
     setMetadata({
@@ -38,7 +57,7 @@ export const MetadataProvider = (props: any): ReactElement => {
     })
   }
 
-  return <MetadataContext.Provider value={{ metadata, pageLoad }} {...props} />
+  return <MetadataContext.Provider value={{ metadata, params, pageLoad }} {...props} />
 }
 
 export const useMetadata = () => {

@@ -15,7 +15,7 @@ import Dialog from 'components/Dialog'
 const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useMethod(survey)
-  const { metadata, pageLoad } = useMetadata()
+  const { metadata, params, pageLoad } = useMetadata()
   const [openDialog, setOpenDialog] = useState(false)
   const {
     setup: { credits },
@@ -39,6 +39,7 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
   }, [availableCredits])
 
   const handleSubmit = () => {
+    console.log('metadata', metadata)
     const answer: Answer = {
       surveyId: survey.id,
       questions,
@@ -49,6 +50,7 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
         submitedAt: new Date().toISOString(),
       },
       leftCredits: availableCredits,
+      ...params,
     }
 
     run(createAnswer(answer))
