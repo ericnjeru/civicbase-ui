@@ -48,7 +48,9 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
 
   return (
     <div css={tw`container mx-auto`}>
-      <DynamicBar total={credits} availableCredits={availableCredits} language={token} />
+      <div css={tw`sticky z-50`} style={{ top: 76 }}>
+        <DynamicBar total={credits} availableCredits={availableCredits} language={token} />
+      </div>
 
       <div css={tw`flex flex-col items-center space-y-24 mt-20`}>
         {questions.map((question, index) => (
