@@ -30,6 +30,10 @@ const useSurveyAnalytics = (survey?: Survey): SurveyAnalyticsReturn => {
 
   const getConvertionRate = () => ((current.respondents / current.access) * 100).toFixed(2)
   const getConvertionIncrement = () => {
+    if (current.access <= 0 || history.access <= 0) {
+      return 0
+    }
+
     const c = (current.respondents / current.access) * 100
     const p = (history.respondents / history.access) * 100
 

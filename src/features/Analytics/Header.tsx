@@ -2,7 +2,7 @@ import Typography, { Headline, Title } from 'components/Typography'
 import tw from 'twin.macro'
 import { Survey } from '../../../types/survey'
 
-const HeaderSection = ({ survey }: { survey: Survey }) => {
+const Header = ({ survey }: { survey: Survey }) => {
   return (
     <div css={tw`flex flex-col items-center justify-center`}>
       <Headline css={tw`text-brand`}>SURVEY ANALYTICS</Headline>
@@ -21,4 +21,4 @@ const HeaderSection = ({ survey }: { survey: Survey }) => {
   )
 }
 
-export default HeaderSection
+export default Header
