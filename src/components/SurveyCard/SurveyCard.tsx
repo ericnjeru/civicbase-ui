@@ -3,18 +3,18 @@ import tw from 'twin.macro'
 import { useNavigate } from '@reach/router'
 import { AiOutlineArrowUp } from 'react-icons/ai'
 import { FiEdit2, FiEye } from 'react-icons/fi'
-import { BiCog } from 'react-icons/bi'
+import { BiCog, BiArrowBack } from 'react-icons/bi'
 import { IoAnalyticsOutline } from 'react-icons/io5'
 import Card from 'components/Card'
 import { Subtitle } from 'components/Typography'
 import Badge from 'components/Badge'
 import { IconButton } from 'components/Button'
-import Menu from './Menu'
 import Ping from './Ping'
 import PublishSurvey from './PublishSurvey'
 import FinishSurvey from './FinishSurvey'
 import { SurveyState } from 'contexts/surveys'
 import useSurveyAnalytics from 'hooks/use-survey-analytics'
+import InlineMenu from './InlineMenu'
 
 const SurveyCard = ({ survey }: { survey: SurveyState }) => {
   const {
@@ -24,8 +24,14 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
     setup: { topic, method },
   } = survey
   const navigate = useNavigate()
+  const [openMenu, setOpenMenu] = useState(false)
   const [hovered, setHovered] = useState(false)
   const { respondentsIncrement } = useSurveyAnalytics(survey)
+
+  const handleMouseLeave = () => {
+    setHovered(false)
+    setOpenMenu(false)
+  }
 
   return (
     <Card
@@ -37,7 +43,7 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
         isLoading && tw`animate-pulse`,
       ]}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={handleMouseLeave}
     >
       <div css={tw`flex flex-col justify-between h-full relative`}>
         <div css={tw`flex justify-between items-center`}>
@@ -60,11 +66,9 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
               !hovered && tw`opacity-0`,
             ]}
           >
-            <Menu onMenuClose={() => setHovered(false)} surveyId={id}>
-              <IconButton>
-                <BiCog size={28} />
-              </IconButton>
-            </Menu>
+            <IconButton onClick={() => setOpenMenu(!openMenu)}>
+              {openMenu ? <BiArrowBack size={28} /> : <BiCog size={28} />}
+            </IconButton>
           </div>
         </div>
 
@@ -73,6 +77,7 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
             tw`absolute bottom-0 left-0`,
             !hovered && tw`flex transition-all ease-in-out duration-700 opacity-100`,
             hovered && tw`opacity-0`,
+            openMenu && hovered && tw`hidden`,
           ]}
         >
           <Badge>{status}</Badge>
@@ -85,30 +90,36 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
           ) : null}
         </div>
 
-        <div
-          css={[
-            tw` justify-around absolute bottom-0 left-0 bg-transparent w-full`,
-            hovered && tw`flex transition-all ease-in-out duration-700 opacity-100`,
-            !hovered && tw`opacity-0`,
-          ]}
-        >
-          {status !== 'finished' && (
-            <IconButton onClick={() => navigate('/edit-survey', { state: survey })}>
-              <FiEdit2 size={28} />
+        <div css={[openMenu && tw`transition-all ease-out hidden opacity-0 `]}>
+          <div
+            css={[
+              tw`justify-around absolute bottom-0 left-0 bg-transparent w-full`,
+              hovered && tw`flex transition-all ease-in-out duration-700 opacity-100`,
+              !hovered && tw`opacity-0`,
+            ]}
+          >
+            {status !== 'finished' && (
+              <IconButton onClick={() => navigate('/edit-survey', { state: survey })}>
+                <FiEdit2 size={28} />
+              </IconButton>
+            )}
+
+            <IconButton onClick={() => navigate(`/analytics/${id}`)}>
+              <IoAnalyticsOutline size={28} />
             </IconButton>
-          )}
 
-          <IconButton onClick={() => navigate(`/analytics/${id}`)}>
-            <IoAnalyticsOutline size={28} />
-          </IconButton>
+            <IconButton onClick={() => navigate(`/survey/${id}`)}>
+              <FiEye size={28} />
+            </IconButton>
 
-          <IconButton onClick={() => navigate(`/survey/${id}`)}>
-            <FiEye size={28} />
-          </IconButton>
+            {status !== 'finished' && <FinishSurvey surveyId={id} />}
 
-          {status !== 'finished' && <FinishSurvey surveyId={id} />}
+            {status === 'pilot' && <PublishSurvey surveyId={id} />}
+          </div>
+        </div>
 
-          {status === 'pilot' && <PublishSurvey surveyId={id} />}
+        <div css={[openMenu && tw`transition-all ease-out opacity-100`, !openMenu && tw`hidden opacity-0`]}>
+          <InlineMenu surveyId={id} />
         </div>
       </div>
     </Card>
