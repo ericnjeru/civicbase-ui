@@ -4,17 +4,19 @@ import { Survey as SurveyProps } from '../../../../types/survey'
 import { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
 import { PrimaryButton } from 'components/Button'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useMethod from 'hooks/use-method'
 import { useMetadata } from 'contexts/metadata'
 import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
+import Dialog from 'components/Dialog'
 
 const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useMethod(survey)
   const { metadata, pageLoad } = useMetadata()
+  const [openDialog, setOpenDialog] = useState(false)
   const {
     setup: { credits },
     language: { thumbsDown, thumbsUp, token },
@@ -29,6 +31,12 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
       handleNext()
     }
   }, [isSuccess, handleNext])
+
+  useEffect(() => {
+    if (availableCredits === 0) {
+      setOpenDialog(true)
+    }
+  }, [availableCredits])
 
   const handleSubmit = () => {
     const answer: Answer = {
@@ -48,6 +56,14 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
 
   return (
     <div css={tw`container mx-auto`}>
+      <Dialog
+        open={openDialog}
+        handleOpen={setOpenDialog}
+        title="Credits"
+        text="You run out of credits."
+        buttonText="Ok, I got it!"
+      />
+
       <div css={tw`sticky z-50`} style={{ top: 76 }}>
         <DynamicBar total={credits} availableCredits={availableCredits} language={token} />
       </div>
