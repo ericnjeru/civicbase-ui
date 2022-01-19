@@ -23,7 +23,7 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
     return <Analytics.Error />
   }
 
-  const { survey } = data
+  const { survey, answers } = data
 
   return (
     <>
@@ -34,7 +34,7 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
       </div>
 
       <div css={tw`mt-24`}>
-        <Analytics.SurveyTable />
+        <Analytics.ResultTable survey={survey} answers={answers} />
       </div>
 
       <div css={tw`mt-24`}>
