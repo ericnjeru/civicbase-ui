@@ -1,8 +1,8 @@
 import * as Table from 'components/Table'
 import Typography from 'components/Typography'
 import tw from 'twin.macro'
-import { Answer } from '../../../types/answer'
-import { Survey } from '../../../types/survey'
+import { Answer } from '../../../../types/answer'
+import { Survey } from '../../../../types/survey'
 
 const userId = ['userid', 'userId', 'userID']
 
