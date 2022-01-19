@@ -1,29 +1,29 @@
-import { Meta } from '@storybook/react'
-import SurveyCard from './SurveyCard'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { LocationProvider, createHistory } from '@reach/router'
 import tw from 'twin.macro'
+import { survey } from 'test/sample'
+import SurveyCard from './SurveyCard'
 
 export default {
   title: 'Components/SurveyCard',
   component: SurveyCard,
-} as Meta
+} as ComponentMeta<typeof SurveyCard>
 
-export const Basic = () => {
-  const survey: any = {
-    status: 'pilot',
-    setup: {
-      credits: 100,
-      topic: 'Pilot Survey',
-      method: 'Quadratic',
-    },
-    id: '123',
-    isLoading: false,
-  }
-
+const Template: ComponentStory<typeof SurveyCard> = ({ survey }) => {
+  const history = createHistory(window as any)
   return (
-    <div css={tw`grid grid-cols-3 gap-8 align-middle py-4`}>
-      <SurveyCard survey={survey} />
-      <SurveyCard survey={{ ...survey, status: 'finished' }} />
-      <SurveyCard survey={{ ...survey, status: 'published' }} />
+    <div style={{ width: 1000 }}>
+      <LocationProvider history={history}>
+        <div css={tw`grid grid-cols-3 gap-8 align-middle py-4`}>
+          <SurveyCard survey={survey} />
+          <SurveyCard survey={{ ...survey, status: 'finished' }} />
+          <SurveyCard survey={{ ...survey, status: 'published' }} />
+        </div>
+      </LocationProvider>
     </div>
   )
 }
+
+export const Basic = Template.bind({})
+
+Basic.args = { survey }
