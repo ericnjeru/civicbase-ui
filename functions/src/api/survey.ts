@@ -216,7 +216,7 @@ export const getSurveyForAnalytics = (req: Request, res: Response) => {
               const answers: Answer[] = []
 
               data.forEach((doc) => {
-                answers.push(doc.data() as Answer)
+                answers.push({ ...(doc.data() as Answer), id: doc.id })
               })
 
               res.status(200).json({ survey: { ...survey.data(), id: survey.id }, answers })

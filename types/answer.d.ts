@@ -1,5 +1,6 @@
 import { Status } from './survey.d'
 
+// TODO: there 2 types of answer one when you create answer and the other one when you get from db
 export type Answer = {
   surveyId: string
   questions: Question[]

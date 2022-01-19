@@ -38,7 +38,7 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
       </div>
 
       <div css={tw`mt-24`}>
-        <Analytics.AnswerTable />
+        <Analytics.AnswerTable survey={survey} answers={answers} />
       </div>
     </>
   )
