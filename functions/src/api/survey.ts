@@ -186,8 +186,8 @@ function updateHistory(surveyId: string) {
           })
 
           if (
-            document.analytics.current.access !== document.analytics.history.access &&
-            document.analytics.current.respondents !== document.analytics.history.respondents
+            document.analytics.current.access !== document.analytics.previous.access &&
+            document.analytics.current.respondents !== document.analytics.previous.respondents
           ) {
             p2 = survey.update({
               'analytics.history.access': document.analytics.previous.access,

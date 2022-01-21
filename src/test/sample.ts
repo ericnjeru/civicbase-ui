@@ -37,8 +37,8 @@ export const survey: Survey = {
       access: 406,
     },
     history: {
-      access: 97,
-      respondents: 342,
+      access: 342,
+      respondents: 97,
     },
   },
   status: 'published',

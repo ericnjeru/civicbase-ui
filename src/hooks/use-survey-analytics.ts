@@ -6,7 +6,7 @@ type SurveyAnalyticsReturn = {
   totalRespondents?: number
   accessIncrement?: number
   respondentsIncrement?: number
-  convertionRate?: string
+  convertionRate?: number
   convertionIncrement?: number
 }
 
@@ -25,10 +25,12 @@ const useSurveyAnalytics = (survey?: Survey): SurveyAnalyticsReturn => {
       return 0
     }
 
-    return Math.trunc((history[increment] / current[increment]) * 100)
+    const diff = current[increment] - history[increment]
+
+    return Math.trunc((diff / history[increment]) * 100)
   }
 
-  const getConvertionRate = () => ((current.respondents / current.access) * 100).toFixed(2)
+  const getConvertionRate = () => Math.trunc((current.respondents / current.access) * 100)
   const getConvertionIncrement = () => {
     if (current.access <= 0 || history.access <= 0) {
       return 0
