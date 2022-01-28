@@ -54,7 +54,7 @@ export const validationSchema = z.object({
   questions: z
     .array(
       z.object({
-        statement: z.string().min(4, { message: 'This question should have more than 3 characters' }),
+        statement: z.any(),
         id: z.string().optional(),
       }),
     )

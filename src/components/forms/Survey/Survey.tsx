@@ -39,6 +39,14 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
             ? EditorState.createWithContent(completionMEssage)
             : (EditorState.createEmpty() as any),
         },
+        questions: survey.questions.map((question) => {
+          const statement = EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))
+
+          return {
+            ...question,
+            statement,
+          }
+        }),
       }
     } else {
       return {

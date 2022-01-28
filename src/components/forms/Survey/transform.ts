@@ -4,6 +4,7 @@ import { SurveyForm } from '../../../../types/forms'
 const transform = (request: SurveyForm) => {
   const welcome = request.message?.welcome
   const completion = request.message?.completion
+  const { questions } = request
 
   if (welcome && request.message?.welcome) {
     if (welcome.getCurrentContent().hasText()) {
@@ -21,6 +22,15 @@ const transform = (request: SurveyForm) => {
     } else {
       delete request.message.completion
     }
+  }
+
+  if (questions) {
+    request.questions = questions.map((question) => {
+      return {
+        ...question,
+        statement: JSON.stringify(convertToRaw(question.statement.getCurrentContent())),
+      }
+    })
   }
 
   if (request.language.jargon !== 'Custom') {

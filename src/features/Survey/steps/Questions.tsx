@@ -1,4 +1,5 @@
 import tw from 'twin.macro'
+import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import DynamicBar from 'components/DynamicBar'
 import { Survey as SurveyProps } from '../../../../types/survey'
 import { Headline } from 'components/Typography'
@@ -11,6 +12,7 @@ import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 import Dialog from 'components/Dialog'
+import 'draft-js/dist/Draft.css'
 
 const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
@@ -72,8 +74,13 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
       <div css={tw`flex flex-col items-center space-y-24 mt-20`}>
         {questions.map((question, index) => (
           <div key={question.id}>
-            <Headline css={tw`mb-4`}>
-              {index + 1}. {question.statement}
+            <Headline css={tw`mb-4 flex`}>
+              {index + 1}.{' '}
+              <Editor
+                editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
+                onChange={() => {}}
+                readOnly
+              />
             </Headline>
 
             <Vote

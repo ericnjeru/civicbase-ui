@@ -40,7 +40,7 @@ export type Message = {
 
 export type Question = {
   id?: string
-  statement: string
+  statement: any
 }
 
 export type Features = {
