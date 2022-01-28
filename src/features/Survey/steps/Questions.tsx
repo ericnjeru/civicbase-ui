@@ -39,7 +39,6 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
   }, [availableCredits])
 
   const handleSubmit = () => {
-    console.log('metadata', metadata)
     const answer: Answer = {
       surveyId: survey.id,
       questions,

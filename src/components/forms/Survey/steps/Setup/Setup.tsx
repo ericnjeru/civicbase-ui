@@ -4,6 +4,7 @@ import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
 import Dropdown from 'components/Dropdown'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import { Methods } from '../../../../../../types/survey'
 
 const Setup = () => {
   const {
@@ -11,7 +12,8 @@ const Setup = () => {
     control,
     formState: { errors },
   } = useFormContext()
-  const methods = ['Quadratic', 'Linear']
+
+  const methods: Methods[] = ['Quadratic', 'Linear', 'Conjoint']
 
   return (
     <>

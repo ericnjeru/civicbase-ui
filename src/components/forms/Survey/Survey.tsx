@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { GiTerror } from 'react-icons/gi'
 import { useNavigate } from '@reach/router'
 import { IoLanguageOutline } from 'react-icons/io5'
-import { BsListCheck } from 'react-icons/bs'
 import { IoFlagSharp } from 'react-icons/io5'
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import Tabs, { TabPanel } from 'components/Tabs'
@@ -21,6 +20,8 @@ import transform from './transform'
 import { useBanner } from 'contexts/banner'
 import { Survey as SurveyType } from '../../../../types/survey.d'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
+import ConjointTab from './tabs/ConjointTab'
+import QuestionTab from './tabs/QuestionTab'
 
 const Survey = ({ survey }: { survey?: SurveyType }) => {
   const getDefaultValues = (): any => {
@@ -111,6 +112,8 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
                 Setup
               </CustomTabItem>
 
+              <ConjointTab />
+
               <CustomTabItem id="language" icon={IoLanguageOutline}>
                 Language Designation
               </CustomTabItem>
@@ -119,9 +122,7 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
                 Welcome Message
               </CustomTabItem>
 
-              <CustomTabItem id="questions" icon={BsListCheck}>
-                Questions
-              </CustomTabItem>
+              <QuestionTab />
 
               <CustomTabItem id="completion" icon={BiMessageRoundedCheck}>
                 Completion Message
@@ -157,6 +158,10 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
 
               <TabPanel value="features">
                 <Forms.Features />
+              </TabPanel>
+
+              <TabPanel value="conjoint">
+                <Forms.Conjoint />
               </TabPanel>
             </div>
           </Tabs>

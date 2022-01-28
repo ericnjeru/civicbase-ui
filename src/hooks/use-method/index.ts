@@ -1,10 +1,12 @@
 import Quadratic from './quadratic'
 import Linear from './linear'
+import Conjoint from './conjoint'
 import { Survey, QuestionForSurvey } from '../../../types/survey'
 
 const methods = {
   Quadratic,
   Linear,
+  Conjoint,
 }
 
 type UseMethod = {

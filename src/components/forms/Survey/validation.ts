@@ -58,7 +58,8 @@ export const validationSchema = z.object({
         id: z.string().optional(),
       }),
     )
-    .min(3, { message: 'There are minimun 3 questions' }),
+    // .min(3, { message: 'There are minimun 3 questions' })
+    .optional(),
   features: z
     .object({
       qualtrics: z.boolean().optional(),
@@ -66,5 +67,14 @@ export const validationSchema = z.object({
       randomQuestions: z.boolean().optional(),
       multipleAnswerFromSameSource: z.boolean().optional(),
     })
+    .optional(),
+  conjoint: z
+    .array(
+      z.object({
+        statement: z.string(),
+        items: z.any(),
+        attributes: z.any(),
+      }),
+    )
     .optional(),
 })

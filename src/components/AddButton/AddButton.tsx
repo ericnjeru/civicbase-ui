@@ -12,6 +12,7 @@ const AddButton = ({ children, onClick, ...props }: { children: string | ReactNo
       ]}
       onClick={onClick}
       {...props}
+      type="button"
     >
       <Title css={tw`text-current m-0`}>{children}</Title>
     </button>

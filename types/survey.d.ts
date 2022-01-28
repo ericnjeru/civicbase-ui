@@ -12,13 +12,17 @@ export interface Survey {
   status: Status
   publishedAt?: string
   finishedAt?: string
+  conjoint?: any
 }
+// TODO: conjoint
 
 export type Status = 'pilot' | 'published' | 'finished'
 
+export type Methods = 'Linear' | 'Quadratic' | 'Conjoint'
+
 export type Setup = {
   topic: string
-  method: 'Linear' | 'Quadratic'
+  method: Methods
   credits: number
 }
 
