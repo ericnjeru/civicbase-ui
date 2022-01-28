@@ -1,7 +1,6 @@
 import tw from 'twin.macro'
 import { BiCog } from 'react-icons/bi'
 import { FiSun, FiMoon } from 'react-icons/fi'
-import { AiOutlineMenu } from 'react-icons/ai'
 import { PrimaryButton, SecondaryButton, IconButton, PrimaryTextButton } from 'components/Button'
 import { Subtitle } from 'components/Typography'
 import Menu from './Menu'
@@ -29,19 +28,25 @@ const Header = () => {
           <Subtitle css={tw`m-0`}>Civicbase</Subtitle>
         </PrimaryTextButton>
         <div css={tw`flex space-x-4`}>
-          <div css={tw`flex mobile:hidden`}>
-            <PrimaryButton>Blog</PrimaryButton>
-            <PrimaryButton css={tw`mx-2`}>FAQ</PrimaryButton>
-            <PrimaryButton css={tw`mr-2`}>About</PrimaryButton>
-            <SecondaryButton css={tw`mr-2`}>Admin</SecondaryButton>
-          </div>
+          {user && (
+            <div css={tw`flex mobile:hidden`}>
+              <PrimaryButton>Blog</PrimaryButton>
+              <PrimaryButton css={tw`mx-2`}>FAQ</PrimaryButton>
+              <PrimaryButton css={tw`mr-2`}>About</PrimaryButton>
+              <SecondaryButton css={tw`mr-2`}>Admin</SecondaryButton>
+            </div>
+          )}
 
           <IconButton onClick={() => toggleTheme()}>
             {theme === 'dark' ? <FiSun size={22} /> : <FiMoon size={22} />}
           </IconButton>
-          <Menu>
-            <IconButton>{user ? <BiCog size={28} /> : <AiOutlineMenu size={28} />}</IconButton>
-          </Menu>
+          {user && (
+            <Menu>
+              <IconButton>
+                <BiCog size={28} />
+              </IconButton>
+            </Menu>
+          )}
         </div>
       </div>
     </div>
