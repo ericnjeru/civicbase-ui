@@ -13,14 +13,16 @@ import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 import Dialog from 'components/Dialog'
 import 'draft-js/dist/Draft.css'
+import TextArea from 'components/Form/TextArea'
 
 const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useMethod(survey)
   const { metadata, params, pageLoad } = useMetadata()
   const [openDialog, setOpenDialog] = useState(false)
+  const [feedbackText, setFeedback] = useState('')
   const {
-    setup: { credits },
+    setup: { credits, feedback },
     language: { thumbsDown, thumbsUp, token },
   } = survey
 
@@ -52,6 +54,10 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
       },
       leftCredits: availableCredits,
       ...params,
+    }
+
+    if (feedback?.active && feedbackText.length > 0) {
+      answer.feedback = feedbackText
     }
 
     run(createAnswer(answer))
@@ -95,6 +101,20 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
             />
           </div>
         ))}
+
+        {feedback?.active && (
+          <div>
+            <Headline>{feedback.question}</Headline>
+
+            <TextArea
+              value={feedbackText}
+              onChange={({ target: { value } }) => {
+                setFeedback(value)
+              }}
+              css={tw`mt-4`}
+            />
+          </div>
+        )}
 
         <PrimaryButton onClick={handleSubmit}>Submit</PrimaryButton>
       </div>

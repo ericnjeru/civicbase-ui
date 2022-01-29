@@ -1,10 +1,11 @@
 import tw from 'twin.macro'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller, useFormContext, useWatch } from 'react-hook-form'
 import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
 import Dropdown from 'components/Dropdown'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import { Methods } from '../../../../../../types/survey'
+import Switch from 'components/Switch'
 
 const Setup = () => {
   const {
@@ -13,6 +14,7 @@ const Setup = () => {
     formState: { errors },
   } = useFormContext()
 
+  const isActive = useWatch({ name: 'setup.feedback.active' })
   const methods: Methods[] = ['Quadratic', 'Linear', 'Conjoint']
 
   return (
@@ -41,7 +43,21 @@ const Setup = () => {
           />
           <FieldErrorMessage css={tw`ml-2`} name="setup.credits" errors={errors} />
         </div>
+
+        <Controller
+          name="setup.feedback.active"
+          control={control}
+          render={({ field }) => <Switch {...field}>Enable respondent feedback?</Switch>}
+        />
       </div>
+
+      {isActive && (
+        <>
+          <Label>Feedback question</Label>
+          <Input {...register('setup.feedback.question')} error={!!errors.setup?.feedbackQuestion} />
+          <FieldErrorMessage css={tw`ml-2`} name="setup.feedback.question" errors={errors} />
+        </>
+      )}
     </>
   )
 }

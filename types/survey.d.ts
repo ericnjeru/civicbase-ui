@@ -24,6 +24,10 @@ export type Setup = {
   topic: string
   method: Methods
   credits: number
+  feedback?: {
+    active: boolean
+    question: string
+  }
 }
 
 export type Language = {

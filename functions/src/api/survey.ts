@@ -8,6 +8,7 @@ import { incrementAccess } from '../utils/survey'
 enum MethodIds {
   Quadratic = 'QV',
   Linear = 'L',
+  Conjoint = 'C',
 }
 
 // TODO: move to utils survey

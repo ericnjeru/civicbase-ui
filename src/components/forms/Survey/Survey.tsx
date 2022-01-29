@@ -54,6 +54,10 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
           credits: 1,
           method: 'Quadratic',
           topic: '',
+          feedback: {
+            active: false,
+            question: 'Please let us know if you have any feedback about this survey?',
+          },
         },
         language: {
           jargon: 'Agree/Disagree',

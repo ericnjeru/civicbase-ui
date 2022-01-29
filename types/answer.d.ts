@@ -8,6 +8,7 @@ export type Answer = {
   status: Status
   time: Time
   leftCredits: number
+  feedback?: string
   [key: string]: any
 }
 
