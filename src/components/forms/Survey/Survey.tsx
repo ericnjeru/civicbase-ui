@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { EditorState, convertFromRaw } from 'draft-js'
-import { BiCog, BiMessageRoundedCheck, BiMessageRoundedDetail } from 'react-icons/bi'
+import { BiCog, BiMessageRoundedDetail } from 'react-icons/bi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GiTerror } from 'react-icons/gi'
 import { useNavigate } from '@reach/router'
@@ -130,15 +130,11 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
                 Language Designation
               </CustomTabItem>
 
-              <CustomTabItem id="welcome" icon={BiMessageRoundedDetail}>
-                Welcome Message
+              <CustomTabItem id="messages" icon={BiMessageRoundedDetail}>
+                Messages
               </CustomTabItem>
 
               <QuestionTab />
-
-              <CustomTabItem id="completion" icon={BiMessageRoundedCheck}>
-                Completion Message
-              </CustomTabItem>
 
               <CustomTabItem id="features" icon={IoFlagSharp}>
                 Features
@@ -156,16 +152,12 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
                 <Forms.Language />
               </TabPanel>
 
-              <TabPanel value="welcome">
-                <Forms.Welcome />
-              </TabPanel>
-
               <TabPanel value="questions">
                 <Forms.Questions />
               </TabPanel>
 
-              <TabPanel value="completion">
-                <Forms.Completion />
+              <TabPanel value="messages">
+                <Forms.Messages />
               </TabPanel>
 
               <TabPanel value="features">

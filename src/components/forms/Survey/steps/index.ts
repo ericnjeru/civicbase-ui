@@ -1,7 +1,6 @@
 export { default as Setup } from './Setup'
 export { default as Language } from './Language'
-export { default as Welcome } from './Welcome'
 export { default as Questions } from './Questions'
-export { default as Completion } from './Completion'
 export { default as Features } from './Features'
 export { default as Conjoint } from './Conjoint'
+export { default as Messages } from './Messages'
