@@ -25,7 +25,7 @@ const Setup = () => {
 
       <div css={tw`grid grid-cols-2 gap-8 my-4`}>
         <div>
-          <Label>Survey method</Label>
+          <Label>Survey Method</Label>
           <Controller
             name="setup.method"
             control={control}
