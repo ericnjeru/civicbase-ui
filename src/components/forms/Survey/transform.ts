@@ -9,7 +9,6 @@ const transform = (request: SurveyForm): SurveyRequest => {
 
   const transformedRequest: SurveyRequest = {
     setup: request.setup,
-    questions: [],
     qualtrics: request.qualtrics,
     language: request.language,
     features: request.features,
@@ -45,6 +44,10 @@ const transform = (request: SurveyForm): SurveyRequest => {
         statement,
       }
     })
+  }
+
+  if (request.conjoint) {
+    transformedRequest.conjoint = request.conjoint
   }
 
   if (transformedRequest.language.jargon !== 'Custom') {

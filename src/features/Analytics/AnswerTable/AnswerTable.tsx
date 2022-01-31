@@ -7,9 +7,6 @@ import { Survey } from '../../../../types/survey'
 const userId = ['userid', 'userId', 'userID']
 
 const AnswerTable = ({ survey, answers }: { survey: Survey; answers: Answer[] }) => {
-  console.log('survey', survey)
-  console.log('answers', answers)
-
   const checkUserId = () => {
     let flag = false
     answers.forEach((answer) => {

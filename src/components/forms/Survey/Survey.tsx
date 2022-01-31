@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// TODO resolve anys
-
 import { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { EditorState, convertFromRaw } from 'draft-js'
@@ -105,6 +102,7 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
 
   const onSubmit: SubmitHandler<SurveyForm> = (values) => {
     const transformedSurvey = transform(values as SurveyForm)
+
     setNewSurvey({ ...transformedSurvey, id: survey?.id })
 
     if (survey?.id) {

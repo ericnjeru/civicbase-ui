@@ -1,7 +1,7 @@
-import { Survey } from '../../types/survey'
+import { Methods, Survey } from '../../types/survey'
 
 export type CreateRequest = {
-  body: Survey
+  body: Survey & { setup: { method: Methods } }
   [key: string]: any // not happy with this, but the only way I found so far to add user to the request
 }
 

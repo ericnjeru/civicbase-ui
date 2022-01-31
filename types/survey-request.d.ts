@@ -4,7 +4,7 @@ export interface SurveyRequest {
   setup: Setup
   language: Language
   message?: Message
-  questions: Question[]
+  questions?: Question[]
   features?: Features
   qualtrics?: Qualtrics
   id?: string

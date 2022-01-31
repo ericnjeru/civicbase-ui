@@ -1,5 +1,5 @@
 import { CreateRequest } from '../../types/survey'
-import { Survey } from '../../../types/survey'
+import { Methods, Survey } from '../../../types/survey'
 import { Answer } from '../../../types/answer'
 import { db } from '../config/firebase'
 import { Response, Request } from 'express'
@@ -13,7 +13,7 @@ enum MethodIds {
 
 // TODO: move to utils survey
 // Add default Ids to questions
-const setQuestions = (survey: Survey) => {
+const setQuestions = (survey: Survey & { setup: { method: Methods } }) => {
   return survey.questions.map((question, index: number) => ({
     ...question,
     id: `${MethodIds[survey.setup.method]}${index + 1}`,
