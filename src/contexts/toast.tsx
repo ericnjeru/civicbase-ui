@@ -5,7 +5,7 @@ interface Toast {
 }
 
 interface ToastContextProps extends Toast {
-  toast: Toast
+  toast?: Toast
   trigger: (text: string) => void
 }
 
@@ -16,7 +16,7 @@ const initialData: ToastContextProps = {
 
 const ToastContext = createContext(initialData)
 
-export const ToastProvider = (props: any): ReactElement => {
+export const ToastProvider = ({ ...props }): ReactElement => {
   const [toast, setToast] = useState<Toast>()
 
   const trigger = useCallback((text: string) => {

@@ -1,44 +1,58 @@
 import { convertToRaw } from 'draft-js'
 import { SurveyForm } from '../../../../types/forms'
+import { SurveyRequest } from '../../../../types/survey-request'
 
-const transform = (request: SurveyForm) => {
+const transform = (request: SurveyForm): SurveyRequest => {
   const welcome = request.message?.welcome
   const completion = request.message?.completion
   const { questions } = request
 
+  const transformedRequest: SurveyRequest = {
+    setup: request.setup,
+    questions: [],
+    qualtrics: request.qualtrics,
+    language: request.language,
+    features: request.features,
+    id: request.id,
+  }
+
   if (welcome && request.message?.welcome) {
     if (welcome.getCurrentContent().hasText()) {
       const content = JSON.stringify(convertToRaw(welcome.getCurrentContent()))
-      request.message.welcome = content
-    } else {
-      delete request.message.welcome
+      transformedRequest.message = {
+        ...transformedRequest.message,
+        welcome: content,
+      }
     }
   }
 
   if (completion && request.message?.completion) {
     if (completion.getCurrentContent().hasText()) {
       const content = JSON.stringify(convertToRaw(completion.getCurrentContent()))
-      request.message.completion = content
-    } else {
-      delete request.message.completion
+      transformedRequest.message = {
+        ...transformedRequest.message,
+        completion: content,
+      }
     }
   }
 
   if (questions) {
-    request.questions = questions.map((question) => {
+    transformedRequest.questions = questions.map((question) => {
+      const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
+
       return {
         ...question,
-        statement: JSON.stringify(convertToRaw(question.statement.getCurrentContent())),
+        statement,
       }
     })
   }
 
-  if (request.language.jargon !== 'Custom') {
-    request.language.thumbsUp = request.language.jargon.split('/')[0]
-    request.language.thumbsDown = request.language.jargon.split('/')[1]
+  if (transformedRequest.language.jargon !== 'Custom') {
+    transformedRequest.language.thumbsUp = transformedRequest.language.jargon.split('/')[0]
+    transformedRequest.language.thumbsDown = transformedRequest.language.jargon.split('/')[1]
   }
 
-  return request
+  return transformedRequest
 }
 
 export default transform

@@ -1,9 +1,9 @@
 import client from './api'
-import { SurveyForm } from '../../types/forms.d'
 import { Answer } from '../../types/answer.d'
+import { SurveyRequest } from '../../types/survey-request'
 
-export const createSurvey = (form: SurveyForm) => client('createSurvey', { body: form })
-export const editSurvey = (form: SurveyForm, surveyId: string) => client(`updateSurvey/${surveyId}`, { body: form })
+export const createSurvey = (form: SurveyRequest) => client('createSurvey', { body: form })
+export const editSurvey = (form: SurveyRequest, surveyId: string) => client(`updateSurvey/${surveyId}`, { body: form })
 export const getSurveys = () => client('surveys')
 export const publish = (surveyId: string) => client(`publish/${surveyId}`)
 export const finish = (surveyId: string) => client(`finish/${surveyId}`)

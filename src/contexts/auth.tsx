@@ -25,7 +25,7 @@ const initialData: Authentication = {
 
 const AuthContext = createContext(initialData)
 
-export const AuthProvider = (props: any): ReactElement => {
+export const AuthProvider = ({ ...props }): ReactElement => {
   const { data, isError, isSuccess, run, isIdle, isLoading, setData } = useAsync()
 
   useLayoutEffect(() => {

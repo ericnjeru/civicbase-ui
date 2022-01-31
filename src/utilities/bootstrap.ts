@@ -1,8 +1,9 @@
 import * as auth from 'services/auth'
+import { CivicbaseUser } from '../../types/user'
 import storage from './storage'
-// TODO: resolve any
+
 const bootstrapAppData = async () => {
-  let appData: any = { user: null }
+  let appData: { user: CivicbaseUser | null } = { user: null }
 
   if (storage.hasToken()) {
     const [user] = await Promise.all([auth.getUser()])

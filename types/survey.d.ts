@@ -12,9 +12,8 @@ export interface Survey {
   status: Status
   publishedAt?: string
   finishedAt?: string
-  conjoint?: any
+  conjoint?: Conjoint[]
 }
-// TODO: conjoint
 
 export type Status = 'pilot' | 'published' | 'finished'
 
@@ -22,7 +21,7 @@ export type Methods = 'Linear' | 'Quadratic' | 'Conjoint'
 
 export type Setup = {
   topic: string
-  method: Methods
+  method: Methods | null
   credits: number
   feedback?: {
     active: boolean
@@ -32,19 +31,37 @@ export type Setup = {
 
 export type Language = {
   token: string
-  thumbsUp: string
-  thumbsDown: string
+  thumbsUp?: string
+  thumbsDown?: string
   jargon: string
 }
 
 export type Message = {
-  welcome?: any
-  completion?: any
+  welcome?: string
+  completion?: string
 }
 
 export type Question = {
   id?: string
   statement: any
+}
+
+export type Conjoint = {
+  id?: string
+  statement: string
+  attributes: ConjointAttributes[]
+  items: ConjointItems[]
+}
+
+export type ConjointAttributes = {
+  id: string
+  name: string
+  key: string
+}
+
+type ConjointItems = {
+  id: number
+  [key: string]: string
 }
 
 export type Features = {

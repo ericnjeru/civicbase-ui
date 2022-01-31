@@ -5,8 +5,11 @@ import { PrimaryButton } from 'components/Button'
 import { Survey } from '../../../../types/survey'
 
 const WelcomeMessage = ({ survey, handleNext }: { survey: Survey; handleNext: () => void }) => {
-  console.log('survey', survey)
-  const welcomeMessage = survey.message?.welcome && convertFromRaw(JSON.parse(survey.message?.welcome))
+  if (!survey.message?.welcome) {
+    return null
+  }
+
+  const welcomeMessage = convertFromRaw(JSON.parse(survey.message.welcome))
 
   return (
     <div>

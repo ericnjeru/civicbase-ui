@@ -2,19 +2,18 @@ import Card from 'components/Card'
 import Typography, { Headline } from 'components/Typography'
 import { useState } from 'react'
 import tw, { theme } from 'twin.macro'
-import { Survey } from '../../../../types/survey'
+import { ConjointItems, Survey } from '../../../../types/survey'
 import { AiFillCheckCircle } from 'react-icons/ai'
 
-// TODO: solve any
 const Conjoint = ({ survey }: { survey: Survey }) => {
   const [selected, setSelected] = useState<number | null>(null)
 
   return (
     <div>
-      {survey.conjoint?.map((question: any, index: number) => (
+      {survey.conjoint?.map((question, index) => (
         <div css={tw`grid grid-cols-5 gap-4`} key={question.statement}>
           <div css={tw`mt-20`}>
-            {question.attributes.map((attr: any) => (
+            {question.attributes.map((attr) => (
               <Typography css={tw`mb-6 text-right`} key={attr.key}>
                 {attr.name}
               </Typography>
@@ -27,7 +26,7 @@ const Conjoint = ({ survey }: { survey: Survey }) => {
             </Headline>
 
             <div css={tw`grid grid-cols-3 gap-4`}>
-              {question.items.map((item: any, itemIndex: number) => (
+              {question.items.map((item: ConjointItems, itemIndex: number) => (
                 <Card
                   key="1"
                   css={[

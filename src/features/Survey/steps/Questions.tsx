@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import DynamicBar from 'components/DynamicBar'
-import { Survey as SurveyProps } from '../../../../types/survey'
+import { Survey as SurveyProps } from '../../../../types/survey-response'
 import { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
 import { PrimaryButton } from 'components/Button'
@@ -28,7 +28,7 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
 
   useEffect(() => {
     pageLoad()
-  }, [])
+  }, [pageLoad])
 
   useEffect(() => {
     if (isSuccess) {
@@ -78,29 +78,31 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
       </div>
 
       <div css={tw`flex flex-col items-center space-y-24 mt-20`}>
-        {questions.map((question, index) => (
-          <div key={question.id}>
-            <Headline css={tw`mb-4 flex`}>
-              {index + 1}.{' '}
-              <Editor
-                editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
-                onChange={() => {}}
-                readOnly
-              />
-            </Headline>
+        {questions.map((question, index) => {
+          return (
+            <div key={question.id}>
+              <Headline css={tw`mb-4 flex`}>
+                {index + 1}.{' '}
+                <Editor
+                  editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
+                  onChange={() => {}}
+                  readOnly
+                />
+              </Headline>
 
-            <Vote
-              thumbsDown={thumbsDown}
-              thumbsUp={thumbsUp}
-              total={credits}
-              handleVote={(direction: number) => vote(index, direction)}
-              vote={question.vote}
-              creditSpent={question.credits}
-              canVoteUp={canVote(index, 1)}
-              canVoteDown={canVote(index, -1)}
-            />
-          </div>
-        ))}
+              <Vote
+                thumbsDown={thumbsDown}
+                thumbsUp={thumbsUp}
+                total={credits}
+                handleVote={(direction: number) => vote(index, direction)}
+                vote={question.vote}
+                creditSpent={question.credits}
+                canVoteUp={canVote(index, 1)}
+                canVoteDown={canVote(index, -1)}
+              />
+            </div>
+          )
+        })}
 
         {feedback?.active && (
           <div>

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// TODO resolve anys
+
 import { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { EditorState, convertFromRaw } from 'draft-js'
@@ -22,22 +25,19 @@ import { Survey as SurveyType } from '../../../../types/survey.d'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
 import ConjointTab from './tabs/ConjointTab'
 import QuestionTab from './tabs/QuestionTab'
+import { SurveyRequest } from '../../../../types/survey-request'
 
 const Survey = ({ survey }: { survey?: SurveyType }) => {
-  const getDefaultValues = (): any => {
+  const getDefaultValues = (): SurveyForm => {
     if (survey?.id) {
       const welcomeMessage = survey.message?.welcome && convertFromRaw(JSON.parse(survey.message?.welcome))
-      const completionMEssage = survey.message?.completion && convertFromRaw(JSON.parse(survey.message?.completion))
+      const completionMessage = survey.message?.completion && convertFromRaw(JSON.parse(survey.message?.completion))
 
       return {
         ...survey,
         message: {
-          welcome: survey.message?.welcome
-            ? EditorState.createWithContent(welcomeMessage)
-            : (EditorState.createEmpty() as any),
-          completion: survey.message?.completion
-            ? EditorState.createWithContent(completionMEssage)
-            : (EditorState.createEmpty() as any),
+          welcome: welcomeMessage ? EditorState.createWithContent(welcomeMessage) : EditorState.createEmpty(),
+          completion: completionMessage ? EditorState.createWithContent(completionMessage) : EditorState.createEmpty(),
         },
         questions: survey.questions.map((question) => {
           const statement = EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))
@@ -52,7 +52,7 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
       return {
         setup: {
           credits: 1,
-          method: 'Quadratic',
+          method: null,
           topic: '',
           feedback: {
             active: false,
@@ -64,20 +64,20 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
           token: 'Credits',
         },
         message: {
-          welcome: EditorState.createEmpty() as any,
-          completion: EditorState.createEmpty() as any,
+          welcome: EditorState.createEmpty(),
+          completion: EditorState.createEmpty(),
         },
         questions: [],
         features: {},
       }
     }
   }
-  const [newSurvey, setNewSurvey] = useState<SurveyType | undefined>()
+  const [newSurvey, setNewSurvey] = useState<SurveyRequest | undefined>()
   const navigate = useNavigate()
   const { trigger } = useBanner()
   const { dispatch } = useSurveys()
   const { run, isLoading, isSuccess, isError } = useAsync()
-  const methods = useForm({
+  const methods = useForm<any>({
     defaultValues: getDefaultValues(),
     resolver: zodResolver(validationSchema),
   })
@@ -104,8 +104,8 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
   }, [isError, trigger])
 
   const onSubmit: SubmitHandler<SurveyForm> = (values) => {
-    const transformedSurvey = transform(values)
-    setNewSurvey({ ...transformedSurvey, id: survey?.id } as any)
+    const transformedSurvey = transform(values as SurveyForm)
+    setNewSurvey({ ...transformedSurvey, id: survey?.id })
 
     if (survey?.id) {
       run(editSurvey(transformedSurvey, survey.id))

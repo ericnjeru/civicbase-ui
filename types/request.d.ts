@@ -1,7 +1,7 @@
-import { SurveyForm } from './forms.d'
 import { Answer } from './answer.d'
+import { SurveyRequest } from './survey-request'
 
-export type BodyRequest = LoginRequest | SignupRequest | ResetRequest | SurveyForm | Answer
+export type BodyRequest = LoginRequest | SignupRequest | ResetRequest | Answer | SurveyRequest
 
 export interface LoginRequest {
   email: string

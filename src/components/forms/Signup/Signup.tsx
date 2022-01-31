@@ -41,7 +41,7 @@ const Signup = ({ shouldReset, next }: { shouldReset: boolean; next: () => void 
     if (isSuccess) {
       next()
     }
-  }, [isSuccess])
+  }, [isSuccess, next])
 
   useEffect(() => {
     if (shouldReset && reset) {

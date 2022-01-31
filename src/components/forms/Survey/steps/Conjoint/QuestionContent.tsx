@@ -5,6 +5,7 @@ import EditText from 'components/EditText'
 import Card from 'components/Card'
 import { IconButton } from 'components/Button'
 import { AiOutlineClose } from 'react-icons/ai'
+import { ConjointAttributes } from '../../../../../../types/survey'
 
 const QuestionContent = ({ questionIndex }: { questionIndex: number }) => {
   const conjoint = useWatch({ name: `conjoint.${questionIndex}` })
@@ -59,7 +60,7 @@ const QuestionContent = ({ questionIndex }: { questionIndex: number }) => {
                   <AiOutlineClose />
                 </IconButton>
               </div>
-              {conjoint?.attributes.map((attr: any, attrIndex: number) => (
+              {conjoint?.attributes.map((attr: ConjointAttributes, attrIndex: number) => (
                 <div key={attr.id} css={tw`my-2`}>
                   <EditText
                     name={`conjoint.${questionIndex}.items.${itemIndex}.${conjoint.attributes[attrIndex].key}`}

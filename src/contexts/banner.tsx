@@ -1,8 +1,9 @@
-import { createContext, ReactElement, useCallback, useContext, useState } from 'react'
+import { createContext, FunctionComponent, ReactElement, useCallback, useContext, useState } from 'react'
+import { IconBaseProps } from 'react-icons/lib'
 
 interface Banner {
   show?: boolean
-  icon?: any
+  icon?: FunctionComponent<IconBaseProps>
   title?: string
   subtitle?: string
   actionText?: string
@@ -29,7 +30,7 @@ const initialData: BannerContextProps = {
 
 const BannerContext = createContext(initialData)
 
-export const BannerProvider = (props: any): ReactElement => {
+export const BannerProvider = ({ ...props }): ReactElement => {
   const [banner, setBanner] = useState<Banner>({
     show: false,
     icon: undefined,

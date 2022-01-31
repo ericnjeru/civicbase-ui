@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// TODO resolve anys
+
 import { createContext, ReactElement, useContext, useReducer, useEffect, useState } from 'react'
 import useAsync from 'hooks/use-async'
 import { getSurveys } from 'services/survey'
@@ -77,7 +80,7 @@ function surveyReducer(state: SurveyState[], action: SurveyAction) {
 
 const SurveysContext = createContext(initialContextData)
 
-export const SurveysProvider = (props: any): ReactElement => {
+export const SurveysProvider = ({ ...props }): ReactElement => {
   const [surveys, dispatch] = useReducer(surveyReducer, [])
   const [refresh, setRefresh] = useState(0)
   const { run, data, isLoading } = useAsync()

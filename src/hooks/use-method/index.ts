@@ -1,7 +1,8 @@
 import Quadratic from './quadratic'
 import Linear from './linear'
 import Conjoint from './conjoint'
-import { Survey, QuestionForSurvey } from '../../../types/survey'
+import { QuestionForSurvey } from '../../../types/survey'
+import { Survey } from '../../../types/survey-response'
 
 const methods = {
   Quadratic,

@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import tw, { styled } from 'twin.macro'
 import { Transition } from '@headlessui/react'
 
@@ -47,7 +47,6 @@ const StyledSecondaryTransition = styled(Transition.Child)`
 export const Primary = ({ children }: { children: ReactNode }) => {
   return (
     <StyledMainTransition
-      as={Fragment as any}
       enter="enter"
       enterFrom="enterFrom"
       enterTo="enterTo"
@@ -63,7 +62,6 @@ export const Primary = ({ children }: { children: ReactNode }) => {
 export const Secondary = ({ children }: { children: ReactNode }) => {
   return (
     <StyledSecondaryTransition
-      as={Fragment as any}
       enter="enter"
       enterFrom="enterFrom"
       enterTo="enterTo"

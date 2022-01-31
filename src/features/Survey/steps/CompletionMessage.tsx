@@ -3,7 +3,11 @@ import 'draft-js/dist/Draft.css'
 import { Survey } from '../../../../types/survey'
 
 const CompletionMessage = ({ survey }: { survey: Survey }) => {
-  const completionMessage = survey.message?.completion && convertFromRaw(JSON.parse(survey.message?.completion))
+  if (!survey.message?.completion) {
+    return null
+  }
+
+  const completionMessage = convertFromRaw(JSON.parse(survey.message.completion))
 
   return (
     <div>

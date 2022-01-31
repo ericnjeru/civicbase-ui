@@ -29,6 +29,7 @@ module.exports = {
       ],
       rules: {
         'no-debugger': 'off',
+        '@typescript-eslint/no-explicit-any': 0,
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-empty-function': 'off',
         'react/prop-types': 'off',

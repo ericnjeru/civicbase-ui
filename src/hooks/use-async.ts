@@ -1,5 +1,6 @@
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // TODO resolve anys
+import React from 'react'
 
 const useSafeDispatch = (dispatch: any) => {
   const mounted = React.useRef(false)

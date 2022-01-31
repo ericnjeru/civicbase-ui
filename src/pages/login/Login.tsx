@@ -24,6 +24,10 @@ const Login: FC<RouteComponentProps> = () => {
     setStep(step)
   }, [])
 
+  const handleVerification = useCallback(() => {
+    setStep('verification')
+  }, [])
+
   return (
     <div css={tw`flex justify-center h-full mobile:items-start items-center`}>
       <Card
@@ -54,7 +58,7 @@ const Login: FC<RouteComponentProps> = () => {
         </Step>
 
         <Step isActive={isSignup}>
-          <SignupForm shouldReset={!isSignup} next={() => setStep('verification')} />
+          <SignupForm shouldReset={!isSignup} next={handleVerification} />
         </Step>
 
         <Step isActive={isForgot}>

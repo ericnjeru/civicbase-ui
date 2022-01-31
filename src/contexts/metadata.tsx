@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useContext, useEffect, useState } from 'react'
+import { createContext, ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { useLocation } from '@reach/router'
 import { parse } from 'query-string'
 
@@ -35,7 +35,7 @@ const initialMetadata: MetadataContextProps = {
 
 const MetadataContext = createContext<MetadataContext>(initialContextData)
 
-export const MetadataProvider = (props: any): ReactElement => {
+export const MetadataProvider = ({ ...props }): ReactElement => {
   const [metadata, setMetadata] = useState(initialMetadata)
   const [params, setParams] = useState<Params>({})
   const location = useLocation()
@@ -50,12 +50,12 @@ export const MetadataProvider = (props: any): ReactElement => {
     }
   }, [location])
 
-  const pageLoad = () => {
-    setMetadata({
-      ...metadata,
+  const pageLoad = useCallback(() => {
+    setMetadata((meta) => ({
+      ...meta,
       pageLoadAt: new Date().toISOString(),
-    })
-  }
+    }))
+  }, [])
 
   return <MetadataContext.Provider value={{ metadata, params, pageLoad }} {...props} />
 }

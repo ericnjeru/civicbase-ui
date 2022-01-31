@@ -15,7 +15,7 @@ const Banner = () => {
       <div css={tw`max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8`}>
         <div css={tw`flex items-center justify-between flex-wrap`}>
           <div css={tw`w-0 flex-1 flex items-center text-white`}>
-            {createElement(icon, { size: 30, ariaHidden: true })}
+            {icon && createElement(icon, { size: 30, 'aria-hidden': true })}
             <p css={tw`ml-3 font-medium text-white truncate`}>
               <span css={tw`md:hidden`}>{title}</span>
               <span css={tw`hidden md:inline`}>{subtitle}</span>

@@ -36,7 +36,7 @@ const ForgotPassword = ({ next }: { next: () => void }) => {
     if (isSuccess) {
       next()
     }
-  }, [isSuccess])
+  }, [isSuccess, next])
 
   useEffect(() => {
     return () => {

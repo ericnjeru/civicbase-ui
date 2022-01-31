@@ -1,10 +1,19 @@
+import { createElement, FunctionComponent, useEffect, useState } from 'react'
 import tw from 'twin.macro'
-import { createElement, useEffect, useState } from 'react'
+import { IconBaseProps } from 'react-icons'
 import { FaCheck } from 'react-icons/fa'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { TabItem, TabLabel } from 'components/Tabs'
 
-const CustomTabItem = ({ children, id, icon }: { children: string; id: string; icon: any }) => {
+const CustomTabItem = ({
+  children,
+  id,
+  icon,
+}: {
+  children: string
+  id: string
+  icon: FunctionComponent<IconBaseProps>
+}) => {
   const {
     trigger,
     control,
@@ -33,7 +42,7 @@ const CustomTabItem = ({ children, id, icon }: { children: string; id: string; i
         hasError && tw`bg-red-400 focus:ring-red-300 hover:bg-red-400`,
       ]}
     >
-      <div css={tw`mr-2`}>{createElement(isValid ? FaCheck : icon, { size: 20, ariaHidden: true })}</div>
+      <div css={tw`mr-2`}>{createElement(isValid ? FaCheck : icon, { size: 20, 'aria-hidden': true })}</div>
       <TabLabel id={id} css={[(isValid || hasError) && tw`text-white`]}>
         {children}
       </TabLabel>

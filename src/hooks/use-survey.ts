@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { getSurvey } from 'services/survey'
-import { Survey } from '../../types/survey'
+import { Survey } from '../../types/survey-response'
 import useAsync from './use-async'
 
 type UseSurvey = {

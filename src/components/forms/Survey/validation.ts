@@ -10,7 +10,7 @@ export const validationSchema = z.object({
       .string()
       .min(3, { message: 'Topic must have at least 3 characters' })
       .max(50, { message: 'Topic must have max 50 characters' }),
-    method: z.string(),
+    method: z.string().nullable(),
     feedback: z
       .object({
         active: z.boolean(),
