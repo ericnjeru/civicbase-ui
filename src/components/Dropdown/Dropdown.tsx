@@ -10,16 +10,20 @@ function Dropdown({
   values,
   onChange,
   value,
+  placeholder,
+  disabled = false,
   ...props
 }: {
   error?: boolean
   modified?: boolean
   values: string[]
   value: string
+  placeholder?: string
+  disabled?: boolean
   onChange: (value: string) => void
 }) {
   return (
-    <Listbox onChange={onChange} value={value} {...props}>
+    <Listbox onChange={onChange} value={value} disabled={disabled} {...props}>
       <div css={tw`relative mt-1`}>
         <Listbox.Button
           css={[
@@ -30,7 +34,9 @@ function Dropdown({
             error && tw`border-error-600 border-opacity-60`,
           ]}
         >
-          <span css={tw`block text-left truncate`}>{value}</span>
+          <span css={[tw`block text-left truncate`, (!value && placeholder) || (disabled && tw`text-gray-400`)]}>
+            {value || placeholder}
+          </span>
           <span css={tw`absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none`}>
             <HiOutlineSelector size={20} aria-hidden="true" />
           </span>
@@ -42,7 +48,7 @@ function Dropdown({
             {values.map((value) => (
               <Listbox.Option key={value} css={tw`cursor-default select-none relative`} value={value}>
                 {({ selected, active }) => (
-                  <div css={[tw`py-2 pl-10 pr-4`, active && tw`bg-brand text-white`]}>
+                  <div css={[tw`py-2 pl-10 pr-4`, active && tw`bg-brand text-white cursor-pointer`]}>
                     <span css={[selected ? tw`font-medium` : tw`font-normal`, tw`block truncate`]}>{value}</span>
                     {selected ? (
                       <span

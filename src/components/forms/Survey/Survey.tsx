@@ -18,17 +18,16 @@ import { createSurvey, editSurvey } from 'services/survey'
 import useAsync from 'hooks/use-async'
 import transform from './transform'
 import { useBanner } from 'contexts/banner'
-import { Survey as SurveyType } from '../../../../types/survey.d'
+import { EditSurvey } from '../../../../types/survey'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
-import ConjointTab from './tabs/ConjointTab'
 import QuestionTab from './tabs/QuestionTab'
 import { SurveyRequest } from '../../../../types/survey-request'
 
-const Survey = ({ survey }: { survey?: SurveyType }) => {
+const Survey = ({ survey }: { survey?: EditSurvey }) => {
   const getDefaultValues = (): SurveyForm => {
     if (survey?.id) {
-      const welcomeMessage = survey.message?.welcome && convertFromRaw(JSON.parse(survey.message?.welcome))
-      const completionMessage = survey.message?.completion && convertFromRaw(JSON.parse(survey.message?.completion))
+      const welcomeMessage = survey.message?.welcome && convertFromRaw(JSON.parse(survey?.message?.welcome))
+      const completionMessage = survey.message?.completion && convertFromRaw(JSON.parse(survey?.message?.completion))
 
       return {
         ...survey,
@@ -36,7 +35,15 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
           welcome: welcomeMessage ? EditorState.createWithContent(welcomeMessage) : EditorState.createEmpty(),
           completion: completionMessage ? EditorState.createWithContent(completionMessage) : EditorState.createEmpty(),
         },
-        questions: survey.questions.map((question) => {
+        quadratic: survey.quadratic?.map((question) => {
+          const statement = EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))
+
+          return {
+            ...question,
+            statement,
+          }
+        }),
+        conjoint: survey.conjoint?.map((question) => {
           const statement = EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))
 
           return {
@@ -64,8 +71,6 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
           welcome: EditorState.createEmpty(),
           completion: EditorState.createEmpty(),
         },
-        questions: [],
-        features: {},
       }
     }
   }
@@ -122,8 +127,6 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
                 Setup
               </CustomTabItem>
 
-              <ConjointTab />
-
               <CustomTabItem id="language" icon={IoLanguageOutline}>
                 Language Designation
               </CustomTabItem>
@@ -143,15 +146,19 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
 
             <div css={tw`w-full bg-white rounded-md p-4 pt-0`}>
               <TabPanel value="setup">
-                <Forms.Setup />
+                <Forms.Setup isEditing={!!survey?.id} />
               </TabPanel>
 
               <TabPanel value="language">
                 <Forms.Language />
               </TabPanel>
 
-              <TabPanel value="questions">
-                <Forms.Questions />
+              <TabPanel value="quadratic">
+                <Forms.Quadratic />
+              </TabPanel>
+
+              <TabPanel value="conjoint">
+                <Forms.Conjoint />
               </TabPanel>
 
               <TabPanel value="messages">
@@ -160,10 +167,6 @@ const Survey = ({ survey }: { survey?: SurveyType }) => {
 
               <TabPanel value="features">
                 <Forms.Features />
-              </TabPanel>
-
-              <TabPanel value="conjoint">
-                <Forms.Conjoint />
               </TabPanel>
             </div>
           </Tabs>

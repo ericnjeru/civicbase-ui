@@ -1,8 +1,8 @@
-import { Answer } from '../../types/answer'
-import { Survey } from '../../types/survey'
+import { QuadraticAnswer } from '../../types/answer'
+import { SurveyDashboard } from '../../types/survey'
 
-export const survey: Survey = {
-  questions: [
+export const survey: SurveyDashboard = {
+  quadratic: [
     {
       id: 'QV1',
       statement: '11111',
@@ -24,9 +24,6 @@ export const survey: Survey = {
       id: 'QV5',
     },
   ],
-  features: {},
-  message: {},
-  publishedAt: '2022-01-18T13:08:55.144Z',
   analytics: {
     previous: {
       respondents: 104,
@@ -54,11 +51,10 @@ export const survey: Survey = {
     token: 'Credits',
     thumbsUp: 'Agree',
   },
-  createdAt: '2022-01-18T12:50:45.277Z',
   id: 'FXvKAFKaYnFKZzKkWg0c',
 }
 
-export const answers: Answer[] = [
+export const answers: QuadraticAnswer[] = [
   {
     questions: [
       {

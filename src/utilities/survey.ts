@@ -1,6 +1,6 @@
-import { Question } from '../../types/survey.d'
+import { QuadraticForSurvey } from '../../types/survey-base'
 
-export const createQuestions = (questions: Question[]) => {
+export const createQuestions = (questions: QuadraticForSurvey[]) => {
   return questions.map((question) => ({
     ...question,
     vote: 0,

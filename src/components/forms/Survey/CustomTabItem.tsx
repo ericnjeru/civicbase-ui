@@ -9,10 +9,12 @@ const CustomTabItem = ({
   children,
   id,
   icon,
+  disabled = false,
 }: {
   children: string
   id: string
   icon: FunctionComponent<IconBaseProps>
+  disabled?: boolean
 }) => {
   const {
     trigger,
@@ -40,10 +42,12 @@ const CustomTabItem = ({
         (isValid || hasError) && tw`text-white transition-all ease-in-out duration-700`,
         isValid && tw`bg-green-400  focus:ring-green-300 hover:bg-green-400`,
         hasError && tw`bg-red-400 focus:ring-red-300 hover:bg-red-400`,
+        disabled && tw`bg-yellow-200 hover:bg-yellow-300`,
       ]}
+      disabled={disabled}
     >
       <div css={tw`mr-2`}>{createElement(isValid ? FaCheck : icon, { size: 20, 'aria-hidden': true })}</div>
-      <TabLabel id={id} css={[(isValid || hasError) && tw`text-white`]}>
+      <TabLabel id={id} css={[(isValid || hasError) && tw`text-white`, disabled && tw`text-gray-900`]}>
         {children}
       </TabLabel>
     </TabItem>

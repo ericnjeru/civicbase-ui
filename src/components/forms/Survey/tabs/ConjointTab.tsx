@@ -1,6 +1,6 @@
 import { useWatch } from 'react-hook-form'
 import CustomTabItem from '../CustomTabItem'
-import { BiCog } from 'react-icons/bi'
+import { BsQuestion } from 'react-icons/bs'
 
 const ConjointTab = () => {
   const method = useWatch({ name: 'setup.method' })
@@ -10,8 +10,8 @@ const ConjointTab = () => {
   }
 
   return (
-    <CustomTabItem id="conjoint" icon={BiCog}>
-      Conjoint
+    <CustomTabItem id="conjoint" icon={BsQuestion}>
+      Questions
     </CustomTabItem>
   )
 }

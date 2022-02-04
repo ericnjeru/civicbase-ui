@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import DynamicBar from 'components/DynamicBar'
-import { Survey as SurveyProps } from '../../../../types/survey-response'
+import { SurveyRespondent } from '../../../../types/survey'
 import { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
 import { PrimaryButton } from 'components/Button'
@@ -12,10 +12,10 @@ import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 import Dialog from 'components/Dialog'
-import 'draft-js/dist/Draft.css'
 import TextArea from 'components/Form/TextArea'
+import 'draft-js/dist/Draft.css'
 
-const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () => void }) => {
+const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useMethod(survey)
   const { metadata, params, pageLoad } = useMetadata()
@@ -73,9 +73,11 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
         buttonText="Ok, I got it!"
       />
 
-      <div css={tw`sticky z-50`} style={{ top: 76 }}>
-        <DynamicBar total={credits} availableCredits={availableCredits} language={token} />
-      </div>
+      {credits && (
+        <div css={tw`sticky z-50`} style={{ top: 76 }}>
+          <DynamicBar total={credits} availableCredits={availableCredits} language={token} />
+        </div>
+      )}
 
       <div css={tw`flex flex-col items-center space-y-24 mt-20`}>
         {questions.map((question, index) => {
@@ -124,4 +126,4 @@ const Survey = ({ survey, handleNext }: { survey: SurveyProps; handleNext: () =>
   )
 }
 
-export default Survey
+export default Quadratic

@@ -1,17 +1,18 @@
-import { useFormContext, useFieldArray } from 'react-hook-form'
+import { useFormContext, useFieldArray, Controller } from 'react-hook-form'
 import tw from 'twin.macro'
+import { EditorState } from 'draft-js'
 import AddButton from 'components/AddButton'
-import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import QuestionContent from './QuestionContent'
 import { IconButton } from 'components/Button'
 import { AiOutlineClose } from 'react-icons/ai'
+import TextEditor from 'components/TextEditor'
 
 const Conjoint = () => {
   const methods = useFormContext()
   const {
-    register,
+    control,
     formState: { errors },
   } = methods
 
@@ -30,7 +31,11 @@ const Conjoint = () => {
                 <AiOutlineClose />
               </IconButton>
             </div>
-            <Input {...register(`conjoint.${index}.statement`)} key={field.id} />
+            <Controller
+              name={`conjoint.${index}.statement`}
+              control={control}
+              render={({ field }) => <TextEditor {...field} />}
+            />
             <FieldErrorMessage css={tw`ml-2`} name={`conjoint.${index}.statement`} errors={errors} />
 
             <div css={tw`mt-8`}>
@@ -39,7 +44,10 @@ const Conjoint = () => {
           </>
         ))}
       </div>
-      <AddButton css={[tw`h-12`, fields.length > 0 && tw`mt-16`]} onClick={() => append({ statement: '' })}>
+      <AddButton
+        css={[tw`h-12`, fields.length > 0 && tw`mt-16`]}
+        onClick={() => append({ statement: EditorState.createEmpty() })}
+      >
         + Add Question
       </AddButton>
     </>

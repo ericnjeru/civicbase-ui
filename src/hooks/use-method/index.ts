@@ -1,12 +1,12 @@
 import Quadratic from './quadratic'
-import Linear from './linear'
+import Likert from './likert'
 import Conjoint from './conjoint'
-import { QuestionForSurvey } from '../../../types/survey'
-import { Survey } from '../../../types/survey-response'
+import { QuestionForSurvey } from '../../../types/survey-base'
+import { SurveyRespondent } from '../../../types/survey'
 
 const methods = {
   Quadratic,
-  Linear,
+  Likert,
   Conjoint,
 }
 
@@ -17,7 +17,7 @@ type UseMethod = {
   availableCredits: number
 }
 
-const useMethod = (survey: Survey): UseMethod => {
+const useMethod = (survey: SurveyRespondent): UseMethod => {
   const { method } = survey.setup
 
   return methods[method](survey)

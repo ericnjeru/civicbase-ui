@@ -1,12 +1,12 @@
 import * as Table from 'components/Table'
 import Typography from 'components/Typography'
 import tw from 'twin.macro'
-import { Answer } from '../../../../types/answer'
-import { Survey } from '../../../../types/survey'
+import { QuadraticAnswer } from '../../../../types/answer'
+import { SurveyDashboard } from '../../../../types/survey'
 
 const userId = ['userid', 'userId', 'userID']
 
-const AnswerTable = ({ survey, answers }: { survey: Survey; answers: Answer[] }) => {
+const AnswerTable = ({ survey, answers }: { survey: SurveyDashboard; answers: QuadraticAnswer[] }) => {
   const checkUserId = () => {
     let flag = false
     answers.forEach((answer) => {
@@ -28,7 +28,7 @@ const AnswerTable = ({ survey, answers }: { survey: Survey; answers: Answer[] })
         <Table.Row>
           <Table.Header />
           {hasUserId && <Table.Header css={tw`text-center`}>User Id</Table.Header>}
-          {survey.questions.map((question) => (
+          {survey.quadratic?.map((question) => (
             <Table.Header css={tw`text-center`} key={question.id}>
               {question.id}
             </Table.Header>

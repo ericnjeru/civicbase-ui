@@ -1,14 +1,16 @@
-import { Methods, Survey } from '../../types/survey'
+import { CreateSurvey } from '../../types/survey'
+import { Methods, Survey } from '../../types/survey-base'
 
 export type CreateRequest = {
-  body: Survey & { setup: { method: Methods } }
+  body: CreateSurvey
   [key: string]: any // not happy with this, but the only way I found so far to add user to the request
 }
 
 export type CreateAnswerRequest = {
   body: {
     surveyId: string
-    questions: AnswerQuestion[]
+    quadratic?: QuadraticAnswer[]
+    conjoint?: ConjointAnswer[]
     researcherId: string
     status: string
     time: {
@@ -22,7 +24,13 @@ export type CreateAnswerRequest = {
   }
 }
 
-type AnswerQuestion = {
+type ConjointAnswer = {
+  id: string
+  statement: string
+  selected: string
+}
+
+type QuadraticAnswer = {
   id: string
   statement: string
   vote: number

@@ -1,7 +1,7 @@
 import * as Table from 'components/Table'
 import tw from 'twin.macro'
-import { Answer } from '../../../../types/answer'
-import { Survey } from '../../../../types/survey'
+import { QuadraticAnswer } from '../../../../types/answer'
+import { SurveyDashboard } from '../../../../types/survey'
 
 type Result = {
   pilot: {
@@ -15,7 +15,7 @@ type Result = {
   }
 }
 
-const SurveyTable = ({ survey, answers }: { survey: Survey; answers: Answer[] }) => {
+const SurveyTable = ({ survey, answers }: { survey: SurveyDashboard; answers: QuadraticAnswer[] }) => {
   console.log(survey)
 
   const results = answers.reduce(

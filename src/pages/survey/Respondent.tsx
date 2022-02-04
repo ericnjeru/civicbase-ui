@@ -26,18 +26,25 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId 
   if (survey.data?.id) {
     const { method } = survey.data.setup
 
+    const getQuestions = () => {
+      switch (method) {
+        case 'Conjoint':
+          return <Survey.Conjoint survey={survey.data} handleNext={() => setStep('completion')} />
+        case 'Quadratic':
+          return <Survey.Quadratic survey={survey.data} handleNext={() => setStep('completion')} />
+        case 'Likert':
+          return <div>TODO</div>
+        default:
+          return <div>error</div>
+      }
+    }
+
     return (
       <MetadataProvider>
         {step === 'welcome' && hasMessage('welcome') && (
           <Survey.WelcomeMessage survey={survey.data} handleNext={() => setStep('questions')} />
         )}
-
-        {step === 'questions' && method !== 'Conjoint' && (
-          <Survey.Questions survey={survey.data} handleNext={() => setStep('completion')} />
-        )}
-
-        {step === 'questions' && method === 'Conjoint' && <Survey.Conjoint survey={survey.data} />}
-
+        {step === 'questions' && getQuestions()}
         {step === 'completion' && hasMessage('completion') && <Survey.CompletionMessage survey={survey.data} />}
       </MetadataProvider>
     )

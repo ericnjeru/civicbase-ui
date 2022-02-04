@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import Survey from 'components/forms/Survey'
-import { Survey as SurveyType } from '../../../types/survey.d'
+import { EditSurvey } from '../../../types/survey'
 
 const Edit: FC<RouteComponentProps> = ({ location }) => {
-  return <Survey survey={location?.state as SurveyType} />
+  return <Survey survey={location?.state as EditSurvey} />
 }
 
 export default Edit

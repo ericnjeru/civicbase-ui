@@ -1,94 +1,44 @@
-export interface Survey {
-  setup: Setup
-  language: Language
+import { Analytics, Conjoint, Message, Status, Survey } from './survey-base'
+
+export interface SurveyRespondent extends Survey {
   message?: Message
-  questions: Question[]
-  features?: Features
-  qualtrics?: Qualtrics
-  analytics: Analytics
   id: string
-  createdAt: string
   uid: string
   status: Status
-  publishedAt?: string
-  finishedAt?: string
+  quadratic?: {
+    id: string
+    statement: string
+  }[]
   conjoint?: Conjoint[]
 }
 
-export type Status = 'pilot' | 'published' | 'finished'
-
-export type Methods = 'Linear' | 'Quadratic' | 'Conjoint'
-
-export type Setup = {
-  topic: string
-  method: Methods | null
-  credits: number
-  feedback?: {
-    active: boolean
-    question: string
-  }
+export interface CreateSurvey extends Survey {
+  message?: Message
+  quadratic?: {
+    statement: string
+  }[]
+  conjoint?: Conjoint[]
 }
 
-export type Language = {
-  token: string
-  thumbsUp?: string
-  thumbsDown?: string
-  jargon: string
-}
-
-export type Message = {
-  welcome?: string
-  completion?: string
-}
-
-export type Question = {
+export interface EditSurvey extends Survey {
   id?: string
-  statement: any
+  message?: Message
+  quadratic?: {
+    id: string
+    statement: string
+  }[]
+  conjoint?: Conjoint[]
 }
 
-export type Conjoint = {
-  id?: string
-  statement: string
-  attributes: ConjointAttributes[]
-  items: ConjointItems[]
-}
-
-export type ConjointAttributes = {
+export interface SurveyDashboard extends Survey {
+  message?: Message
   id: string
-  name: string
-  key: string
-}
-
-type ConjointItems = {
-  id: number
-  [key: string]: string
-}
-
-export type Features = {
-  qualtrics?: boolean
-  userIdentification?: boolean
-}
-
-export type Qualtrics = {
-  link: string
-}
-
-export type Analytics = {
-  current: {
-    respondents: number
-    access: number
-  }
-  previous: {
-    respondents: number
-    access: number
-  }
-  history: {
-    respondents: number
-    access: number
-  }
-}
-
-export interface QuestionForSurvey extends Question {
-  vote: number
-  credits: number
+  uid: string
+  status: Status
+  quadratic?: {
+    id: string
+    statement: string
+  }[]
+  conjoint?: Conjoint[]
+  analytics: Analytics
 }

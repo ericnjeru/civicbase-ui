@@ -1,6 +1,6 @@
 import Typography, { Headline, Title } from 'components/Typography'
 import tw from 'twin.macro'
-import { Survey } from '../../../../types/survey'
+import { Survey } from '../../../../types/survey-base'
 
 const Header = ({ survey }: { survey: Survey }) => {
   return (

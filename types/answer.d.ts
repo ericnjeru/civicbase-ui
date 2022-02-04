@@ -1,13 +1,12 @@
-import { Status } from './survey.d'
+import { QuestionForSurvey, Status, ConjointQuestions } from './survey-base'
 
 // TODO: there 2 types of answer one when you create answer and the other one when you get from db
-export type Answer = {
+type Answer = {
   surveyId: string
-  questions: Question[]
   researcherId: string
   status: Status
   time: Time
-  leftCredits: number
+  leftCredits?: number
   feedback?: string
   [key: string]: any
 }
@@ -24,4 +23,12 @@ type Time = {
   startAt: string
   pageLoadAt: string | null
   questionPageLoadAt: string | null
+}
+
+export interface QuadraticAnswer extends Answer {
+  questions: QuestionForSurvey[]
+}
+
+export interface ConjointAnswer extends Answer {
+  questions: ConjointQuestions[]
 }

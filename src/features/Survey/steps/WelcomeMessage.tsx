@@ -2,9 +2,9 @@ import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import tw from 'twin.macro'
 import { PrimaryButton } from 'components/Button'
-import { Survey } from '../../../../types/survey'
+import { SurveyRespondent } from '../../../../types/survey'
 
-const WelcomeMessage = ({ survey, handleNext }: { survey: Survey; handleNext: () => void }) => {
+const WelcomeMessage = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   if (!survey.message?.welcome) {
     return null
   }

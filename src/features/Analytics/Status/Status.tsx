@@ -4,9 +4,9 @@ import * as Stats from 'components/Stats'
 import Badge from 'components/Badge'
 
 import useSurveyAnalytics from 'hooks/use-survey-analytics'
-import { Survey } from '../../../../types/survey'
+import { SurveyDashboard } from '../../../../types/survey'
 
-const Status = ({ survey }: { survey: Survey }) => {
+const Status = ({ survey }: { survey: SurveyDashboard }) => {
   const { totalAccess, totalRespondents, accessIncrement, respondentsIncrement, convertionRate, convertionIncrement } =
     useSurveyAnalytics(survey)
 

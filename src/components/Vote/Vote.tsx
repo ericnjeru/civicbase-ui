@@ -3,7 +3,11 @@ import Typography, { Caption } from 'components/Typography'
 import { IoIosThumbsDown, IoIosThumbsUp } from 'react-icons/io'
 import tw, { theme } from 'twin.macro'
 
-const Display = ({ total, vote, creditSpent }: { total: number; vote: number; creditSpent: number }) => {
+const Display = ({ total, vote, creditSpent }: { total?: number; vote: number; creditSpent: number }) => {
+  if (!total) {
+    return null
+  }
+
   const getSize = () => {
     const size = (creditSpent / total) * 100
     const r = size < 0 ? size * -1 : size
@@ -48,15 +52,19 @@ const Vote = ({
   canVoteUp,
   canVoteDown,
 }: {
-  thumbsUp: string
-  thumbsDown: string
+  thumbsUp?: string
+  thumbsDown?: string
   handleVote: (direction: number) => void
   vote: number
-  total: number
+  total?: number
   creditSpent: number
   canVoteUp: boolean
   canVoteDown: boolean
 }) => {
+  if (!thumbsDown && !thumbsUp && !total) {
+    return null
+  }
+
   return (
     <div css={tw`flex items-center`}>
       <div css={tw`mx-6`}>

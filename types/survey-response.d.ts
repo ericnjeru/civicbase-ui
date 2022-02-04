@@ -1,10 +1,12 @@
-import { Message, Question, Features, Qualtrics, Analytics, Status, Methods } from './survey'
+// TODO: delete
+
+import { Message, Features, Qualtrics, Analytics, Status, Methods, Quadratic } from './survey-base'
 
 export interface Survey {
   setup: Setup
   language: Language
   message?: Message
-  questions: Question[]
+  quadratic: Quadratic[]
   features?: Features
   qualtrics?: Qualtrics
   analytics: Analytics

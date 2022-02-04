@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// TODO resolve anys
-
 import { createContext, ReactElement, useContext, useReducer, useEffect, useState } from 'react'
 import useAsync from 'hooks/use-async'
 import { getSurveys } from 'services/survey'
-import { Survey } from '../../types/survey'
+import { SurveyDashboard } from '../../types/survey'
 
-export interface SurveyState extends Survey {
+export interface SurveyState extends SurveyDashboard {
   isLoading?: boolean
 }
 

@@ -1,16 +1,63 @@
+import { Editor, EditorState, convertFromRaw } from 'draft-js'
+import { useEffect, useState } from 'react'
+import tw, { theme } from 'twin.macro'
 import Card from 'components/Card'
 import Typography, { Headline } from 'components/Typography'
-import { useState } from 'react'
-import tw, { theme } from 'twin.macro'
-import { ConjointItems, Survey } from '../../../../types/survey'
+import { ConjointItems } from '../../../../types/survey-base'
 import { AiFillCheckCircle } from 'react-icons/ai'
+import { SurveyRespondent } from '../../../../types/survey'
+import useConjoint from 'hooks/use-conjoint'
+import 'draft-js/dist/Draft.css'
+import TextArea from 'components/Form/TextArea'
+import { PrimaryButton } from 'components/Button'
+import { ConjointAnswer } from '../../../../types/answer'
+import { useMetadata } from 'contexts/metadata'
+import useAsync from 'hooks/use-async'
+import { createAnswer } from 'services/survey'
 
-const Conjoint = ({ survey }: { survey: Survey }) => {
-  const [selected, setSelected] = useState<number | null>(null)
+const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
+  const { metadata, params, pageLoad } = useMetadata()
+  const { questions, vote } = useConjoint(survey)
+  const [feedbackText, setFeedback] = useState('')
+  const { run, isSuccess } = useAsync()
+
+  useEffect(() => {
+    pageLoad()
+  }, [pageLoad])
+
+  useEffect(() => {
+    if (isSuccess) {
+      handleNext()
+    }
+  }, [isSuccess, handleNext])
+
+  const handleSelect = (questionIndex: number, id: string) => {
+    vote(questionIndex, id)
+  }
+
+  const handleSubmit = () => {
+    const answer: ConjointAnswer = {
+      surveyId: survey.id,
+      questions,
+      researcherId: survey.uid,
+      status: survey.status,
+      time: {
+        ...metadata,
+        submitedAt: new Date().toISOString(),
+      },
+      ...params,
+    }
+
+    if (survey.setup.feedback?.active && feedbackText.length > 0) {
+      answer.feedback = feedbackText
+    }
+
+    run(createAnswer(answer))
+  }
 
   return (
     <div>
-      {survey.conjoint?.map((question, index) => (
+      {questions.map((question, index) => (
         <div css={tw`grid grid-cols-5 gap-4`} key={question.statement}>
           <div css={tw`mt-20`}>
             {question.attributes.map((attr) => (
@@ -21,21 +68,26 @@ const Conjoint = ({ survey }: { survey: Survey }) => {
           </div>
 
           <div css={tw`col-span-4`}>
-            <Headline css={tw`mb-4`}>
-              {index + 1}. {question.statement}
+            <Headline css={tw`mb-4 flex`}>
+              {index + 1}.{' '}
+              <Editor
+                editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
+                onChange={() => {}}
+                readOnly
+              />
             </Headline>
 
             <div css={tw`grid grid-cols-3 gap-4`}>
-              {question.items.map((item: ConjointItems, itemIndex: number) => (
+              {question.items.map((item: ConjointItems) => (
                 <Card
                   key="1"
                   css={[
                     tw`mt-4 hover:(ring-brand2 ring-inset ring-2 cursor-pointer) relative`,
-                    selected === itemIndex && tw`ring-brand2 ring-inset ring-2 border-none`,
+                    question.selected === item.id && tw`ring-brand2 ring-inset ring-2 border-none`,
                   ]}
-                  onClick={() => setSelected(itemIndex)}
+                  onClick={() => handleSelect(index, item.id)}
                 >
-                  {selected === itemIndex && (
+                  {question.selected === item.id && (
                     <AiFillCheckCircle
                       size={24}
                       color={theme`colors.brand2`}
@@ -44,12 +96,32 @@ const Conjoint = ({ survey }: { survey: Survey }) => {
                   )}
 
                   {Object.values(item).map((a, index: number) => (
-                    <Typography key={item[`attibute${index}`]} css={tw`mb-6 text-center`}>
+                    <Typography
+                      key={item[`attibute${index}`]}
+                      css={[tw`mb-6 last:mb-0 text-center`, index === 0 && tw`font-bold`]}
+                    >
                       {item[`attribute${index}`]}
                     </Typography>
                   ))}
                 </Card>
               ))}
+            </div>
+
+            <div css={tw`mt-16`}>
+              {survey.setup.feedback?.active && (
+                <div>
+                  <Headline>{survey.setup.feedback.question}</Headline>
+
+                  <TextArea
+                    value={feedbackText}
+                    onChange={({ target: { value } }) => {
+                      setFeedback(value)
+                    }}
+                    css={tw`mt-4`}
+                  />
+                </div>
+              )}
+              <PrimaryButton onClick={handleSubmit}>Submit</PrimaryButton>
             </div>
           </div>
         </div>

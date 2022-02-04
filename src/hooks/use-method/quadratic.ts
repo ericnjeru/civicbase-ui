@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import { createQuestions } from 'utilities/survey'
-import { QuestionForSurvey, Survey } from '../../../types/survey'
+import { SurveyRespondent } from '../../../types/survey'
+import { QuestionForSurvey } from '../../../types/survey-base'
 
-const Quadratic = (survey: Survey) => {
+const Quadratic = (survey: SurveyRespondent) => {
   const {
     setup: { credits },
-    questions: originalQuestions,
+    quadratic,
   } = survey
 
   const [questions, setQuestions] = useState<QuestionForSurvey[]>([])
-  const [availableCredits, setAvailableCredits] = useState(credits)
+  const [availableCredits, setAvailableCredits] = useState(credits || 0)
 
   const canVote = (index: number, vote: number) => {
     let simulatedCost = 0
@@ -21,6 +22,10 @@ const Quadratic = (survey: Survey) => {
         simulatedCost += q.credits
       }
     })
+
+    if (!credits) {
+      return false
+    }
 
     return simulatedCost <= credits
   }
@@ -39,14 +44,18 @@ const Quadratic = (survey: Survey) => {
 
   //   Setup questions for survey
   useEffect(() => {
-    setQuestions(createQuestions(originalQuestions))
-  }, [originalQuestions])
+    if (quadratic) {
+      setQuestions(createQuestions(quadratic))
+    }
+  }, [quadratic])
 
   //   Update available credits
   useEffect(() => {
     const totalCost = questions.reduce((cost, question) => cost + Math.pow(question.vote, 2), 0)
 
-    setAvailableCredits(credits - totalCost)
+    if (credits) {
+      setAvailableCredits(credits - totalCost)
+    }
   }, [questions, credits])
 
   return { canVote, vote, questions, availableCredits }

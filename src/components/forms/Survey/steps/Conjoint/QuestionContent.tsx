@@ -5,7 +5,7 @@ import EditText from 'components/EditText'
 import Card from 'components/Card'
 import { IconButton } from 'components/Button'
 import { AiOutlineClose } from 'react-icons/ai'
-import { ConjointAttributes } from '../../../../../../types/survey'
+import { ConjointAttributes } from '../../../../../../types/survey-base'
 
 const QuestionContent = ({ questionIndex }: { questionIndex: number }) => {
   const conjoint = useWatch({ name: `conjoint.${questionIndex}` })

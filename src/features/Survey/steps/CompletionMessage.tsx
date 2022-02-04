@@ -1,8 +1,8 @@
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
+import { SurveyRespondent } from '../../../../types/survey'
 import 'draft-js/dist/Draft.css'
-import { Survey } from '../../../../types/survey'
 
-const CompletionMessage = ({ survey }: { survey: Survey }) => {
+const CompletionMessage = ({ survey }: { survey: SurveyRespondent }) => {
   if (!survey.message?.completion) {
     return null
   }

@@ -4,18 +4,21 @@ import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
 import Dropdown from 'components/Dropdown'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
-import { Methods } from '../../../../../../types/survey'
+import { Methods } from '../../../../../../types/survey-base'
 import Switch from 'components/Switch'
+// import { useEffect } from 'react'
 
-const Setup = () => {
+const Setup = ({ isEditing }: { isEditing: boolean }) => {
   const {
     register,
     control,
+    // setValue,
     formState: { errors },
   } = useFormContext()
 
   const isActive = useWatch({ name: 'setup.feedback.active' })
-  const methods: Methods[] = ['Quadratic', 'Linear', 'Conjoint']
+  const method = useWatch({ name: 'setup.method' })
+  const methods: Methods[] = ['Quadratic', 'Likert', 'Conjoint']
 
   return (
     <>
@@ -29,19 +32,25 @@ const Setup = () => {
           <Controller
             name="setup.method"
             control={control}
-            render={({ field }) => <Dropdown values={methods} {...field} />}
+            render={({ field }) => (
+              <Dropdown disabled={isEditing} placeholder="Select survey method" values={methods} {...field} />
+            )}
           />
         </div>
 
         <div>
-          <Label>Total number of credits *</Label>
-          <Input
-            {...register('setup.credits', { valueAsNumber: true, required: true })}
-            type="number"
-            step={1}
-            error={!!errors.setup?.credits}
-          />
-          <FieldErrorMessage css={tw`ml-2`} name="setup.credits" errors={errors} />
+          {method === 'Quadratic' && (
+            <>
+              <Label>Total number of credits *</Label>
+              <Input
+                {...register('setup.credits', { valueAsNumber: true })}
+                type="number"
+                step={1}
+                error={!!errors.setup?.credits}
+              />
+              <FieldErrorMessage css={tw`ml-2`} name="setup.credits" errors={errors} />
+            </>
+          )}
         </div>
 
         <Controller

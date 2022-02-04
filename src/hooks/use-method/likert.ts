@@ -4,7 +4,7 @@ import { SurveyRespondent } from '../../../types/survey'
 import { QuestionForSurvey } from '../../../types/survey-base'
 
 // TODO:
-const Conjoint = (survey: SurveyRespondent) => {
+const Likert = (survey: SurveyRespondent) => {
   const {
     setup: { credits },
     quadratic,
@@ -23,7 +23,6 @@ const Conjoint = (survey: SurveyRespondent) => {
         simulatedCost += q.credits
       }
     })
-
     if (!credits) {
       return false
     }
@@ -62,4 +61,4 @@ const Conjoint = (survey: SurveyRespondent) => {
   return { canVote, vote, questions, availableCredits }
 }
 
-export default Conjoint
+export default Likert

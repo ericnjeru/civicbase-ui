@@ -5,7 +5,8 @@ export const validationSchema = z.object({
     credits: z
       .number()
       .min(1, { message: 'Credits must be a positive value greater than 0' })
-      .max(1000, { message: 'Credits must be less than 1001' }),
+      .max(1000, { message: 'Credits must be less than 1001' })
+      .optional(),
     topic: z
       .string()
       .min(3, { message: 'Topic must have at least 3 characters' })
@@ -13,8 +14,8 @@ export const validationSchema = z.object({
     method: z.string().nullable(),
     feedback: z
       .object({
-        active: z.boolean(),
-        question: z.string(),
+        active: z.boolean().optional(),
+        question: z.string().optional(),
       })
       .optional(),
   }),
@@ -53,11 +54,13 @@ export const validationSchema = z.object({
       },
       { message: 'Custom Credit Language is required', path: ['customToken'] },
     ),
-  message: z.object({
-    welcome: z.any().optional(),
-    completion: z.any().optional(),
-  }),
-  questions: z
+  message: z
+    .object({
+      welcome: z.any().optional(),
+      completion: z.any().optional(),
+    })
+    .optional(),
+  quadratic: z
     .array(
       z.object({
         statement: z.any(),
@@ -77,7 +80,8 @@ export const validationSchema = z.object({
   conjoint: z
     .array(
       z.object({
-        statement: z.string(),
+        id: z.string().optional(),
+        statement: z.any(),
         items: z.any(),
         attributes: z.any(),
       }),

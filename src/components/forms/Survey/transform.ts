@@ -1,18 +1,32 @@
 import { convertToRaw } from 'draft-js'
 import { SurveyForm } from '../../../../types/forms'
+import { Setup } from '../../../../types/survey-base'
 import { SurveyRequest } from '../../../../types/survey-request'
 
 const transform = (request: SurveyForm): SurveyRequest => {
   const welcome = request.message?.welcome
   const completion = request.message?.completion
-  const { questions } = request
+  const { quadratic, conjoint, setup, language, features } = request
 
   const transformedRequest: SurveyRequest = {
-    setup: request.setup,
-    qualtrics: request.qualtrics,
-    language: request.language,
-    features: request.features,
-    id: request.id,
+    setup: setup as Setup,
+    language: language,
+  }
+
+  if (!transformedRequest.setup.feedback?.active) {
+    delete transformedRequest.setup.feedback
+  }
+
+  if (request.id) {
+    transformedRequest.id = request.id
+  }
+
+  if (request.qualtrics) {
+    transformedRequest.qualtrics = request.qualtrics
+  }
+
+  if (features && Object.keys(features).length > 0) {
+    transformedRequest.features = features
   }
 
   if (welcome && request.message?.welcome) {
@@ -35,8 +49,8 @@ const transform = (request: SurveyForm): SurveyRequest => {
     }
   }
 
-  if (questions) {
-    transformedRequest.questions = questions.map((question) => {
+  if (quadratic && quadratic.length > 0 && setup.method === 'Quadratic') {
+    transformedRequest.quadratic = quadratic.map((question) => {
       const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
 
       return {
@@ -46,8 +60,15 @@ const transform = (request: SurveyForm): SurveyRequest => {
     })
   }
 
-  if (request.conjoint) {
-    transformedRequest.conjoint = request.conjoint
+  if (conjoint && conjoint.length > 0 && setup.method === 'Conjoint') {
+    transformedRequest.conjoint = conjoint.map((question) => {
+      const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
+
+      return {
+        ...question,
+        statement,
+      }
+    })
   }
 
   if (transformedRequest.language.jargon !== 'Custom') {

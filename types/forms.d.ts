@@ -1,15 +1,38 @@
 import { EditorState } from 'draft-js'
-import { Setup, Language, Question, Features, Qualtrics } from './survey'
+import { Language, Features, Qualtrics, Methods } from './survey-base'
 
 export type SurveyForm = {
-  setup: Setup
+  setup: {
+    topic: string
+    method: Methods | null
+    credits?: number
+    feedback?: {
+      active: boolean
+      question: string
+    }
+  }
   language: Language
-  message: Message
-  questions?: Question[]
+  message?: {
+    welcome: EditorState
+    completion: EditorState
+  }
+  quadratic?: QuadraticQuestion[]
+  conjoint?: ConjointQuestion[]
   features?: Features
   qualtrics?: Qualtrics
-  conjoint?: Conjoint
   id?: string
+}
+
+type QuadraticQuestion = {
+  id: string
+  statement: EditorState
+}
+
+type ConjointQuestion = {
+  id?: string
+  statement: EditorState
+  attributes: ConjointAttributes[]
+  items: ConjointItems[]
 }
 
 type Message = {

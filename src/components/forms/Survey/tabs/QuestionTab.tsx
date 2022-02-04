@@ -1,16 +1,12 @@
 import { useWatch } from 'react-hook-form'
 import CustomTabItem from '../CustomTabItem'
-import { BsListCheck } from 'react-icons/bs'
+import { BsQuestion } from 'react-icons/bs'
 
 const QuestionTab = () => {
   const method = useWatch({ name: 'setup.method' })
 
-  if (method === 'Conjoint') {
-    return null
-  }
-
   return (
-    <CustomTabItem id="questions" icon={BsListCheck}>
+    <CustomTabItem id={method ? method.toLowerCase() : ''} icon={BsQuestion} disabled={!method}>
       Questions
     </CustomTabItem>
   )

@@ -1,23 +1,14 @@
 import { CreateRequest } from '../../types/survey'
-import { Methods, Survey } from '../../../types/survey'
 import { Answer } from '../../../types/answer'
 import { db } from '../config/firebase'
 import { Response, Request } from 'express'
 import { incrementAccess } from '../utils/survey'
+import { SurveyDashboard } from '../../../types/survey'
 
 enum MethodIds {
   Quadratic = 'QV',
-  Linear = 'L',
+  Likert = 'L',
   Conjoint = 'C',
-}
-
-// TODO: move to utils survey
-// Add default Ids to questions
-const setQuestions = (survey: Survey & { setup: { method: Methods } }) => {
-  return survey.questions.map((question, index: number) => ({
-    ...question,
-    id: `${MethodIds[survey.setup.method]}${index + 1}`,
-  }))
 }
 
 // TODO: move to utils survey
@@ -42,8 +33,25 @@ export const createSurvey = (req: CreateRequest, res: Response) => {
     createdAt: new Date().toISOString(),
     uid: req.user.uid,
     status: 'pilot',
-    questions: setQuestions(req.body),
     analytics: setAnalytics(),
+  }
+
+  if (req.body.quadratic) {
+    survey.quadratic = survey.quadratic?.map((question, index: number) => ({
+      ...question,
+      id: `${MethodIds[survey.setup.method]}${index + 1}`,
+    }))
+  }
+
+  if (req.body.conjoint) {
+    survey.conjoint = survey.conjoint?.map((question, index: number) => ({
+      ...question,
+      items: question.items.map((item, itemIndex) => ({
+        ...item,
+        id: `${MethodIds[survey.setup.method]}${index + 1}-item${itemIndex + 1}`,
+      })),
+      id: `${MethodIds[survey.setup.method]}${index + 1}`,
+    }))
   }
 
   db.collection('surveys')
@@ -73,11 +81,11 @@ export const surveys = (req: any, res: Response) => {
     .where('uid', '==', uid)
     .get()
     .then((data) => {
-      const list: Survey[] = []
+      const list: SurveyDashboard[] = []
 
       data.forEach((doc) => {
         list.push({
-          ...(doc.data() as Survey),
+          ...(doc.data() as SurveyDashboard),
           id: doc.id,
         })
       })
@@ -119,7 +127,7 @@ export const cloneSurvey = (req: Request, res: Response) => {
   db.doc(`/surveys/${surveyId}`)
     .get()
     .then((doc: any) => {
-      const clonedSurvey: Survey = {
+      const clonedSurvey = {
         ...doc.data(),
         setup: {
           ...doc.data().setup,
@@ -214,10 +222,10 @@ export const getSurveyForAnalytics = (req: Request, res: Response) => {
             .where('surveyId', '==', surveyId)
             .get()
             .then((data) => {
-              const answers: Answer[] = []
+              const answers: any = []
 
               data.forEach((doc) => {
-                answers.push({ ...(doc.data() as Answer), id: doc.id })
+                answers.push({ ...doc.data(), id: doc.id })
               })
 
               res.status(200).json({ survey: { ...survey.data(), id: survey.id }, answers })

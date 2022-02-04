@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { getSurvey } from 'services/survey'
-import { Survey } from '../../types/survey-response'
+import { SurveyRespondent } from '../../types/survey'
 import useAsync from './use-async'
 
 type UseSurvey = {
-  data: Survey
+  data: SurveyRespondent
   isLoading: boolean
   isError: boolean
   isSuccess: boolean

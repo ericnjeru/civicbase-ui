@@ -1,4 +1,4 @@
-import { Survey } from '../../types/survey'
+import { SurveyDashboard } from '../../types/survey'
 
 type SurveyAnalyticsReturn = {
   isAnalising: boolean
@@ -10,7 +10,7 @@ type SurveyAnalyticsReturn = {
   convertionIncrement?: number
 }
 
-const useSurveyAnalytics = (survey?: Survey): SurveyAnalyticsReturn => {
+const useSurveyAnalytics = (survey?: SurveyDashboard): SurveyAnalyticsReturn => {
   if (!survey) {
     return { isAnalising: true }
   }
