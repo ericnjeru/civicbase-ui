@@ -6,7 +6,6 @@ import { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
 import { PrimaryButton } from 'components/Button'
 import { useEffect, useState } from 'react'
-import useMethod from 'hooks/use-method'
 import { useMetadata } from 'contexts/metadata'
 import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
@@ -14,10 +13,11 @@ import { createAnswer } from 'services/survey'
 import Dialog from 'components/Dialog'
 import TextArea from 'components/Form/TextArea'
 import 'draft-js/dist/Draft.css'
+import useQuadratic from 'hooks/use-quadratic'
 
 const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
-  const { questions, availableCredits, vote, canVote } = useMethod(survey)
+  const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { metadata, params, pageLoad } = useMetadata()
   const [openDialog, setOpenDialog] = useState(false)
   const [feedbackText, setFeedback] = useState('')

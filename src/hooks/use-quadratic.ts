@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { createQuestions } from 'utilities/survey'
-import { SurveyRespondent } from '../../../types/survey'
-import { QuestionForSurvey } from '../../../types/survey-base'
+import { SurveyRespondent } from '../../types/survey'
+import { QuestionForSurvey } from '../../types/survey-base'
 
-// TODO:
-const Conjoint = (survey: SurveyRespondent) => {
+const useQuadratic = (survey: SurveyRespondent) => {
   const {
     setup: { credits },
     quadratic,
@@ -62,4 +61,4 @@ const Conjoint = (survey: SurveyRespondent) => {
   return { canVote, vote, questions, availableCredits }
 }
 
-export default Conjoint
+export default useQuadratic

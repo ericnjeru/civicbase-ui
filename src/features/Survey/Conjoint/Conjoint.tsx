@@ -7,13 +7,13 @@ import { ConjointItems } from '../../../../types/survey-base'
 import { AiFillCheckCircle } from 'react-icons/ai'
 import { SurveyRespondent } from '../../../../types/survey'
 import useConjoint from 'hooks/use-conjoint'
-import 'draft-js/dist/Draft.css'
 import TextArea from 'components/Form/TextArea'
 import { PrimaryButton } from 'components/Button'
 import { ConjointAnswer } from '../../../../types/answer'
 import { useMetadata } from 'contexts/metadata'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
+import 'draft-js/dist/Draft.css'
 
 const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { metadata, params, pageLoad } = useMetadata()
