@@ -10,7 +10,6 @@ import { useMetadata } from 'contexts/metadata'
 import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
-import Dialog from 'components/Dialog'
 import TextArea from 'components/Form/TextArea'
 import 'draft-js/dist/Draft.css'
 import useQuadratic from 'hooks/use-quadratic'
@@ -19,7 +18,6 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
   const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { metadata, params, pageLoad } = useMetadata()
-  const [openDialog, setOpenDialog] = useState(false)
   const [feedbackText, setFeedback] = useState('')
   const {
     setup: { credits, feedback },
@@ -35,12 +33,6 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
       handleNext()
     }
   }, [isSuccess, handleNext])
-
-  useEffect(() => {
-    if (availableCredits === 0) {
-      setOpenDialog(true)
-    }
-  }, [availableCredits])
 
   const handleSubmit = () => {
     const answer: Answer = {
@@ -65,14 +57,6 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
 
   return (
     <div css={tw`container mx-auto`}>
-      <Dialog
-        open={openDialog}
-        handleOpen={setOpenDialog}
-        title="Credits"
-        text="You run out of credits."
-        buttonText="Ok, I got it!"
-      />
-
       {credits && (
         <div css={tw`sticky z-50`} style={{ top: 76 }}>
           <DynamicBar total={credits} availableCredits={availableCredits} language={token} />

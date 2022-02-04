@@ -3,6 +3,7 @@ import tw from 'twin.macro'
 import * as Transition from 'components/Transition'
 import Typography, { Subtitle } from 'components/Typography'
 import { PrimaryButton } from 'components/Button'
+import { Fragment } from 'react'
 
 export default function CDialog({
   open,
@@ -18,7 +19,7 @@ export default function CDialog({
   buttonText: string
 }) {
   return (
-    <HeadlessTransition appear show={open}>
+    <HeadlessTransition appear show={open} as={Fragment as any}>
       <Dialog css={tw`fixed inset-0 z-10 overflow-y-auto`} onClose={() => handleOpen(false)}>
         <div css={tw`min-h-screen px-4 text-center`}>
           <Transition.Primary>

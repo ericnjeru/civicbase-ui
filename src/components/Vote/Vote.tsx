@@ -1,7 +1,9 @@
+import { useState } from 'react'
+import tw, { theme } from 'twin.macro'
 import { IconButton } from 'components/Button'
+import Dialog from 'components/Dialog'
 import Typography, { Caption } from 'components/Typography'
 import { IoIosThumbsDown, IoIosThumbsUp } from 'react-icons/io'
-import tw, { theme } from 'twin.macro'
 
 const Display = ({ total, vote, creditSpent }: { total?: number; vote: number; creditSpent: number }) => {
   if (!total) {
@@ -61,14 +63,32 @@ const Vote = ({
   canVoteUp: boolean
   canVoteDown: boolean
 }) => {
+  const [openDialog, setOpenDialog] = useState(false)
+
   if (!thumbsDown && !thumbsUp && !total) {
     return null
   }
 
+  const onVote = (direction: number) => {
+    handleVote(direction)
+
+    if ((direction > 0 && !canVoteUp) || (direction < 0 && !canVoteDown)) {
+      setOpenDialog(true)
+    }
+  }
+
   return (
     <div css={tw`flex items-center`}>
+      <Dialog
+        open={openDialog}
+        handleOpen={setOpenDialog}
+        title="Credits"
+        text="You run out of credits."
+        buttonText="Ok, I got it!"
+      />
+
       <div css={tw`mx-6`}>
-        <IconButton onClick={() => handleVote(-1)} disabled={!canVoteDown}>
+        <IconButton onClick={() => onVote(-1)}>
           <IoIosThumbsDown size={28} color={canVoteDown ? theme`colors.bgColor0` : theme`colors.bgColor8`} />
         </IconButton>
         <Typography>{thumbsDown}</Typography>
@@ -77,7 +97,7 @@ const Vote = ({
       <Display vote={vote} total={total} creditSpent={creditSpent} />
 
       <div css={tw`mx-6`}>
-        <IconButton onClick={() => handleVote(1)} disabled={!canVoteUp}>
+        <IconButton onClick={() => onVote(1)}>
           <IoIosThumbsUp size={28} color={canVoteUp ? theme`colors.bgColor1` : theme`colors.bgColor8`} />
         </IconButton>
         <Typography>{thumbsUp}</Typography>
