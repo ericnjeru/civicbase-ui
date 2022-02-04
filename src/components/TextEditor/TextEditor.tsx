@@ -19,11 +19,13 @@ const TextEditor = ({
   error,
   value = EditorState.createEmpty(),
   onChange,
+  readOnly,
 }: {
   modified?: boolean
   error?: boolean
   value?: EditorState
   onChange: (value: EditorState) => void
+  readOnly?: boolean
 }) => {
   const [focus, setFocus] = useState(false)
   const handleKeyCommand = (command: string, editorState: EditorState) => {
@@ -56,32 +58,34 @@ const TextEditor = ({
 
   return (
     <div>
-      <div css={tw`grid gap-2 grid-flow-col auto-cols-min mb-3`}>
-        <IconButton onMouseDown={() => _toggleInlineStyle('BOLD')}>
-          <FaBold size={22} />
-        </IconButton>
-        <IconButton onMouseDown={() => _toggleInlineStyle('ITALIC')}>
-          <FaItalic size={22} />
-        </IconButton>
-        <IconButton onMouseDown={() => _toggleInlineStyle('UNDERLINE')}>
-          <FaUnderline size={22} />
-        </IconButton>
-        <IconButton onMouseDown={() => _toggleContentBlock('unordered-list-item')}>
-          <FaListUl size={22} />
-        </IconButton>
-        <IconButton onMouseDown={() => _toggleContentBlock('ordered-list-item')}>
-          <FaListOl size={22} />
-        </IconButton>
-        <IconButton onMouseDown={() => _toggleInlineStyle('UNDERLINE')}>
-          <FaAlignLeft size={22} />
-        </IconButton>
-        <IconButton onMouseDown={() => _toggleInlineStyle('UNDERLINE')}>
-          <FaAlignCenter size={22} />
-        </IconButton>
-        <IconButton onMouseDown={() => _toggleInlineStyle('UNDERLINE')}>
-          <FaAlignRight size={22} />
-        </IconButton>
-      </div>
+      {!readOnly && (
+        <div css={tw`grid gap-2 grid-flow-col auto-cols-min mb-3`}>
+          <IconButton onMouseDown={() => _toggleInlineStyle('BOLD')}>
+            <FaBold size={22} />
+          </IconButton>
+          <IconButton onMouseDown={() => _toggleInlineStyle('ITALIC')}>
+            <FaItalic size={22} />
+          </IconButton>
+          <IconButton onMouseDown={() => _toggleInlineStyle('UNDERLINE')}>
+            <FaUnderline size={22} />
+          </IconButton>
+          <IconButton onMouseDown={() => _toggleContentBlock('unordered-list-item')}>
+            <FaListUl size={22} />
+          </IconButton>
+          <IconButton onMouseDown={() => _toggleContentBlock('ordered-list-item')}>
+            <FaListOl size={22} />
+          </IconButton>
+          <IconButton onMouseDown={() => _toggleInlineStyle('UNDERLINE')}>
+            <FaAlignLeft size={22} />
+          </IconButton>
+          <IconButton onMouseDown={() => _toggleInlineStyle('UNDERLINE')}>
+            <FaAlignCenter size={22} />
+          </IconButton>
+          <IconButton onMouseDown={() => _toggleInlineStyle('UNDERLINE')}>
+            <FaAlignRight size={22} />
+          </IconButton>
+        </div>
+      )}
 
       <div
         css={[
@@ -99,6 +103,7 @@ const TextEditor = ({
           onChange={onChange}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
+          readOnly={readOnly}
         />
       </div>
     </div>

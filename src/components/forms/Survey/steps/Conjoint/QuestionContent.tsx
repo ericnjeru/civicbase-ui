@@ -7,7 +7,7 @@ import { IconButton } from 'components/Button'
 import { AiOutlineClose } from 'react-icons/ai'
 import { ConjointAttributes } from '../../../../../../types/survey-base'
 
-const QuestionContent = ({ questionIndex }: { questionIndex: number }) => {
+const QuestionContent = ({ questionIndex, isPublished }: { questionIndex: number; isPublished: boolean }) => {
   const conjoint = useWatch({ name: `conjoint.${questionIndex}` })
 
   const {
@@ -35,18 +35,22 @@ const QuestionContent = ({ questionIndex }: { questionIndex: number }) => {
               <EditText
                 name={`conjoint.${questionIndex}.attributes.${index}.name`}
                 placeholder={`Attribute ${index + 1}`}
+                disabled={isPublished}
               />
             </div>
 
-            <IconButton onClick={() => removeAttribute(index)} css={tw`hover:bg-red-50`}>
-              <AiOutlineClose />
-            </IconButton>
+            {!isPublished && (
+              <IconButton onClick={() => removeAttribute(index)} css={tw`hover:bg-red-50`}>
+                <AiOutlineClose />
+              </IconButton>
+            )}
           </div>
         ))}
 
         <AddButton
           css={tw`h-10 text-base`}
           onClick={() => appendAttributes({ name: '', key: `attribute${attributes.length}` })}
+          disabled={isPublished}
         >
           + Add Attribute
         </AddButton>
@@ -56,22 +60,25 @@ const QuestionContent = ({ questionIndex }: { questionIndex: number }) => {
           {items.map((item, itemIndex) => (
             <Card key={item.id}>
               <div css={tw`flex justify-end`}>
-                <IconButton onClick={() => removeItem(itemIndex)} css={tw`hover:bg-red-50`}>
-                  <AiOutlineClose />
-                </IconButton>
+                {!isPublished && (
+                  <IconButton onClick={() => removeItem(itemIndex)} css={tw`hover:bg-red-50`}>
+                    <AiOutlineClose />
+                  </IconButton>
+                )}
               </div>
               {conjoint?.attributes.map((attr: ConjointAttributes, attrIndex: number) => (
                 <div key={attr.id} css={tw`my-2`}>
                   <EditText
                     name={`conjoint.${questionIndex}.items.${itemIndex}.${conjoint.attributes[attrIndex].key}`}
                     placeholder={attr.name}
+                    disabled={isPublished}
                   />
                 </div>
               ))}
             </Card>
           ))}
 
-          <AddButton css={tw`h-full`} onClick={() => appendItems({ id: Math.random() })}>
+          <AddButton css={tw`h-full`} onClick={() => appendItems({ id: Math.random() })} disabled={isPublished}>
             + Add Item
           </AddButton>
         </div>

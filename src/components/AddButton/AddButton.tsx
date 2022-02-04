@@ -1,16 +1,22 @@
-import { ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 import tw from 'twin.macro'
 import { Title } from 'components/Typography'
 
-const AddButton = ({ children, onClick, ...props }: { children: string | ReactNode; onClick: () => void }) => {
+const AddButton = ({
+  children,
+  onClick,
+  disabled,
+  ...props
+}: { children: string | ReactNode; onClick: () => void } & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       css={[
         tw`w-full h-40 border-dashed border-2 rounded-md text-gray-500`,
         tw`flex justify-center items-center`,
-        tw`hover:border-gray-600 hover:text-gray-600 focus:outline-none`,
+        !disabled && tw`hover:border-gray-600 hover:text-gray-600 focus:outline-none`,
       ]}
       onClick={onClick}
+      disabled={disabled}
       {...props}
       type="button"
     >

@@ -154,11 +154,11 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
               </TabPanel>
 
               <TabPanel value="quadratic">
-                <Forms.Quadratic />
+                <Forms.Quadratic isPublished={survey?.status === 'published'} />
               </TabPanel>
 
               <TabPanel value="conjoint">
-                <Forms.Conjoint />
+                <Forms.Conjoint isPublished={survey?.status === 'published'} />
               </TabPanel>
 
               <TabPanel value="messages">

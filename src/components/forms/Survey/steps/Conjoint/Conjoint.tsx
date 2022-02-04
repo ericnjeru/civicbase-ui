@@ -9,7 +9,7 @@ import { IconButton } from 'components/Button'
 import { AiOutlineClose } from 'react-icons/ai'
 import TextEditor from 'components/TextEditor'
 
-const Conjoint = () => {
+const Conjoint = ({ isPublished }: { isPublished: boolean }) => {
   const methods = useFormContext()
   const {
     control,
@@ -27,19 +27,21 @@ const Conjoint = () => {
           <>
             <div css={tw`flex justify-between`}>
               <Label>Question {index + 1}</Label>
-              <IconButton onClick={() => remove(index)} css={tw`hover:bg-red-50`}>
-                <AiOutlineClose />
-              </IconButton>
+              {!isPublished && (
+                <IconButton onClick={() => remove(index)} css={tw`hover:bg-red-50`}>
+                  <AiOutlineClose />
+                </IconButton>
+              )}
             </div>
             <Controller
               name={`conjoint.${index}.statement`}
               control={control}
-              render={({ field }) => <TextEditor {...field} />}
+              render={({ field }) => <TextEditor {...field} readOnly={isPublished} />}
             />
             <FieldErrorMessage css={tw`ml-2`} name={`conjoint.${index}.statement`} errors={errors} />
 
             <div css={tw`mt-8`}>
-              <QuestionContent questionIndex={index} />
+              <QuestionContent questionIndex={index} isPublished={isPublished} />
             </div>
           </>
         ))}
@@ -47,6 +49,7 @@ const Conjoint = () => {
       <AddButton
         css={[tw`h-12`, fields.length > 0 && tw`mt-16`]}
         onClick={() => append({ statement: EditorState.createEmpty() })}
+        disabled={isPublished}
       >
         + Add Question
       </AddButton>

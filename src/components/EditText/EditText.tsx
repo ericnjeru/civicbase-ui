@@ -4,7 +4,7 @@ import { KeyboardEvent, useEffect, useState } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import tw from 'twin.macro'
 
-const EditText = ({ name, placeholder = '' }: { name: string; placeholder?: string }) => {
+const EditText = ({ name, placeholder = '', disabled }: { name: string; placeholder?: string; disabled?: boolean }) => {
   const [editMode, setEditMode] = useState(false)
   const { register, control, setFocus } = useFormContext()
   const value = useWatch({
@@ -32,7 +32,9 @@ const EditText = ({ name, placeholder = '' }: { name: string; placeholder?: stri
   }
 
   const handleClick = () => {
-    setEditMode(true)
+    if (!disabled) {
+      setEditMode(true)
+    }
   }
 
   if (editMode) {
@@ -42,12 +44,13 @@ const EditText = ({ name, placeholder = '' }: { name: string; placeholder?: stri
         onBlur={() => setEditMode(false)}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
+        disabled={disabled}
       />
     )
   } else {
     return (
       <div
-        css={tw`p-2 hover:bg-gray-100 rounded-md`}
+        css={[tw`p-2 hover:bg-gray-100 rounded-md`, disabled && tw`cursor-auto`]}
         onClick={handleClick}
         onKeyDown={handleEditMode}
         role="button"
