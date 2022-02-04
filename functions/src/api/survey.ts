@@ -1,10 +1,10 @@
 import { CreateRequest } from '../../types/survey'
 import { db } from '../config/firebase'
 import { Response, Request } from 'express'
-import { incrementAccess } from '../utils/survey'
+import { incrementAccess, setQuestionsId } from '../utils/survey'
 import { SurveyDashboard } from '../../../types/survey'
 
-enum MethodIds {
+export enum MethodIds {
   Quadratic = 'Q',
   Likert = 'L',
   Conjoint = 'C',
@@ -27,7 +27,8 @@ const setAnalytics = () => ({
 })
 
 export const createSurvey = (req: CreateRequest, res: Response) => {
-  const survey = {
+  // TODO: create this type
+  const survey: any = {
     ...req.body,
     createdAt: new Date().toISOString(),
     uid: req.user.uid,
@@ -35,22 +36,12 @@ export const createSurvey = (req: CreateRequest, res: Response) => {
     analytics: setAnalytics(),
   }
 
-  if (req.body.quadratic) {
-    survey.quadratic = survey.quadratic?.map((question, index: number) => ({
-      ...question,
-      id: `${MethodIds[survey.setup.method]}${index + 1}`,
-    }))
+  if (req.body.setup.method === 'Quadratic') {
+    survey.quadratic = setQuestionsId(survey)
   }
 
-  if (req.body.conjoint) {
-    survey.conjoint = survey.conjoint?.map((question, index: number) => ({
-      ...question,
-      items: question.items.map((item, itemIndex) => ({
-        ...item,
-        id: `${MethodIds[survey.setup.method]}${index + 1}-item${itemIndex + 1}`,
-      })),
-      id: `${MethodIds[survey.setup.method]}${index + 1}`,
-    }))
+  if (req.body.setup.method === 'Conjoint') {
+    survey.conjoint = setQuestionsId(survey)
   }
 
   db.collection('surveys')
@@ -61,9 +52,17 @@ export const createSurvey = (req: CreateRequest, res: Response) => {
 
 export const updateSurvey = (req: CreateRequest, res: Response) => {
   const { surveyId } = req.params
-  const survey = {
+  const survey: any = {
     ...req.body,
     updatedAt: new Date().toISOString(),
+  }
+
+  if (req.body.setup.method === 'Quadratic') {
+    survey.quadratic = setQuestionsId(survey)
+  }
+
+  if (req.body.setup.method === 'Conjoint') {
+    survey.conjoint = setQuestionsId(survey)
   }
 
   db.collection('surveys')
