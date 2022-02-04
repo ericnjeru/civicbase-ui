@@ -1,12 +1,11 @@
 import { CreateRequest } from '../../types/survey'
-import { Answer } from '../../../types/answer'
 import { db } from '../config/firebase'
 import { Response, Request } from 'express'
 import { incrementAccess } from '../utils/survey'
 import { SurveyDashboard } from '../../../types/survey'
 
 enum MethodIds {
-  Quadratic = 'QV',
+  Quadratic = 'Q',
   Likert = 'L',
   Conjoint = 'C',
 }
