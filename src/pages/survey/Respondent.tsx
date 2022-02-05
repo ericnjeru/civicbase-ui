@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect, useCallback } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import useSurvey from 'hooks/use-survey'
 import * as Survey from 'features/Survey'
@@ -12,12 +12,16 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId 
   const [step, setStep] = useState<Step>('welcome')
 
   useEffect(() => {
-    if (survey?.data && !survey.data?.message?.welcome) {
+    if (survey?.data && !survey.data?.message?.welcome && step === 'welcome') {
       setStep('questions')
     }
-  }, [survey])
+  }, [survey, step])
 
   const hasMessage = (message: 'welcome' | 'completion') => survey.data?.message && !!survey.data.message[message]
+
+  const onNext = useCallback((step: Step) => {
+    setStep(step)
+  }, [])
 
   if (survey.isLoading) {
     return <Survey.Loading />
@@ -29,9 +33,9 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId 
     const getQuestions = () => {
       switch (method) {
         case 'Conjoint':
-          return <Survey.Conjoint survey={survey.data} handleNext={() => setStep('completion')} />
+          return <Survey.Conjoint survey={survey.data} handleNext={() => onNext('completion')} />
         case 'Quadratic':
-          return <Survey.Quadratic survey={survey.data} handleNext={() => setStep('completion')} />
+          return <Survey.Quadratic survey={survey.data} handleNext={() => onNext('completion')} />
         case 'Likert':
           return <div>TODO</div>
         default:
@@ -42,7 +46,7 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId 
     return (
       <MetadataProvider>
         {step === 'welcome' && hasMessage('welcome') && (
-          <Survey.WelcomeMessage survey={survey.data} handleNext={() => setStep('questions')} />
+          <Survey.WelcomeMessage survey={survey.data} handleNext={() => onNext('questions')} />
         )}
         {step === 'questions' && getQuestions()}
         {step === 'completion' && hasMessage('completion') && <Survey.CompletionMessage survey={survey.data} />}
