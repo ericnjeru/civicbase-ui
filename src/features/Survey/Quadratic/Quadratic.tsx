@@ -21,7 +21,7 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
   const [feedbackText, setFeedback] = useState('')
   const {
     setup: { credits, feedback },
-    language: { thumbsDown, thumbsUp, token },
+    language: { thumbsDown, thumbsUp, token, customToken = '' },
   } = survey
 
   useEffect(() => {
@@ -59,7 +59,11 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
     <div css={tw`container mx-auto`}>
       {credits && (
         <div css={tw`sticky z-50`} style={{ top: 76 }}>
-          <DynamicBar total={credits} availableCredits={availableCredits} language={token} />
+          <DynamicBar
+            total={credits}
+            availableCredits={availableCredits}
+            language={token === 'Custom' ? customToken : token}
+          />
         </div>
       )}
 
@@ -85,6 +89,7 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
                 creditSpent={question.credits}
                 canVoteUp={canVote(index, 1)}
                 canVoteDown={canVote(index, -1)}
+                token={token === 'Custom' ? customToken : token}
               />
             </div>
           )

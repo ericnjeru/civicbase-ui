@@ -16,5 +16,6 @@ export const Basic = () => (
     creditSpent={0}
     canVoteUp={true}
     canVoteDown={true}
+    token="Credits"
   />
 )

@@ -5,7 +5,17 @@ import Dialog from 'components/Dialog'
 import Typography, { Caption } from 'components/Typography'
 import { IoIosThumbsDown, IoIosThumbsUp } from 'react-icons/io'
 
-const Display = ({ total, vote, creditSpent }: { total?: number; vote: number; creditSpent: number }) => {
+const Display = ({
+  total,
+  vote,
+  creditSpent,
+  token,
+}: {
+  total?: number
+  vote: number
+  creditSpent: number
+  token: string
+}) => {
   if (!total) {
     return null
   }
@@ -39,7 +49,9 @@ const Display = ({ total, vote, creditSpent }: { total?: number; vote: number; c
         />
       </div>
 
-      <Caption css={tw`mt-2`}>{creditSpent} Credits</Caption>
+      <Caption css={tw`mt-2`}>
+        {creditSpent} {token}
+      </Caption>
     </div>
   )
 }
@@ -53,6 +65,7 @@ const Vote = ({
   creditSpent,
   canVoteUp,
   canVoteDown,
+  token,
 }: {
   thumbsUp?: string
   thumbsDown?: string
@@ -62,6 +75,7 @@ const Vote = ({
   creditSpent: number
   canVoteUp: boolean
   canVoteDown: boolean
+  token: string
 }) => {
   const [openDialog, setOpenDialog] = useState(false)
 
@@ -82,8 +96,8 @@ const Vote = ({
       <Dialog
         open={openDialog}
         handleOpen={setOpenDialog}
-        title="Credits"
-        text="You run out of credits."
+        title={token}
+        text={`You don't have enough ${token} to vote`}
         buttonText="Ok, I got it!"
       />
 
@@ -94,7 +108,7 @@ const Vote = ({
         <Typography>{thumbsDown}</Typography>
       </div>
 
-      <Display vote={vote} total={total} creditSpent={creditSpent} />
+      <Display vote={vote} total={total} creditSpent={creditSpent} token={token} />
 
       <div css={tw`mx-6`}>
         <IconButton onClick={() => onVote(1)}>

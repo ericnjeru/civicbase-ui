@@ -23,6 +23,7 @@ export type Language = {
   thumbsUp?: string
   thumbsDown?: string
   jargon: string
+  customToken?: string
 }
 
 export type Message = {
