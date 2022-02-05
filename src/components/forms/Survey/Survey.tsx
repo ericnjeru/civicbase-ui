@@ -60,7 +60,7 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
           topic: '',
           feedback: {
             active: false,
-            question: 'Please let us know if you have any feedback about this survey?',
+            question: '',
           },
         },
         language: {
