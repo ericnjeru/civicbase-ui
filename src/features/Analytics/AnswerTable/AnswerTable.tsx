@@ -7,6 +7,10 @@ import { SurveyDashboard } from '../../../../types/survey'
 const userId = ['userid', 'userId', 'userID']
 
 const AnswerTable = ({ survey, answers }: { survey: SurveyDashboard; answers: QuadraticAnswer[] }) => {
+  const {
+    language: { token, customToken },
+  } = survey
+
   const checkUserId = () => {
     let flag = false
     answers.forEach((answer) => {
@@ -34,7 +38,7 @@ const AnswerTable = ({ survey, answers }: { survey: SurveyDashboard; answers: Qu
             </Table.Header>
           ))}
 
-          <Table.Header css={tw`text-center`}>Credits left</Table.Header>
+          <Table.Header css={tw`text-center`}>{token === 'Custom' ? customToken : token} left</Table.Header>
         </Table.Row>
       </Table.Head>
 
