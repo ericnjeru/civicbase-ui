@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createQuestions } from 'utilities/survey'
 import { SurveyRespondent } from '../../types/survey'
-import { QuestionForSurvey } from '../../types/survey-base'
+import { QuadraticQuestions } from '../../types/survey-base'
 
 const useQuadratic = (survey: SurveyRespondent) => {
   const {
@@ -9,7 +9,7 @@ const useQuadratic = (survey: SurveyRespondent) => {
     quadratic,
   } = survey
 
-  const [questions, setQuestions] = useState<QuestionForSurvey[]>([])
+  const [questions, setQuestions] = useState<QuadraticQuestions[]>([])
   const [availableCredits, setAvailableCredits] = useState(credits || 0)
 
   const canVote = (index: number, vote: number) => {

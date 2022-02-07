@@ -89,11 +89,12 @@ export type Analytics = {
 }
 
 // TODO: This is the quadratic, being use inside  qudratic use hook. Sort it out
-export interface QuestionForSurvey {
+export interface QuadraticQuestions {
   id: string
   statement: string
   vote: number
   credits: number
+  order: number
 }
 
 // TODO: rename:

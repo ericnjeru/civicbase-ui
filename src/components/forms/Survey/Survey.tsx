@@ -116,8 +116,6 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
   const onSubmit: SubmitHandler<SurveyForm> = (values) => {
     const transformedSurvey = transform(values as SurveyForm)
 
-    debugger
-
     setNewSurvey({ ...transformedSurvey, id: survey?.id })
 
     if (survey?.id) {
