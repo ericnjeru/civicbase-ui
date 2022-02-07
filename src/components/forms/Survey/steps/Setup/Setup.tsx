@@ -64,7 +64,7 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
           <Input
             {...register('setup.feedback.question')}
             error={!!errors.setup?.feedbackQuestion}
-            placeholder="This will be the question asking for the respondent feedback"
+            placeholder="Please input the question asking for the respondent's feedback"
           />
           <FieldErrorMessage css={tw`ml-2`} name="setup.feedback.question" errors={errors} />
         </>

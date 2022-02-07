@@ -6,7 +6,7 @@ import { SurveyRequest } from '../../../../types/survey-request'
 const transform = (request: SurveyForm): SurveyRequest => {
   const welcome = request.message?.welcome
   const completion = request.message?.completion
-  const { quadratic, conjoint, setup, language, features } = request
+  const { quadratic, likert, conjoint, setup, language, features } = request
 
   const transformedRequest: SurveyRequest = {
     setup: setup as Setup,
@@ -51,6 +51,17 @@ const transform = (request: SurveyForm): SurveyRequest => {
 
   if (quadratic && quadratic.length > 0 && setup.method === 'Quadratic') {
     transformedRequest.quadratic = quadratic.map((question) => {
+      const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
+
+      return {
+        ...question,
+        statement,
+      }
+    })
+  }
+
+  if (likert && likert.length > 0 && setup.method === 'Likert') {
+    transformedRequest.likert = likert.map((question) => {
       const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
 
       return {

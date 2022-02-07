@@ -36,6 +36,16 @@ export type Quadratic = {
   statement: string
 }
 
+export type Likert = {
+  id?: string
+  statement: string
+  items: LikertItems[]
+}
+
+export type LikertItems = {
+  description: string
+}
+
 export type Conjoint = {
   id?: string
   statement: string

@@ -87,4 +87,17 @@ export const validationSchema = z.object({
       }),
     )
     .optional(),
+  likert: z
+    .array(
+      z.object({
+        id: z.string().optional(),
+        statement: z.any(),
+        items: z.array(
+          z.object({
+            description: z.string(),
+          }),
+        ),
+      }),
+    )
+    .optional(),
 })

@@ -7,21 +7,22 @@ import Label from 'components/Form/Label'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import TextEditor from 'components/TextEditor'
 import { IconButton } from 'components/Button'
+import QuestionContent from '../Likert/QuestionContent'
 
-const Quadratic = ({ isPublished }: { isPublished: boolean }) => {
+const Likert = ({ isPublished }: { isPublished: boolean }) => {
   const {
     control,
     formState: { errors },
   } = useFormContext()
 
   const { fields, append, remove } = useFieldArray({
-    name: 'quadratic',
+    name: 'likert',
   })
 
   return (
     <div css={tw`grid grid-cols-1 gap-4`}>
       {fields.map((field, index) => (
-        <div key={field.id} css={tw`my-4`}>
+        <div key={field.id}>
           <div css={tw`flex justify-between`}>
             <Label>Question {index + 1}</Label>
             {!isPublished && (
@@ -31,11 +32,15 @@ const Quadratic = ({ isPublished }: { isPublished: boolean }) => {
             )}
           </div>
           <Controller
-            name={`quadratic.${index}.statement`}
+            name={`likert.${index}.statement`}
             control={control}
             render={({ field }) => <TextEditor {...field} readOnly={isPublished} />}
           />
-          <FieldErrorMessage css={tw`ml-2`} name={`quadratic.${index}.statement`} errors={errors} />
+          <FieldErrorMessage css={tw`ml-2`} name={`likert.${index}.statement`} errors={errors} />
+
+          <div css={tw`mt-8`}>
+            <QuestionContent questionIndex={index} isPublished={isPublished} />
+          </div>
         </div>
       ))}
       <AddButton css={tw`h-12`} onClick={() => append({ statement: EditorState.createEmpty() })} disabled={isPublished}>
@@ -45,4 +50,4 @@ const Quadratic = ({ isPublished }: { isPublished: boolean }) => {
   )
 }
 
-export default Quadratic
+export default Likert

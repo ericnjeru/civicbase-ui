@@ -51,6 +51,14 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
             statement,
           }
         }),
+        likert: survey.likert?.map((question) => {
+          const statement = EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))
+
+          return {
+            ...question,
+            statement,
+          }
+        }),
       }
     } else {
       return {
@@ -108,6 +116,8 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
   const onSubmit: SubmitHandler<SurveyForm> = (values) => {
     const transformedSurvey = transform(values as SurveyForm)
 
+    debugger
+
     setNewSurvey({ ...transformedSurvey, id: survey?.id })
 
     if (survey?.id) {
@@ -159,6 +169,10 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
 
               <TabPanel value="conjoint">
                 <Forms.Conjoint isPublished={survey?.status === 'published'} />
+              </TabPanel>
+
+              <TabPanel value="likert">
+                <Forms.Likert isPublished={survey?.status === 'published'} />
               </TabPanel>
 
               <TabPanel value="messages">
