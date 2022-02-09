@@ -37,7 +37,7 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId 
         case 'Quadratic':
           return <Survey.Quadratic survey={survey.data} handleNext={() => onNext('completion')} />
         case 'Likert':
-          return <div>TODO</div>
+          return <Survey.Likert survey={survey.data} handleNext={() => onNext('completion')} />
         default:
           return <div>error</div>
       }

@@ -35,13 +35,17 @@ export const createSurvey = (req: CreateRequest, res: Response) => {
     status: 'pilot',
     analytics: setAnalytics(),
   }
-
+  // TODO: this logig is being repeated
   if (req.body.setup.method === 'Quadratic') {
     survey.quadratic = setQuestionsId(survey)
   }
 
   if (req.body.setup.method === 'Conjoint') {
     survey.conjoint = setQuestionsId(survey)
+  }
+
+  if (req.body.setup.method === 'Likert') {
+    survey.likert = setQuestionsId(survey)
   }
 
   db.collection('surveys')
@@ -63,6 +67,10 @@ export const updateSurvey = (req: CreateRequest, res: Response) => {
 
   if (req.body.setup.method === 'Conjoint') {
     survey.conjoint = setQuestionsId(survey)
+  }
+
+  if (req.body.setup.method === 'Likert') {
+    survey.likert = setQuestionsId(survey)
   }
 
   db.collection('surveys')

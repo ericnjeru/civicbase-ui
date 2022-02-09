@@ -110,3 +110,12 @@ export type ConjointQuestions = {
   items: ConjointItems[]
   selected?: string
 }
+
+export type LikertQuestions = {
+  id: string
+  statement: string
+  items: {
+    description: string
+    vote?: number
+  }[]
+}

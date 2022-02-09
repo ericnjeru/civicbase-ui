@@ -40,6 +40,9 @@ export function setQuestionsId(survey: SurveyRespondent) {
         id: `${MethodIds.Conjoint}${index + 1}`,
       }))
     case 'Likert':
-      return []
+      return survey.likert?.map((question, index) => ({
+        ...question,
+        id: `${MethodIds.Likert}${index + 1}`,
+      }))
   }
 }

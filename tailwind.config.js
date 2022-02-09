@@ -1,6 +1,7 @@
 const lineClamp = require('@tailwindcss/line-clamp')
 const typography = require('@tailwindcss/typography')
 const colors = require('tailwindcss/colors')
+const forms = require('@tailwindcss/forms')
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -78,7 +79,7 @@ module.exports = {
         light: colors.coolGray,
         neutral: colors.blueGray,
         dark: colors.gray,
-        primary: colors.lightBlue,
+        primary: colors.sky,
         secondary: colors.pink,
         info: colors.indigo,
         success: colors.green,
@@ -104,7 +105,7 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [typography, lineClamp],
+  plugins: [typography, lineClamp, forms],
   future: {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,

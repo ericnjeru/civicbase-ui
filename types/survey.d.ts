@@ -10,6 +10,7 @@ export interface SurveyRespondent extends Survey {
     statement: string
   }[]
   conjoint?: Conjoint[]
+  likert?: Likert[]
 }
 
 export interface CreateSurvey extends Survey {
