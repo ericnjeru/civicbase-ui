@@ -121,11 +121,13 @@ const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext
                   />
                 </div>
               )}
-              <PrimaryButton onClick={handleSubmit}>Submit</PrimaryButton>
             </div>
           </div>
         </div>
       ))}
+      <div css={tw`flex justify-center mt-16`}>
+        <PrimaryButton onClick={handleSubmit}>Submit</PrimaryButton>
+      </div>
     </div>
   )
 }
