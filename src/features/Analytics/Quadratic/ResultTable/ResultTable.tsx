@@ -1,7 +1,7 @@
 import * as Table from 'components/Table'
 import tw from 'twin.macro'
-import { QuadraticAnswer } from '../../../../types/answer'
-import { SurveyDashboard } from '../../../../types/survey'
+import { QuadraticAnswer } from '../../../../../types/answer'
+import { SurveyDashboard } from '../../../../../types/survey'
 
 type Result = {
   pilot: {

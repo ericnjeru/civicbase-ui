@@ -10,7 +10,7 @@ const Header = ({ survey }: { survey: Survey }) => {
 
   return (
     <div css={tw`flex flex-col items-center justify-center`}>
-      <Headline css={tw`text-brand`}>SURVEY ANALYTICS</Headline>
+      <Headline css={tw`text-brand mb-8`}>SURVEY ANALYTICS</Headline>
       <Title css={tw`text-6xl`}>{topic}</Title>
       <div css={tw`text-center max-w-2xl`}>
         <Typography css={tw`text-gray-500 inline-block`}>This survey is setup with</Typography>{' '}

@@ -33,13 +33,17 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
         <Analytics.Status survey={survey} />
       </div>
 
-      <div css={tw`mt-24`}>
-        <Analytics.ResultTable survey={survey} answers={answers} />
-      </div>
+      {survey.setup.method === 'Quadratic' && (
+        <div css={tw`mt-24`}>
+          <Analytics.Quadratic.ResultTable survey={survey} answers={answers} />
+        </div>
+      )}
 
-      <div css={tw`mt-24`}>
-        <Analytics.AnswerTable survey={survey} answers={answers} />
-      </div>
+      {survey.setup.method === 'Quadratic' && (
+        <div css={tw`mt-24`}>
+          <Analytics.Quadratic.AnswerTable survey={survey} answers={answers} />
+        </div>
+      )}
     </>
   )
 }
