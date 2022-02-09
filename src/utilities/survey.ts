@@ -25,7 +25,5 @@ export const createQuestions = (questions: QuadraticForSurvey[]) => {
     order: 0,
   }))
 
-  console.log(shuffle(newQs))
-
   return shuffle(newQs).map((question, index) => ({ ...question, order: index }))
 }
