@@ -11,8 +11,8 @@ import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 import TextArea from 'components/Form/TextArea'
-import 'draft-js/dist/Draft.css'
 import useQuadratic from 'hooks/use-quadratic'
+import 'draft-js/dist/Draft.css'
 
 const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
@@ -58,7 +58,7 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
   return (
     <div css={tw`container mx-auto`}>
       {credits && (
-        <div css={tw`sticky z-50`} style={{ top: 76 }}>
+        <div css={tw`sticky z-50`} style={{ top: 70 }}>
           <DynamicBar
             total={credits}
             availableCredits={availableCredits}
@@ -67,10 +67,10 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
         </div>
       )}
 
-      <div css={tw`flex flex-col items-center space-y-24 mt-20`}>
+      <div css={tw`flex flex-col items-center space-y-24 mt-20 pb-20`}>
         {questions.map((question, index) => {
           return (
-            <div key={question.id}>
+            <div key={question.id} css={tw`flex w-full flex-col`}>
               <Headline css={tw`mb-4 flex`}>
                 {index + 1}.{' '}
                 <Editor
@@ -80,23 +80,25 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
                 />
               </Headline>
 
-              <Vote
-                thumbsDown={thumbsDown}
-                thumbsUp={thumbsUp}
-                total={credits}
-                handleVote={(direction: number) => vote(index, direction)}
-                vote={question.vote}
-                creditSpent={question.credits}
-                canVoteUp={canVote(index, 1)}
-                canVoteDown={canVote(index, -1)}
-                token={token === 'Custom' ? customToken : token}
-              />
+              <div css={tw`flex justify-center mt-12`}>
+                <Vote
+                  thumbsDown={thumbsDown}
+                  thumbsUp={thumbsUp}
+                  total={credits}
+                  handleVote={(direction: number) => vote(index, direction)}
+                  vote={question.vote}
+                  creditSpent={question.credits}
+                  canVoteUp={canVote(index, 1)}
+                  canVoteDown={canVote(index, -1)}
+                  token={token === 'Custom' ? customToken : token}
+                />
+              </div>
             </div>
           )
         })}
 
         {feedback?.active && (
-          <div>
+          <div css={tw`flex flex-col w-full`}>
             <Headline>{feedback.question}</Headline>
 
             <TextArea
