@@ -12,6 +12,7 @@ import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 import FeedbackQuestions from '../FeedbackQuestions'
+import RespondentLayout from 'layouts/Respondent'
 
 type LikertAnswerForm = {
   feedback?: {
@@ -82,65 +83,67 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {survey?.likert?.map((question, questionIndex) => (
-          <div key={question.id} css={tw`mb-32`}>
-            <Headline css={tw`mb-4 flex`}>
-              {questionIndex + 1}.&nbsp;
-              <Editor
-                editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
-                onChange={() => {}}
-                readOnly
-              />
-            </Headline>
+        <RespondentLayout
+          main={
+            <>
+              {survey?.likert?.map((question, questionIndex) => (
+                <div key={question.id} css={tw`mb-32`}>
+                  <Headline css={tw`mb-4 flex`}>
+                    {questionIndex + 1}.&nbsp;
+                    <Editor
+                      editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
+                      onChange={() => {}}
+                      readOnly
+                    />
+                  </Headline>
 
-            <div css={tw`grid grid-cols-2 gap-4 border-b-2`}>
-              <div css={tw`col-span-1`} />
-              <div css={tw`flex space-x-16 mb-2`}>
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <Typography key={item}>{item}</Typography>
-                ))}
-              </div>
-            </div>
+                  <div css={tw`grid grid-cols-2 gap-4 border-b-2`}>
+                    <div css={tw`col-span-1`} />
+                    <div css={tw`flex space-x-16 mb-2`}>
+                      {[1, 2, 3, 4, 5].map((item) => (
+                        <Typography key={item}>{item}</Typography>
+                      ))}
+                    </div>
+                  </div>
 
-            {question.items.map((item, itemIndex) => (
-              <div css={tw`grid grid-cols-2 gap-4 mt-2 mb-6`} key={item.description}>
-                <div>
-                  <Typography>{item.description}</Typography>
+                  {question.items.map((item, itemIndex) => (
+                    <div css={tw`grid grid-cols-2 gap-4 mt-2 mb-6`} key={item.description}>
+                      <div>
+                        <Typography>{item.description}</Typography>
+                      </div>
+                      <Controller
+                        rules={{ required: true }}
+                        control={methods.control}
+                        name={`questions.${questionIndex}.item.${itemIndex}.vote` as any}
+                        render={({ field }) => (
+                          <RadioGroup {...field} id={`questions.${questionIndex}.item.${itemIndex}.vote`}>
+                            <RadioGroup.Option value={1}>
+                              {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
+                            </RadioGroup.Option>
+                            <RadioGroup.Option value={2}>
+                              {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
+                            </RadioGroup.Option>
+                            <RadioGroup.Option value={3}>
+                              {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
+                            </RadioGroup.Option>
+                            <RadioGroup.Option value={4}>
+                              {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
+                            </RadioGroup.Option>
+                            <RadioGroup.Option value={5}>
+                              {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
+                            </RadioGroup.Option>
+                          </RadioGroup>
+                        )}
+                      />
+                    </div>
+                  ))}
                 </div>
-                <Controller
-                  rules={{ required: true }}
-                  control={methods.control}
-                  name={`questions.${questionIndex}.item.${itemIndex}.vote` as any}
-                  render={({ field }) => (
-                    <RadioGroup {...field} id={`questions.${questionIndex}.item.${itemIndex}.vote`}>
-                      <RadioGroup.Option value={1}>
-                        {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
-                      </RadioGroup.Option>
-                      <RadioGroup.Option value={2}>
-                        {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
-                      </RadioGroup.Option>
-                      <RadioGroup.Option value={3}>
-                        {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
-                      </RadioGroup.Option>
-                      <RadioGroup.Option value={4}>
-                        {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
-                      </RadioGroup.Option>
-                      <RadioGroup.Option value={5}>
-                        {({ ...props }) => <RadioButton {...props} css={tw`mr-14`} />}
-                      </RadioGroup.Option>
-                    </RadioGroup>
-                  )}
-                />
-              </div>
-            ))}
-          </div>
-        ))}
-
-        {feedback?.active && <FeedbackQuestions questions={feedback.questions} />}
-
-        <div css={tw`flex justify-center mt-32`}>
-          <PrimaryButton type="submit">Submit</PrimaryButton>
-        </div>
+              ))}
+            </>
+          }
+          feedback={<>{feedback?.active && <FeedbackQuestions questions={feedback.questions} />}</>}
+          footer={<PrimaryButton type="submit">Submit</PrimaryButton>}
+        />
       </form>
     </FormProvider>
   )

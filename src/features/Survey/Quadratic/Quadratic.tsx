@@ -14,6 +14,7 @@ import useQuadratic from 'hooks/use-quadratic'
 import 'draft-js/dist/Draft.css'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import FeedbackQuestions from '../FeedbackQuestions'
+import RespondentLayout from 'layouts/Respondent'
 
 type QuadraticAnswerForm = {
   feedback?: {
@@ -80,52 +81,55 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <div css={tw`container mx-auto`}>
-          {credits && (
-            <div css={tw`sticky z-50`} style={{ top: 70 }}>
-              <DynamicBar
-                total={credits}
-                availableCredits={availableCredits}
-                language={token === 'Custom' ? customToken : token}
-              />
-            </div>
-          )}
-
-          <div css={tw`flex flex-col items-center space-y-24 mt-20 pb-20`}>
-            {questions.map((question, index) => {
-              return (
-                <div key={question.id} css={tw`flex w-full flex-col`}>
-                  <Headline css={tw`mb-4 flex`}>
-                    {index + 1}.&nbsp;
-                    <Editor
-                      editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
-                      onChange={() => {}}
-                      readOnly
-                    />
-                  </Headline>
-
-                  <div css={tw`flex justify-center mt-12`}>
-                    <Vote
-                      thumbsDown={thumbsDown}
-                      thumbsUp={thumbsUp}
-                      total={credits}
-                      handleVote={(direction: number) => vote(index, direction)}
-                      vote={question.vote}
-                      creditSpent={question.credits}
-                      canVoteUp={canVote(index, 1)}
-                      canVoteDown={canVote(index, -1)}
-                      token={token === 'Custom' ? customToken : token}
-                    />
-                  </div>
+        <RespondentLayout
+          header={
+            <>
+              {credits && (
+                <div css={tw`sticky z-50`} style={{ top: 70 }}>
+                  <DynamicBar
+                    total={credits}
+                    availableCredits={availableCredits}
+                    language={token === 'Custom' ? customToken : token}
+                  />
                 </div>
-              )
-            })}
+              )}
+            </>
+          }
+          main={
+            <div css={tw`flex flex-col items-center space-y-24 mt-20 pb-20`}>
+              {questions.map((question, index) => {
+                return (
+                  <div key={question.id} css={tw`flex w-full flex-col`}>
+                    <Headline css={tw`mb-4 flex`}>
+                      {index + 1}.&nbsp;
+                      <Editor
+                        editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
+                        onChange={() => {}}
+                        readOnly
+                      />
+                    </Headline>
 
-            {feedback?.active && <FeedbackQuestions questions={feedback.questions} />}
-
-            <PrimaryButton type="submit">Submit</PrimaryButton>
-          </div>
-        </div>
+                    <div css={tw`flex justify-center mt-12`}>
+                      <Vote
+                        thumbsDown={thumbsDown}
+                        thumbsUp={thumbsUp}
+                        total={credits}
+                        handleVote={(direction: number) => vote(index, direction)}
+                        vote={question.vote}
+                        creditSpent={question.credits}
+                        canVoteUp={canVote(index, 1)}
+                        canVoteDown={canVote(index, -1)}
+                        token={token === 'Custom' ? customToken : token}
+                      />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          }
+          feedback={<>{feedback?.active && <FeedbackQuestions questions={feedback.questions} />}</>}
+          footer={<PrimaryButton type="submit">Submit</PrimaryButton>}
+        />
       </form>
     </FormProvider>
   )
