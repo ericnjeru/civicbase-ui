@@ -68,7 +68,7 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
           topic: '',
           feedback: {
             active: false,
-            question: '',
+            questions: [],
           },
         },
         language: {

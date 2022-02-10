@@ -15,7 +15,13 @@ export const validationSchema = z.object({
     feedback: z
       .object({
         active: z.boolean().optional(),
-        question: z.string().optional(),
+        questions: z
+          .array(
+            z.object({
+              question: z.string(),
+            }),
+          )
+          .optional(),
       })
       .optional(),
   }),

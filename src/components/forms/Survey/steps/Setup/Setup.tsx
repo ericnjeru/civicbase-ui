@@ -6,6 +6,7 @@ import Dropdown from 'components/Dropdown'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import { Methods } from '../../../../../../types/survey-base'
 import Switch from 'components/Switch'
+import FeedbackQuestions from './FeedbackQuestions'
 
 const Setup = ({ isEditing }: { isEditing: boolean }) => {
   const {
@@ -58,17 +59,7 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
         />
       </div>
 
-      {isActive && (
-        <>
-          <Label>Feedback question</Label>
-          <Input
-            {...register('setup.feedback.question')}
-            error={!!errors.setup?.feedbackQuestion}
-            placeholder="Please input the question asking for the respondent's feedback"
-          />
-          <FieldErrorMessage css={tw`ml-2`} name="setup.feedback.question" errors={errors} />
-        </>
-      )}
+      {isActive && <FeedbackQuestions />}
     </>
   )
 }

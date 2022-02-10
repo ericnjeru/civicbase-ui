@@ -14,7 +14,10 @@ export type Setup = {
   credits?: number
   feedback?: {
     active: boolean
-    question: string
+    questions: {
+      id: string
+      question: string
+    }[]
   }
 }
 

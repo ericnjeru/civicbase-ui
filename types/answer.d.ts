@@ -7,7 +7,9 @@ type Answer = {
   status: Status
   time: Time
   leftCredits?: number
-  feedback?: string
+  feedback?: {
+    answer: string
+  }[]
   [key: string]: any
 }
 

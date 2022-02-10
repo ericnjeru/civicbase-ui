@@ -15,6 +15,11 @@ const transform = (request: SurveyForm): SurveyRequest => {
 
   if (!transformedRequest.setup.feedback?.active) {
     delete transformedRequest.setup.feedback
+  } else {
+    transformedRequest.setup.feedback.questions = transformedRequest.setup.feedback.questions.map((q, index) => ({
+      ...q,
+      id: `F${index}`,
+    }))
   }
 
   if (request.id) {

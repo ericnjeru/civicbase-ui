@@ -8,7 +8,10 @@ export type SurveyForm = {
     credits?: number
     feedback?: {
       active: boolean
-      question: string
+      questions: {
+        id: string
+        question: string
+      }[]
     }
   }
   language: Language

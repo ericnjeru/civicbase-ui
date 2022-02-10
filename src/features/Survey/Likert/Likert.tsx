@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import tw from 'twin.macro'
 import { convertFromRaw, Editor, EditorState } from 'draft-js'
-import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { useForm, Controller, SubmitHandler, FormProvider } from 'react-hook-form'
 import RadioButton from 'components/Form/RadioButton'
 import Typography, { Headline } from 'components/Typography'
 import { PrimaryButton } from 'components/Button'
@@ -11,10 +11,16 @@ import { useMetadata } from 'contexts/metadata'
 import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
+import FeedbackQuestions from '../FeedbackQuestions'
 
-type LikertAnswer = {
-  questions: {
-    id: string
+type LikertAnswerForm = {
+  feedback?: {
+    questions: {
+      answer: string
+    }[]
+  }
+  questions?: {
+    id?: string
     item: {
       vote: number
     }[]
@@ -24,9 +30,18 @@ type LikertAnswer = {
 const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
   const { metadata, params, pageLoad } = useMetadata()
-  const { control, handleSubmit } = useForm<LikertAnswer>({
+  const {
+    setup: { feedback },
+  } = survey
+
+  const methods = useForm({
     defaultValues: {
       questions: survey.likert?.map((question) => ({ id: question.id, item: [] })),
+      feedback: feedback?.active
+        ? {
+            questions: feedback?.questions.map((question) => ({ id: question.id, answer: '' })),
+          }
+        : undefined,
     },
   })
 
@@ -40,7 +55,7 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
     }
   }, [isSuccess, handleNext])
 
-  const onSubmit: SubmitHandler<LikertAnswer> = ({ questions }) => {
+  const onSubmit: SubmitHandler<LikertAnswerForm> = ({ questions, feedback: respondentFeedback }) => {
     const answer: Answer = {
       surveyId: survey.id,
       questions,
@@ -53,16 +68,24 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
       ...params,
     }
 
+    if (feedback?.active && respondentFeedback) {
+      const newFeedback = respondentFeedback.questions.filter((q) => q.answer !== '')
+
+      if (newFeedback.length > 0) {
+        answer.feedback = newFeedback
+      }
+    }
+
     run(createAnswer(answer))
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         {survey?.likert?.map((question, questionIndex) => (
           <div key={question.id} css={tw`mb-32`}>
             <Headline css={tw`mb-4 flex`}>
-              {questionIndex + 1}.{' '}
+              {questionIndex + 1}.&nbsp;
               <Editor
                 editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
                 onChange={() => {}}
@@ -86,8 +109,8 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
                 </div>
                 <Controller
                   rules={{ required: true }}
-                  control={control}
-                  name={`questions.${questionIndex}.item.${itemIndex}.vote`}
+                  control={methods.control}
+                  name={`questions.${questionIndex}.item.${itemIndex}.vote` as any}
                   render={({ field }) => (
                     <RadioGroup {...field} id={`questions.${questionIndex}.item.${itemIndex}.vote`}>
                       <RadioGroup.Option value={1}>
@@ -112,11 +135,14 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
             ))}
           </div>
         ))}
+
+        {feedback?.active && <FeedbackQuestions questions={feedback.questions} />}
+
         <div css={tw`flex justify-center mt-32`}>
           <PrimaryButton type="submit">Submit</PrimaryButton>
         </div>
       </form>
-    </>
+    </FormProvider>
   )
 }
 
