@@ -35,8 +35,6 @@ const client = async (endpoint: string, { body, ...other }: Request = {}) => {
     if (response.ok) {
       return data
     } else {
-      storage.clearToken()
-
       return Promise.reject(data)
     }
   })
