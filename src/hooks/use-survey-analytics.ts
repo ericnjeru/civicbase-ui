@@ -30,7 +30,10 @@ const useSurveyAnalytics = (survey?: SurveyDashboard): SurveyAnalyticsReturn => 
     return Math.trunc((diff / history[increment]) * 100)
   }
 
-  const getConvertionRate = () => Math.trunc((current.respondents / current.access) * 100)
+  const getConvertionRate = () => {
+    return current.access > 0 ? Math.trunc((current.respondents / current.access) * 100) : 0
+  }
+
   const getConvertionIncrement = () => {
     if (current.access <= 0 || history.access <= 0) {
       return 0
