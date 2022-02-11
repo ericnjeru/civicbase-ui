@@ -85,7 +85,7 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
           header={
             <>
               {credits && (
-                <div css={tw`sticky z-50`} style={{ top: 70 }}>
+                <div css={tw`sticky z-50 bg-white`} style={{ top: 70 }}>
                   <DynamicBar
                     total={credits}
                     availableCredits={availableCredits}

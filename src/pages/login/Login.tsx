@@ -33,7 +33,7 @@ const Login: FC<RouteComponentProps> = () => {
       <Card
         css={[
           tw`rounded-3xl p-0 relative border-0 overflow-hidden w-96`,
-          tw`bg-gradient-to-tr from-blue-300 via-blue-500 to-pink-400`,
+          tw`bg-gradient-to-tr from-brand via-brand to-brand2`,
         ]}
         style={{ height: 800 }}
       >

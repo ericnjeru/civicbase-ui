@@ -71,8 +71,8 @@ module.exports = {
         ],
       },
       colors: {
-        brand: '#009eff',
-        brand2: '#E11D48',
+        brand: '#27284B',
+        brand2: '#EF5350',
         'background-pink': '#ed3ad7',
         'background-blue': '#112765',
         'background-purple': '#7a0dd0',
