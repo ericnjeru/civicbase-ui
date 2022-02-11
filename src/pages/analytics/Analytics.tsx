@@ -4,6 +4,7 @@ import { RouteComponentProps } from '@reach/router'
 import useAsync from 'hooks/use-async'
 import { analytics } from 'services/survey'
 import * as Analytics from 'features/Analytics'
+import AnalyticsLayout from 'layouts/Analytics'
 
 const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
   const surveyId = location?.pathname.split('analytics/').pop()
@@ -26,25 +27,16 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
   const { survey, answers } = data
 
   return (
-    <>
-      <Analytics.Header survey={survey} />
-
-      <div css={tw`mt-24`}>
-        <Analytics.Status survey={survey} />
-      </div>
-
-      {survey.setup.method === 'Quadratic' && (
+    <AnalyticsLayout
+      header={<Analytics.Header survey={survey} />}
+      status={
         <div css={tw`mt-24`}>
-          <Analytics.Quadratic.ResultTable survey={survey} answers={answers} />
+          <Analytics.Status survey={survey} />
         </div>
-      )}
-
-      {survey.setup.method === 'Quadratic' && (
-        <div css={tw`mt-24`}>
-          <Analytics.Quadratic.AnswerTable survey={survey} answers={answers} />
-        </div>
-      )}
-    </>
+      }
+    >
+      {survey.setup.method === 'Quadratic' && <Analytics.Quadratic survey={survey} answers={answers} />}
+    </AnalyticsLayout>
   )
 }
 
