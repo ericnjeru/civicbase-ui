@@ -20,7 +20,7 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
   )
 
   const handleCopy = () => {
-    copy(surveyId)
+    copy(`${window.location.href}survey/${surveyId}`)
     trigger('Copied to clipboard!')
   }
 
