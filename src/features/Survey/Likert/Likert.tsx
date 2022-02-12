@@ -13,6 +13,7 @@ import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 import FeedbackQuestions from '../FeedbackQuestions'
 import RespondentLayout from 'layouts/Respondent'
+import { setSurveyTaken } from 'utilities/survey'
 
 type LikertAnswerForm = {
   feedback?: {
@@ -52,9 +53,10 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
 
   useEffect(() => {
     if (isSuccess) {
+      setSurveyTaken(survey.id, survey.status)
       handleNext()
     }
-  }, [isSuccess, handleNext])
+  }, [isSuccess, handleNext, survey])
 
   const onSubmit: SubmitHandler<LikertAnswerForm> = ({ questions, feedback: respondentFeedback }) => {
     const answer: Answer = {

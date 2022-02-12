@@ -4,13 +4,9 @@ function shuffle(array: any[]) {
   let currentIndex = array.length,
     randomIndex
 
-  // While there remain elements to shuffle...
   while (currentIndex != 0) {
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex)
     currentIndex--
-
-    // And swap it with the current element.
     ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
   }
 
@@ -26,4 +22,18 @@ export const createQuestions = (questions: QuadraticForSurvey[]) => {
   }))
 
   return shuffle(newQs).map((question, index) => ({ ...question, order: index }))
+}
+
+export const setSurveyTaken = (surveyId: string, status: 'pilot' | 'published' | 'finished') => {
+  if (status === 'published') {
+    const item = window.localStorage.getItem('__civicbase_taken_surveys__')
+    const takenSurveys: string[] = item ? JSON.parse(item) : []
+
+    const isExist = takenSurveys.find((id) => id === surveyId)
+
+    if (!isExist) {
+      takenSurveys.push(surveyId)
+      window.localStorage.setItem('__civicbase_taken_surveys__', JSON.stringify(takenSurveys))
+    }
+  }
 }

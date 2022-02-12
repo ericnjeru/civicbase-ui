@@ -15,6 +15,7 @@ import 'draft-js/dist/Draft.css'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import FeedbackQuestions from '../FeedbackQuestions'
 import RespondentLayout from 'layouts/Respondent'
+import { setSurveyTaken } from 'utilities/survey'
 
 type QuadraticAnswerForm = {
   feedback?: {
@@ -49,9 +50,10 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
 
   useEffect(() => {
     if (isSuccess) {
+      setSurveyTaken(survey.id, survey.status)
       handleNext()
     }
-  }, [isSuccess, handleNext])
+  }, [isSuccess, handleNext, survey])
 
   const onSubmit: SubmitHandler<QuadraticAnswerForm> = (values) => {
     const answer: Answer = {

@@ -16,6 +16,7 @@ import 'draft-js/dist/Draft.css'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import FeedbackQuestions from '../FeedbackQuestions'
 import RespondentLayout from 'layouts/Respondent'
+import { setSurveyTaken } from 'utilities/survey'
 
 type ConjointAnswerForm = {
   feedback?: {
@@ -49,9 +50,10 @@ const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext
 
   useEffect(() => {
     if (isSuccess) {
+      setSurveyTaken(survey.id, survey.status)
       handleNext()
     }
-  }, [isSuccess, handleNext])
+  }, [isSuccess, handleNext, survey])
 
   const handleSelect = (questionIndex: number, id: string) => {
     vote(questionIndex, id)
