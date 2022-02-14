@@ -183,47 +183,50 @@ export const getSurvey = (req: Request, res: Response) => {
     .catch((error) => res.status(500).json(error))
 }
 
-function updateHistory(surveyId: string) {
-  // TODO: sort out any
-  var survey: any = db.collection('surveys').doc(surveyId)
-  let p2, p1
+// TODO: move to utils
+// function updateHistory(surveyId: string) {
+//   // TODO: sort out any
+//   var survey: any = db.collection('surveys').doc(surveyId)
+//   let p2, p1
+
+//   db.doc(`/surveys/${surveyId}`)
+//     .get()
+//     .then((doc) => {
+//       if (doc.exists) {
+//         const document = doc.data()
+
+//         if (document) {
+//           p1 = survey.update({
+//             'analytics.previous.access': document.analytics.current.access,
+//             'analytics.previous.respondents': document.analytics.current.respondents,
+//           })
+
+//           if (
+//             document.analytics.current.access !== document.analytics.previous.access &&
+//             document.analytics.current.respondents !== document.analytics.previous.respondents
+//           ) {
+//             p2 = survey.update({
+//               'analytics.history.access': document.analytics.previous.access,
+//               'analytics.history.respondents': document.analytics.previous.respondents,
+//             })
+//           }
+//         }
+//       }
+//     })
+
+//   return Promise.all([p1, p2])
+// }
+// TODO: solve this type
+export const getSurveyForAnalytics = (req: any, res: Response) => {
+  const { surveyId } = req.params
 
   db.doc(`/surveys/${surveyId}`)
     .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const document = doc.data()
-
-        if (document) {
-          p1 = survey.update({
-            'analytics.previous.access': document.analytics.current.access,
-            'analytics.previous.respondents': document.analytics.current.respondents,
-          })
-
-          if (
-            document.analytics.current.access !== document.analytics.previous.access &&
-            document.analytics.current.respondents !== document.analytics.previous.respondents
-          ) {
-            p2 = survey.update({
-              'analytics.history.access': document.analytics.previous.access,
-              'analytics.history.respondents': document.analytics.previous.respondents,
-            })
-          }
-        }
-      }
-    })
-
-  return Promise.all([p1, p2])
-}
-
-export const getSurveyForAnalytics = (req: Request, res: Response) => {
-  const { surveyId } = req.params
-
-  updateHistory(surveyId)
-    .then(() => {
-      db.doc(`/surveys/${surveyId}`)
-        .get()
-        .then((survey) => {
+    .then((survey) => {
+      if (survey.exists) {
+        if (survey.data()?.uid !== req.user.uid) {
+          res.status(403).json({ message: 'You have no permission to see this data' })
+        } else {
           db.collection('answers')
             .where('surveyId', '==', surveyId)
             .get()
@@ -236,8 +239,8 @@ export const getSurveyForAnalytics = (req: Request, res: Response) => {
 
               res.status(200).json({ survey: { ...survey.data(), id: survey.id }, answers })
             })
-        })
-        .catch((error) => res.status(500).json(error))
+        }
+      }
     })
-    .catch((error) => res.status(500).json(...error))
+    .catch((error) => res.status(500).json(error))
 }
