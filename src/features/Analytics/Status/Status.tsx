@@ -5,6 +5,7 @@ import Badge from 'components/Badge'
 
 import useSurveyAnalytics from 'hooks/use-survey-analytics'
 import { SurveyDashboard } from '../../../../types/survey'
+import { toCamelCase } from 'utilities/util'
 
 const Status = ({ survey }: { survey: SurveyDashboard }) => {
   const { totalAccess, totalRespondents, accessIncrement, respondentsIncrement, convertionRate, convertionIncrement } =
@@ -44,6 +45,7 @@ const Status = ({ survey }: { survey: SurveyDashboard }) => {
           </Badge>
         ) : null}
       </Stats.Item>
+      <Stats.Item title="Current Status" metric={toCamelCase(survey.status)} />
     </Stats.List>
   )
 }
