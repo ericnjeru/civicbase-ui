@@ -1,56 +1,47 @@
-import { ReactElement, useState, useEffect, cloneElement } from 'react'
+import { useState, createRef, cloneElement, ReactElement } from 'react'
 import tw from 'twin.macro'
 import { createPopper } from '@popperjs/core'
 
 type Placement = 'left' | 'right' | 'top' | 'bottom'
 
-const Tooltip = ({
-  children,
-  placement = 'right',
-  id,
-}: {
-  children: ReactElement
-  placement?: Placement
-  id: string
-}) => {
-  const [show, setShow] = useState(false)
+const Tooltip = ({ children, placement, tip }: { children: ReactElement; placement: Placement; tip: string }) => {
+  const [popoverShow, setPopoverShow] = useState(false)
+  const childrenRef = createRef<HTMLElement>()
+  const popoverRef = createRef<HTMLDivElement>()
 
-  useEffect(() => {
-    if (show) {
-      const button = document.querySelector(`#${id}-container`)
-
-      const tooltip = document.querySelector(`#${id}-tooltip`)
-
-      if (button && tooltip) {
-        createPopper(button, tooltip as HTMLElement, {
-          placement,
-        })
-      }
+  const openTooltip = () => {
+    if (popoverRef.current && childrenRef.current) {
+      createPopper(childrenRef.current, popoverRef.current, { placement })
+      setPopoverShow(true)
     }
-  }, [show, placement, id])
+  }
+
+  const closeTooltip = () => {
+    setPopoverShow(false)
+  }
 
   return (
-    <div css={tw`flex flex-wrap`}>
-      <div css={tw`w-full text-center`}>
-        {cloneElement(children, {
-          onMouseEnter: () => setShow(true),
-          onMouseLeave: () => setShow(false),
-          id: `${id}-container`,
-        })}
+    <>
+      <div css={tw`flex flex-wrap`}>
+        <div css={tw`w-full text-center`}>
+          {cloneElement(children, {
+            onMouseEnter: openTooltip,
+            onMouseLeave: closeTooltip,
+            ref: childrenRef,
+          })}
 
-        <div
-          id={`${id}-tooltip`}
-          css={[
-            !show && tw`invisible`,
-            tw`hidden bg-white border-0 mb-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg`,
-          ]}
-        >
-          <div>
-            <div css={tw`opacity-75 p-1.5 mb-0 border border-solid uppercase rounded`}>Hi. I am tooltip.</div>
+          <div
+            css={[
+              tw`border-0 block z-50 leading-normal text-sm max-w-xs text-left no-underline break-words `,
+              popoverShow ? tw`visible` : tw`hidden`,
+            ]}
+            ref={popoverRef}
+          >
+            <div css={tw`bg-dark-700 text-white p-2 rounded-lg m-2`}>{tip}</div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
