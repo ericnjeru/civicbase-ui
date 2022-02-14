@@ -5,7 +5,6 @@ import { BiCog, BiMessageRoundedDetail } from 'react-icons/bi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GiTerror } from 'react-icons/gi'
 import { useNavigate } from '@reach/router'
-import { IoLanguageOutline } from 'react-icons/io5'
 import { IoFlagSharp } from 'react-icons/io5'
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import Tabs, { TabPanel } from 'components/Tabs'
@@ -22,6 +21,7 @@ import { EditSurvey } from '../../../../types/survey'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
 import QuestionTab from './tabs/QuestionTab'
 import { SurveyRequest } from '../../../../types/survey-request'
+import LanguageTab from './tabs/LanguageTab'
 
 const Survey = ({ survey }: { survey?: EditSurvey }) => {
   const getDefaultValues = (): SurveyForm => {
@@ -135,9 +135,7 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
                 Setup
               </CustomTabItem>
 
-              <CustomTabItem id="language" icon={IoLanguageOutline}>
-                Language Designation
-              </CustomTabItem>
+              <LanguageTab />
 
               <CustomTabItem id="messages" icon={BiMessageRoundedDetail}>
                 Messages

@@ -34,6 +34,11 @@ const transform = (request: SurveyForm): SurveyRequest => {
     transformedRequest.features = features
   }
 
+  if ((likert && likert.length > 0) || (conjoint && conjoint.length > 0)) {
+    delete transformedRequest.setup.credits
+    delete transformedRequest.language
+  }
+
   if (welcome && request.message?.welcome) {
     if (welcome.getCurrentContent().hasText()) {
       const content = JSON.stringify(convertToRaw(welcome.getCurrentContent()))
@@ -87,9 +92,9 @@ const transform = (request: SurveyForm): SurveyRequest => {
     })
   }
 
-  if (transformedRequest.language.jargon !== 'Custom') {
-    transformedRequest.language.thumbsUp = transformedRequest.language.jargon.split('/')[0]
-    transformedRequest.language.thumbsDown = transformedRequest.language.jargon.split('/')[1]
+  if (transformedRequest.language && transformedRequest.language?.jargon !== 'Custom') {
+    transformedRequest.language.thumbsUp = transformedRequest.language?.jargon.split('/')[0]
+    transformedRequest.language.thumbsDown = transformedRequest.language?.jargon.split('/')[1]
   }
 
   return transformedRequest
