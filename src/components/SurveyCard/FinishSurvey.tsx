@@ -4,6 +4,7 @@ import { IconButton } from 'components/Button'
 import { FiPower } from 'react-icons/fi'
 import { finish } from 'services/survey'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
+import Tooltip from 'components/Tooltip'
 
 const FinishSurvey = ({ surveyId }: { surveyId: string }) => {
   const { dispatch, isLoading } = useSurveys()
@@ -27,9 +28,11 @@ const FinishSurvey = ({ surveyId }: { surveyId: string }) => {
   }
 
   return (
-    <IconButton onClick={handlePublish} disabled={isLoading}>
-      <FiPower size={28} />
-    </IconButton>
+    <Tooltip placement="bottom" tip="Finish">
+      <IconButton onClick={handlePublish} disabled={isLoading}>
+        <FiPower size={28} />
+      </IconButton>
+    </Tooltip>
   )
 }
 

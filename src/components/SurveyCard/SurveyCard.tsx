@@ -15,6 +15,7 @@ import FinishSurvey from './FinishSurvey'
 import { SurveyState } from 'contexts/surveys'
 import useSurveyAnalytics from 'hooks/use-survey-analytics'
 import InlineMenu from './InlineMenu'
+import Tooltip from 'components/Tooltip'
 
 const SurveyCard = ({ survey }: { survey: SurveyState }) => {
   const {
@@ -59,17 +60,19 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
             <Ping status={status} />
           </div>
 
-          <div
-            css={[
-              tw`absolute top-0 right-0`,
-              hovered && tw`transition-all ease-in-out duration-700 opacity-100`,
-              !hovered && tw`opacity-0`,
-            ]}
-          >
-            <IconButton onClick={() => setOpenMenu(!openMenu)}>
-              {openMenu ? <BiArrowBack size={28} /> : <BiCog size={28} />}
-            </IconButton>
-          </div>
+          <Tooltip placement="left" tip={openMenu ? 'Back' : 'Actions'}>
+            <div
+              css={[
+                tw`absolute top-0 right-0`,
+                hovered && tw`transition-all ease-in-out duration-700 opacity-100`,
+                !hovered && tw`opacity-0`,
+              ]}
+            >
+              <IconButton onClick={() => setOpenMenu(!openMenu)}>
+                {openMenu ? <BiArrowBack size={28} /> : <BiCog size={28} />}
+              </IconButton>
+            </div>
+          </Tooltip>
         </div>
 
         <div
@@ -99,18 +102,24 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
             ]}
           >
             {status !== 'finished' && (
-              <IconButton onClick={() => navigate('/edit-survey', { state: survey })}>
-                <FiEdit2 size={28} />
-              </IconButton>
+              <Tooltip placement="bottom" tip="Edit">
+                <IconButton onClick={() => navigate('/edit-survey', { state: survey })}>
+                  <FiEdit2 size={28} />
+                </IconButton>
+              </Tooltip>
             )}
 
-            <IconButton onClick={() => navigate(`/analytics/${id}`)}>
-              <IoAnalyticsOutline size={28} />
-            </IconButton>
+            <Tooltip placement="bottom" tip="Analytics">
+              <IconButton onClick={() => navigate(`/analytics/${id}`)}>
+                <IoAnalyticsOutline size={28} />
+              </IconButton>
+            </Tooltip>
 
-            <IconButton onClick={() => navigate(`/survey/${id}`)}>
-              <FiEye size={28} />
-            </IconButton>
+            <Tooltip placement="bottom" tip="Preview">
+              <IconButton onClick={() => navigate(`/survey/${id}`)}>
+                <FiEye size={28} />
+              </IconButton>
+            </Tooltip>
 
             {status !== 'finished' && <FinishSurvey surveyId={id} />}
 

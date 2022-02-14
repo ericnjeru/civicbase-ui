@@ -8,6 +8,7 @@ import useAsync from 'hooks/use-async'
 import { deleteSurvey, clone } from 'services/survey'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
 import { useToast } from 'contexts/toast'
+import Tooltip from 'components/Tooltip'
 
 const InlineMenu = ({ surveyId }: { surveyId: string }) => {
   const { dispatch } = useSurveys()
@@ -51,17 +52,23 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
 
   return (
     <div css={tw`justify-around w-full flex`}>
-      <IconButton onClick={handleCopy}>
-        <AiOutlineCopy size={28} />
-      </IconButton>
+      <Tooltip placement="bottom" tip="Copy link">
+        <IconButton onClick={handleCopy}>
+          <AiOutlineCopy size={28} />
+        </IconButton>
+      </Tooltip>
 
-      <IconButton onClick={handleClone} disabled={isLoading}>
-        <FaRegClone size={28} />
-      </IconButton>
+      <Tooltip placement="bottom" tip="Clone">
+        <IconButton onClick={handleClone} disabled={isLoading}>
+          <FaRegClone size={28} />
+        </IconButton>
+      </Tooltip>
 
-      <IconButton onClick={handleDelete} disabled={isLoading}>
-        <AiOutlineDelete size={28} />
-      </IconButton>
+      <Tooltip placement="bottom" tip="Delete">
+        <IconButton onClick={handleDelete} disabled={isLoading}>
+          <AiOutlineDelete size={28} />
+        </IconButton>
+      </Tooltip>
     </div>
   )
 }

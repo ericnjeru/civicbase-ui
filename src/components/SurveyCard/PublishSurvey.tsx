@@ -4,6 +4,7 @@ import { BiPaperPlane } from 'react-icons/bi'
 import { IconButton } from 'components/Button'
 import { publish } from 'services/survey'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
+import Tooltip from 'components/Tooltip'
 
 const PublishSurvey = ({ surveyId }: { surveyId: string }) => {
   const { dispatch, isLoading } = useSurveys()
@@ -27,9 +28,11 @@ const PublishSurvey = ({ surveyId }: { surveyId: string }) => {
   }
 
   return (
-    <IconButton onClick={handlePublish} disabled={isLoading}>
-      <BiPaperPlane size={28} />
-    </IconButton>
+    <Tooltip placement="bottom" tip="Publish">
+      <IconButton onClick={handlePublish} disabled={isLoading}>
+        <BiPaperPlane size={28} />
+      </IconButton>
+    </Tooltip>
   )
 }
 
