@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import tw from 'twin.macro'
 import Typography, { Subtitle } from 'components/Typography'
 
-const Stat = ({ title, metric, children }: { title: string; metric: number | string; children: ReactNode }) => {
+const Stat = ({ title, metric, children }: { title: string; metric?: number | string; children?: ReactNode }) => {
   return (
     <div css={tw`p-4`}>
       <Typography>{title}</Typography>
