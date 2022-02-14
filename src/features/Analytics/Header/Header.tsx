@@ -10,19 +10,28 @@ const Header = ({ survey }: { survey: Survey }) => {
 
   return (
     <div css={tw`flex flex-col items-center justify-center`}>
-      <Headline css={tw`text-brand mb-8`}>SURVEY ANALYTICS</Headline>
+      <Headline css={tw`text-blue-500 mb-8`}>SURVEY ANALYTICS</Headline>
       <Title css={tw`text-6xl`}>{topic}</Title>
       <div css={tw`text-center max-w-2xl`}>
         <Typography css={tw`text-gray-500 inline-block`}>This survey is setup with</Typography>{' '}
         <Typography css={tw`text-brand2 inline-block`}>{method}</Typography>{' '}
-        <Typography css={tw`text-gray-500 inline-block`}>as preferred function. Each respondent will have</Typography>{' '}
-        <Typography css={tw`text-brand2 inline-block`}>
-          {credits} {token === 'Custom' ? customToken : token},
-        </Typography>{' '}
-        <Typography css={tw`text-gray-500 inline-block`}>the language designated is</Typography>{' '}
-        <Typography css={tw`text-brand2 inline-block`}>
-          {thumbsUp}/{thumbsDown}.
-        </Typography>
+        <Typography css={tw`text-gray-500 inline-block`}>as it&apos;s methodology.</Typography>{' '}
+        {credits && (
+          <>
+            <Typography css={tw`text-gray-500 inline-block`}>Each respondent will have</Typography>{' '}
+            <Typography css={tw`text-brand2 inline-block`}>
+              {credits} {token === 'Custom' ? customToken : token},
+            </Typography>
+          </>
+        )}{' '}
+        {method === 'Quadratic' && (
+          <>
+            <Typography css={tw`text-gray-500 inline-block`}>the language designated is</Typography>{' '}
+            <Typography css={tw`text-brand2 inline-block`}>
+              {thumbsUp}/{thumbsDown}
+            </Typography>
+          </>
+        )}
       </div>
     </div>
   )

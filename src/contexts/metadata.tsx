@@ -6,30 +6,32 @@ type Params = {
   [key: string]: number | string
 }
 interface MetadataContextProps {
-  startAt: string
-  pageLoadAt: string | null
+  startAt: string | null
+  surveyLoadAt: string | null
   questionPageLoadAt: string | null
 }
 
 interface MetadataContext {
-  pageLoad: () => void
+  onStart: () => void
+  onQuestionPageLoad: () => void
   metadata: MetadataContextProps
   params: Params
 }
 
 const initialContextData: MetadataContext = {
   metadata: {
-    startAt: new Date().toISOString(),
-    pageLoadAt: null,
+    startAt: null,
+    surveyLoadAt: null,
     questionPageLoadAt: null,
   },
-  pageLoad: () => {},
+  onStart: () => {},
+  onQuestionPageLoad: () => {},
   params: {},
 }
 
 const initialMetadata: MetadataContextProps = {
-  startAt: new Date().toISOString(),
-  pageLoadAt: null,
+  startAt: null,
+  surveyLoadAt: null,
   questionPageLoadAt: null,
 }
 
@@ -50,14 +52,35 @@ export const MetadataProvider = ({ ...props }): ReactElement => {
     }
   }, [location])
 
-  const pageLoad = useCallback(() => {
+  // Survey first Load
+  useEffect(() => {
     setMetadata((meta) => ({
       ...meta,
-      pageLoadAt: new Date().toISOString(),
+      surveyLoadAt: new Date().toISOString(),
     }))
   }, [])
 
-  return <MetadataContext.Provider value={{ metadata, params, pageLoad }} {...props} />
+  // Respondent first interaction
+  const onStart = useCallback(() => {
+    setMetadata((meta) => {
+      if (!meta.startAt) {
+        return { ...meta, startAt: new Date().toISOString() }
+      }
+      return meta
+    })
+  }, [])
+
+  // Question page first load
+  const onQuestionPageLoad = useCallback(() => {
+    setMetadata((meta) => {
+      if (!meta.questionPageLoadAt) {
+        return { ...meta, questionPageLoadAt: new Date().toISOString() }
+      }
+      return meta
+    })
+  }, [])
+
+  return <MetadataContext.Provider value={{ metadata, params, onStart, onQuestionPageLoad }} {...props} />
 }
 
 export const useMetadata = () => {

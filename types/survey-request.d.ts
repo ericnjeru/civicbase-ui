@@ -7,7 +7,7 @@ type Question = {
 }
 export interface SurveyRequest {
   setup: Setup
-  language: Language
+  language?: Language
   message?: Message
   quadratic?: Question[]
   conjoint?: Conjoint[]

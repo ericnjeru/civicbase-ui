@@ -16,12 +16,12 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
     }
   }, [run, surveyId])
 
-  if (!data?.survey || isLoading) {
-    return <Analytics.Loading />
-  }
-
   if (isError) {
     return <Analytics.Error />
+  }
+
+  if (!data?.survey || isLoading) {
+    return <Analytics.Loading />
   }
 
   const { survey, answers } = data

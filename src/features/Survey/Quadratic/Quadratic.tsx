@@ -28,7 +28,7 @@ type QuadraticAnswerForm = {
 const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
-  const { metadata, params, pageLoad } = useMetadata()
+  const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
   const {
     setup: { credits, feedback },
     language: { thumbsDown, thumbsUp, token, customToken = '' },
@@ -44,9 +44,16 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
     },
   })
 
+  // Redundant, this is the fisrt interaction with the survey if there is no welcome message
   useEffect(() => {
-    pageLoad()
-  }, [pageLoad])
+    if (availableCredits !== credits) {
+      onStart()
+    }
+  }, [availableCredits, credits, onStart])
+
+  useEffect(() => {
+    onQuestionPageLoad()
+  }, [onQuestionPageLoad])
 
   useEffect(() => {
     if (isSuccess) {

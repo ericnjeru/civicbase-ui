@@ -97,8 +97,8 @@ export const answers: QuadraticAnswer[] = [
     researcherId: '5rePA4xTN9V8aV5dAJ5aTaHoIFA3',
     status: 'published',
     time: {
-      questionPageLoadAt: null,
-      pageLoadAt: '2022-01-18T13:09:00.393Z',
+      questionPageLoadAt: '2022-01-18T13:09:00.393Z',
+      surveyLoadAt: '2022-01-18T13:09:00.393Z',
       startAt: '2022-01-18T13:09:00.105Z',
       submitedAt: '2022-01-18T13:09:06.153Z',
     },
@@ -153,8 +153,8 @@ export const answers: QuadraticAnswer[] = [
     time: {
       startAt: '2022-01-18T13:09:00.105Z',
       submitedAt: '2022-01-18T13:09:22.684Z',
-      pageLoadAt: '2022-01-18T13:09:16.452Z',
-      questionPageLoadAt: null,
+      surveyLoadAt: '2022-01-18T13:09:16.452Z',
+      questionPageLoadAt: '2022-01-18T13:09:00.393Z',
     },
     leftCredits: 0,
     researcherId: '5rePA4xTN9V8aV5dAJ5aTaHoIFA3',
@@ -204,8 +204,8 @@ export const answers: QuadraticAnswer[] = [
     status: 'published',
     time: {
       startAt: '2022-01-18T13:09:00.105Z',
-      questionPageLoadAt: null,
-      pageLoadAt: '2022-01-18T13:09:06.481Z',
+      questionPageLoadAt: '2022-01-18T13:09:00.393Z',
+      surveyLoadAt: '2022-01-18T13:09:06.481Z',
       submitedAt: '2022-01-18T13:09:10.057Z',
     },
     leftCredits: 0,
@@ -215,8 +215,8 @@ export const answers: QuadraticAnswer[] = [
     surveyId: 'FXvKAFKaYnFKZzKkWg0c',
     createdAt: '2022-01-18T13:09:43.039Z',
     time: {
-      questionPageLoadAt: null,
-      pageLoadAt: '2022-01-18T13:09:23.045Z',
+      questionPageLoadAt: '2022-01-18T13:09:00.393Z',
+      surveyLoadAt: '2022-01-18T13:09:23.045Z',
       submitedAt: '2022-01-18T13:09:43.000Z',
       startAt: '2022-01-18T13:09:00.105Z',
     },
@@ -270,8 +270,8 @@ export const answers: QuadraticAnswer[] = [
     time: {
       startAt: '2022-01-18T13:09:00.105Z',
       submitedAt: '2022-01-18T13:09:16.129Z',
-      questionPageLoadAt: null,
-      pageLoadAt: '2022-01-18T13:09:10.380Z',
+      questionPageLoadAt: '2022-01-18T13:09:00.393Z',
+      surveyLoadAt: '2022-01-18T13:09:10.380Z',
     },
     leftCredits: 0,
     questions: [
@@ -357,8 +357,8 @@ export const answers: QuadraticAnswer[] = [
       },
     ],
     time: {
-      pageLoadAt: '2022-01-18T12:50:58.649Z',
-      questionPageLoadAt: null,
+      surveyLoadAt: '2022-01-18T12:50:58.649Z',
+      questionPageLoadAt: '2022-01-18T13:09:00.393Z',
       submitedAt: '2022-01-18T12:51:05.473Z',
       startAt: '2022-01-18T12:50:58.334Z',
     },
@@ -411,8 +411,8 @@ export const answers: QuadraticAnswer[] = [
     time: {
       startAt: '2022-01-19T06:16:50.612Z',
       submitedAt: '2022-01-19T06:16:55.887Z',
-      pageLoadAt: '2022-01-19T06:16:50.987Z',
-      questionPageLoadAt: null,
+      surveyLoadAt: '2022-01-19T06:16:50.987Z',
+      questionPageLoadAt: '2022-01-18T13:09:00.393Z',
     },
     createdAt: '2022-01-19T06:16:55.943Z',
     status: 'published',

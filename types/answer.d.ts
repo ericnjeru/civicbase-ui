@@ -22,13 +22,24 @@ type Question = {
 
 type Time = {
   submitedAt: string
-  startAt: string
-  pageLoadAt: string | null
+  startAt: string | null
+  surveyLoadAt: string | null
   questionPageLoadAt: string | null
 }
 
 export interface QuadraticAnswer extends Answer {
   questions: QuadraticQuestions[]
+  createdAt: string
+  time: {
+    submitedAt: string
+    startAt: string
+    surveyLoadAt: string
+    questionPageLoadAt: string
+  }
+  feedback?: {
+    answer: string
+    id: string
+  }[]
 }
 
 export interface ConjointAnswer extends Answer {

@@ -1,5 +1,5 @@
-import * as Table from 'components/Table'
 import tw from 'twin.macro'
+import * as Table from 'components/Table'
 import { QuadraticAnswer } from '../../../../../types/answer'
 import { SurveyDashboard } from '../../../../../types/survey'
 
@@ -15,7 +15,7 @@ type Result = {
   }
 }
 
-const SurveyTable = ({ survey, answers }: { survey: SurveyDashboard; answers: QuadraticAnswer[] }) => {
+const ResultTable = ({ survey, answers }: { survey: SurveyDashboard; answers: QuadraticAnswer[] }) => {
   console.log(survey)
 
   const results = answers.reduce(
@@ -52,12 +52,14 @@ const SurveyTable = ({ survey, answers }: { survey: SurveyDashboard; answers: Qu
       </Table.Head>
 
       <Table.Body>
-        {Object.keys(results.pilot).map((row) => (
-          <Table.Row key={row}>
-            <Table.Data>{row}</Table.Data>
-            <Table.Data>{results.pilot[row]}</Table.Data>
-          </Table.Row>
-        ))}
+        {Object.keys(results.pilot)
+          .sort()
+          .map((row) => (
+            <Table.Row key={row}>
+              <Table.Data>{row}</Table.Data>
+              <Table.Data>{results.pilot[row]}</Table.Data>
+            </Table.Row>
+          ))}
       </Table.Body>
 
       {Object.keys(results.published).length > 0 ? (
@@ -71,15 +73,17 @@ const SurveyTable = ({ survey, answers }: { survey: SurveyDashboard; answers: Qu
       ) : null}
 
       <Table.Body>
-        {Object.keys(results.published).map((row) => (
-          <Table.Row key={row}>
-            <Table.Data>{row}</Table.Data>
-            <Table.Data>{results.published[row]}</Table.Data>
-          </Table.Row>
-        ))}
+        {Object.keys(results.published)
+          .sort()
+          .map((row) => (
+            <Table.Row key={row}>
+              <Table.Data>{row}</Table.Data>
+              <Table.Data>{results.published[row]}</Table.Data>
+            </Table.Row>
+          ))}
       </Table.Body>
     </Table.Main>
   )
 }
 
-export default SurveyTable
+export default ResultTable

@@ -27,7 +27,7 @@ type ConjointAnswerForm = {
 }
 
 const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
-  const { metadata, params, pageLoad } = useMetadata()
+  const { metadata, params } = useMetadata()
   const { questions, vote } = useConjoint(survey)
   const { run, isSuccess } = useAsync()
   const {
@@ -43,10 +43,6 @@ const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext
         : undefined,
     },
   })
-
-  useEffect(() => {
-    pageLoad()
-  }, [pageLoad])
 
   useEffect(() => {
     if (isSuccess) {

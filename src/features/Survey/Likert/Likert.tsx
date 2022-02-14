@@ -31,7 +31,7 @@ type LikertAnswerForm = {
 
 const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
-  const { metadata, params, pageLoad } = useMetadata()
+  const { metadata, params } = useMetadata()
   const {
     setup: { feedback },
   } = survey
@@ -46,10 +46,6 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
         : undefined,
     },
   })
-
-  useEffect(() => {
-    pageLoad()
-  }, [pageLoad])
 
   useEffect(() => {
     if (isSuccess) {
