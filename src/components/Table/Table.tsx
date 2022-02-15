@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import tw from 'twin.macro'
 
-const Table = ({ children }: { children: ReactNode[] }) => {
+const Table = ({ children }: { children: ReactNode[] | ReactNode }) => {
   return (
     <div css={tw`flex flex-col`}>
       <div css={tw`-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8`}>

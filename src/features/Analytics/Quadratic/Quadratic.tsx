@@ -11,6 +11,7 @@ const Quadratic = ({ survey, answers }: { survey: SurveyDashboard; answers: Quad
     survey.status === 'finished'
       ? `This survey was finished and didn't capture any answer`
       : 'This Survey has no answer yet'
+
   return (
     <div css={tw`space-y-24 mt-24`}>
       {answers.length > 0 && <ResultTable survey={survey} answers={answers} />}

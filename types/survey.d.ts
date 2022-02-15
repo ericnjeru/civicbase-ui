@@ -42,5 +42,6 @@ export interface SurveyDashboard extends Survey {
     statement: string
   }[]
   conjoint?: Conjoint[]
+  likert?: Likert[]
   analytics: Analytics
 }

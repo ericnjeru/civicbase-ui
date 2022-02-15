@@ -36,6 +36,7 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
       }
     >
       {survey.setup.method === 'Quadratic' && <Analytics.Quadratic survey={survey} answers={answers} />}
+      {survey.setup.method === 'Likert' && <Analytics.Likert survey={survey} answers={answers} />}
     </AnalyticsLayout>
   )
 }
