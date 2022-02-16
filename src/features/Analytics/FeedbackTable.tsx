@@ -1,8 +1,27 @@
 import tw from 'twin.macro'
 import * as Table from 'components/Table'
-import { QuadraticAnswer } from '../../../types/answer'
+import Typography from 'components/Typography'
 
-const FeedbackTable = ({ answers }: { answers: QuadraticAnswer[] }) => {
+export type FeedbackAnswer = {
+  feedback: {
+    id: string
+    answer: string
+  }[]
+}
+
+const FeedbackTable = ({ answers }: { answers: FeedbackAnswer[] }) => {
+  const isFeedback = () => {
+    let flag = false
+
+    answers.forEach((answer) => {
+      if (answer.feedback) {
+        flag = true
+      }
+    })
+
+    return flag
+  }
+
   return (
     <Table.Main>
       <Table.Head>
@@ -12,20 +31,28 @@ const FeedbackTable = ({ answers }: { answers: QuadraticAnswer[] }) => {
       </Table.Head>
 
       <Table.Body>
-        {answers.map((answer) => {
-          if (answer.feedback) {
-            return (
-              <>
-                {answer.feedback.map((feedback) => (
-                  <Table.Row key={feedback.id}>
-                    <Table.Data>{feedback.answer}</Table.Data>
-                  </Table.Row>
-                ))}
-              </>
-            )
-          }
-          return null
-        })}
+        {isFeedback() ? (
+          answers.map((answer) => {
+            if (answer.feedback) {
+              return (
+                <>
+                  {answer.feedback.map((feedback) => (
+                    <Table.Row key={feedback.id}>
+                      <Table.Data>{feedback.answer}</Table.Data>
+                    </Table.Row>
+                  ))}
+                </>
+              )
+            }
+            return null
+          })
+        ) : (
+          <Table.Row>
+            <Table.Data>
+              <Typography>There is no feedback so far</Typography>
+            </Table.Data>
+          </Table.Row>
+        )}
       </Table.Body>
     </Table.Main>
   )

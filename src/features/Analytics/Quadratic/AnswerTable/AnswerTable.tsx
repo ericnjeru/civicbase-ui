@@ -6,28 +6,14 @@ import { toCamelCase } from 'utilities/util'
 import { QuadraticAnswer } from '../../../../../types/answer'
 import { SurveyDashboard } from '../../../../../types/survey'
 import DownloadAnswers from './DownloadAnswers'
-
-const userId = ['userid', 'userId', 'userID']
+import { checkUserId, userId } from 'utilities/analytics'
 
 const AnswerTable = ({ survey, answers }: { survey: SurveyDashboard; answers: QuadraticAnswer[] }) => {
   const {
     language: { token, customToken },
   } = survey
 
-  const checkUserId = () => {
-    let flag = false
-    answers.forEach((answer) => {
-      userId.forEach((id) => {
-        if (answer[id]) {
-          flag = true
-        }
-      })
-    })
-
-    return flag
-  }
-
-  const hasUserId = checkUserId()
+  const hasUserId = checkUserId(answers as [])
 
   return (
     <div>

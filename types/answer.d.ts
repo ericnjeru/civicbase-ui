@@ -27,6 +27,11 @@ type Time = {
   questionPageLoadAt: string | null
 }
 
+type Feedback = {
+  answer: string
+  id: string
+}
+
 export interface QuadraticAnswer extends Answer {
   questions: QuadraticQuestions[]
   createdAt: string
@@ -36,16 +41,15 @@ export interface QuadraticAnswer extends Answer {
     surveyLoadAt: string
     questionPageLoadAt: string
   }
-  feedback?: {
-    answer: string
-    id: string
-  }[]
+  feedback?: Feedback[]
 }
 
 export interface LikertAnswer extends Answer {
   questions: LikertQuestions[]
+  feedback?: Feedback[]
 }
 
 export interface ConjointAnswer extends Answer {
   questions: ConjointQuestions[]
+  feedback?: Feedback[]
 }
