@@ -7,7 +7,6 @@ import { SurveyDashboard } from '../../../../types/survey'
 import { Likert } from '../../../../types/survey-base'
 
 const ResultTable = ({ survey, answers }: { survey: SurveyDashboard; answers: LikertAnswer[] }) => {
-  console.log('survey', survey)
   if (!survey.likert) {
     return null
   }

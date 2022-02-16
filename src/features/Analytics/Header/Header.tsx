@@ -16,7 +16,7 @@ const Header = ({ survey }: { survey: Survey }) => {
         <Typography css={tw`text-gray-500 inline-block`}>This survey is setup with</Typography>{' '}
         <Typography css={tw`text-brand2 inline-block`}>{method}</Typography>{' '}
         <Typography css={tw`text-gray-500 inline-block`}>as it&apos;s methodology.</Typography>{' '}
-        {credits && (
+        {method === 'Quadratic' && (
           <>
             <Typography css={tw`text-gray-500 inline-block`}>Each respondent will have</Typography>{' '}
             <Typography css={tw`text-brand2 inline-block`}>

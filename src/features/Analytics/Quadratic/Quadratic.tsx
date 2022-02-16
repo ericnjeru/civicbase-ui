@@ -14,7 +14,7 @@ const Quadratic = ({ survey, answers }: { survey: SurveyDashboard; answers: Quad
 
   return (
     <div css={tw`space-y-24 mt-24`}>
-      {answers.length > 0 && <ResultTable survey={survey} answers={answers} />}
+      {answers.length > 0 && <ResultTable answers={answers} />}
       {answers.length > 0 && <AnswerTable survey={survey} answers={answers} />}
       {answers.length === 0 && <NoResult title="Result" description={description} />}
       {survey.setup.feedback?.active && <FeedbackTable answers={answers} />}

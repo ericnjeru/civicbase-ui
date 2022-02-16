@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { survey, answers } from 'test/sample'
+import { answers } from 'test/sample'
 
 import ResultTable from './ResultTable'
 
@@ -16,4 +16,4 @@ const Template: ComponentStory<typeof ResultTable> = (args) => (
 
 export const Basic = Template.bind({})
 
-Basic.args = { survey, answers }
+Basic.args = { answers }
