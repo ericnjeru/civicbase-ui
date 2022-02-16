@@ -5,6 +5,7 @@ import useAsync from 'hooks/use-async'
 import { analytics } from 'services/survey'
 import * as Analytics from 'features/Analytics'
 import AnalyticsLayout from 'layouts/Analytics'
+import { surveyMethods } from 'utilities/constants'
 
 const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
   const surveyId = location?.pathname.split('analytics/').pop()
@@ -35,9 +36,9 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
         </div>
       }
     >
-      {survey.setup.method === 'Quadratic' && <Analytics.Quadratic survey={survey} answers={answers} />}
-      {survey.setup.method === 'Likert' && <Analytics.Likert survey={survey} answers={answers} />}
-      {survey.setup.method === 'Conjoint' && <Analytics.Conjoint survey={survey} answers={answers} />}
+      {survey.setup.method === surveyMethods.Quadratic && <Analytics.Quadratic survey={survey} answers={answers} />}
+      {survey.setup.method === surveyMethods.Likert && <Analytics.Likert survey={survey} answers={answers} />}
+      {survey.setup.method === surveyMethods.Conjoint && <Analytics.Conjoint survey={survey} answers={answers} />}
     </AnalyticsLayout>
   )
 }

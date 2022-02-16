@@ -3,6 +3,7 @@ import { RouteComponentProps } from '@reach/router'
 import useSurvey from 'hooks/use-survey'
 import * as Survey from 'features/Survey'
 import { MetadataProvider } from 'contexts/metadata'
+import { surveyMethods } from 'utilities/constants'
 
 // TODO: move the next step to a upper state
 type Step = 'welcome' | 'questions' | 'completion'
@@ -36,11 +37,11 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId 
 
     const getQuestions = () => {
       switch (method) {
-        case 'Conjoint':
+        case surveyMethods.Conjoint:
           return <Survey.Conjoint survey={survey} handleNext={() => onNext('completion')} />
-        case 'Quadratic':
+        case surveyMethods.Quadratic:
           return <Survey.Quadratic survey={survey} handleNext={() => onNext('completion')} />
-        case 'Likert':
+        case surveyMethods.Likert:
           return <Survey.Likert survey={survey} handleNext={() => onNext('completion')} />
         default:
           return <div>error</div>

@@ -7,6 +7,7 @@ import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import { Methods } from '../../../../../../types/survey-base'
 import Switch from 'components/Switch'
 import FeedbackQuestions from './FeedbackQuestions'
+import { surveyMethods } from 'utilities/constants'
 
 const Setup = ({ isEditing }: { isEditing: boolean }) => {
   const {
@@ -38,7 +39,7 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
         </div>
 
         <div>
-          {method === 'Quadratic' && (
+          {method === surveyMethods.Quadratic && (
             <>
               <Label>Total number of credits *</Label>
               <Input

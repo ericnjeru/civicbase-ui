@@ -2,6 +2,7 @@ import { convertToRaw } from 'draft-js'
 import { SurveyForm } from '../../../../types/forms'
 import { Setup } from '../../../../types/survey-base'
 import { SurveyRequest } from '../../../../types/survey-request'
+import { surveyMethods } from 'utilities/constants'
 
 const transform = (request: SurveyForm): SurveyRequest => {
   const welcome = request.message?.welcome
@@ -59,7 +60,7 @@ const transform = (request: SurveyForm): SurveyRequest => {
     }
   }
 
-  if (quadratic && quadratic.length > 0 && setup.method === 'Quadratic') {
+  if (quadratic && quadratic.length > 0 && setup.method === surveyMethods.Quadratic) {
     transformedRequest.quadratic = quadratic.map((question) => {
       const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
 
@@ -70,7 +71,7 @@ const transform = (request: SurveyForm): SurveyRequest => {
     })
   }
 
-  if (likert && likert.length > 0 && setup.method === 'Likert') {
+  if (likert && likert.length > 0 && setup.method === surveyMethods.Likert) {
     transformedRequest.likert = likert.map((question) => {
       const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
 
@@ -81,7 +82,7 @@ const transform = (request: SurveyForm): SurveyRequest => {
     })
   }
 
-  if (conjoint && conjoint.length > 0 && setup.method === 'Conjoint') {
+  if (conjoint && conjoint.length > 0 && setup.method === surveyMethods.Conjoint) {
     transformedRequest.conjoint = conjoint.map((question) => {
       const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
 
