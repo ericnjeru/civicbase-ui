@@ -5,8 +5,6 @@ import { checkUserId } from 'utilities/analytics'
 import { AnswerResponse as Answer, Conjoint } from '../../../../types/answer'
 
 const AnswerTable = ({ answers, survey }: { answers: Answer<Conjoint>[]; survey: SurveyDashboard }) => {
-  console.log(answers)
-
   const hasUserId = checkUserId(answers as [])
 
   return (

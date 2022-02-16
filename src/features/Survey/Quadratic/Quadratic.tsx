@@ -5,7 +5,7 @@ import { SurveyRespondent } from '../../../../types/survey'
 import { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
 import { PrimaryButton } from 'components/Button'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useMetadata } from 'contexts/metadata'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
@@ -30,6 +30,7 @@ const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent;
   const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
+  const [isFirstVote, setFirstVote] = useState(false)
   const {
     setup: { credits, feedback },
     language: { thumbsDown, thumbsUp, token, customToken = '' },
@@ -45,13 +46,6 @@ const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent;
     },
   })
 
-  // Redundant, this is the fisrt interaction with the survey if there is no welcome message
-  useEffect(() => {
-    if (availableCredits !== credits) {
-      onStart()
-    }
-  }, [availableCredits, credits, onStart])
-
   useEffect(() => {
     onQuestionPageLoad()
   }, [onQuestionPageLoad])
@@ -62,6 +56,15 @@ const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent;
       handleNext()
     }
   }, [isSuccess, handleNext, survey])
+
+  const handleVote = (direction: number, index: number) => {
+    vote(index, direction)
+
+    if (!isFirstVote && !survey.message?.welcome) {
+      setFirstVote(true)
+      onStart()
+    }
+  }
 
   const onSubmit: SubmitHandler<QuadraticAnswerForm> = (values) => {
     const answer: Answer<Quadratic> = {
@@ -123,7 +126,7 @@ const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent;
                         thumbsDown={thumbsDown}
                         thumbsUp={thumbsUp}
                         total={credits}
-                        handleVote={(direction: number) => vote(index, direction)}
+                        handleVote={(direction: number) => handleVote(direction, index)}
                         vote={question.vote}
                         creditSpent={question.credits}
                         canVoteUp={canVote(index, 1)}

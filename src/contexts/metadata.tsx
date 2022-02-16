@@ -63,20 +63,14 @@ export const MetadataProvider = ({ ...props }): ReactElement => {
   // Respondent first interaction
   const onStart = useCallback(() => {
     setMetadata((meta) => {
-      if (!meta.startAt) {
-        return { ...meta, startAt: new Date().toISOString() }
-      }
-      return meta
+      return { ...meta, startAt: new Date().toISOString() }
     })
   }, [])
 
   // Question page first load
   const onQuestionPageLoad = useCallback(() => {
     setMetadata((meta) => {
-      if (!meta.questionPageLoadAt) {
-        return { ...meta, questionPageLoadAt: new Date().toISOString() }
-      }
-      return meta
+      return { ...meta, questionPageLoadAt: new Date().toISOString() }
     })
   }, [])
 

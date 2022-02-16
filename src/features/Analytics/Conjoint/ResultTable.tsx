@@ -4,7 +4,6 @@ import { SurveyDashboard } from '../../../../types/survey'
 import { AnswerResponse as Answer, Conjoint } from '../../../../types/answer'
 
 const ResultTable = ({ answers, survey }: { answers: Answer<Conjoint>[]; survey: SurveyDashboard }) => {
-  console.log('survey', survey)
   console.log(answers)
 
   const getQuestionText = ({ statement }: { statement: string }) => {

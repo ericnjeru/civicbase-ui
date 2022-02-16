@@ -13,7 +13,7 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId 
   const [step, setStep] = useState<Step>('welcome')
 
   useEffect(() => {
-    if (!survey?.message?.welcome && step === 'welcome') {
+    if (survey && !survey.message?.welcome && step === 'welcome') {
       setStep('questions')
     }
   }, [survey, step])
