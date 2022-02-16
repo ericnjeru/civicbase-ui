@@ -1,6 +1,6 @@
 import tw from 'twin.macro'
 import * as Table from 'components/Table'
-import { QuadraticAnswer } from '../../../../../types/answer'
+import { AnswerResponse as Answer, Quadratic } from '../../../../../types/answer'
 
 type Result = {
   pilot: {
@@ -14,7 +14,7 @@ type Result = {
   }
 }
 
-const ResultTable = ({ answers }: { answers: QuadraticAnswer[] }) => {
+const ResultTable = ({ answers }: { answers: Answer<Quadratic>[] }) => {
   const results = answers.reduce(
     (results: Result, answer) => {
       answer.questions.forEach((question) => {

@@ -6,9 +6,9 @@ type Params = {
   [key: string]: number | string
 }
 interface MetadataContextProps {
-  startAt: string | null
-  surveyLoadAt: string | null
-  questionPageLoadAt: string | null
+  startAt: string
+  surveyLoadAt: string
+  questionPageLoadAt: string
 }
 
 interface MetadataContext {
@@ -20,9 +20,9 @@ interface MetadataContext {
 
 const initialContextData: MetadataContext = {
   metadata: {
-    startAt: null,
-    surveyLoadAt: null,
-    questionPageLoadAt: null,
+    startAt: new Date().toISOString(),
+    surveyLoadAt: new Date().toISOString(),
+    questionPageLoadAt: new Date().toISOString(),
   },
   onStart: () => {},
   onQuestionPageLoad: () => {},
@@ -30,9 +30,9 @@ const initialContextData: MetadataContext = {
 }
 
 const initialMetadata: MetadataContextProps = {
-  startAt: null,
-  surveyLoadAt: null,
-  questionPageLoadAt: null,
+  startAt: new Date().toISOString(),
+  surveyLoadAt: new Date().toISOString(),
+  questionPageLoadAt: new Date().toISOString(),
 }
 
 const MetadataContext = createContext<MetadataContext>(initialContextData)

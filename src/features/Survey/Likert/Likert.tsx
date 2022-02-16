@@ -8,28 +8,24 @@ import Typography, { Headline } from 'components/Typography'
 import { PrimaryButton } from 'components/Button'
 import { SurveyRespondent } from '../../../../types/survey'
 import { useMetadata } from 'contexts/metadata'
-import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 import FeedbackQuestions from '../FeedbackQuestions'
 import RespondentLayout from 'layouts/Respondent'
 import { setSurveyTaken } from 'utilities/survey'
+import { AnswerRequest as Answer, Likert } from '../../../../types/answer'
 
 type LikertAnswerForm = {
   feedback?: {
     questions: {
       answer: string
+      id: string
     }[]
   }
-  questions?: {
-    id?: string
-    item: {
-      vote: number
-    }[]
-  }[]
+  questions: any // TODO:
 }
 
-const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
+const LikertRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
   const { metadata, params } = useMetadata()
   const {
@@ -55,7 +51,7 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
   }, [isSuccess, handleNext, survey])
 
   const onSubmit: SubmitHandler<LikertAnswerForm> = ({ questions, feedback: respondentFeedback }) => {
-    const answer: Answer = {
+    const answer: Answer<Likert> = {
       surveyId: survey.id,
       questions,
       researcherId: survey.uid,
@@ -147,4 +143,4 @@ const Likert = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: 
   )
 }
 
-export default Likert
+export default LikertRespondent

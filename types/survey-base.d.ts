@@ -62,11 +62,6 @@ export type ConjointAttributes = {
   key: string
 }
 
-type ConjointItems = {
-  id: string
-  [key: string]: string
-}
-
 export type Features = {
   qualtrics?: boolean
   userIdentification?: boolean
@@ -92,13 +87,6 @@ export type Analytics = {
 }
 
 // TODO: This is the quadratic, being use inside  qudratic use hook. Sort it out
-export interface QuadraticQuestions {
-  id: string
-  statement: string
-  vote: number
-  credits: number
-  order: number
-}
 
 // TODO: rename:
 export type QuadraticForSurvey = {
@@ -121,4 +109,9 @@ export type LikertQuestions = {
     description: string
     vote: number
   }[]
+}
+
+type ConjointItems = {
+  id: string
+  [key: string]: string
 }

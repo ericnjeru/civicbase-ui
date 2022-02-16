@@ -1,12 +1,12 @@
 import tw from 'twin.macro'
-import { ConjointAnswer } from '../../../../types/answer'
 import { SurveyDashboard } from '../../../../types/survey'
-import FeedbackTable, { FeedbackAnswer } from '../FeedbackTable'
+import FeedbackTable from '../FeedbackTable'
 import NoResult from '../NoResult'
 import AnswerTable from './AnswerTable'
 import ResultTable from './ResultTable'
+import { AnswerResponse as Answer, Conjoint } from '../../../../types/answer'
 
-const Conjoint = ({ survey, answers }: { survey: SurveyDashboard; answers: ConjointAnswer[] }) => {
+const ConjointAnalytics = ({ survey, answers }: { survey: SurveyDashboard; answers: Answer<Conjoint>[] }) => {
   const description =
     survey.status === 'finished'
       ? `This survey was finished and didn't capture any answer`
@@ -17,9 +17,9 @@ const Conjoint = ({ survey, answers }: { survey: SurveyDashboard; answers: Conjo
       {answers.length > 0 && <ResultTable answers={answers} survey={survey} />}
       {answers.length > 0 && <AnswerTable answers={answers} survey={survey} />}
       {answers.length === 0 && <NoResult title="Result" description={description} />}
-      {survey.setup.feedback?.active && <FeedbackTable answers={answers as FeedbackAnswer[]} />}
+      {survey.setup.feedback?.active && <FeedbackTable answers={answers} />}
     </div>
   )
 }
 
-export default Conjoint
+export default ConjointAnalytics

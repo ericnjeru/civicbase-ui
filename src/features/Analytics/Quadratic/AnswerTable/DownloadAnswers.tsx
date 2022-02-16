@@ -3,15 +3,15 @@ import { BsDownload } from 'react-icons/bs'
 import { format } from 'date-fns'
 import { CSVLink } from 'react-csv'
 import { PrimaryButton } from 'components/Button'
-import { QuadraticAnswer } from '../../../../../types/answer'
 import { SurveyDashboard } from '../../../../../types/survey'
+import { AnswerResponse as Answer, Quadratic } from '../../../../../types/answer'
 
 const DownloadAnswers = ({
   answers,
   hasUserId,
   survey,
 }: {
-  answers: QuadraticAnswer[]
+  answers: Answer<Quadratic>[]
   hasUserId: boolean
   survey: SurveyDashboard
 }) => {

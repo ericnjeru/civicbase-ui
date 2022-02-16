@@ -8,7 +8,6 @@ import { AiFillCheckCircle } from 'react-icons/ai'
 import { SurveyRespondent } from '../../../../types/survey'
 import useConjoint from 'hooks/use-conjoint'
 import { PrimaryButton } from 'components/Button'
-import { ConjointAnswer } from '../../../../types/answer'
 import { useMetadata } from 'contexts/metadata'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
@@ -17,6 +16,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import FeedbackQuestions from '../FeedbackQuestions'
 import RespondentLayout from 'layouts/Respondent'
 import { setSurveyTaken } from 'utilities/survey'
+import { AnswerRequest as Answer, Conjoint } from '../../../../types/answer'
 
 type ConjointAnswerForm = {
   feedback?: {
@@ -27,7 +27,7 @@ type ConjointAnswerForm = {
   }
 }
 
-const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
+const ConjointRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { metadata, params } = useMetadata()
   const { questions, vote } = useConjoint(survey)
   const { run, isSuccess } = useAsync()
@@ -57,7 +57,7 @@ const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext
   }
 
   const onSubmit: SubmitHandler<ConjointAnswerForm> = (values) => {
-    const answer: ConjointAnswer = {
+    const answer: Answer<Conjoint> = {
       surveyId: survey.id,
       questions,
       researcherId: survey.uid,
@@ -151,4 +151,4 @@ const Conjoint = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext
   )
 }
 
-export default Conjoint
+export default ConjointRespondent

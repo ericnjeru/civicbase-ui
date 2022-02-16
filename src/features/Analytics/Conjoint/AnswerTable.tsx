@@ -1,10 +1,10 @@
 import * as Table from 'components/Table'
 import tw from 'twin.macro'
-import { ConjointAnswer } from '../../../../types/answer'
 import { SurveyDashboard } from '../../../../types/survey'
 import { checkUserId } from 'utilities/analytics'
+import { AnswerResponse as Answer, Conjoint } from '../../../../types/answer'
 
-const AnswerTable = ({ answers, survey }: { answers: ConjointAnswer[]; survey: SurveyDashboard }) => {
+const AnswerTable = ({ answers, survey }: { answers: Answer<Conjoint>[]; survey: SurveyDashboard }) => {
   console.log(answers)
 
   const hasUserId = checkUserId(answers as [])

@@ -1,12 +1,12 @@
 import tw from 'twin.macro'
 import AnswerTable from './AnswerTable'
 import ResultTable from './ResultTable'
-import { QuadraticAnswer } from '../../../../types/answer'
 import { SurveyDashboard } from '../../../../types/survey'
 import NoResult from '../NoResult'
-import FeedbackTable, { FeedbackAnswer } from '../FeedbackTable'
+import FeedbackTable from '../FeedbackTable'
+import { AnswerResponse as Answer, Quadratic } from '../../../../types/answer'
 
-const Quadratic = ({ survey, answers }: { survey: SurveyDashboard; answers: QuadraticAnswer[] }) => {
+const QuadraticAnalytics = ({ survey, answers }: { survey: SurveyDashboard; answers: Answer<Quadratic>[] }) => {
   const description =
     survey.status === 'finished'
       ? `This survey was finished and didn't capture any answer`
@@ -17,9 +17,9 @@ const Quadratic = ({ survey, answers }: { survey: SurveyDashboard; answers: Quad
       {answers.length > 0 && <ResultTable answers={answers} />}
       {answers.length > 0 && <AnswerTable survey={survey} answers={answers} />}
       {answers.length === 0 && <NoResult title="Result" description={description} />}
-      {survey.setup.feedback?.active && <FeedbackTable answers={answers as FeedbackAnswer[]} />}
+      {survey.setup.feedback?.active && <FeedbackTable answers={answers} />}
     </div>
   )
 }
 
-export default Quadratic
+export default QuadraticAnalytics

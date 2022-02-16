@@ -1,15 +1,9 @@
 import tw from 'twin.macro'
 import * as Table from 'components/Table'
 import Typography from 'components/Typography'
+import { AnswerResponse as Answer } from '../../../types/answer'
 
-export type FeedbackAnswer = {
-  feedback: {
-    id: string
-    answer: string
-  }[]
-}
-
-const FeedbackTable = ({ answers }: { answers: FeedbackAnswer[] }) => {
+const FeedbackTable = ({ answers }: { answers: Answer<unknown>[] }) => {
   const isFeedback = () => {
     let flag = false
 

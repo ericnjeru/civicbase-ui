@@ -7,7 +7,6 @@ import Vote from 'components/Vote'
 import { PrimaryButton } from 'components/Button'
 import { useEffect } from 'react'
 import { useMetadata } from 'contexts/metadata'
-import { Answer } from '../../../../types/answer'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
 import useQuadratic from 'hooks/use-quadratic'
@@ -16,16 +15,18 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import FeedbackQuestions from '../FeedbackQuestions'
 import RespondentLayout from 'layouts/Respondent'
 import { setSurveyTaken } from 'utilities/survey'
+import { AnswerRequest as Answer, Quadratic } from '../../../../types/answer'
 
 type QuadraticAnswerForm = {
   feedback?: {
     questions: {
       answer: string
+      id: string
     }[]
   }
 }
 
-const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
+const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { run, isSuccess } = useAsync()
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
@@ -63,10 +64,9 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
   }, [isSuccess, handleNext, survey])
 
   const onSubmit: SubmitHandler<QuadraticAnswerForm> = (values) => {
-    const answer: Answer = {
+    const answer: Answer<Quadratic> = {
       surveyId: survey.id,
       questions,
-      researcherId: survey.uid,
       status: survey.status,
       time: {
         ...metadata,
@@ -144,4 +144,4 @@ const Quadratic = ({ survey, handleNext }: { survey: SurveyRespondent; handleNex
   )
 }
 
-export default Quadratic
+export default QuadraticRespondent

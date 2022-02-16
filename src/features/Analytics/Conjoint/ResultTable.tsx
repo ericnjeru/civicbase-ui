@@ -1,15 +1,14 @@
 import { EditorState, convertFromRaw } from 'draft-js'
 import * as Table from 'components/Table'
-import { ConjointAnswer } from '../../../../types/answer'
 import { SurveyDashboard } from '../../../../types/survey'
-import { Conjoint } from '../../../../types/survey-base'
+import { AnswerResponse as Answer, Conjoint } from '../../../../types/answer'
 
-const ResultTable = ({ answers, survey }: { answers: ConjointAnswer[]; survey: SurveyDashboard }) => {
+const ResultTable = ({ answers, survey }: { answers: Answer<Conjoint>[]; survey: SurveyDashboard }) => {
   console.log('survey', survey)
   console.log(answers)
 
-  const getQuestionText = (question: Conjoint) => {
-    const text = EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))
+  const getQuestionText = ({ statement }: { statement: string }) => {
+    const text = EditorState.createWithContent(convertFromRaw(JSON.parse(statement)))
 
     return text.getCurrentContent().getPlainText('\u0001')
   }

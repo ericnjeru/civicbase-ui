@@ -1,5 +1,5 @@
-import { QuadraticAnswer } from '../../types/answer'
 import { SurveyDashboard } from '../../types/survey'
+import { AnswerResponse as Answer, Quadratic } from '../../types/answer'
 
 export const survey: SurveyDashboard = {
   quadratic: [
@@ -54,19 +54,17 @@ export const survey: SurveyDashboard = {
   id: 'FXvKAFKaYnFKZzKkWg0c',
 }
 
-export const answers: QuadraticAnswer[] = [
+export const answers: Answer<Quadratic>[] = [
   {
     questions: [
       {
         id: 'Q1',
         vote: 0,
-        statement: '11111',
         credits: 0,
         order: 3,
       },
       {
         id: 'Q2',
-        statement: '2222',
         vote: 0,
         credits: 0,
         order: 1,
@@ -75,21 +73,18 @@ export const answers: QuadraticAnswer[] = [
         credits: 1,
         id: 'Q3',
         vote: 1,
-        statement: '3333',
         order: 0,
       },
       {
         vote: 0,
         id: 'Q4',
         credits: 0,
-        statement: '4444',
         order: 2,
       },
       {
         id: 'Q5',
         credits: 0,
         vote: 0,
-        statement: '5555',
         order: 4,
       },
     ],
@@ -110,7 +105,6 @@ export const answers: QuadraticAnswer[] = [
   {
     questions: [
       {
-        statement: '11111',
         vote: 0,
         id: 'Q1',
         credits: 0,
@@ -119,7 +113,6 @@ export const answers: QuadraticAnswer[] = [
       {
         vote: -1,
         credits: 1,
-        statement: '2222',
         id: 'Q2',
         order: 1,
       },
@@ -127,13 +120,11 @@ export const answers: QuadraticAnswer[] = [
         vote: 0,
         id: 'Q3',
         credits: 0,
-        statement: '3333',
         order: 2,
       },
       {
         vote: 0,
         id: 'Q4',
-        statement: '4444',
         credits: 0,
         order: 3,
       },
@@ -141,7 +132,6 @@ export const answers: QuadraticAnswer[] = [
         id: 'Q5',
         vote: 0,
         credits: 0,
-        statement: '5555',
         order: 4,
       },
     ],
@@ -165,7 +155,6 @@ export const answers: QuadraticAnswer[] = [
     surveyId: 'FXvKAFKaYnFKZzKkWg0c',
     questions: [
       {
-        statement: '11111',
         vote: 0,
         id: 'Q1',
         credits: 0,
@@ -173,7 +162,6 @@ export const answers: QuadraticAnswer[] = [
       },
       {
         id: 'Q2',
-        statement: '2222',
         credits: 0,
         vote: 0,
         order: 1,
@@ -182,11 +170,9 @@ export const answers: QuadraticAnswer[] = [
         credits: 0,
         vote: 0,
         id: 'Q3',
-        statement: '3333',
         order: 2,
       },
       {
-        statement: '4444',
         id: 'Q4',
         credits: 0,
         vote: 0,
@@ -196,7 +182,6 @@ export const answers: QuadraticAnswer[] = [
         id: 'Q5',
         credits: 1,
         vote: 1,
-        statement: '5555',
         order: 4,
       },
     ],
@@ -224,7 +209,6 @@ export const answers: QuadraticAnswer[] = [
     param2: 'asdasd',
     questions: [
       {
-        statement: '11111',
         id: 'Q1',
         credits: 0,
         vote: 0,
@@ -232,13 +216,11 @@ export const answers: QuadraticAnswer[] = [
       },
       {
         credits: 1,
-        statement: '2222',
         id: 'Q2',
         vote: 1,
         order: 1,
       },
       {
-        statement: '3333',
         credits: 0,
         vote: 0,
         id: 'Q3',
@@ -246,7 +228,6 @@ export const answers: QuadraticAnswer[] = [
       },
       {
         vote: 0,
-        statement: '4444',
         id: 'Q4',
         credits: 0,
         order: 3,
@@ -254,7 +235,6 @@ export const answers: QuadraticAnswer[] = [
       {
         credits: 0,
         id: 'Q5',
-        statement: '5555',
         vote: 0,
         order: 4,
       },
@@ -278,35 +258,30 @@ export const answers: QuadraticAnswer[] = [
       {
         vote: 0,
         id: 'Q1',
-        statement: '11111',
         credits: 0,
         order: 1,
       },
       {
         credits: 1,
         id: 'Q2',
-        statement: '2222',
         vote: -1,
         order: 2,
       },
       {
         credits: 0,
         vote: 0,
-        statement: '3333',
         id: 'Q3',
         order: 3,
       },
       {
         vote: 0,
         id: 'Q4',
-        statement: '4444',
         credits: 0,
         order: 4,
       },
       {
         credits: 0,
         id: 'Q5',
-        statement: '5555',
         vote: 0,
         order: 0,
       },
@@ -323,13 +298,11 @@ export const answers: QuadraticAnswer[] = [
       {
         vote: 1,
         id: 'Q1',
-        statement: '11111',
         credits: 1,
         order: 0,
       },
       {
         id: 'Q2',
-        statement: '2222',
         credits: 0,
         vote: 0,
         order: 1,
@@ -337,13 +310,11 @@ export const answers: QuadraticAnswer[] = [
       {
         id: 'Q3',
         vote: 0,
-        statement: '3333',
         credits: 0,
         order: 2,
       },
       {
         vote: 0,
-        statement: '4444',
         credits: 0,
         id: 'Q4',
         order: 3,
@@ -351,7 +322,6 @@ export const answers: QuadraticAnswer[] = [
       {
         vote: 0,
         id: 'Q5',
-        statement: '5555',
         credits: 0,
         order: 4,
       },
@@ -373,13 +343,11 @@ export const answers: QuadraticAnswer[] = [
     questions: [
       {
         vote: 1,
-        statement: '11111',
         credits: 1,
         id: 'Q1',
         order: 2,
       },
       {
-        statement: '2222',
         credits: 0,
         vote: 0,
         id: 'Q2',
@@ -388,19 +356,16 @@ export const answers: QuadraticAnswer[] = [
       {
         vote: 0,
         id: 'Q3',
-        statement: '3333',
         credits: 0,
         order: 1,
       },
       {
-        statement: '4444',
         credits: 0,
         vote: 0,
         id: 'Q4',
         order: 0,
       },
       {
-        statement: '5555',
         credits: 0,
         id: 'Q5',
         vote: 0,

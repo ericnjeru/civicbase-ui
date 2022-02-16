@@ -1,30 +1,31 @@
-import { QuadraticQuestions, Status, ConjointQuestions, LikertQuestions } from './survey-base'
+import { Status, ConjointAttributes, ConjointItems } from './survey-base'
 
-// TODO: there 2 types of answer one when you create answer and the other one when you get from db
-type Answer = {
+type AnswerRequest<Type> = {
   surveyId: string
-  researcherId: string
   status: Status
-  time: Time
   leftCredits?: number
-  feedback?: {
-    answer: string
-  }[]
+  time: Time
+  questions: Type[]
+  feedback?: Feedback[]
   [key: string]: any
 }
 
-type Question = {
-  id?: string
-  statement: string
-  vote: number
-  credits: number
+type AnswerResponse<Type> = {
+  createdAt: string
+  questions: Type[]
+  leftCredits?: number
+  status: Status
+  surveyId: string
+  time: Time
+  feedback?: Feedback[]
+  [key: string]: any
 }
 
 type Time = {
   submitedAt: string
-  startAt: string | null
-  surveyLoadAt: string | null
-  questionPageLoadAt: string | null
+  startAt: string
+  surveyLoadAt: string
+  questionPageLoadAt: string
 }
 
 type Feedback = {
@@ -32,24 +33,26 @@ type Feedback = {
   id: string
 }
 
-export interface QuadraticAnswer extends Answer {
-  questions: QuadraticQuestions[]
-  createdAt: string
-  time: {
-    submitedAt: string
-    startAt: string
-    surveyLoadAt: string
-    questionPageLoadAt: string
-  }
-  feedback?: Feedback[]
+type Quadratic = {
+  id: string
+  vote: number
+  credits: number
+  order: number
 }
 
-export interface LikertAnswer extends Answer {
-  questions: LikertQuestions[]
-  feedback?: Feedback[]
+type Conjoint = {
+  id: string
+  attributes: ConjointAttributes[]
+  items: ConjointItems[]
+  selected?: string
 }
 
-export interface ConjointAnswer extends Answer {
-  questions: ConjointQuestions[]
-  feedback?: Feedback[]
+type Likert = {
+  id: string
+  item: LikertItem[]
+}
+
+type LikertItem = {
+  description: string
+  vote: number
 }

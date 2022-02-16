@@ -3,12 +3,12 @@ import Tooltip from 'components/Tooltip'
 import Typography from 'components/Typography'
 import tw from 'twin.macro'
 import { toCamelCase } from 'utilities/util'
-import { QuadraticAnswer } from '../../../../../types/answer'
 import { SurveyDashboard } from '../../../../../types/survey'
 import DownloadAnswers from './DownloadAnswers'
 import { checkUserId, userId } from 'utilities/analytics'
+import { AnswerResponse as Answer, Quadratic } from '../../../../../types/answer'
 
-const AnswerTable = ({ survey, answers }: { survey: SurveyDashboard; answers: QuadraticAnswer[] }) => {
+const AnswerTable = ({ survey, answers }: { survey: SurveyDashboard; answers: Answer<Quadratic>[] }) => {
   const {
     language: { token, customToken },
   } = survey

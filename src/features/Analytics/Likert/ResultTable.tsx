@@ -2,11 +2,10 @@ import * as Table from 'components/Table'
 import Typography from 'components/Typography'
 import { EditorState, convertFromRaw } from 'draft-js'
 import tw from 'twin.macro'
-import { LikertAnswer } from '../../../../types/answer'
 import { SurveyDashboard } from '../../../../types/survey'
-import { Likert } from '../../../../types/survey-base'
+import { AnswerResponse as Answer, Likert } from '../../../../types/answer'
 
-const ResultTable = ({ survey, answers }: { survey: SurveyDashboard; answers: LikertAnswer[] }) => {
+const ResultTable = ({ survey, answers }: { survey: SurveyDashboard; answers: Answer<Likert>[] }) => {
   if (!survey.likert) {
     return null
   }
@@ -29,8 +28,8 @@ const ResultTable = ({ survey, answers }: { survey: SurveyDashboard; answers: Li
     })
   })
 
-  const getQuestionText = (question: Likert) => {
-    const text = EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))
+  const getQuestionText = ({ statement }: { statement: string }) => {
+    const text = EditorState.createWithContent(convertFromRaw(JSON.parse(statement)))
 
     return text.getCurrentContent().getPlainText('\u0001')
   }
