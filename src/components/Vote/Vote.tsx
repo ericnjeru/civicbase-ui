@@ -21,18 +21,10 @@ const Display = ({
   }
 
   const getSize = () => {
-    const size = (creditSpent / total) * 100
+    const size = (creditSpent / total) * 75
     const r = size < 0 ? size * -1 : size
 
-    if (r === 0) {
-      return 0
-    }
-
-    if (r < 25) {
-      return 25
-    }
-
-    return r
+    return r === 0 ? r : r + 25
   }
 
   return (
