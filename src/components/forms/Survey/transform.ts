@@ -4,6 +4,7 @@ import { Setup } from '../../../../types/survey-base'
 import { SurveyRequest } from '../../../../types/survey-request'
 import { surveyMethods } from 'utilities/constants'
 
+// TODO: this sucks and need a better thinking
 const transform = (request: SurveyForm): SurveyRequest => {
   const welcome = request.message?.welcome
   const completion = request.message?.completion
@@ -96,6 +97,10 @@ const transform = (request: SurveyForm): SurveyRequest => {
   if (transformedRequest.language && transformedRequest.language?.jargon !== 'Custom') {
     transformedRequest.language.thumbsUp = transformedRequest.language?.jargon.split('/')[0]
     transformedRequest.language.thumbsDown = transformedRequest.language?.jargon.split('/')[1]
+  }
+
+  if (!transformedRequest.message) {
+    transformedRequest.message = {}
   }
 
   return transformedRequest
