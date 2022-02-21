@@ -1,4 +1,5 @@
 import tw from 'twin.macro'
+import { useEffect } from 'react'
 import { Controller, useFormContext, useWatch } from 'react-hook-form'
 import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
@@ -11,6 +12,7 @@ import { surveyMethods } from 'utilities/constants'
 
 const Setup = ({ isEditing }: { isEditing: boolean }) => {
   const {
+    setValue,
     register,
     control,
     formState: { errors },
@@ -20,22 +22,37 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
   const method = useWatch({ name: 'setup.method' })
   const methods: Methods[] = ['Quadratic', 'Likert', 'Conjoint']
 
+  useEffect(() => {
+    if (method !== surveyMethods.Quadratic) {
+      setValue('language', null)
+    }
+  }, [method, setValue])
+
   return (
     <>
       <Label>Topic *</Label>
       <Input {...register('setup.topic', { required: true })} error={!!errors.setup?.topic} />
-      <FieldErrorMessage css={tw`ml-2`} name="setup.topic" errors={errors} />
+      <FieldErrorMessage name="setup.topic" errors={errors} />
 
       <div css={tw`grid grid-cols-2 gap-8 my-4`}>
         <div>
-          <Label>Survey method</Label>
+          <Label>Survey Method *</Label>
           <Controller
             name="setup.method"
             control={control}
-            render={({ field }) => (
-              <Dropdown disabled={isEditing} placeholder="Select survey method" values={methods} {...field} />
-            )}
+            render={({ field }) => {
+              return (
+                <Dropdown
+                  disabled={isEditing}
+                  placeholder="Select survey method"
+                  values={methods}
+                  error={errors?.setup?.method}
+                  {...field}
+                />
+              )
+            }}
           />
+          <FieldErrorMessage name="setup.method" errors={errors} />
         </div>
 
         <div>
@@ -48,16 +65,19 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
                 step={1}
                 error={!!errors.setup?.credits}
               />
-              <FieldErrorMessage css={tw`ml-2`} name="setup.credits" errors={errors} />
+              <FieldErrorMessage name="setup.credits" errors={errors} />
             </>
           )}
         </div>
 
-        <Controller
-          name="setup.feedback.active"
-          control={control}
-          render={({ field }) => <Switch {...field}>Enable respondent feedback?</Switch>}
-        />
+        <div>
+          <Controller
+            name="setup.feedback.active"
+            control={control}
+            render={({ field }) => <Switch {...field}>Enable respondent feedback?</Switch>}
+          />
+          <FieldErrorMessage name="setup.feedback" errors={errors} />
+        </div>
       </div>
 
       {isActive && <FeedbackQuestions />}

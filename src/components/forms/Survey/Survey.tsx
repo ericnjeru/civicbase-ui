@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { EditorState, convertFromRaw } from 'draft-js'
-import { BiCog, BiMessageRoundedDetail } from 'react-icons/bi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GiTerror } from 'react-icons/gi'
 import { useNavigate } from '@reach/router'
-import { IoFlagSharp } from 'react-icons/io5'
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
-import Tabs, { TabPanel } from 'components/Tabs'
+import Tabs, { TabPanel as Step } from 'components/Tabs'
 import * as Forms from './steps'
+import * as Tab from './tabs'
 import { validationSchema } from './validation'
-import SubmitSurvey from './Submit'
-import CustomTabItem from './CustomTabItem'
 import { SurveyForm } from '../../../../types/forms'
 import { createSurvey, editSurvey } from 'services/survey'
 import useAsync from 'hooks/use-async'
@@ -19,9 +16,7 @@ import transform from './transform'
 import { useBanner } from 'contexts/banner'
 import { EditSurvey } from '../../../../types/survey'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
-import QuestionTab from './tabs/QuestionTab'
 import { SurveyRequest } from '../../../../types/survey-request'
-import LanguageTab from './tabs/LanguageTab'
 
 const Survey = ({ survey }: { survey?: EditSurvey }) => {
   const getDefaultValues = (): SurveyForm => {
@@ -71,10 +66,7 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
             questions: [],
           },
         },
-        language: {
-          jargon: 'Agree/Disagree',
-          token: 'Credits',
-        },
+        language: null,
         message: {
           welcome: EditorState.createEmpty(),
           completion: EditorState.createEmpty(),
@@ -131,53 +123,42 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
         <div css={tw`w-full flex p-4 rounded`}>
           <Tabs initial="setup">
             <div css={tw`w-72 mr-4`}>
-              <CustomTabItem id="setup" icon={BiCog}>
-                Setup
-              </CustomTabItem>
-
-              <LanguageTab />
-
-              <CustomTabItem id="messages" icon={BiMessageRoundedDetail}>
-                Messages
-              </CustomTabItem>
-
-              <QuestionTab />
-
-              <CustomTabItem id="features" icon={IoFlagSharp}>
-                Features
-              </CustomTabItem>
-
-              <SubmitSurvey isLoading={isLoading} isEditing={!!survey?.id} />
+              <Tab.Setup />
+              <Tab.Language />
+              <Tab.Question />
+              <Tab.Messages />
+              <Tab.Customize />
+              <Tab.Submit isLoading={isLoading} isEditing={!!survey?.id} />
             </div>
 
             <div css={tw`w-full bg-white rounded-md p-4 pt-0`}>
-              <TabPanel value="setup">
+              <Step value="setup">
                 <Forms.Setup isEditing={!!survey?.id} />
-              </TabPanel>
+              </Step>
 
-              <TabPanel value="language">
+              <Step value="language">
                 <Forms.Language />
-              </TabPanel>
+              </Step>
 
-              <TabPanel value="quadratic">
+              <Step value="quadratic">
                 <Forms.Quadratic isPublished={survey?.status === 'published'} />
-              </TabPanel>
+              </Step>
 
-              <TabPanel value="conjoint">
+              <Step value="conjoint">
                 <Forms.Conjoint isPublished={survey?.status === 'published'} />
-              </TabPanel>
+              </Step>
 
-              <TabPanel value="likert">
+              <Step value="likert">
                 <Forms.Likert isPublished={survey?.status === 'published'} />
-              </TabPanel>
+              </Step>
 
-              <TabPanel value="messages">
+              <Step value="messages">
                 <Forms.Messages />
-              </TabPanel>
+              </Step>
 
-              <TabPanel value="features">
+              <Step value="customize">
                 <Forms.Features />
-              </TabPanel>
+              </Step>
             </div>
           </Tabs>
         </div>

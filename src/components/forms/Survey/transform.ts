@@ -12,7 +12,6 @@ const transform = (request: SurveyForm): SurveyRequest => {
 
   const transformedRequest: SurveyRequest = {
     setup: setup as Setup,
-    language: language,
   }
 
   if (!transformedRequest.setup.feedback?.active) {
@@ -62,6 +61,10 @@ const transform = (request: SurveyForm): SurveyRequest => {
   }
 
   if (quadratic && quadratic.length > 0 && setup.method === surveyMethods.Quadratic) {
+    if (language) {
+      transformedRequest.language = language
+    }
+
     transformedRequest.quadratic = quadratic.map((question) => {
       const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
 

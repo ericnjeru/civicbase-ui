@@ -14,7 +14,7 @@ export type SurveyForm = {
       }[]
     }
   }
-  language: Language
+  language: Language | null
   message?: {
     welcome: EditorState
     completion: EditorState

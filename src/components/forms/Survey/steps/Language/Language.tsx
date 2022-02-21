@@ -1,13 +1,15 @@
 import tw from 'twin.macro'
-import { useFormContext, Controller } from 'react-hook-form'
+import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import Label from 'components/Form/Label'
 import Dropdown from 'components/Dropdown'
 import Input from 'components/Form/Input'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import { surveyMethods } from 'utilities/constants'
 
 const Language = () => {
   const languages = ['Agree/Disagree', 'Favor/Opose', 'Aprove/Reject', 'Aye/Nay', 'Custom']
   const tokens = ['Credits', 'Coins', 'Tokens', 'Custom']
+  const method = useWatch({ name: 'setup.method' })
 
   const {
     register,
@@ -19,6 +21,10 @@ const Language = () => {
   const isCustomJargon = watch('language.jargon') === 'Custom'
   const isCustomToken = watch('language.token') === 'Custom'
 
+  if (method !== surveyMethods.Quadratic) {
+    return null
+  }
+
   return (
     <div css={tw`grid grid-cols-1 gap-6`}>
       <div>
@@ -26,8 +32,17 @@ const Language = () => {
         <Controller
           name="language.jargon"
           control={control}
-          render={({ field }) => <Dropdown values={languages} value={field.value} onChange={field.onChange} />}
+          render={({ field }) => (
+            <Dropdown
+              values={languages}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Select preferred language"
+              error={errors?.language?.jargon}
+            />
+          )}
         />
+        <FieldErrorMessage name="language.jargon" errors={errors} />
       </div>
 
       {isCustomJargon && (
@@ -38,7 +53,7 @@ const Language = () => {
               {...register('language.thumbsUp', { required: isCustomJargon })}
               error={!!errors.language?.thumbsUp}
             />
-            <FieldErrorMessage css={tw`ml-2`} name="language.thumbsUp" errors={errors} />
+            <FieldErrorMessage name="language.thumbsUp" errors={errors} />
           </div>
 
           <div>
@@ -47,7 +62,7 @@ const Language = () => {
               {...register('language.thumbsDown', { required: isCustomJargon })}
               error={!!errors.language?.thumbsDown}
             />
-            <FieldErrorMessage css={tw`ml-2`} name="language.thumbsDown" errors={errors} />
+            <FieldErrorMessage name="language.thumbsDown" errors={errors} />
           </div>
         </div>
       )}
@@ -57,8 +72,17 @@ const Language = () => {
         <Controller
           name="language.token"
           control={control}
-          render={({ field }) => <Dropdown values={tokens} value={field.value} onChange={field.onChange} />}
+          render={({ field }) => (
+            <Dropdown
+              values={tokens}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="Select preferred token"
+              error={errors?.language?.token}
+            />
+          )}
         />
+        <FieldErrorMessage name="language.token" errors={errors} />
       </div>
 
       {isCustomToken && (
@@ -68,7 +92,7 @@ const Language = () => {
             {...register('language.customToken', { required: isCustomToken })}
             error={!!errors.language?.customToken}
           />
-          <FieldErrorMessage css={tw`ml-2`} name="language.customToken" errors={errors} />
+          <FieldErrorMessage name="language.customToken" errors={errors} />
         </div>
       )}
     </div>

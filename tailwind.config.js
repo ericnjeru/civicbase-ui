@@ -98,6 +98,7 @@ module.exports = {
         bgColor7: '#4b7bec',
         bgColor8: '#778ca3',
         bgColor9: '#f7b731',
+        bgColor10: '#ea7d7d',
         pilot: '#4b7bec',
         published: '#26de81',
         finished: '#fa8231',

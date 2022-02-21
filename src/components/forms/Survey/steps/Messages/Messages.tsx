@@ -10,12 +10,20 @@ const Messages = () => {
     <div css={tw`grid grid-cols-1 gap-8`}>
       <div>
         <Label>Wecome Message</Label>
-        <Controller name="message.welcome" control={control} render={({ field }) => <TextEditor {...field} />} />
+        <Controller
+          name="message.welcome"
+          control={control}
+          render={({ field }) => <TextEditor {...field} size={150} />}
+        />
       </div>
 
       <div>
         <Label>Completion Message</Label>
-        <Controller name="message.completion" control={control} render={({ field }) => <TextEditor {...field} />} />
+        <Controller
+          name="message.completion"
+          control={control}
+          render={({ field }) => <TextEditor {...field} size={150} />}
+        />
       </div>
     </div>
   )

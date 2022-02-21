@@ -1,12 +1,14 @@
 import { useWatch } from 'react-hook-form'
+import { IoMdChatboxes } from 'react-icons/io'
 import CustomTabItem from '../CustomTabItem'
-import { BsQuestion } from 'react-icons/bs'
+import useValidation from '../use-validation'
 
 const QuestionTab = () => {
-  const method = useWatch({ name: 'setup.method' })
+  const method = useWatch({ name: 'setup.method', defaultValue: '' })
+  const { isSetup, isLanguage } = useValidation()
 
   return (
-    <CustomTabItem id={method ? method.toLowerCase() : ''} icon={BsQuestion} disabled={!method}>
+    <CustomTabItem id={method.toLowerCase()} icon={IoMdChatboxes} disabled={!isSetup || !isLanguage}>
       Questions
     </CustomTabItem>
   )

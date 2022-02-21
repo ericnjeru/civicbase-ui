@@ -2,10 +2,12 @@ import tw from 'twin.macro'
 import { useFormContext } from 'react-hook-form'
 import { PrimaryButton } from 'components/Button'
 import Spinner from 'components/Spinner'
+import useValidation from '../use-validation'
 
 const SubmitSurvey = ({ isLoading, isEditing = false }: { isLoading: boolean; isEditing?: boolean }) => {
+  const { isSetup, isLanguage, isConjoint, isLikert, isQuadratic } = useValidation()
   const {
-    formState: { isValid, isDirty },
+    formState: { isDirty },
   } = useFormContext()
 
   return (
@@ -13,7 +15,7 @@ const SubmitSurvey = ({ isLoading, isEditing = false }: { isLoading: boolean; is
       <PrimaryButton
         css={tw`w-full flex justify-center items-center`}
         type="submit"
-        disabled={!isValid || !isDirty || isLoading}
+        disabled={!isDirty || isLoading || !isSetup || !isLanguage || !isConjoint || !isLikert || !isQuadratic}
       >
         {isLoading && <Spinner variant="light" css={tw`mr-4`} />}
         {isEditing ? 'Edit' : 'Create'} Survey

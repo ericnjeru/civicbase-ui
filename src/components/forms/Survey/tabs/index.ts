@@ -1,0 +1,6 @@
+export { default as Setup } from './SetupTab'
+export { default as Language } from './LanguageTab'
+export { default as Question } from './QuestionTab'
+export { default as Messages } from './MessagesTab'
+export { default as Customize } from './CustomizeTab'
+export { default as Submit } from './Submit'

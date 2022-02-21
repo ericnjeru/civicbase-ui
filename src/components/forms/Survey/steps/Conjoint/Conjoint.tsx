@@ -36,9 +36,11 @@ const Conjoint = ({ isPublished }: { isPublished: boolean }) => {
             <Controller
               name={`conjoint.${index}.statement`}
               control={control}
-              render={({ field }) => <TextEditor {...field} readOnly={isPublished} />}
+              render={({ field }) => (
+                <TextEditor {...field} readOnly={isPublished} error={errors.conjoint && !!errors.conjoint[index]} />
+              )}
             />
-            <FieldErrorMessage css={tw`ml-2`} name={`conjoint.${index}.statement`} errors={errors} />
+            <FieldErrorMessage name={`conjoint.${index}`} errors={errors} />
 
             <div css={tw`mt-8`}>
               <QuestionContent questionIndex={index} isPublished={isPublished} />
