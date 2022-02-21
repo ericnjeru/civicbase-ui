@@ -4,6 +4,7 @@ import TabContext from './TabContext'
 
 const TabPanel = memo(({ value, children }: { value: string; children: ReactNode }) => {
   const { active } = useContext(TabContext)
+
   return (
     <div
       role="tabpanel"

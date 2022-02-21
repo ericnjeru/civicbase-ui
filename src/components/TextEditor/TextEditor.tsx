@@ -20,12 +20,14 @@ const TextEditor = ({
   value = EditorState.createEmpty(),
   onChange,
   readOnly,
+  size = null,
 }: {
   modified?: boolean
   error?: boolean
   value?: EditorState
   onChange: (value: EditorState) => void
   readOnly?: boolean
+  size?: number | null
 }) => {
   const [focus, setFocus] = useState(false)
   const handleKeyCommand = (command: string, editorState: EditorState) => {
@@ -42,7 +44,8 @@ const TextEditor = ({
   const editorContainer = css`
     .DraftEditor-editorContainer {
       overflow: auto;
-      ${tw`max-h-72`}
+      height: ${size}px;
+      ${tw`max-h-72`};
     }
   `
 
@@ -91,9 +94,10 @@ const TextEditor = ({
         css={[
           tw`w-full p-2 max-h-80 outline-none`,
           tw`border-2 rounded-md border-gray-200 placeholder-gray-400`,
-          focus && tw`ring border-blue-300`,
+          focus && tw`outline-none ring-2 ring-blue-300 border-blue-300`,
           modified && tw`border-indigo-600 border-opacity-60`,
           error && tw`border-error-600 border-opacity-60`,
+          error && focus && tw`ring-2 ring-red-300 border-red-300`,
           editorContainer,
         ]}
       >

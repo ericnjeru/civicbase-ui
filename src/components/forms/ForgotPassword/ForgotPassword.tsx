@@ -57,7 +57,7 @@ const ForgotPassword = ({ next }: { next: () => void }) => {
           <div>
             <Label htmlFor="email">Email</Label>
             <Input {...register('email')} error={!!errors.email} disabled={isLoading} />
-            <FieldErrorMessage css={tw`ml-2`} name="email" errors={errors} />
+            <FieldErrorMessage name="email" errors={errors} />
           </div>
 
           {error && <Typography css={tw`text-center text-error-600`}>{error.message}</Typography>}

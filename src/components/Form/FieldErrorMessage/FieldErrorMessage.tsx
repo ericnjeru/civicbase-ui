@@ -8,7 +8,7 @@ const FieldErrorMessage = ({ errors, name, ...props }: { errors: FieldErrors; na
     name={name}
     errors={errors}
     render={({ message }) => (
-      <Hint css={tw`text-error-600 text-opacity-75`} {...props}>
+      <Hint css={tw`text-error-600 text-opacity-75 mt-1 ml-2`} {...props}>
         {message}
       </Hint>
     )}

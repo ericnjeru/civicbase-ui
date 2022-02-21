@@ -2,7 +2,7 @@ import { Listbox } from '@headlessui/react'
 import { BsCheck } from 'react-icons/bs'
 import { HiOutlineSelector } from 'react-icons/hi'
 import { FadeInOut } from 'components/Transition'
-import tw from 'twin.macro'
+import tw, { theme } from 'twin.macro'
 
 function Dropdown({
   error,
@@ -29,16 +29,16 @@ function Dropdown({
           css={[
             tw`h-10 w-full px-2 text-sm `,
             tw`border-2 rounded-md border-gray-200 placeholder-gray-400`,
-            tw`focus:outline-none focus:ring focus:border-blue-300`,
+            tw`focus:outline-none focus:(ring-2 ring-blue-300 border-blue-300)`,
             modified && tw`border-indigo-600 border-opacity-60`,
-            error && tw`border-error-600 border-opacity-60`,
+            error && tw`border-error-600 border-opacity-60 focus:(ring-2 ring-red-300 border-red-300)`,
           ]}
         >
           <span css={[tw`block text-left truncate`, (!value && placeholder) || (disabled && tw`text-gray-400`)]}>
             {value || placeholder}
           </span>
           <span css={tw`absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none`}>
-            <HiOutlineSelector size={20} aria-hidden="true" />
+            <HiOutlineSelector color={error ? theme`colors.bgColor10` : undefined} size={20} aria-hidden="true" />
           </span>
         </Listbox.Button>
         <FadeInOut>

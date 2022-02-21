@@ -61,19 +61,19 @@ const Signup = ({ shouldReset, next }: { shouldReset: boolean; next: () => void 
           <div>
             <Label htmlFor="name">Name *</Label>
             <Input {...register('name')} error={!!errors.name} disabled={isLoading} />
-            <FieldErrorMessage css={tw`ml-2`} name="name" errors={errors} />
+            <FieldErrorMessage name="name" errors={errors} />
           </div>
 
           <div>
             <Label htmlFor="email">Email *</Label>
             <Input {...register('email')} error={!!errors.email} disabled={isLoading} />
-            <FieldErrorMessage css={tw`ml-2`} name="email" errors={errors} />
+            <FieldErrorMessage name="email" errors={errors} />
           </div>
 
           <div>
             <Label htmlFor="password">Password *</Label>
             <Input {...register('password')} error={!!errors.password} type="password" disabled={isLoading} />
-            <FieldErrorMessage css={tw`ml-2`} name="password" errors={errors} />
+            <FieldErrorMessage name="password" errors={errors} />
           </div>
 
           <div>
