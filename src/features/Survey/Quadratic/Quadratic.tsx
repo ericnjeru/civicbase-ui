@@ -19,13 +19,21 @@ import { AnswerRequest as Answer, Quadratic } from '../../../../types/answer'
 import Modal, { ModalContext } from 'components/Modal'
 import { HiInformationCircle } from 'react-icons/hi'
 
-const Action = ({ availableCredits }: { availableCredits: number }) => {
+const Action = ({ availableCredits, disabled }: { availableCredits: number; disabled: boolean }) => {
   const { openModal } = useContext(ModalContext)
 
   if (availableCredits > 0) {
-    return <PrimaryButton onClick={openModal}>Submit</PrimaryButton>
+    return (
+      <PrimaryButton onClick={openModal} disabled={disabled}>
+        Submit
+      </PrimaryButton>
+    )
   }
-  return <PrimaryButton type="submit">Submit</PrimaryButton>
+  return (
+    <PrimaryButton type="submit" disabled={disabled}>
+      Submit
+    </PrimaryButton>
+  )
 }
 
 type QuadraticAnswerForm = {
@@ -38,7 +46,7 @@ type QuadraticAnswerForm = {
 }
 
 const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
-  const { run, isSuccess } = useAsync()
+  const { run, isSuccess, isLoading } = useAsync()
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
   const [isFirstVote, setFirstVote] = useState(false)
@@ -155,8 +163,12 @@ const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent;
             <Modal
               header={<Typography>Credit Left</Typography>}
               icon={<HiInformationCircle size="24" />}
-              action={<Action availableCredits={availableCredits} />}
-              footer={<SecondaryButton onClick={methods.handleSubmit(onSubmit)}>Submit</SecondaryButton>}
+              action={<Action availableCredits={availableCredits} disabled={isLoading} />}
+              footer={
+                <SecondaryButton onClick={methods.handleSubmit(onSubmit)} disabled={isLoading}>
+                  Submit
+                </SecondaryButton>
+              }
             >
               <Typography>
                 You have {availableCredits} {token === 'Custom' ? customToken : token} left, please confirm if you want

@@ -83,7 +83,11 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
         header={<Typography>Delete Survey</Typography>}
         icon={<HiInformationCircle size="24" />}
         action={<Action isLoading={isLoading} />}
-        footer={<SecondaryButton onClick={handleDelete}>Confirm</SecondaryButton>}
+        footer={
+          <SecondaryButton onClick={handleDelete} disabled={isLoading}>
+            Confirm
+          </SecondaryButton>
+        }
       >
         <Typography>
           Are you sure you want to delete this survey and all the answers linked to this survey? This operation is
