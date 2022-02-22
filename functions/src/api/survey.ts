@@ -163,6 +163,7 @@ export const deleteSurvey = (req: Request, res: Response) => {
 
   db.doc(`/surveys/${surveyId}`)
     .delete()
+    .then(() => db.doc(`/answers/${surveyId}`).delete())
     .then(() => res.status(200).json({ message: 'Deleted.' }))
     .catch((error) => res.status(500).json(error))
 }
@@ -227,17 +228,13 @@ export const getSurveyForAnalytics = (req: any, res: Response) => {
         if (survey.data()?.uid !== req.user.uid) {
           res.status(403).json({ message: 'You have no permission to see this data' })
         } else {
-          db.collection('answers')
-            .where('surveyId', '==', surveyId)
+          db.doc(`/answers/${surveyId}`)
             .get()
-            .then((data) => {
-              const answers: any = []
-
-              data.forEach((doc) => {
-                answers.push({ ...doc.data(), id: doc.id })
+            .then((answers) => {
+              res.status(200).json({
+                survey: { ...survey.data(), id: survey.id },
+                answers: answers.exists ? answers.data()?.answers : [],
               })
-
-              res.status(200).json({ survey: { ...survey.data(), id: survey.id }, answers })
             })
         }
       }
