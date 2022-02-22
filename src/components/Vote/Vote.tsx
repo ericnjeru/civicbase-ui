@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useContext, MouseEvent } from 'react'
 import tw, { theme } from 'twin.macro'
-import { IconButton } from 'components/Button'
-import Dialog from 'components/Dialog'
-import Typography, { Caption } from 'components/Typography'
+import { HiInformationCircle } from 'react-icons/hi'
 import { IoIosThumbsDown, IoIosThumbsUp } from 'react-icons/io'
+import { IconButton, PrimaryButton } from 'components/Button'
+import Typography, { Caption } from 'components/Typography'
+import Modal, { ModalContext } from 'components/Modal'
 
 const Display = ({
   total,
@@ -48,6 +49,72 @@ const Display = ({
   )
 }
 
+const Action = ({
+  onVote,
+  canVoteDown,
+  thumbsDown,
+  vote,
+  total,
+  creditSpent,
+  token,
+  canVoteUp,
+  thumbsUp,
+}: {
+  onVote: (arg: number) => void
+  canVoteDown: boolean
+  thumbsDown?: string
+  vote: number
+  total?: number
+  creditSpent: number
+  token: string
+  canVoteUp: boolean
+  thumbsUp?: string
+}) => {
+  const { openModal } = useContext(ModalContext)
+
+  const handleVoteUp = (e: MouseEvent<HTMLElement>) => {
+    if (canVoteUp) {
+      onVote(1)
+    } else {
+      openModal(e)
+    }
+  }
+
+  const handleVoteDown = (e: MouseEvent<HTMLElement>) => {
+    if (canVoteDown) {
+      onVote(-1)
+    } else {
+      openModal(e)
+    }
+  }
+
+  return (
+    <>
+      <div css={tw`mx-6`}>
+        <IconButton onClick={handleVoteDown}>
+          <IoIosThumbsDown size={28} color={canVoteDown ? theme`colors.bgColor0` : theme`colors.bgColor8`} />
+        </IconButton>
+        <Typography>{thumbsDown}</Typography>
+      </div>
+
+      <Display vote={vote} total={total} creditSpent={creditSpent} token={token} />
+
+      <div css={tw`mx-6`}>
+        <IconButton onClick={handleVoteUp}>
+          <IoIosThumbsUp size={28} color={canVoteUp ? theme`colors.bgColor1` : theme`colors.bgColor8`} />
+        </IconButton>
+        <Typography>{thumbsUp}</Typography>
+      </div>
+    </>
+  )
+}
+
+const Footer = () => {
+  const { closeModal } = useContext(ModalContext)
+
+  return <PrimaryButton onClick={closeModal}>Ok</PrimaryButton>
+}
+
 const Vote = ({
   thumbsUp,
   thumbsDown,
@@ -69,45 +136,36 @@ const Vote = ({
   canVoteDown: boolean
   token: string
 }) => {
-  const [openDialog, setOpenDialog] = useState(false)
-
   if (!thumbsDown && !thumbsUp && !total) {
     return null
   }
 
   const onVote = (direction: number) => {
     handleVote(direction)
-
-    if ((direction > 0 && !canVoteUp) || (direction < 0 && !canVoteDown)) {
-      setOpenDialog(true)
-    }
   }
 
   return (
     <div css={tw`flex items-center`}>
-      <Dialog
-        open={openDialog}
-        handleOpen={setOpenDialog}
-        title={token}
-        text={`You don't have enough ${token} to vote`}
-        buttonText="Ok, I got it!"
-      />
-
-      <div css={tw`mx-6`}>
-        <IconButton onClick={() => onVote(-1)}>
-          <IoIosThumbsDown size={28} color={canVoteDown ? theme`colors.bgColor0` : theme`colors.bgColor8`} />
-        </IconButton>
-        <Typography>{thumbsDown}</Typography>
-      </div>
-
-      <Display vote={vote} total={total} creditSpent={creditSpent} token={token} />
-
-      <div css={tw`mx-6`}>
-        <IconButton onClick={() => onVote(1)}>
-          <IoIosThumbsUp size={28} color={canVoteUp ? theme`colors.bgColor1` : theme`colors.bgColor8`} />
-        </IconButton>
-        <Typography>{thumbsUp}</Typography>
-      </div>
+      <Modal
+        header={<Typography>Out of {token}</Typography>}
+        icon={<HiInformationCircle size="24" />}
+        action={
+          <Action
+            onVote={onVote}
+            canVoteDown={canVoteDown}
+            thumbsDown={thumbsDown}
+            vote={vote}
+            total={total}
+            creditSpent={creditSpent}
+            token={token}
+            canVoteUp={canVoteUp}
+            thumbsUp={thumbsUp}
+          />
+        }
+        footer={<Footer />}
+      >
+        <Typography>You don&apos;t have enough {token} to cast this vote.</Typography>
+      </Modal>
     </div>
   )
 }

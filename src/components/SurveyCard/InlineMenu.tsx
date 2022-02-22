@@ -1,14 +1,29 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import tw from 'twin.macro'
 import { AiOutlineDelete, AiOutlineCopy } from 'react-icons/ai'
 import { FaRegClone } from 'react-icons/fa'
 import copy from 'copy-to-clipboard'
-import { IconButton } from 'components/Button'
+import { IconButton, SecondaryButton } from 'components/Button'
 import useAsync from 'hooks/use-async'
 import { deleteSurvey, clone } from 'services/survey'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
 import { useToast } from 'contexts/toast'
 import Tooltip from 'components/Tooltip'
+import Modal, { ModalContext } from 'components/Modal'
+import Typography from 'components/Typography'
+import { HiInformationCircle } from 'react-icons/hi'
+
+const Action = ({ isLoading }: { isLoading: boolean }) => {
+  const { openModal } = useContext(ModalContext)
+
+  return (
+    <Tooltip placement="bottom" tip="Delete">
+      <IconButton onClick={openModal} disabled={isLoading}>
+        <AiOutlineDelete size={28} />
+      </IconButton>
+    </Tooltip>
+  )
+}
 
 const InlineMenu = ({ surveyId }: { surveyId: string }) => {
   const { dispatch } = useSurveys()
@@ -64,11 +79,17 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
         </IconButton>
       </Tooltip>
 
-      <Tooltip placement="bottom" tip="Delete">
-        <IconButton onClick={handleDelete} disabled={isLoading}>
-          <AiOutlineDelete size={28} />
-        </IconButton>
-      </Tooltip>
+      <Modal
+        header={<Typography>Delete Survey</Typography>}
+        icon={<HiInformationCircle size="24" />}
+        action={<Action isLoading={isLoading} />}
+        footer={<SecondaryButton onClick={handleDelete}>Confirm</SecondaryButton>}
+      >
+        <Typography>
+          Are you sure you want to delete this survey and all the answers linked to this survey? This operation is
+          irreversible!
+        </Typography>
+      </Modal>
     </div>
   )
 }

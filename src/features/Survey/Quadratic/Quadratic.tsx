@@ -2,10 +2,10 @@ import tw from 'twin.macro'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import DynamicBar from 'components/DynamicBar'
 import { SurveyRespondent } from '../../../../types/survey'
-import { Headline } from 'components/Typography'
+import Typography, { Headline } from 'components/Typography'
 import Vote from 'components/Vote'
-import { PrimaryButton } from 'components/Button'
-import { useEffect, useState } from 'react'
+import { PrimaryButton, SecondaryButton } from 'components/Button'
+import { useContext, useEffect, useState } from 'react'
 import { useMetadata } from 'contexts/metadata'
 import useAsync from 'hooks/use-async'
 import { createAnswer } from 'services/survey'
@@ -16,6 +16,17 @@ import FeedbackQuestions from '../FeedbackQuestions'
 import RespondentLayout from 'layouts/Respondent'
 import { setSurveyTaken } from 'utilities/survey'
 import { AnswerRequest as Answer, Quadratic } from '../../../../types/answer'
+import Modal, { ModalContext } from 'components/Modal'
+import { HiInformationCircle } from 'react-icons/hi'
+
+const Action = ({ availableCredits }: { availableCredits: number }) => {
+  const { openModal } = useContext(ModalContext)
+
+  if (availableCredits > 0) {
+    return <PrimaryButton onClick={openModal}>Submit</PrimaryButton>
+  }
+  return <PrimaryButton type="submit">Submit</PrimaryButton>
+}
 
 type QuadraticAnswerForm = {
   feedback?: {
@@ -140,7 +151,19 @@ const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent;
             </div>
           }
           feedback={<>{feedback?.active && <FeedbackQuestions questions={feedback.questions} />}</>}
-          footer={<PrimaryButton type="submit">Submit</PrimaryButton>}
+          footer={
+            <Modal
+              header={<Typography>Credit Left</Typography>}
+              icon={<HiInformationCircle size="24" />}
+              action={<Action availableCredits={availableCredits} />}
+              footer={<SecondaryButton onClick={methods.handleSubmit(onSubmit)}>Submit</SecondaryButton>}
+            >
+              <Typography>
+                You have {availableCredits} {token === 'Custom' ? customToken : token} left, please confirm if you want
+                to submit your answer anyway.
+              </Typography>
+            </Modal>
+          }
         />
       </form>
     </FormProvider>
