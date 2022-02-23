@@ -1,4 +1,3 @@
-import tw from 'twin.macro'
 import { FC, useEffect } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import useAsync from 'hooks/use-async'
@@ -9,7 +8,7 @@ import { surveyMethods } from 'utilities/constants'
 
 const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
   const surveyId = location?.pathname.split('analytics/').pop()
-  const { run, data, isLoading, isError } = useAsync()
+  const { run, data, isError, isLoading } = useAsync()
 
   useEffect(() => {
     if (surveyId) {
@@ -21,24 +20,30 @@ const AnalyticsPage: FC<RouteComponentProps> = ({ location }) => {
     return <Analytics.Error />
   }
 
-  if (!data?.survey || isLoading) {
-    return <Analytics.Loading />
-  }
-
-  const { survey, answers } = data
+  const survey = data?.survey
+  const answers = data?.answers
 
   return (
     <AnalyticsLayout
-      header={<Analytics.Header survey={survey} />}
-      status={
-        <div css={tw`mt-24`}>
-          <Analytics.Status survey={survey} />
-        </div>
-      }
+      isLoading={isLoading}
+      survey={survey}
+      answers={answers}
+      header={<Analytics.Header />}
+      status={<Analytics.Status />}
     >
-      {survey.setup.method === surveyMethods.Quadratic && <Analytics.Quadratic survey={survey} answers={answers} />}
-      {survey.setup.method === surveyMethods.Likert && <Analytics.Likert survey={survey} answers={answers} />}
-      {survey.setup.method === surveyMethods.Conjoint && <Analytics.Conjoint survey={survey} answers={answers} />}
+      {!isLoading && survey?.setup?.method === surveyMethods.Quadratic && (
+        <Analytics.Quadratic survey={survey} answers={answers} />
+      )}
+
+      {!isLoading && survey?.setup?.method === surveyMethods.Likert && (
+        <Analytics.Likert survey={survey} answers={answers} />
+      )}
+
+      {!isLoading && survey?.setup?.method === surveyMethods.Conjoint && (
+        <Analytics.Conjoint survey={survey} answers={answers} />
+      )}
+
+      {isLoading && <Analytics.Loader />}
     </AnalyticsLayout>
   )
 }
