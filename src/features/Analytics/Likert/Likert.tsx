@@ -1,14 +1,20 @@
 import tw from 'twin.macro'
-import { SurveyDashboard } from '../../../../types/survey'
 import FeedbackTable from '../FeedbackTable'
 import ResultTable from './ResultTable'
 import { AnswerResponse as Answer, Likert } from '../../../../types/answer'
+import { useAnalytics } from 'contexts/analytics'
 
-const LikertAnalytics = ({ survey, answers }: { survey: SurveyDashboard; answers: Answer<Likert>[] }) => {
+const LikertAnalytics = () => {
+  const { survey, answers } = useAnalytics()
+
+  if (!survey || !answers) {
+    return null
+  }
+
   return (
     <div css={tw`space-y-24 mt-24`}>
-      <ResultTable answers={answers} survey={survey} />
-      {survey.setup.feedback?.active && <FeedbackTable answers={answers} />}
+      <ResultTable answers={answers as Answer<Likert>[]} survey={survey} />
+      {survey.setup.feedback?.active && <FeedbackTable answers={answers as Answer<Likert>[]} />}
     </div>
   )
 }

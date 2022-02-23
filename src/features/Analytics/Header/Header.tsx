@@ -1,10 +1,12 @@
 import Typography, { Headline, Title } from 'components/Typography'
+import { useAnalytics } from 'contexts/analytics'
 import tw from 'twin.macro'
 import { surveyMethods } from 'utilities/constants'
-import { Survey } from '../../../../types/survey-base'
 import Skeleton from './Skeleton'
 
-const Header = ({ survey, isLoading }: { survey?: Survey; isLoading?: boolean }) => {
+const Header = () => {
+  const { isLoading, survey } = useAnalytics()
+
   if (!survey || isLoading) {
     return <Skeleton />
   }

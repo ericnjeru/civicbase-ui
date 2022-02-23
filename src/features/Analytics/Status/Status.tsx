@@ -4,11 +4,13 @@ import * as Stats from 'components/Stats'
 import Badge from 'components/Badge'
 
 import useSurveyAnalytics from 'hooks/use-survey-analytics'
-import { SurveyDashboard } from '../../../../types/survey'
+
 import { toCamelCase } from 'utilities/util'
 import Skeleton from './Skeleton'
+import { useAnalytics } from 'contexts/analytics'
 
-const Status = ({ survey, isLoading }: { survey?: SurveyDashboard; isLoading?: boolean }) => {
+const Status = () => {
+  const { isLoading, survey } = useAnalytics()
   const {
     totalAccess,
     totalRespondents,

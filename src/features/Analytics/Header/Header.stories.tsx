@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { AnalyticsProvider } from 'contexts/analytics'
 import { survey } from 'test/sample'
 
 import Header from './Header'
@@ -8,12 +9,14 @@ export default {
   component: Header,
 } as ComponentMeta<typeof Header>
 
-const Template: ComponentStory<typeof Header> = (args) => (
+const Template: ComponentStory<typeof Header> = () => (
   <div style={{ width: 900 }}>
-    <Header {...args} />
+    <AnalyticsProvider survey={survey}>
+      <Header />
+    </AnalyticsProvider>
   </div>
 )
 
 export const Basic = Template.bind({})
 
-Basic.args = { survey }
+Basic.args = {}
