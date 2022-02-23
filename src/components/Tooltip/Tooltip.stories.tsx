@@ -1,15 +1,15 @@
-import { Meta } from '@storybook/react'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
 import tw from 'twin.macro'
 import Tooltip from './Tooltip'
 
 export default {
-  title: 'Elements/Tooltip ',
+  title: 'Elements/Tooltip',
   component: Tooltip,
-} as Meta
+} as ComponentMeta<typeof Tooltip>
 
-export const Basic = () => {
+const Template: ComponentStory<typeof Tooltip> = (args) => {
   return (
-    <Tooltip placement="right" tip="This is an example">
+    <Tooltip {...args}>
       <button
         css={tw`m-2 bg-purple-500 text-white active:bg-purple-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150`}
         type="button"
@@ -18,4 +18,11 @@ export const Basic = () => {
       </button>
     </Tooltip>
   )
+}
+
+export const Basic = Template.bind({})
+
+Basic.args = {
+  placement: 'right',
+  tip: 'This is an example',
 }
