@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { useState } from 'react'
 import tw from 'twin.macro'
 import Dropdown from './Dropdown'
@@ -6,26 +6,33 @@ import Dropdown from './Dropdown'
 export default {
   title: 'Elements/Dropdown',
   component: Dropdown,
-} as Meta
+} as ComponentMeta<typeof Dropdown>
 
-const options = ['option 1', 'option 2', 'option 3']
-
-export const Basic = () => {
-  const [option, setOption] = useState('option 1')
+const Template: ComponentStory<typeof Dropdown> = (args) => {
+  const [option, setOption] = useState(args.value)
 
   return (
     <div css={tw`w-72`}>
-      <Dropdown values={options} value={option} onChange={(opt) => setOption(opt)} />
+      <Dropdown
+        values={args.values}
+        value={option}
+        onChange={(opt) => setOption(opt)}
+        error={args.error}
+        modified={args.modified}
+        placeholder={args.placeholder}
+        disabled={args.disabled}
+      />
     </div>
   )
 }
 
-export const Error = () => {
-  const [option, setOption] = useState('option 1')
+export const Basic = Template.bind({})
 
-  return (
-    <div css={tw`w-72`}>
-      <Dropdown values={options} error={true} value={option} onChange={(opt) => setOption(opt)} />
-    </div>
-  )
+Basic.args = {
+  values: ['Blue', 'Red', 'Purple'],
+  value: undefined,
+  error: false,
+  modified: false,
+  disabled: false,
+  placeholder: 'Please select one',
 }
