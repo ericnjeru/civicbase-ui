@@ -8,11 +8,13 @@ import { AUTHENTICATED_ROUTES } from './routes'
 import NotFound from 'pages/404'
 import { SurveysProvider } from 'contexts/surveys'
 import ResearcherSurvey from 'pages/survey/Researcher'
+import React from 'react'
+import tw from 'twin.macro'
 
 const AuthenticatedApp = () => {
   return (
     <SurveysProvider>
-      <Router>
+      <Router css={tw`h-full`}>
         <Dashboard path={AUTHENTICATED_ROUTES.DASHBOARD} />
         <Analytics path={AUTHENTICATED_ROUTES.ANALYTICS} />
         <CreateSurvey path={AUTHENTICATED_ROUTES.CREATE_SURVEY} />
