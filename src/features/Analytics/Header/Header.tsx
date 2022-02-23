@@ -2,8 +2,13 @@ import Typography, { Headline, Title } from 'components/Typography'
 import tw from 'twin.macro'
 import { surveyMethods } from 'utilities/constants'
 import { Survey } from '../../../../types/survey-base'
+import Skeleton from './Skeleton'
 
-const Header = ({ survey }: { survey: Survey }) => {
+const Header = ({ survey, isLoading }: { survey?: Survey; isLoading?: boolean }) => {
+  if (!survey || isLoading) {
+    return <Skeleton />
+  }
+
   const {
     setup: { method, topic, credits },
     language: { token, customToken, thumbsDown, thumbsUp },
