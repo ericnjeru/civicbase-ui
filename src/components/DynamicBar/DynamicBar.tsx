@@ -10,7 +10,7 @@ const DynamicBar = ({
   availableCredits: number
   language: string
 }) => {
-  if (total < 0 || total > 100) {
+  if (total < 0 || availableCredits > total || availableCredits < 0) {
     return null
   }
 
