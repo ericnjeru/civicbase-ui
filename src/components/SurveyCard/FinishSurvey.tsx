@@ -28,7 +28,7 @@ const FinishSurvey = ({ surveyId }: { surveyId: string }) => {
   }
 
   return (
-    <Tooltip placement="bottom" tip="Finish">
+    <Tooltip label="Finish">
       <IconButton onClick={handlePublish} disabled={isLoading}>
         <FiPower size={28} />
       </IconButton>

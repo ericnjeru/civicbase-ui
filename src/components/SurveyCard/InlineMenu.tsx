@@ -8,16 +8,16 @@ import useAsync from 'hooks/use-async'
 import { deleteSurvey, clone } from 'services/survey'
 import { useSurveys, SurveyActionKind } from 'contexts/surveys'
 import { useToast } from 'contexts/toast'
-import Tooltip from 'components/Tooltip'
 import Modal, { ModalContext } from 'components/Modal'
 import Typography from 'components/Typography'
 import { HiInformationCircle } from 'react-icons/hi'
+import Tooltip from 'components/Tooltip'
 
 const Action = ({ isLoading }: { isLoading: boolean }) => {
   const { openModal } = useContext(ModalContext)
 
   return (
-    <Tooltip placement="bottom" tip="Delete">
+    <Tooltip label="Delete">
       <IconButton onClick={openModal} disabled={isLoading}>
         <AiOutlineDelete size={28} />
       </IconButton>
@@ -67,13 +67,13 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
 
   return (
     <div css={tw`justify-around w-full flex`}>
-      <Tooltip placement="bottom" tip="Copy link">
+      <Tooltip label="Copy link">
         <IconButton onClick={handleCopy}>
           <AiOutlineCopy size={28} />
         </IconButton>
       </Tooltip>
 
-      <Tooltip placement="bottom" tip="Clone">
+      <Tooltip label="Clone">
         <IconButton onClick={handleClone} disabled={isLoading}>
           <FaRegClone size={28} />
         </IconButton>

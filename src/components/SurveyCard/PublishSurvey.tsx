@@ -28,7 +28,7 @@ const PublishSurvey = ({ surveyId }: { surveyId: string }) => {
   }
 
   return (
-    <Tooltip placement="bottom" tip="Publish">
+    <Tooltip label="Publish">
       <IconButton onClick={handlePublish} disabled={isLoading}>
         <BiPaperPlane size={28} />
       </IconButton>

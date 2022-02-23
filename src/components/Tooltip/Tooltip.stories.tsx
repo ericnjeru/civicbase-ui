@@ -23,6 +23,6 @@ const Template: ComponentStory<typeof Tooltip> = (args) => {
 export const Basic = Template.bind({})
 
 Basic.args = {
-  placement: 'right',
-  tip: 'This is an example',
+  label: 'This is an example',
+  variant: 'dark',
 }

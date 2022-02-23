@@ -63,7 +63,7 @@ const AnswerTable = ({ survey, answers }: { survey: SurveyDashboard; answers: An
                 <Table.Data css={tw`text-center`}>{answer.leftCredits}</Table.Data>
                 <Table.Data css={tw`text-center`}>
                   <div css={tw`w-full flex justify-center`}>
-                    <Tooltip placement="left" tip={toCamelCase(answer.status)}>
+                    <Tooltip label={toCamelCase(answer.status)}>
                       <div
                         css={[
                           tw`w-3 h-3 rounded-full`,
