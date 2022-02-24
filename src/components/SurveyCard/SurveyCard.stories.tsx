@@ -3,6 +3,7 @@ import { LocationProvider, createHistory } from '@reach/router'
 import tw from 'twin.macro'
 import { survey } from 'test/sample'
 import SurveyCard from './SurveyCard'
+import SkeletonCard from './Skeleton'
 
 export default {
   title: 'Components/SurveyCard',
@@ -24,6 +25,18 @@ const Template: ComponentStory<typeof SurveyCard> = ({ survey }) => {
   )
 }
 
+const SkeletonTemplate: ComponentStory<typeof SkeletonCard> = () => {
+  return (
+    <div css={tw`grid grid-cols-3 gap-8 align-middle py-4`} style={{ width: 1000 }}>
+      <SkeletonCard />
+      <SkeletonCard />
+      <SkeletonCard />
+    </div>
+  )
+}
+
+export const Skeleton = SkeletonTemplate.bind({})
 export const Basic = Template.bind({})
 
 Basic.args = { survey }
+Skeleton.args = {}
