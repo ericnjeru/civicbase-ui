@@ -5,6 +5,7 @@ import { CSVLink } from 'react-csv'
 import { PrimaryButton } from 'components/Button'
 import { SurveyDashboard } from '../../../../../types/survey'
 import { AnswerResponse as Answer, Quadratic } from '../../../../../types/answer'
+import Tooltip from 'components/Tooltip'
 
 const DownloadAnswers = ({
   answers,
@@ -84,10 +85,12 @@ const DownloadAnswers = ({
 
   return (
     <CSVLink data={csvData} filename={`${survey.setup.topic}.csv`} style={{ outline: 'none', textDecoration: 'none' }}>
-      <PrimaryButton css={tw`flex items-center`}>
-        <BsDownload size={24} color={theme`colors.white`} css={tw`mr-2`} />
-        Download CSV
-      </PrimaryButton>
+      <Tooltip label="Download CSV" popperProps={{ delayShow: 1000, placement: 'top' }}>
+        <PrimaryButton css={tw`flex items-center`}>
+          <BsDownload size={24} color={theme`colors.white`} css={tw`mr-2`} />
+          Download
+        </PrimaryButton>
+      </Tooltip>
     </CSVLink>
   )
 }
