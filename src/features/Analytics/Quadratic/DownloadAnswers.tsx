@@ -14,9 +14,9 @@ const DownloadAnswers = ({
 }: {
   answers: Answer<Quadratic>[]
   hasUserId: boolean
-  survey: SurveyDashboard
+  survey?: SurveyDashboard
 }) => {
-  if (!answers || answers.length === 0) {
+  if (!answers || answers.length === 0 || !survey) {
     return null
   }
 

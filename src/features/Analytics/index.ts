@@ -1,6 +1,5 @@
 export { default as Status } from './Status'
 export { default as Error } from './Error'
-export { default as Loader } from './Loader'
 export { default as Header } from './Header'
 export { default as Quadratic } from './Quadratic'
 export { default as Likert } from './Likert'
