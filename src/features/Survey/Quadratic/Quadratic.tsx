@@ -45,7 +45,15 @@ type QuadraticAnswerForm = {
   }
 }
 
-const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
+const QuadraticRespondent = ({
+  survey,
+  handleNext,
+  preview,
+}: {
+  survey: SurveyRespondent
+  handleNext: () => void
+  preview?: boolean
+}) => {
   const { run, isSuccess, isLoading } = useAsync()
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
@@ -106,7 +114,9 @@ const QuadraticRespondent = ({ survey, handleNext }: { survey: SurveyRespondent;
       }
     }
 
-    run(createAnswer(answer))
+    if (!preview) {
+      run(createAnswer(answer))
+    }
   }
 
   return (

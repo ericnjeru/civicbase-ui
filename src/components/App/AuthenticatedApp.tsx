@@ -7,7 +7,7 @@ import FAQs from 'pages/faqs'
 import { AUTHENTICATED_ROUTES } from './routes'
 import NotFound from 'pages/404'
 import { SurveysProvider } from 'contexts/surveys'
-import ResearcherSurvey from 'pages/survey/Researcher'
+import ResearcherSurvey from 'pages/survey/Respondent'
 import React from 'react'
 import tw from 'twin.macro'
 
@@ -19,7 +19,7 @@ const AuthenticatedApp = () => {
         <Analytics path={AUTHENTICATED_ROUTES.ANALYTICS} />
         <CreateSurvey path={AUTHENTICATED_ROUTES.CREATE_SURVEY} />
         <EditSurvey path={AUTHENTICATED_ROUTES.EDIT_SURVEY} />
-        <ResearcherSurvey path={AUTHENTICATED_ROUTES.SURVEY} />
+        <ResearcherSurvey path={AUTHENTICATED_ROUTES.SURVEY} preview={true} />
         <FAQs path={AUTHENTICATED_ROUTES.FAQ} />
         <NotFound default />
       </Router>

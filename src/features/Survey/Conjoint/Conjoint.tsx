@@ -27,7 +27,15 @@ type ConjointAnswerForm = {
   }
 }
 
-const ConjointRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
+const ConjointRespondent = ({
+  survey,
+  handleNext,
+  preview,
+}: {
+  survey: SurveyRespondent
+  handleNext: () => void
+  preview?: boolean
+}) => {
   const { metadata, params } = useMetadata()
   const { questions, vote } = useConjoint(survey)
   const { run, isSuccess } = useAsync()
@@ -77,7 +85,9 @@ const ConjointRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; 
       }
     }
 
-    run(createAnswer(answer))
+    if (!preview) {
+      run(createAnswer(answer))
+    }
   }
 
   return (

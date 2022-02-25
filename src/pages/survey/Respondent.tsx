@@ -8,7 +8,7 @@ import { surveyMethods } from 'utilities/constants'
 // TODO: move the next step to a upper state
 type Step = 'welcome' | 'questions' | 'completion'
 
-const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId }) => {
+const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolean }> = ({ surveyId, preview }) => {
   const { survey, isLoading, isTaken } = useSurvey(surveyId)
   const [step, setStep] = useState<Step>('welcome')
 
@@ -38,11 +38,11 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string }> = ({ surveyId 
     const getQuestions = () => {
       switch (method) {
         case surveyMethods.Conjoint:
-          return <Survey.Conjoint survey={survey} handleNext={() => onNext('completion')} />
+          return <Survey.Conjoint survey={survey} handleNext={() => onNext('completion')} preview={preview} />
         case surveyMethods.Quadratic:
-          return <Survey.Quadratic survey={survey} handleNext={() => onNext('completion')} />
+          return <Survey.Quadratic survey={survey} handleNext={() => onNext('completion')} preview={preview} />
         case surveyMethods.Likert:
-          return <Survey.Likert survey={survey} handleNext={() => onNext('completion')} />
+          return <Survey.Likert survey={survey} handleNext={() => onNext('completion')} preview={preview} />
         default:
           return <div>error</div>
       }

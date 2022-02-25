@@ -25,7 +25,15 @@ type LikertAnswerForm = {
   questions: any // TODO:
 }
 
-const LikertRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
+const LikertRespondent = ({
+  survey,
+  handleNext,
+  preview,
+}: {
+  survey: SurveyRespondent
+  handleNext: () => void
+  preview?: boolean
+}) => {
   const { run, isSuccess } = useAsync()
   const { metadata, params } = useMetadata()
   const {
@@ -71,7 +79,9 @@ const LikertRespondent = ({ survey, handleNext }: { survey: SurveyRespondent; ha
       }
     }
 
-    run(createAnswer(answer))
+    if (!preview) {
+      run(createAnswer(answer))
+    }
   }
 
   return (
