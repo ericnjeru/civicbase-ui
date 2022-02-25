@@ -3,8 +3,8 @@ import { BsDownload } from 'react-icons/bs'
 import { format } from 'date-fns'
 import { CSVLink } from 'react-csv'
 import { PrimaryButton } from 'components/Button'
-import { SurveyDashboard } from '../../../../../types/survey'
-import { AnswerResponse as Answer, Quadratic } from '../../../../../types/answer'
+import { SurveyDashboard } from '../../../../types/survey'
+import { AnswerResponse as Answer, Quadratic } from '../../../../types/answer'
 import Tooltip from 'components/Tooltip'
 
 const DownloadAnswers = ({
@@ -85,7 +85,7 @@ const DownloadAnswers = ({
 
   return (
     <CSVLink data={csvData} filename={`${survey.setup.topic}.csv`} style={{ outline: 'none', textDecoration: 'none' }}>
-      <Tooltip label="Download CSV" popperProps={{ delayShow: 1000, placement: 'top' }}>
+      <Tooltip label="Download Answers CSV" popperProps={{ delayShow: 1000, placement: 'top' }}>
         <PrimaryButton css={tw`flex items-center`}>
           <BsDownload size={24} color={theme`colors.white`} css={tw`mr-2`} />
           Download

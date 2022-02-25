@@ -1,5 +1,5 @@
 import tw from 'twin.macro'
-import AnswerTable from './AnswerTable'
+// import AnswerTable from './AnswerTable'
 import ResultTable from './ResultTable'
 import NoResult from '../NoResult'
 import FeedbackTable from '../FeedbackTable'
@@ -20,8 +20,8 @@ const QuadraticAnalytics = () => {
 
   return (
     <div css={tw`space-y-24 mt-24`}>
-      {answers.length > 0 && <ResultTable answers={answers as Answer<Quadratic>[]} />}
-      {answers.length > 0 && <AnswerTable survey={survey} answers={answers as Answer<Quadratic>[]} />}
+      {answers.length > 0 && <ResultTable answers={answers as Answer<Quadratic>[]} survey={survey} />}
+      {/* {answers.length > 0 && <AnswerTable survey={survey} answers={answers as Answer<Quadratic>[]} />} */}
       {answers.length === 0 && <NoResult title="Result" description={description} />}
       {survey.setup.feedback?.active && <FeedbackTable answers={answers} />}
     </div>
