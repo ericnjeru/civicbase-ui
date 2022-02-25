@@ -19,9 +19,11 @@ const Header = () => {
 
   return (
     <div css={tw`flex flex-col items-center justify-center`}>
-      <div css={tw`flex justify-end w-full`}>
-        <Mode />
-      </div>
+      {survey?.status === 'published' && (
+        <div css={tw`flex justify-end w-full`}>
+          <Mode />
+        </div>
+      )}
       <Headline css={tw`text-blue-500 mb-8`}>SURVEY ANALYTICS</Headline>
       <Title css={tw`text-6xl`}>{topic}</Title>
       <div css={tw`text-center max-w-2xl`}>

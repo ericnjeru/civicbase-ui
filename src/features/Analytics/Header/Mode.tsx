@@ -6,7 +6,7 @@ const Mode = () => {
   const { mode, toggle, survey } = useAnalytics()
 
   const handleMode = (m: 'pilot' | 'published') => {
-    if (survey?.status === 'published' && mode !== m) {
+    if (mode !== m) {
       toggle()
     }
   }
