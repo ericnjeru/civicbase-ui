@@ -14,7 +14,7 @@ const Header = () => {
 
   const {
     setup: { method, topic, credits },
-    language: { token, customToken, thumbsDown, thumbsUp },
+    language,
   } = survey
 
   return (
@@ -32,7 +32,7 @@ const Header = () => {
           <>
             <Typography css={tw`text-gray-500 inline-block`}>Each respondent will have</Typography>{' '}
             <Typography css={tw`text-brand2 inline-block`}>
-              {credits} {token === 'Custom' ? customToken : token},
+              {credits} {language?.token === 'Custom' ? language?.customToken : language?.token},
             </Typography>
           </>
         )}{' '}
@@ -40,7 +40,7 @@ const Header = () => {
           <>
             <Typography css={tw`text-gray-500 inline-block`}>the language designated is</Typography>{' '}
             <Typography css={tw`text-brand2 inline-block`}>
-              {thumbsUp}/{thumbsDown}
+              {language?.thumbsUp}/{language?.thumbsDown}
             </Typography>
           </>
         )}
