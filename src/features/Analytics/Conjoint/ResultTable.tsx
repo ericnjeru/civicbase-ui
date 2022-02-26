@@ -1,10 +1,9 @@
 import { EditorState, convertFromRaw } from 'draft-js'
 import * as Table from 'components/Table'
-import { SurveyDashboard } from '../../../../types/survey'
-import { AnswerResponse as Answer, Conjoint } from '../../../../types/answer'
+import { useAnalytics } from 'contexts/analytics'
 
-const ResultTable = ({ answers, survey }: { answers: Answer<Conjoint>[]; survey: SurveyDashboard }) => {
-  console.log(answers)
+const ResultTable = () => {
+  const { survey } = useAnalytics()
 
   const getQuestionText = ({ statement }: { statement: string }) => {
     const text = EditorState.createWithContent(convertFromRaw(JSON.parse(statement)))
@@ -14,7 +13,7 @@ const ResultTable = ({ answers, survey }: { answers: Answer<Conjoint>[]; survey:
 
   return (
     <Table.Main>
-      {survey.conjoint?.map((question) => (
+      {survey?.conjoint?.map((question) => (
         <>
           <Table.Head key={question.id}>
             <Table.Row>

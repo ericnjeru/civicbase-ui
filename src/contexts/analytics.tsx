@@ -9,11 +9,13 @@ interface Analytics {
   isError: boolean
   survey?: SurveyDashboard
   answers?: Answer<unknown>[]
+  results?: any
   mode: 'pilot' | 'published'
 }
 
 interface AnalyticsContextProps extends Analytics {
   toggle: () => void
+  hasAnswer?: () => boolean
 }
 
 const initialData: AnalyticsContextProps = {
@@ -44,9 +46,22 @@ export const AnalyticsProvider = ({ ...props }): ReactElement => {
     setMode((mode) => (mode === 'published' ? 'pilot' : 'published'))
   }
 
+  const hasAnswer = () => {
+    return data?.answers?.length > 0
+  }
+
   return (
     <AnalyticsContext.Provider
-      value={{ survey: data?.survey, answers: data?.answers, isError, isLoading, mode, toggle }}
+      value={{
+        survey: data?.survey,
+        answers: data?.answers,
+        results: data?.results,
+        isError,
+        isLoading,
+        mode,
+        toggle,
+        hasAnswer,
+      }}
       {...props}
     />
   )

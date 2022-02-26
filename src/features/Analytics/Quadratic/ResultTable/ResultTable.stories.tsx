@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { AnalyticsProvider } from 'contexts/analytics'
 import { answers } from 'test/sample'
 
 import ResultTable from './ResultTable'
@@ -10,7 +11,9 @@ export default {
 
 const Template: ComponentStory<typeof ResultTable> = (args) => (
   <div style={{ width: 900 }}>
-    <ResultTable {...args} />
+    <AnalyticsProvider {...args}>
+      <ResultTable />
+    </AnalyticsProvider>
   </div>
 )
 

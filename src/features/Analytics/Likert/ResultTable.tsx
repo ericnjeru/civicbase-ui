@@ -1,32 +1,11 @@
+import tw from 'twin.macro'
+import { EditorState, convertFromRaw } from 'draft-js'
 import * as Table from 'components/Table'
 import Typography from 'components/Typography'
-import { EditorState, convertFromRaw } from 'draft-js'
-import tw from 'twin.macro'
-import { SurveyDashboard } from '../../../../types/survey'
-import { AnswerResponse as Answer, Likert } from '../../../../types/answer'
+import { useAnalytics } from 'contexts/analytics'
 
-const ResultTable = ({ survey, answers }: { survey: SurveyDashboard; answers: Answer<Likert>[] }) => {
-  if (!survey.likert) {
-    return null
-  }
-
-  const resultMatrix = survey.likert.map((question) => {
-    const matrix: number[][] = []
-
-    question.items.forEach(() => {
-      matrix.push([0, 0, 0, 0, 0])
-    })
-
-    return matrix
-  })
-
-  answers.forEach((answer) => {
-    answer.questions.forEach((question, questionIndex) => {
-      question.item.forEach((item, itemIndex) => {
-        resultMatrix[questionIndex][itemIndex][item.vote - 1]++
-      })
-    })
-  })
+const ResultTable = () => {
+  const { survey, results } = useAnalytics()
 
   const getQuestionText = ({ statement }: { statement: string }) => {
     const text = EditorState.createWithContent(convertFromRaw(JSON.parse(statement)))
@@ -36,7 +15,7 @@ const ResultTable = ({ survey, answers }: { survey: SurveyDashboard; answers: An
 
   return (
     <Table.Main>
-      {survey.likert?.map((question, questionIndex) => (
+      {survey?.likert?.map((question, questionIndex) => (
         <>
           <Table.Head key={question.id}>
             <Table.Row>
@@ -53,9 +32,11 @@ const ResultTable = ({ survey, answers }: { survey: SurveyDashboard; answers: An
             <Table.Body key={item.description}>
               <Table.Row>
                 <Table.Data>{item.description}</Table.Data>
-                {resultMatrix[questionIndex][itemIndex].map((result: number) => (
-                  <Table.Data key={result}>{result}</Table.Data>
-                ))}
+                {results &&
+                  results.length > 0 &&
+                  results[questionIndex][itemIndex].map((result: number) => (
+                    <Table.Data key={result}>{result}</Table.Data>
+                  ))}
               </Table.Row>
             </Table.Body>
           ))}

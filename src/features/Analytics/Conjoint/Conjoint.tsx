@@ -1,15 +1,14 @@
 import tw from 'twin.macro'
-import FeedbackTable from '../FeedbackTable'
+// import FeedbackTable from '../FeedbackTable'
 import NoResult from '../NoResult'
-import AnswerTable from './AnswerTable'
 import ResultTable from './ResultTable'
-import { AnswerResponse as Answer, Conjoint } from '../../../../types/answer'
+// import { AnswerResponse as Answer, Conjoint } from '../../../../types/answer'
 import { useAnalytics } from 'contexts/analytics'
 
 const ConjointAnalytics = () => {
-  const { survey, answers } = useAnalytics()
+  const { survey, hasAnswer } = useAnalytics()
 
-  if (!survey || !answers) {
+  if (!hasAnswer || !survey) {
     return null
   }
 
@@ -20,10 +19,10 @@ const ConjointAnalytics = () => {
 
   return (
     <div css={tw`space-y-24 mt-24`}>
-      {answers.length > 0 && <ResultTable answers={answers as Answer<Conjoint>[]} survey={survey} />}
-      {answers.length > 0 && <AnswerTable answers={answers as Answer<Conjoint>[]} survey={survey} />}
+      {hasAnswer() ? <ResultTable /> : <NoResult title="Result" description={description} />}
+      {/* {answers.length > 0 && <ResultTable answers={answers as Answer<Conjoint>[]} survey={survey} />}
       {answers.length === 0 && <NoResult title="Result" description={description} />}
-      {survey.setup.feedback?.active && <FeedbackTable answers={answers as Answer<Conjoint>[]} />}
+      {survey.setup.feedback?.active && <FeedbackTable answers={answers as Answer<Conjoint>[]} />} */}
     </div>
   )
 }

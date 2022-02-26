@@ -1,47 +1,15 @@
 import tw from 'twin.macro'
 import * as Table from 'components/Table'
-import { AnswerResponse as Answer, Quadratic } from '../../../../../types/answer'
-import { SurveyDashboard } from '../../../../../types/survey'
 import DownloadAnswers from '../DownloadAnswers'
-import { checkUserId } from 'utilities/analytics'
+import { useAnalytics } from 'contexts/analytics'
 
-type Result = {
-  pilot: {
-    [key: string]: number
-  }
-  published: {
-    [key: string]: number
-  }
-  finished: {
-    [key: string]: number
-  }
-}
-
-const ResultTable = ({ answers, survey }: { answers: Answer<Quadratic>[]; survey: SurveyDashboard }) => {
-  const hasUserId = checkUserId(answers as [])
-
-  const results = answers.reduce(
-    (results: Result, answer) => {
-      answer.questions.forEach((question) => {
-        if (question.id) {
-          results[answer.status][question.id] = results[answer.status][question.id]
-            ? results[answer.status][question.id] + question.vote
-            : question.vote
-        }
-      })
-      return results
-    },
-    {
-      pilot: {},
-      published: {},
-      finished: {},
-    },
-  )
+const ResultTable = () => {
+  const { results } = useAnalytics()
 
   return (
     <div>
       <div css={tw`flex justify-end items-center mb-4`}>
-        <DownloadAnswers answers={answers} hasUserId={hasUserId} survey={survey} />
+        <DownloadAnswers />
       </div>
 
       <Table.Main>

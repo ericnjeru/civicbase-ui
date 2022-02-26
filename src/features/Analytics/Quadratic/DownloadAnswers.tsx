@@ -3,19 +3,17 @@ import { BsDownload } from 'react-icons/bs'
 import { format } from 'date-fns'
 import { CSVLink } from 'react-csv'
 import { PrimaryButton } from 'components/Button'
-import { SurveyDashboard } from '../../../../types/survey'
 import { AnswerResponse as Answer, Quadratic } from '../../../../types/answer'
 import Tooltip from 'components/Tooltip'
+import { useAnalytics } from 'contexts/analytics'
+import { checkUserId } from 'utilities/analytics'
 
-const DownloadAnswers = ({
-  answers,
-  hasUserId,
-  survey,
-}: {
-  answers: Answer<Quadratic>[]
-  hasUserId: boolean
-  survey?: SurveyDashboard
-}) => {
+const DownloadAnswers = () => {
+  const analytics = useAnalytics()
+  const survey = analytics.survey
+  const answers = analytics.answers as Answer<Quadratic>[]
+  const hasUserId = checkUserId(answers as []) // TODO:
+
   if (!answers || answers.length === 0 || !survey) {
     return null
   }
