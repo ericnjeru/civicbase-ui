@@ -4,6 +4,7 @@ import { Response, Request } from 'express'
 import { incrementAccess, setQuestionsId } from '../utils/survey'
 import { SurveyDashboard } from '../../../types/survey'
 import { getResults } from '../utils/results'
+import { getCSV } from '../utils/csv'
 
 export enum MethodIds {
   Quadratic = 'Q',
@@ -233,14 +234,18 @@ export const getSurveyForAnalytics = (req: any, res: Response) => {
             .get()
             .then((answers) => {
               let results = []
+              let csv
+
               if (answers.exists) {
                 results = getResults(survey.data() as SurveyDashboard, answers.data()?.answers)
+                csv = getCSV(survey.data() as SurveyDashboard, answers.data()?.answers)
               }
 
               res.status(200).json({
                 survey: { ...survey.data(), id: survey.id },
                 answers: answers.exists ? answers.data()?.answers : [],
                 results,
+                csv,
               })
             })
         }

@@ -9,6 +9,7 @@ interface Analytics {
   isError: boolean
   survey?: SurveyDashboard
   answers?: Answer<unknown>[]
+  csv?: any
   results?: any
   mode: 'pilot' | 'published'
 }
@@ -56,6 +57,7 @@ export const AnalyticsProvider = ({ ...props }): ReactElement => {
         survey: data?.survey,
         answers: data?.answers,
         results: data?.results,
+        csv: data?.csv,
         isError,
         isLoading,
         mode,

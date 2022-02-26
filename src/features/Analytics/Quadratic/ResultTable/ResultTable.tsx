@@ -4,7 +4,9 @@ import DownloadAnswers from '../DownloadAnswers'
 import { useAnalytics } from 'contexts/analytics'
 
 const ResultTable = () => {
-  const { results } = useAnalytics()
+  const { results, mode } = useAnalytics()
+
+  console.log('mode', mode)
 
   return (
     <div>
@@ -18,44 +20,28 @@ const ResultTable = () => {
             <Table.Header>Question Id</Table.Header>
             <Table.Header>Result</Table.Header>
           </Table.Row>
-
-          <Table.Row>
-            <Table.Header colSpan={2} css={tw`text-center text-red-400`}>
-              Pilot
-            </Table.Header>
-          </Table.Row>
         </Table.Head>
 
         <Table.Body>
-          {Object.keys(results.pilot)
-            .sort()
-            .map((row) => (
-              <Table.Row key={row}>
-                <Table.Data>{row}</Table.Data>
-                <Table.Data>{results.pilot[row]}</Table.Data>
-              </Table.Row>
-            ))}
-        </Table.Body>
+          {mode === 'pilot' &&
+            Object.keys(results.pilot)
+              .sort()
+              .map((row) => (
+                <Table.Row key={row}>
+                  <Table.Data>{row}</Table.Data>
+                  <Table.Data>{results.pilot[row]}</Table.Data>
+                </Table.Row>
+              ))}
 
-        {Object.keys(results.published).length > 0 ? (
-          <Table.Head>
-            <Table.Row>
-              <Table.Header colSpan={2} css={tw`text-center text-red-400`}>
-                Published
-              </Table.Header>
-            </Table.Row>
-          </Table.Head>
-        ) : null}
-
-        <Table.Body>
-          {Object.keys(results.published)
-            .sort()
-            .map((row) => (
-              <Table.Row key={row}>
-                <Table.Data>{row}</Table.Data>
-                <Table.Data>{results.published[row]}</Table.Data>
-              </Table.Row>
-            ))}
+          {mode === 'published' &&
+            Object.keys(results.published)
+              .sort()
+              .map((row) => (
+                <Table.Row key={row}>
+                  <Table.Data>{row}</Table.Data>
+                  <Table.Data>{results.published[row]}</Table.Data>
+                </Table.Row>
+              ))}
         </Table.Body>
       </Table.Main>
     </div>
