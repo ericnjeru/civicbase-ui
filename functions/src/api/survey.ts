@@ -241,9 +241,19 @@ export const getSurveyForAnalytics = (req: any, res: Response) => {
 
               if (answers.exists) {
                 response.results = getResults(surveyData, asnwersData)
-                response.csv = getCSV(surveyData, asnwersData)
+                response.csv = {
+                  pilot: getCSV(
+                    surveyData,
+                    asnwersData?.filter(({ status }: { status: string }) => status === 'pilot'),
+                  ),
+                  published: getCSV(
+                    surveyData,
+                    asnwersData?.filter(({ status }: { status: string }) => status === 'published'),
+                  ),
+                }
 
-                console.log('surveyData', surveyData?.setup.feedback?.active)
+                getCSV(surveyData, asnwersData)
+
                 if (surveyData?.setup.feedback?.active) {
                   response.feedback = getFeedback(asnwersData)
                 }

@@ -3,7 +3,7 @@ import { SurveyDashboard } from '../../../types/survey'
 import { format } from 'date-fns'
 const userId = ['userid', 'userId', 'userID']
 
-export function getCSV(survey: SurveyDashboard, answers: Answer<unknown>) {
+export function getCSV(survey: SurveyDashboard, answers: Answer<unknown>[]) {
   switch (survey.setup.method) {
     case 'Quadratic':
       return csvQuadratic(answers as any)
@@ -35,6 +35,10 @@ const userHasId = (answers: Answer<unknown>[]) => {
 const csvQuadratic = (answers: Answer<Quadratic>[]) => {
   const csvData: any[] = []
   const hasUserId = userHasId(answers)
+
+  if (!answers || answers.length === 0) {
+    return []
+  }
 
   const header = ['#']
   if (hasUserId) {
