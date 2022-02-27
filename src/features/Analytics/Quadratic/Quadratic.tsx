@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import ResultTable from './ResultTable'
 import NoResult from '../NoResult'
-// import FeedbackTable from '../FeedbackTable'
+import FeedbackTable from '../FeedbackTable'
 import { useAnalytics } from 'contexts/analytics'
 
 const QuadraticAnalytics = () => {
@@ -17,9 +17,9 @@ const QuadraticAnalytics = () => {
       : 'This Survey has no answer yet'
 
   return (
-    <div css={tw`space-y-24 mt-24`}>
+    <div css={tw`space-y-24 mt-24 pb-24`}>
       {hasAnswer() ? <ResultTable /> : <NoResult title="Result" description={description} />}
-      {/* {survey.setup.feedback?.active && <FeedbackTable answers={answers} />} */}
+      <FeedbackTable />
     </div>
   )
 }

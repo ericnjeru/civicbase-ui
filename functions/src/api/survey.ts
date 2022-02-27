@@ -5,6 +5,7 @@ import { incrementAccess, setQuestionsId } from '../utils/survey'
 import { SurveyDashboard } from '../../../types/survey'
 import { getResults } from '../utils/results'
 import { getCSV } from '../utils/csv'
+import getFeedback from '../utils/feedback'
 
 export enum MethodIds {
   Quadratic = 'Q',
@@ -227,26 +228,28 @@ export const getSurveyForAnalytics = (req: any, res: Response) => {
     .get()
     .then((survey) => {
       if (survey.exists) {
-        if (survey.data()?.uid !== req.user.uid) {
+        const surveyData = survey.data() as SurveyDashboard
+
+        if (surveyData?.uid !== req.user.uid) {
           res.status(403).json({ message: 'You have no permission to see this data' })
         } else {
           db.doc(`/answers/${surveyId}`)
             .get()
             .then((answers) => {
-              let results = []
-              let csv
+              const asnwersData = answers.data()?.answers
+              let response: any = { survey: { ...surveyData, id: survey.id } }
 
               if (answers.exists) {
-                results = getResults(survey.data() as SurveyDashboard, answers.data()?.answers)
-                csv = getCSV(survey.data() as SurveyDashboard, answers.data()?.answers)
+                response.results = getResults(surveyData, asnwersData)
+                response.csv = getCSV(surveyData, asnwersData)
+
+                console.log('surveyData', surveyData?.setup.feedback?.active)
+                if (surveyData?.setup.feedback?.active) {
+                  response.feedback = getFeedback(asnwersData)
+                }
               }
 
-              res.status(200).json({
-                survey: { ...survey.data(), id: survey.id },
-                answers: answers.exists ? answers.data()?.answers : [],
-                results,
-                csv,
-              })
+              res.status(200).json(response)
             })
         }
       }

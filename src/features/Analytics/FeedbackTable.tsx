@@ -1,45 +1,33 @@
-import tw from 'twin.macro'
 import * as Table from 'components/Table'
 import Typography from 'components/Typography'
-import { AnswerResponse as Answer } from '../../../types/answer'
+import { useAnalytics } from 'contexts/analytics'
 
-const FeedbackTable = ({ answers }: { answers: Answer<unknown>[] }) => {
-  const isFeedback = () => {
-    let flag = false
+const FeedbackTable = () => {
+  const { feedback, survey, mode } = useAnalytics()
 
-    answers.forEach((answer) => {
-      if (answer.feedback) {
-        flag = true
-      }
-    })
-
-    return flag
+  if (!feedback && !survey?.setup.feedback?.active) {
+    return null
   }
 
   return (
     <Table.Main>
       <Table.Head>
         <Table.Row>
-          <Table.Header css={tw`text-center`}>Feedback</Table.Header>
+          <Table.Header>Question ID</Table.Header>
+          <Table.Header>Feedback</Table.Header>
         </Table.Row>
       </Table.Head>
 
       <Table.Body>
-        {isFeedback() ? (
-          answers.map((answer) => {
-            if (answer.feedback) {
-              return (
-                <>
-                  {answer.feedback.map((feedback) => (
-                    <Table.Row key={feedback.id}>
-                      <Table.Data>{feedback.answer}</Table.Data>
-                    </Table.Row>
-                  ))}
-                </>
-              )
-            }
-            return null
-          })
+        {feedback && feedback[mode]?.length > 0 ? (
+          <>
+            {feedback[mode].map(({ answer, id }: { answer: string; id: string }) => (
+              <Table.Row key={id}>
+                <Table.Data>{id}</Table.Data>
+                <Table.Data>{answer}</Table.Data>
+              </Table.Row>
+            ))}
+          </>
         ) : (
           <Table.Row>
             <Table.Data>

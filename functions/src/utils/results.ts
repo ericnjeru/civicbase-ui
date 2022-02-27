@@ -19,7 +19,6 @@ type QuadraticAnswer = {
 }
 
 export function getResults(survey: SurveyDashboard, answers: Answer<unknown>) {
-  console.log('came here', answers)
   switch (survey.setup.method) {
     case 'Quadratic':
       return calculateQuadratic(answers as Answer<Quadratic>)

@@ -2,15 +2,14 @@ import useAsync from 'hooks/use-async'
 import { createContext, ReactElement, useContext, useEffect, useState } from 'react'
 import { analytics } from 'services/survey'
 import { SurveyDashboard } from '../../types/survey'
-import { AnswerResponse as Answer } from '../../types/answer'
 
 interface Analytics {
   isLoading: boolean
   isError: boolean
   survey?: SurveyDashboard
-  answers?: Answer<unknown>[]
   csv?: any
   results?: any
+  feedback?: any
   mode: 'pilot' | 'published'
 }
 
@@ -47,17 +46,16 @@ export const AnalyticsProvider = ({ ...props }): ReactElement => {
     setMode((mode) => (mode === 'published' ? 'pilot' : 'published'))
   }
 
-  const hasAnswer = () => {
-    return data?.answers?.length > 0
-  }
+  const hasAnswer = () => data?.results[mode]
 
+  console.log(data)
   return (
     <AnalyticsContext.Provider
       value={{
         survey: data?.survey,
-        answers: data?.answers,
         results: data?.results,
         csv: data?.csv,
+        feedback: data?.feedback,
         isError,
         isLoading,
         mode,

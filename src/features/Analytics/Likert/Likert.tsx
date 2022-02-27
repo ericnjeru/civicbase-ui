@@ -4,9 +4,9 @@ import ResultTable from './ResultTable'
 import { useAnalytics } from 'contexts/analytics'
 
 const LikertAnalytics = () => {
-  const { survey, answers } = useAnalytics()
+  const { survey } = useAnalytics()
 
-  if (!survey || !answers) {
+  if (!survey) {
     return null
   }
 
