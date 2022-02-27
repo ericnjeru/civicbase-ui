@@ -124,10 +124,10 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
           <Tabs initial="setup">
             <div css={tw`w-72 mr-4`}>
               <Tab.Setup />
-              <Tab.Language />
-              <Tab.Question />
-              <Tab.Messages />
-              <Tab.Customize />
+              <Tab.Language isEditing={!!survey?.id} />
+              <Tab.Question isEditing={!!survey?.id} defaultMethod={survey?.setup.method} />
+              <Tab.Messages isEditing={!!survey?.id} />
+              <Tab.Customize isEditing={!!survey?.id} />
               <Tab.Submit isLoading={isLoading} isEditing={!!survey?.id} />
             </div>
 

@@ -4,13 +4,13 @@ import { surveyMethods } from 'utilities/constants'
 import CustomTabItem from '../CustomTabItem'
 import useValidation from '../use-validation'
 
-const LanguageTab = () => {
+const LanguageTab = ({ isEditing }: { isEditing: boolean }) => {
   const method = useWatch({ name: 'setup.method' })
   const { isSetup } = useValidation()
 
   if (method === surveyMethods.Quadratic) {
     return (
-      <CustomTabItem id="language" icon={MdLanguage} disabled={!isSetup}>
+      <CustomTabItem id="language" icon={MdLanguage} disabled={!isSetup && !isEditing}>
         Language Designation
       </CustomTabItem>
     )

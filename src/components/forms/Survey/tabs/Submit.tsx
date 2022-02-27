@@ -15,7 +15,9 @@ const SubmitSurvey = ({ isLoading, isEditing = false }: { isLoading: boolean; is
       <PrimaryButton
         css={tw`w-full flex justify-center items-center`}
         type="submit"
-        disabled={!isDirty || isLoading || !isSetup || !isLanguage || !isConjoint || !isLikert || !isQuadratic}
+        disabled={
+          (!isDirty || isLoading || !isSetup || !isLanguage || !isConjoint || !isLikert || !isQuadratic) && !isEditing
+        }
       >
         {isLoading && <Spinner variant="light" css={tw`mr-4`} />}
         {isEditing ? 'Edit' : 'Create'} Survey
