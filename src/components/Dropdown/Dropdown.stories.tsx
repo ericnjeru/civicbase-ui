@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof Dropdown> = (args) => {
   return (
     <div css={tw`w-72`}>
       <Dropdown
-        values={args.values}
+        options={args.options}
         value={option}
         onChange={(opt) => setOption(opt)}
         error={args.error}
@@ -29,7 +29,7 @@ const Template: ComponentStory<typeof Dropdown> = (args) => {
 export const Basic = Template.bind({})
 
 Basic.args = {
-  values: ['Blue', 'Red', 'Purple'],
+  options: ['Blue', 'Red', 'Purple'],
   value: undefined,
   error: false,
   modified: false,

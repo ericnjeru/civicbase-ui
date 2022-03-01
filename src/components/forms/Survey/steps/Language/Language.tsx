@@ -34,7 +34,7 @@ const Language = () => {
           control={control}
           render={({ field }) => (
             <Dropdown
-              values={languages}
+              options={languages}
               value={field.value}
               onChange={field.onChange}
               placeholder="Select preferred language"
@@ -74,7 +74,7 @@ const Language = () => {
           control={control}
           render={({ field }) => (
             <Dropdown
-              values={tokens}
+              options={tokens}
               value={field.value}
               onChange={field.onChange}
               placeholder="Select preferred token"

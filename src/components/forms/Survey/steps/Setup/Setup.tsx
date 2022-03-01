@@ -45,7 +45,7 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
                 <Dropdown
                   disabled={isEditing}
                   placeholder="Select survey method"
-                  values={methods}
+                  options={methods}
                   error={errors?.setup?.method}
                   {...field}
                 />

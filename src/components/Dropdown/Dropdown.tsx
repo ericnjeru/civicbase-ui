@@ -7,7 +7,7 @@ import tw, { theme } from 'twin.macro'
 function Dropdown({
   error,
   modified,
-  values,
+  options,
   onChange,
   value,
   placeholder,
@@ -16,7 +16,7 @@ function Dropdown({
 }: {
   error?: boolean
   modified?: boolean
-  values: string[]
+  options: string[]
   value: string
   placeholder?: string
   disabled?: boolean
@@ -45,7 +45,7 @@ function Dropdown({
           <Listbox.Options
             css={tw`absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10`}
           >
-            {values.map((value) => (
+            {options.map((value) => (
               <Listbox.Option key={value} css={tw`cursor-default select-none relative`} value={value}>
                 {({ selected, active }) => (
                   <div css={[tw`py-2 pl-10 pr-4`, active && tw`bg-brand text-white cursor-pointer`]}>
