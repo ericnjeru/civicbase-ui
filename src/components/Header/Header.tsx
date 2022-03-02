@@ -24,7 +24,7 @@ const Header = () => {
   return (
     <div css={tw`flex items-center w-full fixed bg-primary z-50`}>
       <div css={tw`w-full overflow-hidden flex items-center justify-between px-6 py-4`}>
-        <PrimaryTextButton as="a" href="/">
+        <PrimaryTextButton as="a" href="/" css={tw`focus:(outline-none ring-0)`}>
           <Subtitle css={tw`m-0`}>Civicbase</Subtitle>
         </PrimaryTextButton>
         <div css={tw`flex space-x-4`}>
