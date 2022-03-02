@@ -60,7 +60,7 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
             <Ping status={status} />
           </div>
 
-          <Tooltip label={openMenu ? 'Back' : 'Actions'}>
+          <Tooltip label={openMenu ? 'Back' : 'Actions'} popperProps={{ delayShow: 500 }}>
             <div
               css={[
                 tw`absolute top-0 right-0`,
@@ -102,20 +102,20 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
             ]}
           >
             {status !== 'finished' && (
-              <Tooltip label="Edit">
+              <Tooltip label="Edit" popperProps={{ delayShow: 500 }}>
                 <IconButton onClick={() => navigate('/edit-survey', { state: survey })}>
                   <FiEdit2 size={28} />
                 </IconButton>
               </Tooltip>
             )}
 
-            <Tooltip label="Analytics">
+            <Tooltip label="Analytics" popperProps={{ delayShow: 500 }}>
               <IconButton onClick={() => navigate(`/analytics/${id}`)}>
                 <IoAnalyticsOutline size={28} />
               </IconButton>
             </Tooltip>
 
-            <Tooltip label="Preview">
+            <Tooltip label="Preview" popperProps={{ delayShow: 500 }}>
               <IconButton onClick={() => navigate(`/survey/${id}`)}>
                 <FiEye size={28} />
               </IconButton>

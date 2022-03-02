@@ -17,7 +17,7 @@ const Action = ({ isLoading }: { isLoading: boolean }) => {
   const { openModal } = useContext(ModalContext)
 
   return (
-    <Tooltip label="Delete">
+    <Tooltip label="Delete" popperProps={{ delayShow: 500 }}>
       <IconButton onClick={openModal} disabled={isLoading}>
         <AiOutlineDelete size={28} />
       </IconButton>
@@ -67,13 +67,13 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
 
   return (
     <div css={tw`justify-around w-full flex`}>
-      <Tooltip label="Copy link">
+      <Tooltip label="Copy link" popperProps={{ delayShow: 500 }}>
         <IconButton onClick={handleCopy}>
           <AiOutlineCopy size={28} />
         </IconButton>
       </Tooltip>
 
-      <Tooltip label="Clone">
+      <Tooltip label="Clone" popperProps={{ delayShow: 500 }}>
         <IconButton onClick={handleClone} disabled={isLoading}>
           <FaRegClone size={28} />
         </IconButton>

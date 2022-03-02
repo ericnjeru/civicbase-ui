@@ -28,7 +28,7 @@ const PublishSurvey = ({ surveyId }: { surveyId: string }) => {
   }
 
   return (
-    <Tooltip label="Publish">
+    <Tooltip label="Publish" popperProps={{ delayShow: 500 }}>
       <IconButton onClick={handlePublish} disabled={isLoading}>
         <BiPaperPlane size={28} />
       </IconButton>

@@ -28,7 +28,7 @@ const FinishSurvey = ({ surveyId }: { surveyId: string }) => {
   }
 
   return (
-    <Tooltip label="Finish">
+    <Tooltip label="Finish" popperProps={{ delayShow: 500 }}>
       <IconButton onClick={handlePublish} disabled={isLoading}>
         <FiPower size={28} />
       </IconButton>
