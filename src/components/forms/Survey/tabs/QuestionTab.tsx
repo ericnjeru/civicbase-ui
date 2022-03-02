@@ -8,7 +8,7 @@ const QuestionTab = ({ isEditing, defaultMethod }: { isEditing: boolean; default
   const { isSetup, isLanguage } = useValidation()
 
   return (
-    <CustomTabItem id={method.toLowerCase()} icon={IoMdChatboxes} disabled={(!isSetup || !isLanguage) && !isEditing}>
+    <CustomTabItem id={method?.toLowerCase()} icon={IoMdChatboxes} disabled={(!isSetup || !isLanguage) && !isEditing}>
       Questions
     </CustomTabItem>
   )

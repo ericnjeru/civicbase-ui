@@ -46,9 +46,8 @@ export const AnalyticsProvider = ({ ...props }): ReactElement => {
     setMode((mode) => (mode === 'published' ? 'pilot' : 'published'))
   }
 
-  const hasAnswer = () => data?.results[mode]
+  const hasAnswer = () => data?.results && !!data?.results[mode]
 
-  console.log(data)
   return (
     <AnalyticsContext.Provider
       value={{
