@@ -18,21 +18,38 @@ import { setSurveyTaken } from 'utilities/survey'
 import { AnswerRequest as Answer, Quadratic } from '../../../../types/answer'
 import Modal, { ModalContext } from 'components/Modal'
 import { HiInformationCircle } from 'react-icons/hi'
+import Spinner from 'components/Spinner'
 
-const Action = ({ availableCredits, disabled }: { availableCredits: number; disabled: boolean }) => {
+const Action = ({
+  availableCredits,
+  disabled,
+  isLoading,
+}: {
+  availableCredits: number
+  disabled: boolean
+  isLoading?: boolean
+}) => {
   const { openModal } = useContext(ModalContext)
+  const hasCreditLeft = availableCredits > 0
 
-  if (availableCredits > 0) {
-    return (
-      <PrimaryButton onClick={openModal} disabled={disabled}>
-        Submit
-      </PrimaryButton>
-    )
+  const handleConfirmation = (e: any) => {
+    if (hasCreditLeft) {
+      openModal(e)
+    }
   }
+
   return (
-    <PrimaryButton type="submit" disabled={disabled}>
-      Submit
-    </PrimaryButton>
+    <div css={tw`flex justify-center`}>
+      <PrimaryButton
+        onClick={handleConfirmation}
+        disabled={disabled}
+        type={hasCreditLeft ? 'button' : 'submit'}
+        css={tw`flex justify-center items-center space-x-4`}
+      >
+        {isLoading && <Spinner variant="light" />}
+        <div>Submit</div>
+      </PrimaryButton>
+    </div>
   )
 }
 
@@ -173,10 +190,15 @@ const QuadraticRespondent = ({
             <Modal
               header={<Typography>Credit Left</Typography>}
               icon={<HiInformationCircle size="24" />}
-              action={<Action availableCredits={availableCredits} disabled={isLoading} />}
+              action={<Action availableCredits={availableCredits} disabled={isLoading} isLoading={isLoading} />}
               footer={
-                <SecondaryButton onClick={methods.handleSubmit(onSubmit)} disabled={isLoading}>
-                  Submit
+                <SecondaryButton
+                  onClick={methods.handleSubmit(onSubmit)}
+                  css={tw`flex justify-center items-center space-x-4`}
+                  disabled={isLoading}
+                >
+                  {isLoading && <Spinner variant="light" />}
+                  <div>Submit</div>
                 </SecondaryButton>
               }
             >
