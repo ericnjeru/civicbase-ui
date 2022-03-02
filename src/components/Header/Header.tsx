@@ -1,25 +1,25 @@
 import tw from 'twin.macro'
 import { BiCog } from 'react-icons/bi'
-import { FiSun, FiMoon } from 'react-icons/fi'
+// import { FiSun, FiMoon } from 'react-icons/fi'
 import { PrimaryButton, SecondaryButton, IconButton, PrimaryTextButton } from 'components/Button'
 import { Subtitle } from 'components/Typography'
 import Menu from './Menu'
-import { useTheme } from 'contexts/theme'
+// import { useTheme } from 'contexts/theme'
 import { useAuth } from 'contexts/auth'
 
 const Header = () => {
   const { user } = useAuth()
-  const { theme, setTheme } = useTheme()
+  // const { theme, setTheme } = useTheme()
 
-  const toggleTheme = () => {
-    if (setTheme) {
-      if (theme === 'dark') {
-        setTheme('light')
-      } else {
-        setTheme('dark')
-      }
-    }
-  }
+  // const toggleTheme = () => {
+  //   if (setTheme) {
+  //     if (theme === 'dark') {
+  //       setTheme('light')
+  //     } else {
+  //       setTheme('dark')
+  //     }
+  //   }
+  // }
 
   return (
     <div css={tw`flex items-center w-full fixed bg-primary z-50`}>
@@ -37,9 +37,9 @@ const Header = () => {
             </div>
           )}
 
-          <IconButton onClick={() => toggleTheme()}>
+          {/* <IconButton onClick={() => toggleTheme()}>
             {theme === 'dark' ? <FiSun size={22} /> : <FiMoon size={22} />}
-          </IconButton>
+          </IconButton> */}
           {user && (
             <Menu>
               <IconButton>
