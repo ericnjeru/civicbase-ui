@@ -7,20 +7,36 @@ export enum MethodIds {
   Conjoint = 'C',
 }
 
-export function incrementAccess(surveyId: string) {
+export function incrementAccess(surveyId: string, status: 'pilot' | 'published' | 'finished') {
   var survey = db.collection('surveys').doc(surveyId)
 
-  survey.update({
-    'analytics.current.access': admin.firestore.FieldValue.increment(1),
-  })
+  if (status === 'pilot') {
+    survey.update({
+      'analytics.pilot.current.access': admin.firestore.FieldValue.increment(1),
+    })
+  }
+
+  if (status === 'published') {
+    survey.update({
+      'analytics.published.current.access': admin.firestore.FieldValue.increment(1),
+    })
+  }
 }
 
-export function incrementRespondent(surveyId: string) {
-  var survey = db.collection('surveys').doc(surveyId)
+export function incrementRespondent(surveyId: string, status: 'pilot' | 'published' | 'finished') {
+  const survey = db.collection('surveys').doc(surveyId)
 
-  survey.update({
-    'analytics.current.respondents': admin.firestore.FieldValue.increment(1),
-  })
+  if (status === 'pilot') {
+    survey.update({
+      'analytics.pilot.current.respondents': admin.firestore.FieldValue.increment(1),
+    })
+  }
+
+  if (status === 'published') {
+    survey.update({
+      'analytics.published.current.respondents': admin.firestore.FieldValue.increment(1),
+    })
+  }
 }
 
 export function setQuestionsId(survey: SurveyRespondent) {

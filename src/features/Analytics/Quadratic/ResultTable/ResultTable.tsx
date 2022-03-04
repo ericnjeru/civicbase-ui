@@ -6,8 +6,6 @@ import { useAnalytics } from 'contexts/analytics'
 const ResultTable = () => {
   const { results, mode } = useAnalytics()
 
-  console.log('mode', mode)
-
   return (
     <div>
       <div css={tw`flex justify-end items-center mb-4`}>
@@ -42,6 +40,18 @@ const ResultTable = () => {
                   <Table.Data>{results.published[row]}</Table.Data>
                 </Table.Row>
               ))}
+
+          {mode === 'pilot' && Object.keys(results.pilot).length === 0 && (
+            <Table.Row>
+              <Table.Data colSpan={2}>No answers captured in Pilot phase</Table.Data>
+            </Table.Row>
+          )}
+
+          {mode === 'published' && Object.keys(results.published).length === 0 && (
+            <Table.Row>
+              <Table.Data colSpan={2}>No answers captured in Published phase</Table.Data>
+            </Table.Row>
+          )}
         </Table.Body>
       </Table.Main>
     </div>

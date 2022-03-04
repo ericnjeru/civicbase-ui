@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import tw from 'twin.macro'
 import { useNavigate } from '@reach/router'
-import { AiOutlineArrowUp } from 'react-icons/ai'
+// import { AiOutlineArrowUp } from 'react-icons/ai'
 import { FiEdit2, FiEye } from 'react-icons/fi'
 import { BiCog, BiArrowBack } from 'react-icons/bi'
 import { IoAnalyticsOutline } from 'react-icons/io5'
@@ -13,7 +13,7 @@ import Ping from './Ping'
 import PublishSurvey from './PublishSurvey'
 import FinishSurvey from './FinishSurvey'
 import { SurveyState } from 'contexts/surveys'
-import useSurveyAnalytics from 'hooks/use-survey-analytics'
+// import useSurveyAnalytics from 'hooks/use-survey-analytics'
 import InlineMenu from './InlineMenu'
 import Tooltip from 'components/Tooltip'
 
@@ -27,7 +27,7 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
   const navigate = useNavigate()
   const [openMenu, setOpenMenu] = useState(false)
   const [hovered, setHovered] = useState(false)
-  const { respondentsIncrement } = useSurveyAnalytics(survey)
+  // const { respondentsIncrement } = useSurveyAnalytics(survey)
 
   const handleMouseLeave = () => {
     setHovered(false)
@@ -85,12 +85,12 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
         >
           <Badge>{status}</Badge>
           <Badge css={tw`mx-2`}>{method?.toLowerCase()}</Badge>
-          {respondentsIncrement && respondentsIncrement > 0 ? (
+          {/* {respondentsIncrement && respondentsIncrement > 0 ? (
             <Badge style={{ height: 'min-content' }} css={tw`bg-green-200 flex items-center text-green-900`}>
               <AiOutlineArrowUp css={tw`mr-1 text-green-600`} />
               {respondentsIncrement}%
             </Badge>
-          ) : null}
+          ) : null} */}
         </div>
 
         <div css={[openMenu && tw`transition-all ease-out hidden opacity-0 `]}>

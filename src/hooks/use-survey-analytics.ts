@@ -2,12 +2,16 @@ import { SurveyDashboard } from '../../types/survey'
 
 type SurveyAnalyticsReturn = {
   isAnalising: boolean
-  totalAccess?: number
-  totalRespondents?: number
-  accessIncrement?: number
-  respondentsIncrement?: number
-  convertionRate?: number
-  convertionIncrement?: number
+  pilot?: {
+    totalAccess: number
+    totalRespondents: number
+    convertionRate: number
+  }
+  published?: {
+    totalAccess: number
+    totalRespondents: number
+    convertionRate: number
+  }
 }
 
 const useSurveyAnalytics = (survey?: SurveyDashboard): SurveyAnalyticsReturn => {
@@ -15,44 +19,30 @@ const useSurveyAnalytics = (survey?: SurveyDashboard): SurveyAnalyticsReturn => 
     return { isAnalising: true }
   }
 
-  const { current, history } = survey.analytics
-  const calculate = (increment: 'access' | 'respondents') => {
-    if (history.access === 0) {
-      return current[increment] * 100
+  const { pilot, published } = survey.analytics
+
+  const calculateConvertionRate = (mode: 'pilot' | 'published') => {
+    if (mode === 'pilot') {
+      return pilot.current.access > 0 ? Math.trunc((pilot.current.respondents / pilot.current.access) * 100) : 0
+    } else {
+      return published.current.access > 0
+        ? Math.trunc((published.current.respondents / published.current.access) * 100)
+        : 0
     }
-
-    if (current[increment] === history[increment]) {
-      return 0
-    }
-
-    const diff = current[increment] - history[increment]
-
-    return Math.trunc((diff / history[increment]) * 100)
-  }
-
-  const getConvertionRate = () => {
-    return current.access > 0 ? Math.trunc((current.respondents / current.access) * 100) : 0
-  }
-
-  const getConvertionIncrement = () => {
-    if (current.access <= 0 || history.access <= 0) {
-      return 0
-    }
-
-    const c = (current.respondents / current.access) * 100
-    const p = (history.respondents / history.access) * 100
-
-    return Number((c - p).toFixed(2))
   }
 
   return {
     isAnalising: false,
-    totalAccess: current.access,
-    totalRespondents: current.respondents,
-    accessIncrement: calculate('access'),
-    respondentsIncrement: calculate('respondents'),
-    convertionRate: getConvertionRate(),
-    convertionIncrement: getConvertionIncrement(),
+    pilot: {
+      totalAccess: pilot.current.access,
+      totalRespondents: pilot.current.respondents,
+      convertionRate: calculateConvertionRate('pilot'),
+    },
+    published: {
+      totalAccess: published.current.access,
+      totalRespondents: published.current.respondents,
+      convertionRate: calculateConvertionRate('published'),
+    },
   }
 }
 

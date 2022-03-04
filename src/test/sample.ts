@@ -25,17 +25,33 @@ export const survey: SurveyDashboard = {
     },
   ],
   analytics: {
-    previous: {
-      respondents: 104,
-      access: 354,
+    pilot: {
+      previous: {
+        respondents: 104,
+        access: 354,
+      },
+      current: {
+        respondents: 121,
+        access: 406,
+      },
+      history: {
+        access: 342,
+        respondents: 97,
+      },
     },
-    current: {
-      respondents: 121,
-      access: 406,
-    },
-    history: {
-      access: 342,
-      respondents: 97,
+    published: {
+      previous: {
+        respondents: 1040,
+        access: 3540,
+      },
+      current: {
+        respondents: 1210,
+        access: 4060,
+      },
+      history: {
+        access: 3420,
+        respondents: 970,
+      },
     },
   },
   status: 'published',

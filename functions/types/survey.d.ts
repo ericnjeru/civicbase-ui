@@ -1,5 +1,4 @@
 import { CreateSurvey } from '../../types/survey'
-import { Methods, Survey } from '../../types/survey-base'
 
 export type CreateRequest = {
   body: CreateSurvey
@@ -12,7 +11,7 @@ export type CreateAnswerRequest = {
     quadratic?: QuadraticAnswer[]
     conjoint?: ConjointAnswer[]
     researcherId: string
-    status: string
+    status: 'pilot' | 'published'
     time: {
       startAt: string
       submitedAt: string

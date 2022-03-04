@@ -6,28 +6,13 @@ import { SurveyDashboard } from '../../../types/survey'
 import { getResults } from '../utils/results'
 import { getCSV } from '../utils/csv'
 import getFeedback from '../utils/feedback'
+import { setAnalytics } from '../utils/analytics'
 
 export enum MethodIds {
   Quadratic = 'Q',
   Likert = 'L',
   Conjoint = 'C',
 }
-
-// TODO: move to utils survey
-const setAnalytics = () => ({
-  current: {
-    respondents: 0,
-    access: 0,
-  },
-  previous: {
-    respondents: 0,
-    access: 0,
-  },
-  history: {
-    respondents: 0,
-    access: 0,
-  },
-})
 
 export const createSurvey = (req: CreateRequest, res: Response) => {
   // TODO: create this type
@@ -38,7 +23,7 @@ export const createSurvey = (req: CreateRequest, res: Response) => {
     status: 'pilot',
     analytics: setAnalytics(),
   }
-  // TODO: this logig is being repeated
+  // TODO: this logic is being repeated
   if (req.body.setup.method === 'Quadratic') {
     survey.quadratic = setQuestionsId(survey)
   }
@@ -178,8 +163,10 @@ export const getSurvey = (req: Request, res: Response) => {
     .get()
     .then((doc) => {
       if (doc.exists) {
-        res.status(200).json({ ...doc.data(), id: doc.id })
-        incrementAccess(surveyId)
+        const survey: SurveyDashboard = doc.data() as SurveyDashboard
+
+        res.status(200).json({ ...survey, id: doc.id })
+        incrementAccess(surveyId, survey.status)
       } else {
         res.status(500).json({ message: 'survey does not exist' })
       }

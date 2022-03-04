@@ -16,7 +16,7 @@ export const createAnswer = (req: CreateAnswerRequest, res: Response) => {
         const document = db.collection('answers').doc(answer.surveyId)
 
         document.update({ answers: admin.firestore.FieldValue.arrayUnion(answer) }).then(() => {
-          incrementRespondent(answer.surveyId)
+          incrementRespondent(answer.surveyId, answer.status)
         })
       } else {
         db.collection('answers')
@@ -26,7 +26,7 @@ export const createAnswer = (req: CreateAnswerRequest, res: Response) => {
             const document = db.collection('answers').doc(answer.surveyId)
 
             document.update({ answers: admin.firestore.FieldValue.arrayUnion(answer) }).then(() => {
-              incrementRespondent(answer.surveyId)
+              incrementRespondent(answer.surveyId, answer.status)
             })
           })
       }

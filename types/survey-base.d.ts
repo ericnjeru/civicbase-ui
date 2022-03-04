@@ -71,7 +71,7 @@ export type Qualtrics = {
   link: string
 }
 
-export type Analytics = {
+type AnalyticStats = {
   current: {
     respondents: number
     access: number
@@ -84,6 +84,11 @@ export type Analytics = {
     respondents: number
     access: number
   }
+}
+
+export type Analytics = {
+  pilot: AnalyticStats
+  published: AnalyticStats
 }
 
 // TODO: This is the quadratic, being use inside  qudratic use hook. Sort it out

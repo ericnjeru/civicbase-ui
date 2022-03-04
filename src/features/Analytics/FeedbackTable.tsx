@@ -31,7 +31,7 @@ const FeedbackTable = () => {
         ) : (
           <Table.Row>
             <Table.Data>
-              <Typography>There is no feedback so far</Typography>
+              <Typography>No feedback so far</Typography>
             </Table.Data>
           </Table.Row>
         )}
