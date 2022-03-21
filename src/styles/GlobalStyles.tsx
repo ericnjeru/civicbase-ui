@@ -11,14 +11,14 @@ const CustomStyles = createGlobalStyle`
     --color-primary: #E11D48;
   }
   .dark {
-    --bg-primary: #303030;
-    --bg-secondary: #1E293B;
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
     --text-primary: #E0E0E0;
     --text-secondary: #9E9E9E;
     --color-primary: #2563EB;
   }
   body {
-    ${tw`bg-primary text-primary transition-all duration-200`}
+    ${tw`bg-primary text-primary`}
   }
 `
 

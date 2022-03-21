@@ -13,6 +13,7 @@ const AddButton = ({
       css={[
         tw`w-full h-40 border-dashed border-2 rounded-md text-gray-500`,
         tw`flex justify-center items-center`,
+        tw`dark:(text-gray-400 border-gray-400 hover:(border-gray-100 text-gray-100))`,
         !disabled && tw`hover:border-gray-600 hover:text-gray-600 focus:outline-none`,
       ]}
       onClick={onClick}
