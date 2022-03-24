@@ -17,7 +17,7 @@ const DynamicBar = ({
   const progress = Math.floor((availableCredits / total) * 100)
 
   return (
-    <div css={[tw`h-6 w-full rounded-md overflow-hidden flex bg-brand bg-opacity-50 relative`]}>
+    <div css={[tw`h-6 w-full rounded-md overflow-hidden flex bg-brand bg-opacity-50 relative mb-12`]}>
       <div
         css={[
           tw`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-brand`,

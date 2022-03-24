@@ -154,7 +154,7 @@ const QuadraticRespondent = ({
             </>
           }
           main={
-            <div css={tw`flex flex-col items-center space-y-24 mt-20 pb-20`}>
+            <div css={tw`flex flex-col items-center space-y-24 pt-20 pb-20`}>
               {questions.map((question, index) => {
                 return (
                   <div key={question.id} css={tw`flex w-full flex-col`}>

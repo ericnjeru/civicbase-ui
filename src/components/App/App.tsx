@@ -23,7 +23,7 @@ const App = () => {
           <Banner />
 
           <div css={tw`overflow-y-auto h-full`}>
-            <div css={tw`container mx-auto pt-36 pb-12 h-full`}>
+            <div css={[tw`container mx-auto pt-36 pb-12 h-full`, !user && tw`pt-0`]}>
               {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
             </div>
           </div>

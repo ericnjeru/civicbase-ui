@@ -20,6 +20,9 @@ const Header = () => {
   //     }
   //   }
   // }
+  if (!user) {
+    return null
+  }
 
   return (
     <div css={tw`flex items-center w-full fixed bg-primary z-50`}>
@@ -28,25 +31,22 @@ const Header = () => {
           <Subtitle css={tw`m-0`}>Civicbase</Subtitle>
         </PrimaryTextButton>
         <div css={tw`flex space-x-4`}>
-          {user && (
-            <div css={tw`flex mobile:hidden`}>
-              <PrimaryButton>Blog</PrimaryButton>
-              <PrimaryButton css={tw`mx-2`}>FAQ</PrimaryButton>
-              <PrimaryButton css={tw`mr-2`}>About</PrimaryButton>
-              <SecondaryButton css={tw`mr-2`}>Admin</SecondaryButton>
-            </div>
-          )}
+          <div css={tw`flex mobile:hidden`}>
+            <PrimaryButton>Blog</PrimaryButton>
+            <PrimaryButton css={tw`mx-2`}>FAQ</PrimaryButton>
+            <PrimaryButton css={tw`mr-2`}>About</PrimaryButton>
+            <SecondaryButton css={tw`mr-2`}>Admin</SecondaryButton>
+          </div>
 
           {/* <IconButton onClick={() => toggleTheme()}>
             {theme === 'dark' ? <FiSun size={22} /> : <FiMoon size={22} />}
           </IconButton> */}
-          {user && (
-            <Menu>
-              <IconButton>
-                <BiCog size={28} />
-              </IconButton>
-            </Menu>
-          )}
+
+          <Menu>
+            <IconButton>
+              <BiCog size={28} />
+            </IconButton>
+          </Menu>
         </div>
       </div>
     </div>
