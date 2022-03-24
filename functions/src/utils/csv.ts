@@ -6,7 +6,7 @@ const userId = ['userid', 'userId', 'userID']
 export function getCSV(survey: SurveyDashboard, answers: Answer<unknown>[]) {
   switch (survey.setup.method) {
     case 'Quadratic':
-      return csvQuadratic(answers as any)
+      return csvQuadratic(answers as any, survey)
 
     case 'Conjoint':
       return csvConjoint()
@@ -32,7 +32,7 @@ const userHasId = (answers: Answer<unknown>[]) => {
   return flag
 }
 
-const csvQuadratic = (answers: Answer<Quadratic>[]) => {
+const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => {
   const csvData: any[] = []
   const hasUserId = userHasId(answers)
 
@@ -65,6 +65,12 @@ const csvQuadratic = (answers: Answer<Quadratic>[]) => {
   header.push('credit left')
   header.push('status')
 
+  if (survey.setup.feedback?.active) {
+    for (let index = 0; index < survey.setup.feedback.questions.length; index++) {
+      header.push(`Feedback ${index + 1}`)
+    }
+  }
+
   csvData.push(header)
 
   answers.forEach((answer, index) => {
@@ -89,14 +95,31 @@ const csvQuadratic = (answers: Answer<Quadratic>[]) => {
       })
 
     // TODO: format date
-    row.push(format(new Date(answer.createdAt), 'dd/MM/yy hh:mm'))
-    row.push(format(new Date(answer.time.surveyLoadAt), 'dd/MM/yy hh:mm'))
-    row.push(format(new Date(answer.time.startAt), 'dd/MM/yy hh:mm'))
-    row.push(format(new Date(answer.time.questionPageLoadAt), 'dd/MM/yy hh:mm'))
-    row.push(format(new Date(answer.time.submitedAt), 'dd/MM/yy hh:mm'))
+    row.push(format(new Date(answer.createdAt), 'dd/MM/yy hh:mm:ss'))
+    row.push(format(new Date(answer.time.surveyLoadAt), 'dd/MM/yy hh:mm:ss'))
+    row.push(format(new Date(answer.time.startAt), 'dd/MM/yy hh:mm:ss'))
+    row.push(format(new Date(answer.time.questionPageLoadAt), 'dd/MM/yy hh:mm:ss'))
+    row.push(format(new Date(answer.time.submitedAt), 'dd/MM/yy hh:mm:ss'))
 
     row.push(`${answer.leftCredits}`)
     row.push(answer.status)
+
+    // Feedback
+    if (survey.setup.feedback?.active && answer.feedback) {
+      const feedbacks = survey.setup.feedback.questions.map((f) => {
+        let flag = { answer: '' }
+
+        answer.feedback?.forEach((fe) => {
+          if (fe.id === f.id) {
+            flag = fe
+          }
+        })
+
+        return flag
+      })
+
+      feedbacks.forEach((feedback) => row.push(feedback.answer))
+    }
 
     csvData.push(row)
   })
