@@ -31,7 +31,7 @@ const Display = ({
   return (
     <div css={tw`flex flex-col items-center`}>
       <div css={tw`h-28 w-28 border rounded-full flex justify-center items-center overflow-hidden relative`}>
-        <div css={tw`h-8 w-8  flex justify-center items-center  z-10`}>{vote}</div>
+        <div css={[tw`h-8 w-8 flex justify-center items-center z-10`, vote !== 0 && tw`text-black`]}>{vote}</div>
         <div
           style={{ width: `${getSize()}%`, height: `${getSize()}%` }}
           css={[
@@ -147,8 +147,8 @@ const Vote = ({
   return (
     <div css={tw`flex items-center`}>
       <Modal
-        header={<Typography>Out of {token}</Typography>}
-        icon={<HiInformationCircle size="24" />}
+        header={<Typography css={tw`text-black`}>Out of {token}</Typography>}
+        icon={<HiInformationCircle size="24" color={theme`colors.black`} />}
         action={
           <Action
             onVote={onVote}
@@ -164,7 +164,7 @@ const Vote = ({
         }
         footer={<Footer />}
       >
-        <Typography>You don&apos;t have enough {token} to cast this vote.</Typography>
+        <Typography css={tw`text-black`}>You don&apos;t have enough {token} to cast this vote.</Typography>
       </Modal>
     </div>
   )
