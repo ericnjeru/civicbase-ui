@@ -19,6 +19,7 @@ import { AnswerRequest as Answer, Quadratic } from '../../../../types/answer'
 import Modal, { ModalContext } from 'components/Modal'
 import { HiInformationCircle } from 'react-icons/hi'
 import Spinner from 'components/Spinner'
+import { useAuth } from 'contexts/auth'
 
 const Action = ({
   availableCredits,
@@ -71,6 +72,7 @@ const QuadraticRespondent = ({
   handleNext: () => void
   preview?: boolean
 }) => {
+  const { user } = useAuth()
   const { run, isSuccess, isLoading } = useAsync()
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
@@ -143,7 +145,7 @@ const QuadraticRespondent = ({
           header={
             <>
               {credits && (
-                <div css={tw`sticky z-50`} style={{ top: 70 }}>
+                <div css={tw`sticky z-50`} style={{ top: user ? 70 : 26 }}>
                   <DynamicBar
                     total={credits}
                     availableCredits={availableCredits}
