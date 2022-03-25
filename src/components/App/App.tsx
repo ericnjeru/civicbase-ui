@@ -22,11 +22,7 @@ const App = () => {
           <Header />
           <Banner />
 
-          <div css={tw`overflow-y-auto h-full`}>
-            <div css={tw`container mx-auto pt-36 pb-12 h-full`}>
-              {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-            </div>
-          </div>
+          <div css={tw`overflow-y-auto h-full`}>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</div>
           <Toast />
         </div>
       </ToastProvider>
