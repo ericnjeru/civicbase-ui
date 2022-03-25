@@ -1,4 +1,5 @@
 import { Switch as SwitchHeadless } from '@headlessui/react'
+import { useTheme } from 'contexts/theme'
 import { ReactNode } from 'react'
 import tw from 'twin.macro'
 
@@ -11,6 +12,7 @@ const Switch = ({
   onChange: (checked: boolean) => void
   children?: string | ReactNode
 }) => {
+  const { theme } = useTheme()
   return (
     <SwitchHeadless.Group>
       <div css={tw`flex items-start`}>
@@ -21,7 +23,10 @@ const Switch = ({
             tw`relative inline-flex items-center h-6 rounded-full w-11`,
             tw`focus:(outline-none)`,
             tw`dark:(border-gray-600 border-2)`,
-            value ? tw`bg-brand dark:bg-brandDark` : tw`bg-gray-200 dark:bg-gray-700`,
+            theme === 'light' && value && tw`bg-brand`,
+            theme === 'dark' && value && tw`bg-brandDark`,
+            !value && theme === 'light' && tw`bg-gray-200`,
+            !value && theme === 'dark' && tw`bg-gray-700`,
           ]}
         >
           <span css={tw`sr-only`}>{children || 'Switch'}</span>
