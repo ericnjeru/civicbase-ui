@@ -1,16 +1,21 @@
 import tw from 'twin.macro'
-import { BiCog } from 'react-icons/bi'
-import { FiSun, FiMoon } from 'react-icons/fi'
+import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
 import { PrimaryButton, SecondaryButton, IconButton, PrimaryTextButton } from 'components/Button'
 import { Subtitle } from 'components/Typography'
-import Menu from './Menu'
 import { useTheme } from 'contexts/theme'
 import { useAuth } from 'contexts/auth'
 import Tooltip from 'components/Tooltip'
+import useAsync from 'hooks/use-async'
+import Spinner from 'components/Spinner'
 
 const Header = () => {
-  const { user } = useAuth()
+  const { run, isLoading } = useAsync()
+  const { logout, user } = useAuth()
   const { theme, setTheme } = useTheme()
+
+  const handleLogout = () => {
+    logout && run(logout())
+  }
 
   const toggleTheme = () => {
     if (setTheme) {
@@ -40,18 +45,25 @@ const Header = () => {
             </div>
           )}
 
-          <Tooltip label="Toggle dark mode" popperProps={{ delayShow: 200 }}>
+          <Tooltip label="Toggle dark mode" popperProps={{ delayShow: 200, placement: 'bottom-start' }}>
             <IconButton onClick={() => toggleTheme()}>
               {theme === 'dark' ? <FiSun size={24} /> : <FiMoon size={24} />}
             </IconButton>
           </Tooltip>
 
           {user && (
-            <Menu>
-              <IconButton>
-                <BiCog size={24} />
-              </IconButton>
-            </Menu>
+            <Tooltip
+              label={isLoading ? 'Logging out...' : 'Logout'}
+              popperProps={{ delayShow: 200, placement: 'bottom-start' }}
+            >
+              {isLoading ? (
+                <Spinner variant={theme === 'dark' ? 'light' : 'primary'} />
+              ) : (
+                <IconButton onClick={handleLogout} disabled={isLoading}>
+                  <FiLogOut size={24} />
+                </IconButton>
+              )}
+            </Tooltip>
           )}
         </div>
       </div>

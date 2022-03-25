@@ -34,7 +34,14 @@ export const AuthProvider = ({ ...props }): ReactElement => {
 
   const login = useCallback((form) => authClient.login(form).then((user) => setData({ user })), [setData])
   const signup = useCallback((form) => authClient.signup(form), [])
-  const logout = useCallback(() => authClient.logout().then(() => setData(null)), [setData])
+  const logout = useCallback(
+    () =>
+      authClient.logout().then(() => {
+        window.location.assign('/')
+        return setData(null)
+      }),
+    [setData],
+  )
   const reset = useCallback((form) => authClient.reset(form).then(() => setData(null)), [setData])
 
   const user = data?.user
