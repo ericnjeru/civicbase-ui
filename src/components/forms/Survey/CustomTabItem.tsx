@@ -41,8 +41,8 @@ const CustomTabItem = ({
       id={id}
       css={[
         (isValid || hasError) && tw`text-white transition-all ease-in-out duration-300`,
-        isValid && tw`bg-green-400  focus:ring-green-300 hover:bg-green-400`,
-        hasError && tw`bg-red-400 focus:ring-red-300 hover:bg-red-400`,
+        isValid && tw`!bg-green-400  focus:!ring-green-300 hover:!bg-green-400`,
+        hasError && tw`!bg-red-400 focus:!ring-red-300 hover:!bg-red-400`,
         disabled && tw`bg-brand opacity-50 text-white focus:(ring-brand ring-opacity-50) hover:bg-brand`,
       ]}
       disabled={disabled}
