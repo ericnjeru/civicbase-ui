@@ -1,4 +1,4 @@
-import tw from 'twin.macro'
+import tw, { theme } from 'twin.macro'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
 import DynamicBar from 'components/DynamicBar'
 import { SurveyRespondent } from '../../../../types/survey'
@@ -19,6 +19,7 @@ import { AnswerRequest as Answer, Quadratic } from '../../../../types/answer'
 import Modal, { ModalContext } from 'components/Modal'
 import { HiInformationCircle } from 'react-icons/hi'
 import Spinner from 'components/Spinner'
+import { useAuth } from 'contexts/auth'
 
 const Action = ({
   availableCredits,
@@ -71,6 +72,7 @@ const QuadraticRespondent = ({
   handleNext: () => void
   preview?: boolean
 }) => {
+  const { user } = useAuth()
   const { run, isSuccess, isLoading } = useAsync()
   const { questions, availableCredits, vote, canVote } = useQuadratic(survey)
   const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
@@ -143,7 +145,7 @@ const QuadraticRespondent = ({
           header={
             <>
               {credits && (
-                <div css={tw`sticky z-50 bg-white`} style={{ top: 70 }}>
+                <div css={tw`sticky z-50`} style={{ top: user ? 70 : 26 }}>
                   <DynamicBar
                     total={credits}
                     availableCredits={availableCredits}
@@ -188,8 +190,8 @@ const QuadraticRespondent = ({
           feedback={<>{feedback?.active && <FeedbackQuestions questions={feedback.questions} />}</>}
           footer={
             <Modal
-              header={<Typography>Credit Left</Typography>}
-              icon={<HiInformationCircle size="24" />}
+              header={<Typography css={tw`text-black`}>Credit Left</Typography>}
+              icon={<HiInformationCircle size="24" color={theme`colors.black`} />}
               action={<Action availableCredits={availableCredits} disabled={isLoading} isLoading={isLoading} />}
               footer={
                 <SecondaryButton
@@ -202,7 +204,7 @@ const QuadraticRespondent = ({
                 </SecondaryButton>
               }
             >
-              <Typography>
+              <Typography css={tw`text-black`}>
                 You have {availableCredits} {token === 'Custom' ? customToken : token} left, please confirm if you want
                 to submit your answer anyway.
               </Typography>

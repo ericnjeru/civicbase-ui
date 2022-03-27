@@ -1,10 +1,10 @@
 import tw from 'twin.macro'
 
 export const base = [
-  tw`text-center text-base leading-none font-medium font-brand py-3 px-5 rounded-md cursor-pointer disabled:opacity-50 disabled:cursor-default outline-none focus:outline-none focus:(ring-2 ring-brand) bg-transparent`,
+  tw`text-center text-base leading-none font-medium font-brand py-3 px-5 rounded-md cursor-pointer disabled:opacity-50 disabled:cursor-default outline-none focus:outline-none focus:(ring-2 ring-blue-300) bg-transparent`,
 ]
 export const primary = {
-  DEFAULT: [tw`text-white bg-brand hover:opacity-90 focus:bg-brand`],
+  DEFAULT: [tw`text-white bg-brand hover:opacity-90 focus:bg-brand dark:(bg-brandDark focus:bg-brandDark)`],
   danger: [tw`text-white bg-danger-500 hover:bg-danger-600 focus:bg-danger-600`],
 }
 export const secondary = {
@@ -37,7 +37,8 @@ export const transparent = [
 ]
 
 export const icon = [
-  tw`bg-transparent rounded-md p-2 inline-flex items-center justify-center text-gray-400`,
-  tw`hover:(outline-none bg-transparent text-primary)`,
-  tw`focus:(outline-none ring-brand ring-inset ring-2)`,
+  tw`rounded-lg p-2.5 inline-flex items-center justify-center text-gray-500 outline-none`,
+  tw`hover:(outline-none bg-gray-100)`,
+  tw`focus:(outline-none ring-gray-200 ring-inset ring-4)`,
+  tw`dark:(text-gray-400 focus:ring-gray-700 hover:bg-gray-700)`,
 ]

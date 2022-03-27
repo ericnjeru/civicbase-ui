@@ -4,8 +4,8 @@ import tw from 'twin.macro'
 
 const Stats = ({ children }: { children: ReactNode[] }) => {
   return (
-    <Card css={tw`p-0`}>
-      <div css={tw`grid grid-flow-col divide-x`}>{children}</div>
+    <Card css={tw`p-0 border-transparent`}>
+      <div css={tw`grid grid-flow-col divide-x dark:(divide-gray-700 hover:divide-gray-800)`}>{children}</div>
     </Card>
   )
 }

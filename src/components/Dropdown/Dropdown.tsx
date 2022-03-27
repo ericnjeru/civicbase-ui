@@ -30,8 +30,9 @@ function Dropdown({
             tw`h-10 w-full px-2 text-sm `,
             tw`border-2 rounded-md border-gray-200 placeholder-gray-400`,
             tw`focus:outline-none focus:(ring-2 ring-blue-300 border-blue-300)`,
+            tw`dark:(border-gray-600 placeholder-gray-300 bg-gray-700)`,
             modified && tw`border-indigo-600 border-opacity-60`,
-            error && tw`border-error-600 border-opacity-60 focus:(ring-2 ring-red-300 border-red-300)`,
+            error && tw`border-error-300 border-opacity-60 focus:(ring-2 ring-red-300 border-red-300)`,
           ]}
         >
           <span css={[tw`block text-left truncate`, (!value && placeholder) || (disabled && tw`text-gray-400`)]}>
@@ -43,7 +44,10 @@ function Dropdown({
         </Listbox.Button>
         <FadeInOut>
           <Listbox.Options
-            css={tw`absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10`}
+            css={[
+              tw`absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md max-h-60 ring-opacity-5 focus:outline-none sm:text-sm z-10`,
+              tw`dark:(bg-secondary)`,
+            ]}
           >
             {options.map((value) => (
               <Listbox.Option key={value} css={tw`cursor-default select-none relative`} value={value}>
@@ -53,7 +57,7 @@ function Dropdown({
                     {selected ? (
                       <span
                         css={[
-                          tw`absolute inset-y-0 left-0 flex items-center pl-3 text-brand`,
+                          tw`absolute inset-y-0 left-0 flex items-center pl-3 text-brand dark:text-brandDark`,
                           active && tw`text-white`,
                         ]}
                       >

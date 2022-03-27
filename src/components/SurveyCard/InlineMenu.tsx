@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect } from 'react'
-import tw from 'twin.macro'
+import tw, { theme } from 'twin.macro'
 import { AiOutlineDelete, AiOutlineCopy } from 'react-icons/ai'
 import { FaRegClone } from 'react-icons/fa'
 import copy from 'copy-to-clipboard'
@@ -80,8 +80,8 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
       </Tooltip>
 
       <Modal
-        header={<Typography>Delete Survey</Typography>}
-        icon={<HiInformationCircle size="24" />}
+        header={<Typography css={tw`text-black`}>Delete Survey</Typography>}
+        icon={<HiInformationCircle size="24" color={theme`colors.black`} />}
         action={<Action isLoading={isLoading} />}
         footer={
           <SecondaryButton onClick={handleDelete} disabled={isLoading}>
@@ -89,7 +89,7 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
           </SecondaryButton>
         }
       >
-        <Typography>
+        <Typography css={tw`text-black`}>
           Are you sure you want to delete this survey and all the answers linked to this survey? This operation is
           irreversible!
         </Typography>

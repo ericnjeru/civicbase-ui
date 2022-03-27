@@ -14,7 +14,7 @@ const RespondentLayout = ({
   footer: ReactNode
 }) => {
   return (
-    <div id="respondent">
+    <div id="respondent" style={{ paddingTop: 70 }}>
       {header && <>{header}</>}
 
       {main && <Container id="main">{main}</Container>}

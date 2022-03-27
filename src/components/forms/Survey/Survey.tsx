@@ -131,7 +131,7 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
               <Tab.Submit isLoading={isLoading} isEditing={!!survey?.id} />
             </div>
 
-            <div css={tw`w-full bg-white rounded-md p-4 pt-0`}>
+            <div css={tw`w-full rounded-md p-4 pt-0`}>
               <Step value="setup">
                 <Forms.Setup isEditing={!!survey?.id} />
               </Step>

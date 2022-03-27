@@ -74,9 +74,15 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
           <Controller
             name="setup.feedback.active"
             control={control}
-            render={({ field }) => <Switch {...field}>Enable respondent feedback?</Switch>}
+            render={({ field }) => (
+              <Switch {...field}>
+                <div css={tw`flex flex-col h-11`}>
+                  Enable respondent feedback?
+                  <FieldErrorMessage name="setup.feedback" errors={errors} css={tw`ml-0`} />
+                </div>
+              </Switch>
+            )}
           />
-          <FieldErrorMessage name="setup.feedback" errors={errors} />
         </div>
       </div>
 

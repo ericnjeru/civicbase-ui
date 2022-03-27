@@ -73,11 +73,10 @@ module.exports = {
       colors: {
         brand: '#27284B',
         brand2: '#EF5350',
+        brandDark: '#38bdf8',
         'background-pink': '#ed3ad7',
         'background-blue': '#112765',
         'background-purple': '#7a0dd0',
-        light: colors.coolGray,
-        neutral: colors.blueGray,
         dark: colors.gray,
         primary: colors.sky,
         secondary: colors.pink,

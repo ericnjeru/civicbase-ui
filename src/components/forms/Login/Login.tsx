@@ -73,7 +73,7 @@ const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotP
             <div>Login</div>
           </PrimaryButton>
         </div>
-        <Typography css={tw`text-center hover:(cursor-pointer text-brand )`} onClick={next}>
+        <Typography css={tw`text-center hover:(cursor-pointer)`} onClick={next}>
           Do not have account yet? Sign up!
         </Typography>
       </div>
