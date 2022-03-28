@@ -7,7 +7,7 @@ import { UNAUTHENTICATED_ROUTES } from './routes'
 
 const UnauthenticatedApp = () => {
   return (
-    <div css={tw`container mx-auto pb-12 h-full`}>
+    <div css={tw`container mx-auto pb-12 h-full`} style={{ paddingTop: 70 }}>
       <Router css={tw`h-full`}>
         <Login path={UNAUTHENTICATED_ROUTES.LOGIN} />
         <Respondent path={UNAUTHENTICATED_ROUTES.SURVEY} />

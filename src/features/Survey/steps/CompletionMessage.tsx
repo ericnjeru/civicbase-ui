@@ -7,11 +7,13 @@ const CompletionMessage = ({ survey }: { survey: SurveyRespondent }) => {
     return null
   }
 
-  const completionMessage = convertFromRaw(JSON.parse(survey.message.completion))
-
   return (
     <div>
-      <Editor editorState={EditorState.createWithContent(completionMessage)} onChange={() => {}} readOnly />
+      <Editor
+        editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(survey.message.completion)))}
+        onChange={() => {}}
+        readOnly
+      />
     </div>
   )
 }
