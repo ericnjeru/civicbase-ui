@@ -32,9 +32,23 @@ const userHasId = (answers: Answer<unknown>[]) => {
   return flag
 }
 
+const userHasSuburb = (answers: Answer<unknown>[]) => {
+  let flag = false
+  answers.forEach((answer) => {
+    if (answer.suburb) {
+      flag = true
+    }
+  })
+
+  return flag
+}
+
 const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => {
   const csvData: any[] = []
   const hasUserId = userHasId(answers)
+  const hasSuburb = userHasSuburb(answers)
+
+  console.log('has suburb', hasSuburb)
 
   if (!answers || answers.length === 0) {
     return []
@@ -43,6 +57,10 @@ const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => 
   const header = ['#']
   if (hasUserId) {
     header.push('user id')
+  }
+
+  if (hasSuburb) {
+    header.push('suburb')
   }
 
   //   Questions IDs
@@ -63,7 +81,6 @@ const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => 
   header.push('questions stated at')
   header.push('submited at')
   header.push('credit left')
-  header.push('status')
 
   if (survey.setup.feedback?.active) {
     for (let index = 0; index < survey.setup.feedback.questions.length; index++) {
@@ -78,6 +95,10 @@ const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => 
 
     if (hasUserId) {
       row.push(answer.userId)
+    }
+
+    if (hasSuburb) {
+      row.push(answer.suburb)
     }
 
     // Questions Vote
@@ -100,9 +121,7 @@ const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => 
     row.push(format(new Date(answer.time.startAt), 'dd/MM/yy hh:mm:ss'))
     row.push(format(new Date(answer.time.questionPageLoadAt), 'dd/MM/yy hh:mm:ss'))
     row.push(format(new Date(answer.time.submitedAt), 'dd/MM/yy hh:mm:ss'))
-
     row.push(`${answer.leftCredits}`)
-    row.push(answer.status)
 
     // Feedback
     if (survey.setup.feedback?.active && answer.feedback) {
