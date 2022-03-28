@@ -36,12 +36,14 @@ const Header = () => {
           </PrimaryTextButton>
         )}
         <div css={tw`flex space-x-4`}>
-          <div css={tw`flex mobile:hidden`}>
-            <PrimaryButton>Blog</PrimaryButton>
-            <PrimaryButton css={tw`mx-2`}>FAQ</PrimaryButton>
-            <PrimaryButton css={tw`mr-2`}>About</PrimaryButton>
-            <SecondaryButton css={tw`mr-2`}>Admin</SecondaryButton>
-          </div>
+          {false && (
+            <div css={tw`flex mobile:hidden`}>
+              <PrimaryButton>Blog</PrimaryButton>
+              <PrimaryButton css={tw`mx-2`}>FAQ</PrimaryButton>
+              <PrimaryButton css={tw`mr-2`}>About</PrimaryButton>
+              <SecondaryButton css={tw`mr-2`}>Admin</SecondaryButton>
+            </div>
+          )}
 
           <Tooltip label="Toggle dark mode" popperProps={{ delayShow: 200, placement: 'bottom-start' }}>
             <IconButton onClick={() => toggleTheme()}>
