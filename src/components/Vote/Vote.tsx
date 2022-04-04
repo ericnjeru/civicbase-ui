@@ -42,7 +42,7 @@ const Display = ({
         />
       </div>
 
-      <Caption css={tw`mt-2`}>
+      <Caption css={tw`mt-2 dark:(text-white)`}>
         {creditSpent} {token}
       </Caption>
     </div>

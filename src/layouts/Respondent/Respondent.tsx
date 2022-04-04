@@ -19,7 +19,11 @@ const RespondentLayout = ({
 
       {main && <Container id="main">{main}</Container>}
 
-      {feedback && <Container id="feedback">{feedback}</Container>}
+      {feedback && (
+        <Container css={tw`mobile:px-3`} id="feedback">
+          {feedback}
+        </Container>
+      )}
 
       {footer && (
         <div css={tw`text-center pb-20`}>

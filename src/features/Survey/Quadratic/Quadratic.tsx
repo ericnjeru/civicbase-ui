@@ -145,7 +145,7 @@ const QuadraticRespondent = ({
           header={
             <>
               {credits && (
-                <div css={tw`sticky z-50`} style={{ top: user ? 70 : 26 }}>
+                <div css={tw`sticky z-50 mobile:px-3`} style={{ top: user ? 70 : 70 }}>
                   <DynamicBar
                     total={credits}
                     availableCredits={availableCredits}
@@ -156,7 +156,7 @@ const QuadraticRespondent = ({
             </>
           }
           main={
-            <div css={tw`flex flex-col items-center space-y-24 pt-20 pb-20`}>
+            <div css={tw`flex flex-col items-center space-y-24 pt-20 pb-20 mobile:mx-3`}>
               {questions.map((question, index) => {
                 return (
                   <div key={question.id} css={tw`flex w-full flex-col`}>
