@@ -45,11 +45,13 @@ const Header = () => {
             </div>
           )}
 
-          <Tooltip label="Toggle dark mode" popperProps={{ delayShow: 200, placement: 'bottom-start' }}>
-            <IconButton onClick={() => toggleTheme()}>
-              {theme === 'dark' ? <FiSun size={24} /> : <FiMoon size={24} />}
-            </IconButton>
-          </Tooltip>
+          {false && (
+            <Tooltip label="Toggle dark mode" popperProps={{ delayShow: 200, placement: 'bottom-start' }}>
+              <IconButton onClick={() => toggleTheme()}>
+                {theme === 'dark' ? <FiSun size={24} /> : <FiMoon size={24} />}
+              </IconButton>
+            </Tooltip>
+          )}
 
           {user && (
             <Tooltip
