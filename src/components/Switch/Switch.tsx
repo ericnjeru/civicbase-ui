@@ -20,7 +20,7 @@ const Switch = ({
           checked={value}
           onChange={onChange}
           css={[
-            tw`relative inline-flex items-center h-6 rounded-full w-11`,
+            tw`relative inline-flex items-center h-6 rounded-full w-11 bg-gray-200`,
             tw`focus:(outline-none)`,
             tw`dark:(border-gray-600 border-2)`,
             theme === 'light' && value && tw`bg-brand`,
