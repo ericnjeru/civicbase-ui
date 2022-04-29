@@ -1,6 +1,5 @@
 import { AnswerResponse as Answer, Quadratic } from '../../../types/answer'
 import { SurveyDashboard } from '../../../types/survey'
-import { format } from 'date-fns'
 const userId = ['userid', 'userId', 'userID']
 
 export function getCSV(survey: SurveyDashboard, answers: Answer<unknown>[]) {
@@ -115,12 +114,11 @@ const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => 
         row.push(question.id)
       })
 
-    // TODO: format date
-    row.push(format(new Date(answer.createdAt), 'dd/MM/yy hh:mm:ss'))
-    row.push(format(new Date(answer.time.surveyLoadAt), 'dd/MM/yy hh:mm:ss'))
-    row.push(format(new Date(answer.time.startAt), 'dd/MM/yy hh:mm:ss'))
-    row.push(format(new Date(answer.time.questionPageLoadAt), 'dd/MM/yy hh:mm:ss'))
-    row.push(format(new Date(answer.time.submitedAt), 'dd/MM/yy hh:mm:ss'))
+    row.push(new Date(answer.createdAt).toLocaleString())
+    row.push(new Date(answer.time.surveyLoadAt).toLocaleString())
+    row.push(new Date(answer.time.startAt).toLocaleString())
+    row.push(new Date(answer.time.questionPageLoadAt).toLocaleString())
+    row.push(new Date(answer.time.submitedAt).toLocaleString())
     row.push(`${answer.leftCredits}`)
 
     // Feedback
