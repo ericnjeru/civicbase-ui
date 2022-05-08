@@ -114,11 +114,12 @@ const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => 
         row.push(question.id)
       })
 
-    row.push(new Date(answer.createdAt).toLocaleString())
-    row.push(new Date(answer.time.surveyLoadAt).toLocaleString())
-    row.push(new Date(answer.time.startAt).toLocaleString())
-    row.push(new Date(answer.time.questionPageLoadAt).toLocaleString())
-    row.push(new Date(answer.time.submitedAt).toLocaleString())
+    row.push(new Date(answer.createdAt).toLocaleString('en-AU', { timeZone: 'Australia/Brisbane' }))
+    row.push(new Date(answer.time.surveyLoadAt).toLocaleString('en-AU', { timeZone: 'Australia/Brisbane' }))
+    row.push(new Date(answer.time.startAt).toLocaleString('en-AU', { timeZone: 'Australia/Brisbane' }))
+    row.push(new Date(answer.time.questionPageLoadAt).toLocaleString('en-AU', { timeZone: 'Australia/Brisbane' }))
+    row.push(new Date(answer.time.submitedAt).toLocaleString('en-AU', { timeZone: 'Australia/Brisbane' }))
+
     row.push(`${answer.leftCredits}`)
 
     // Feedback
