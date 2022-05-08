@@ -28,7 +28,7 @@ const Header = () => {
   }
 
   return (
-    <div css={tw`flex items-center w-full fixed bg-primary z-50`}>
+    <div css={tw`flex items-center w-full fixed z-50 bg-white`}>
       <div css={[tw`w-full overflow-hidden flex items-center px-6 py-4`, user ? tw`justify-between` : tw`justify-end`]}>
         {user && (
           <PrimaryTextButton as="a" href="/" css={tw`focus:(outline-none ring-0)`}>
