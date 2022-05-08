@@ -4,7 +4,7 @@ import * as firebase from 'firebase/app'
 
 // TODO: remove this
 const config = {
-  apiKey: functions.config().api_key,
+  apiKey: 'AIzaSyChPtHht6YV1TnZlQ54gvdE8kyfTZfuF_M',
   authDomain: 'civic-base.firebaseapp.com',
   projectId: 'civic-base',
   storageBucket: 'civic-base.appspot.com',
@@ -14,9 +14,9 @@ const config = {
 
 admin.initializeApp({
   credential: admin.credential.cert({
-    privateKey: functions.config().private_key.replace(/\\n/g, '\n'),
-    projectId: functions.config().project_id,
-    clientEmail: functions.config().client_email,
+    privateKey: functions.config().private.key.replace(/\\n/g, '\n'),
+    projectId: functions.config().project.id,
+    clientEmail: functions.config().client.email,
   }),
   databaseURL: 'https://civic-base.firebaseio.com',
 })
