@@ -23,8 +23,9 @@ const Switch = ({
             tw`relative inline-flex items-center h-6 rounded-full w-11 bg-gray-200`,
             tw`focus:(outline-none)`,
             tw`dark:(border-gray-600 border-2)`,
-            theme === 'light' && value && tw`bg-brand`,
-            theme === 'dark' && value && tw`bg-brandDark`,
+            value && tw`bg-brand`, // added this line for now as we don't have dark theme
+            // theme === 'light' && value && tw`bg-brand`,
+            // theme === 'dark' && value && tw`bg-brandDark`,
             !value && theme === 'light' && tw`bg-gray-200`,
             !value && theme === 'dark' && tw`bg-gray-700`,
           ]}
