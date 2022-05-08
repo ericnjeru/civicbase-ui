@@ -1,9 +1,9 @@
+import { useState } from 'react'
 import tw, { theme } from 'twin.macro'
 import { BsArrowLeft } from 'react-icons/bs'
 import { IconButton } from 'components/Button'
 import { Title } from 'components/Typography'
-import { useState } from 'react'
-import { useTheme } from 'contexts/theme'
+// import { useTheme } from 'contexts/theme'
 
 const Header = ({
   isActive,
@@ -14,7 +14,7 @@ const Header = ({
   handleBack?: () => void
   children: string
 }) => {
-  const { theme: currentTheme } = useTheme()
+  // const { theme: currentTheme } = useTheme()
   const [hovered, setHover] = useState(false)
 
   return (
@@ -30,7 +30,8 @@ const Header = ({
         <IconButton onClick={handleBack} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
           <BsArrowLeft
             size={28}
-            color={currentTheme === 'light' && hovered ? theme`colors.black` : theme`colors.white`}
+            // color={currentTheme === 'light' && hovered ? theme`colors.black` : theme`colors.white`}
+            color={hovered ? theme`colors.black` : theme`colors.white`}
           />
         </IconButton>
       )}
