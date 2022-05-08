@@ -6,7 +6,7 @@ import Input from 'components/Form/Input'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import { surveyMethods } from 'utilities/constants'
 
-const Language = () => {
+const Language = ({ isEditing }: { isEditing: boolean }) => {
   const languages = ['Agree/Disagree', 'Favor/Opose', 'Aprove/Reject', 'Aye/Nay', 'Custom']
   const tokens = ['Credits', 'Coins', 'Tokens', 'Custom']
   const method = useWatch({ name: 'setup.method' })
@@ -32,12 +32,13 @@ const Language = () => {
         <Controller
           name="language.jargon"
           control={control}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <Dropdown
               options={languages}
               value={field.value}
               onChange={field.onChange}
               placeholder="Select preferred language"
+              modified={isEditing && fieldState.isDirty}
               error={errors?.language?.jargon}
             />
           )}
@@ -72,13 +73,14 @@ const Language = () => {
         <Controller
           name="language.token"
           control={control}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <Dropdown
               options={tokens}
               value={field.value}
               onChange={field.onChange}
               placeholder="Select preferred token"
               error={errors?.language?.token}
+              modified={isEditing && fieldState.isDirty}
             />
           )}
         />

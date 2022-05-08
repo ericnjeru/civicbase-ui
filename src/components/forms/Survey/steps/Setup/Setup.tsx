@@ -40,13 +40,14 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
           <Controller
             name="setup.method"
             control={control}
-            render={({ field }) => {
+            render={({ field, fieldState }) => {
               return (
                 <Dropdown
                   disabled={isEditing}
                   placeholder="Select survey method"
                   options={methods}
                   error={errors?.setup?.method}
+                  modified={isEditing && fieldState.isDirty}
                   {...field}
                 />
               )
@@ -70,7 +71,7 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
           )}
         </div>
 
-        <div>
+        <div css={tw`col-span-2`}>
           <Controller
             name="setup.feedback.active"
             control={control}

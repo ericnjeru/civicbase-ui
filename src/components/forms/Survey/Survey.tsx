@@ -137,7 +137,7 @@ const Survey = ({ survey }: { survey?: EditSurvey }) => {
               </Step>
 
               <Step value="language">
-                <Forms.Language />
+                <Forms.Language isEditing={!!survey?.id} />
               </Step>
 
               <Step value="quadratic">
