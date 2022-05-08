@@ -3,103 +3,81 @@
 exports[`Analytics Status should show access 1`] = `
 <div>
   <div
-    class="sc-bdnxRM Stats___StyledCard-sc-1kxcxuh-0 dwkOEf dCGesZ"
+    class="Skeleton___StyledDiv-sc-kwhm1a-0 fwAjFi"
   >
     <div
-      class="Stats___StyledDiv-sc-1kxcxuh-1 OYzDE"
+      class="sc-bdnxRM Stats___StyledCard-sc-1kxcxuh-0 YHPbv gaHIkj"
     >
       <div
-        class="Stat___StyledDiv-sc-130p5fy-0 ipefOO"
+        class="Stats___StyledDiv-sc-1kxcxuh-1 hQrlrK"
       >
-        <p
-          class="sc-gtsrHT dcmHaS"
-        >
-          Total Respondents
-        </p>
         <div
-          class="Stat___StyledDiv2-sc-130p5fy-1 isfPbe"
+          class="Skeleton___StyledDiv-sc-1c2459k-4 eYnWRy"
         >
-          <h2
-            class="sc-gtsrHT sc-dlnjwi Stat___StyledSubtitle-sc-130p5fy-2 dcmHaS dKRNep hPiRcy"
+          <div
+            class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine-sc-1c2459k-3 dNucIZ gLfvAw"
+          />
+          <div
+            class="Skeleton___StyledDiv2-sc-1c2459k-5 iVxWbW"
           >
-            121
-          </h2>
-          <span
-            class="sc-iCoGMd Status___StyledBadge-sc-c62z8e-0 jZFUcO kWQzSl"
-          >
-            <svg
-              class="Status___StyledAiOutlineArrowUp-sc-c62z8e-1 gIDavZ"
-              fill="currentColor"
-              height="1em"
-              stroke="currentColor"
-              stroke-width="0"
-              viewBox="0 0 1024 1024"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M868 545.5L536.1 163a31.96 31.96 0 0 0-48.3 0L156 545.5a7.97 7.97 0 0 0 6 13.2h81c4.6 0 9-2 12.1-5.5L474 300.9V864c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V300.9l218.9 252.3c3 3.5 7.4 5.5 12.1 5.5h81c6.8 0 10.5-8 6-13.2z"
-              />
-            </svg>
-            282
-            %
-          </span>
+            <div
+              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine2-sc-1c2459k-2 dNucIZ KMEof"
+            />
+            <div
+              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine3-sc-1c2459k-1 dNucIZ iqIIgM"
+            />
+          </div>
         </div>
-      </div>
-      <div
-        class="Stat___StyledDiv-sc-130p5fy-0 ipefOO"
-      >
-        <p
-          class="sc-gtsrHT dcmHaS"
-        >
-          Total Access
-        </p>
         <div
-          class="Stat___StyledDiv2-sc-130p5fy-1 isfPbe"
+          class="Skeleton___StyledDiv-sc-1c2459k-4 eYnWRy"
         >
-          <h2
-            class="sc-gtsrHT sc-dlnjwi Stat___StyledSubtitle-sc-130p5fy-2 dcmHaS dKRNep hPiRcy"
+          <div
+            class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine-sc-1c2459k-3 dNucIZ gLfvAw"
+          />
+          <div
+            class="Skeleton___StyledDiv2-sc-1c2459k-5 iVxWbW"
           >
-            406
-          </h2>
-          <span
-            class="sc-iCoGMd Status___StyledBadge2-sc-c62z8e-2 jZFUcO iPNVnN"
-          >
-            <svg
-              class="Status___StyledAiOutlineArrowUp2-sc-c62z8e-3 dwxSDd"
-              fill="currentColor"
-              height="1em"
-              stroke="currentColor"
-              stroke-width="0"
-              viewBox="0 0 1024 1024"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M868 545.5L536.1 163a31.96 31.96 0 0 0-48.3 0L156 545.5a7.97 7.97 0 0 0 6 13.2h81c4.6 0 9-2 12.1-5.5L474 300.9V864c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V300.9l218.9 252.3c3 3.5 7.4 5.5 12.1 5.5h81c6.8 0 10.5-8 6-13.2z"
-              />
-            </svg>
-            23
-            %
-          </span>
+            <div
+              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine2-sc-1c2459k-2 dNucIZ KMEof"
+            />
+            <div
+              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine3-sc-1c2459k-1 dNucIZ iqIIgM"
+            />
+          </div>
         </div>
-      </div>
-      <div
-        class="Stat___StyledDiv-sc-130p5fy-0 ipefOO"
-      >
-        <p
-          class="sc-gtsrHT dcmHaS"
-        >
-          Convertion Rate
-        </p>
         <div
-          class="Stat___StyledDiv2-sc-130p5fy-1 isfPbe"
+          class="Skeleton___StyledDiv-sc-1c2459k-4 eYnWRy"
         >
-          <h2
-            class="sc-gtsrHT sc-dlnjwi Stat___StyledSubtitle-sc-130p5fy-2 dcmHaS dKRNep hPiRcy"
+          <div
+            class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine-sc-1c2459k-3 dNucIZ gLfvAw"
+          />
+          <div
+            class="Skeleton___StyledDiv2-sc-1c2459k-5 iVxWbW"
           >
-            29.80%
-          </h2>
+            <div
+              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine2-sc-1c2459k-2 dNucIZ KMEof"
+            />
+            <div
+              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine3-sc-1c2459k-1 dNucIZ iqIIgM"
+            />
+          </div>
+        </div>
+        <div
+          class="Skeleton___StyledDiv-sc-1c2459k-4 eYnWRy"
+        >
+          <div
+            class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine-sc-1c2459k-3 dNucIZ gLfvAw"
+          />
+          <div
+            class="Skeleton___StyledDiv2-sc-1c2459k-5 iVxWbW"
+          >
+            <div
+              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine2-sc-1c2459k-2 dNucIZ KMEof"
+            />
+            <div
+              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine3-sc-1c2459k-1 dNucIZ iqIIgM"
+            />
+          </div>
         </div>
       </div>
     </div>
