@@ -19,7 +19,7 @@ const App = () => {
     <ErrorBoundary FallbackComponent={Fallback}>
       <ToastProvider>
         <div css={tw`h-full overflow-hidden relative`}>
-          <Header />
+          {user && <Header />}
           <Banner />
 
           <div css={tw`overflow-y-auto h-full`}>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</div>
