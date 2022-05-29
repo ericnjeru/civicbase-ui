@@ -9,5 +9,7 @@ typings/
 node_modules/
 ui-debug.log
 firebase-debug.log
+firestore-debug.log
 .runtimeconfig.json
 env.json
+EmulatorData/
