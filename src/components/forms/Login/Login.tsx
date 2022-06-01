@@ -48,8 +48,8 @@ const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotP
         })}
         css={tw`h-full`}
       >
-        <div css={tw`flex flex-col justify-between pb-6 h-full`}>
-          <div css={tw`grid grid-cols-1 gap-4`}>
+        <div css={tw`flex flex-col justify-between pb-6 h-full mobile:p-0`}>
+          <div css={tw`grid grid-cols-1 gap-4 mobile:gap-1`}>
             <div>
               <Label htmlFor="email">Email</Label>
 
@@ -87,7 +87,7 @@ const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotP
             {error && <Typography css={tw`text-center text-error-600`}>{error.message}</Typography>}
 
             <PrimaryButton
-              css={tw`mt-8 flex justify-center items-center space-x-4 h-12`}
+              css={tw`mt-8 flex justify-center items-center space-x-4 h-12 mobile:mt-2`}
               type="submit"
               disabled={isLoading}
             >

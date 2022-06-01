@@ -65,7 +65,7 @@ const Signup = ({
         css={tw`h-full`}
       >
         <div css={tw`flex flex-col justify-between h-full pb-6`}>
-          <div css={tw`grid grid-cols-1 gap-4`}>
+          <div css={tw`grid grid-cols-1 gap-4 mobile:gap-1`}>
             <div>
               <Label htmlFor="name">Name *</Label>
 
@@ -123,7 +123,7 @@ const Signup = ({
             )}
 
             <PrimaryButton
-              css={tw`mt-2 flex justify-center items-center space-x-4 h-12`}
+              css={tw`mt-2 flex justify-center items-center space-x-4 h-12 mobile:mt-2`}
               type="submit"
               disabled={isLoading}
             >
