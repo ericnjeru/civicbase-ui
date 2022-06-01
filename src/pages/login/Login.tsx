@@ -60,7 +60,7 @@ const Login: FC<RouteComponentProps> = () => {
           </Header>
         </div>
 
-        <Step isActive={isLogin} css={tw`top-60`}>
+        <Step isActive={isLogin} css={tw`top-60 mobile:top-40`}>
           <LoginForm next={() => setStep('signup')} handleForgotPassword={() => setStep('forgot')} />
         </Step>
 
