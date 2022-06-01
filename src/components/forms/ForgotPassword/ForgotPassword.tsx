@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-import tw from 'twin.macro'
-import { useForm } from 'react-hook-form'
-import Input from 'components/Form/Input'
+import tw, { theme } from 'twin.macro'
+import { useForm, FormProvider } from 'react-hook-form'
 import Label from 'components/Form/Label'
 import Typography from 'components/Typography'
 import { PrimaryButton } from 'components/Button'
@@ -11,6 +10,8 @@ import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import { useAuth } from 'contexts/auth'
 import useAsync from 'hooks/use-async'
 import Spinner from 'components/Spinner'
+import { CustomInput } from 'components/Form/Input'
+import { AiOutlineMail } from 'react-icons/ai'
 
 interface LoginFormValues {
   email: string
@@ -20,12 +21,7 @@ const ForgotPassword = ({ next }: { next: () => void }) => {
   const { reset } = useAuth()
   const { run, error, isLoading, setError, isSuccess } = useAsync()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset: resetForm,
-  } = useForm<LoginFormValues>({
+  const methods = useForm<LoginFormValues>({
     defaultValues: {
       email: '',
     },
@@ -40,35 +36,48 @@ const ForgotPassword = ({ next }: { next: () => void }) => {
 
   useEffect(() => {
     return () => {
-      resetForm()
+      methods.reset()
       setError(null)
     }
-  }, [resetForm, setError])
+  }, [methods, setError])
 
   return (
-    <form
-      onSubmit={handleSubmit((values) => {
-        reset && run(reset({ ...values }))
-      })}
-      css={tw`h-full`}
-    >
-      <div css={tw`flex flex-col justify-between pb-6 h-full`}>
-        <div css={tw`grid grid-cols-1 gap-8`}>
-          <div>
-            <Label htmlFor="email">Email</Label>
-            <Input {...register('email')} error={!!errors.email} disabled={isLoading} />
-            <FieldErrorMessage name="email" errors={errors} />
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit((values) => {
+          reset && run(reset({ ...values }))
+        })}
+        css={tw`h-full`}
+      >
+        <div css={tw`flex flex-col justify-between pb-6 h-full`}>
+          <div css={tw`grid grid-cols-1 gap-8`}>
+            <div>
+              <Label htmlFor="email">Email *</Label>
+
+              <CustomInput
+                name="email"
+                error={!!methods.formState.errors.email}
+                disabled={isLoading}
+                index={<AiOutlineMail color={theme`colors.gray.400`} />}
+              />
+
+              <FieldErrorMessage name="email" errors={methods.formState.errors} />
+            </div>
+
+            {error && <Typography css={tw`text-center text-error-600`}>{error.message}</Typography>}
+
+            <PrimaryButton
+              css={tw`mt-8 flex justify-center items-center space-x-4 h-12`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading && <Spinner variant="light" />}
+              <div>RESET PASSWORD</div>
+            </PrimaryButton>
           </div>
-
-          {error && <Typography css={tw`text-center text-error-600`}>{error.message}</Typography>}
-
-          <PrimaryButton css={tw`mt-8 flex justify-center items-center space-x-4`} type="submit" disabled={isLoading}>
-            {isLoading && <Spinner variant="light" />}
-            <div>Reset Password</div>
-          </PrimaryButton>
         </div>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   )
 }
 

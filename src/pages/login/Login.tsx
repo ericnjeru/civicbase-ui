@@ -29,20 +29,27 @@ const Login: FC<RouteComponentProps> = () => {
   }, [])
 
   return (
-    <div css={tw`flex justify-center h-full mobile:items-start items-center`}>
+    <div css={tw`flex justify-center h-full mobile:items-start items-center overflow-hidden`}>
       <Card
         css={[
-          tw`rounded-3xl p-0 relative border-0 w-96 overflow-visible`,
+          tw`rounded-3xl p-0 relative border-0 w-96 overflow-visible mobile:rounded-none`,
           tw`bg-gradient-to-tr from-brand via-brand to-brand2`,
         ]}
-        style={{ height: 800 }}
+        style={{ maxHeight: 700, width: 528, height: '100%' }}
       >
-        <div css={tw`text-center mt-8`}>
+        <div css={tw`text-center mt-4`}>
           <Header isActive={isLogin}>Civicbase</Header>
 
           <Header isActive={isSignup} handleBack={() => setStep('login')}>
             Sign Up
           </Header>
+
+          {(isLogin || isSignup) && (
+            <Typography css={tw`text-white mt-4`}>
+              Civicbase is a survey platform that enables rapid deployment of Quadratic Voting for Survey Research
+              (QVSR)
+            </Typography>
+          )}
 
           <Header isActive={isVerification} handleBack={() => setStep('login')}>
             Email Verification
@@ -57,8 +64,8 @@ const Login: FC<RouteComponentProps> = () => {
           <LoginForm next={() => setStep('signup')} handleForgotPassword={() => setStep('forgot')} />
         </Step>
 
-        <Step isActive={isSignup}>
-          <SignupForm shouldReset={!isSignup} next={handleVerification} />
+        <Step isActive={isSignup} css={tw`top-40`}>
+          <SignupForm shouldReset={!isSignup} next={handleVerification} handleBack={() => setStep('login')} />
         </Step>
 
         <Step isActive={isForgot}>
