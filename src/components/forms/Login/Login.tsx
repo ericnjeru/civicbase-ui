@@ -79,7 +79,7 @@ const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotP
 
               <FieldErrorMessage name="password" errors={methods.formState.errors} />
 
-              <PrimaryTextButton css={tw`mt-4 focus:ring-0`} onClick={handleForgotPassword}>
+              <PrimaryTextButton css={tw`mt-4 text-sm focus:ring-0`} onClick={handleForgotPassword}>
                 Forgot password?
               </PrimaryTextButton>
             </div>
@@ -95,8 +95,8 @@ const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotP
               <div>LOGIN</div>
             </PrimaryButton>
           </div>
-          <Typography css={tw`text-center hover:(cursor-pointer)`} onClick={next}>
-            Do not have account yet? SIGN UP!
+          <Typography css={tw`text-center text-sm hover:(cursor-pointer)`} onClick={next}>
+            Do not have account yet? SIGN UP
           </Typography>
         </div>
       </form>

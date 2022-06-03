@@ -123,7 +123,7 @@ const Signup = ({
             )}
 
             <PrimaryButton
-              css={tw`mt-2 flex justify-center items-center space-x-4 h-12 mobile:mt-2 `}
+              css={tw`mt-8 flex justify-center items-center space-x-4 h-12 mobile:mt-2 `}
               type="submit"
               disabled={isLoading}
             >
@@ -131,8 +131,8 @@ const Signup = ({
               <div>SIGN UP</div>
             </PrimaryButton>
           </div>
-          <Typography css={tw`text-center hover:(cursor-pointer)`} onClick={handleBack}>
-            Already have an account? LOGIN!
+          <Typography css={tw`text-center text-sm hover:(cursor-pointer)`} onClick={handleBack}>
+            Already have an account? LOGIN
           </Typography>
         </div>
       </form>
