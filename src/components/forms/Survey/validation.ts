@@ -103,10 +103,7 @@ export const validationSchema = z
             statement: z.any(),
             items: z.array(
               z.object({
-                description: z
-                  .string()
-                  .min(2, { message: 'Item description must have more than 2 characters' })
-                  .max(50, { message: 'Item description must have less than 50 characters' }),
+                description: z.string().min(1, { message: 'Item description must have more than 1 characters' }),
               }),
             ),
           })
