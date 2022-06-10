@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react'
-import RadionButton from './RadionButton'
+import RadionButton from './RadioButton'
 
 export default {
   title: 'Elements/RadionButton',

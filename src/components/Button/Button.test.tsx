@@ -1,9 +1,8 @@
-import React from 'react'
 import { render } from '@testing-library/react'
 import PrimaryButton from './Primary'
 
 describe('Button', () => {
-  test('renders a styled button', async () => {
+  it('renders a styled button', async () => {
     const { container } = render(<PrimaryButton>Click Me</PrimaryButton>)
 
     expect(container).toMatchInlineSnapshot(`
