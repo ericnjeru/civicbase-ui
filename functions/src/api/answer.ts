@@ -2,11 +2,13 @@ import { CreateAnswerRequest } from '../../types/survey'
 import { db, admin } from '../config/firebase'
 import { Response } from 'express'
 import { incrementRespondent } from '../utils/survey'
+import { v4 as uuidv4 } from 'uuid'
 
 export const createAnswer = (req: CreateAnswerRequest, res: Response) => {
   const answer = {
     ...req.body,
     createdAt: new Date().toISOString(),
+    id: uuidv4(),
   }
 
   db.doc(`/answers/${answer.surveyId}`)
