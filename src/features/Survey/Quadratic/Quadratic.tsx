@@ -113,9 +113,18 @@ const QuadraticRespondent = ({
   }
 
   const onSubmit: SubmitHandler<QuadraticAnswerForm> = (values) => {
+    const newQuestions = questions.map((question) => {
+      return {
+        id: question.id,
+        vote: question.vote,
+        credits: question.credits,
+        order: question.order,
+      }
+    })
+
     const answer: Answer<Quadratic> = {
       surveyId: survey.id,
-      questions,
+      questions: newQuestions,
       status: survey.status,
       time: {
         ...metadata,
