@@ -5,7 +5,11 @@ const userId = ['userid', 'userId', 'userID']
 export function getCSV(survey: SurveyDashboard, answers: Answer<unknown>[]) {
   switch (survey.setup.method) {
     case 'Quadratic':
-      return csvQuadratic(answers as any, survey)
+      const sortedAnswers: any = answers.sort((a, b) => {
+        return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0
+      })
+
+      return csvQuadratic(sortedAnswers, survey)
 
     case 'Conjoint':
       return csvConjoint()
@@ -46,8 +50,6 @@ const csvQuadratic = (answers: Answer<Quadratic>[], survey: SurveyDashboard) => 
   const csvData: any[] = []
   const hasUserId = userHasId(answers)
   const hasSuburb = userHasSuburb(answers)
-
-  console.log('has suburb', hasSuburb)
 
   if (!answers || answers.length === 0) {
     return []

@@ -220,34 +220,43 @@ export const getSurveyForAnalytics = (req: any, res: Response) => {
         if (surveyData?.uid !== req.user.uid) {
           res.status(403).json({ message: 'You have no permission to see this data' })
         } else {
-          db.doc(`/answers/${surveyId}`)
+          db.collection('surveys')
+            .doc(surveyId)
+            .collection('answers')
             .get()
-            .then((answers) => {
-              const asnwersData = answers.data()?.answers
+            .then((data) => {
+              const answerData: any = []
+
+              data.forEach((doc) => {
+                answerData.push({
+                  ...(doc.data() as any),
+                  id: doc.id,
+                })
+              })
+
               let response: any = { survey: { ...surveyData, id: survey.id } }
 
-              if (answers.exists) {
-                response.results = getResults(surveyData, asnwersData)
-                response.csv = {
-                  pilot: getCSV(
-                    surveyData,
-                    asnwersData?.filter(({ status }: { status: string }) => status === 'pilot'),
-                  ),
-                  published: getCSV(
-                    surveyData,
-                    asnwersData?.filter(({ status }: { status: string }) => status === 'published'),
-                  ),
-                }
+              response.results = getResults(surveyData, answerData)
+              response.csv = {
+                pilot: getCSV(
+                  surveyData,
+                  answerData?.filter(({ status }: { status: string }) => status === 'pilot'),
+                ),
+                published: getCSV(
+                  surveyData,
+                  answerData?.filter(({ status }: { status: string }) => status === 'published'),
+                ),
+              }
 
-                getCSV(surveyData, asnwersData)
+              getCSV(surveyData, answerData)
 
-                if (surveyData?.setup.feedback?.active) {
-                  response.feedback = getFeedback(asnwersData)
-                }
+              if (surveyData?.setup.feedback?.active) {
+                response.feedback = getFeedback(answerData)
               }
 
               res.status(200).json(response)
             })
+            .catch((error) => res.status(500).json({ error }))
         }
       }
     })

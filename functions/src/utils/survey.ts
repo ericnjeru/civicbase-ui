@@ -27,13 +27,11 @@ export function incrementRespondent(surveyId: string, status: 'pilot' | 'publish
   const survey = db.collection('surveys').doc(surveyId)
 
   if (status === 'pilot') {
-    survey.update({
+    return survey.update({
       'analytics.pilot.current.respondents': admin.firestore.FieldValue.increment(1),
     })
-  }
-
-  if (status === 'published') {
-    survey.update({
+  } else {
+    return survey.update({
       'analytics.published.current.respondents': admin.firestore.FieldValue.increment(1),
     })
   }
