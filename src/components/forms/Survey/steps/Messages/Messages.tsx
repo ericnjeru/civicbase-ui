@@ -13,7 +13,7 @@ const Messages = () => {
         <Controller
           name="message.welcome"
           control={control}
-          render={({ field }) => <TextEditor {...field} size={150} />}
+          render={({ field }) => <TextEditor {...field} size={150} enableImage />}
         />
       </div>
 
@@ -22,7 +22,7 @@ const Messages = () => {
         <Controller
           name="message.completion"
           control={control}
-          render={({ field }) => <TextEditor {...field} size={150} />}
+          render={({ field }) => <TextEditor {...field} size={150} enableImage />}
         />
       </div>
     </div>

@@ -37,7 +37,12 @@ const Conjoint = ({ isPublished }: { isPublished: boolean }) => {
               name={`conjoint.${index}.statement`}
               control={control}
               render={({ field }) => (
-                <TextEditor {...field} readOnly={isPublished} error={errors.conjoint && !!errors.conjoint[index]} />
+                <TextEditor
+                  {...field}
+                  readOnly={isPublished}
+                  error={errors.conjoint && !!errors.conjoint[index]}
+                  enableImage
+                />
               )}
             />
             <FieldErrorMessage name={`conjoint.${index}`} errors={errors} />

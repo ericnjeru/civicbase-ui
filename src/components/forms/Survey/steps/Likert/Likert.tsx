@@ -41,6 +41,7 @@ const Likert = ({ isPublished }: { isPublished: boolean }) => {
                   {...field}
                   readOnly={isPublished}
                   error={errors.likert && !!errors.likert[index]?.statement}
+                  enableImage
                 />
               )}
             />
