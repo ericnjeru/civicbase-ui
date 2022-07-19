@@ -1,4 +1,5 @@
-import { Editor, EditorState, convertFromRaw } from 'draft-js'
+import { EditorState, convertFromRaw } from 'draft-js'
+import TextEditor from 'components/TextEditor'
 import { SurveyRespondent } from '../../../../types/survey'
 import 'draft-js/dist/Draft.css'
 
@@ -9,10 +10,11 @@ const CompletionMessage = ({ survey }: { survey: SurveyRespondent }) => {
 
   return (
     <div>
-      <Editor
-        editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(survey.message.completion)))}
+      <TextEditor
+        value={EditorState.createWithContent(convertFromRaw(JSON.parse(survey.message.completion)))}
         onChange={() => {}}
         readOnly
+        enableImage
       />
     </div>
   )

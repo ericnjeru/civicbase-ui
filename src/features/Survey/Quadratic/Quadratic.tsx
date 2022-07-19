@@ -1,5 +1,5 @@
 import tw, { theme } from 'twin.macro'
-import { Editor, EditorState, convertFromRaw } from 'draft-js'
+import { EditorState, convertFromRaw } from 'draft-js'
 import DynamicBar from 'components/DynamicBar'
 import { SurveyRespondent } from '../../../../types/survey'
 import Typography, { Headline } from 'components/Typography'
@@ -20,6 +20,7 @@ import Modal, { ModalContext } from 'components/Modal'
 import { HiInformationCircle } from 'react-icons/hi'
 import Spinner from 'components/Spinner'
 import { useAuth } from 'contexts/auth'
+import TextEditor from 'components/TextEditor'
 
 const Action = ({
   availableCredits,
@@ -137,7 +138,6 @@ const QuadraticRespondent = ({
       run(createAnswer(answer))
     }
   }
-
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -162,10 +162,11 @@ const QuadraticRespondent = ({
                   <div key={question.id} css={tw`flex w-full flex-col`}>
                     <Headline css={tw`mb-4 flex`}>
                       {index + 1}.&nbsp;
-                      <Editor
-                        editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
+                      <TextEditor
+                        value={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
                         onChange={() => {}}
                         readOnly
+                        enableImage
                       />
                     </Headline>
 

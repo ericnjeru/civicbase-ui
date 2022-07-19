@@ -1,4 +1,5 @@
-import { Editor, EditorState, convertFromRaw } from 'draft-js'
+import { EditorState, convertFromRaw } from 'draft-js'
+import TextEditor from 'components/TextEditor'
 import { useEffect } from 'react'
 import tw, { theme } from 'twin.macro'
 import Card from 'components/Card'
@@ -109,10 +110,11 @@ const ConjointRespondent = ({
                   <div css={tw`col-span-4`}>
                     <Headline css={tw`mb-4 flex`}>
                       {index + 1}.&nbsp;
-                      <Editor
-                        editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
+                      <TextEditor
+                        value={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
                         onChange={() => {}}
                         readOnly
+                        enableImage
                       />
                     </Headline>
 

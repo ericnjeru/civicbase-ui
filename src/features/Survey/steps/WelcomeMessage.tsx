@@ -1,4 +1,5 @@
-import { Editor, EditorState, convertFromRaw } from 'draft-js'
+import { EditorState, convertFromRaw } from 'draft-js'
+import TextEditor from 'components/TextEditor'
 import 'draft-js/dist/Draft.css'
 import tw from 'twin.macro'
 import { PrimaryButton } from 'components/Button'
@@ -15,13 +16,11 @@ const WelcomeMessage = ({ survey, handleNext }: { survey: SurveyRespondent; hand
     onStart()
     handleNext()
   }
-
   const welcomeMessage = convertFromRaw(JSON.parse(survey.message.welcome))
 
   return (
     <div>
-      <Editor editorState={EditorState.createWithContent(welcomeMessage)} onChange={() => {}} readOnly />
-
+      <TextEditor value={EditorState.createWithContent(welcomeMessage)} onChange={() => {}} readOnly enableImage />
       <div css={tw`w-full flex justify-center mt-8`}>
         <PrimaryButton onClick={onNext}>Next</PrimaryButton>
       </div>
