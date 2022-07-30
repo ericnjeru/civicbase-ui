@@ -14,8 +14,8 @@ const config = {
 
 admin.initializeApp({
   credential: admin.credential.cert({
-    privateKey: functions.config().private.key.replace(/\\n/g, '\n'),
     projectId: functions.config().project.id,
+    privateKey: functions.config().private.key.replace(/\\n/g, '\n'),
     clientEmail: functions.config().client.email,
   }),
   databaseURL: 'https://civic-base.firebaseio.com',
