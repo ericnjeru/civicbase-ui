@@ -9,6 +9,7 @@ interface ImageInputProps {
   setShowURLInput: (value: boolean) => void
   handleImage: (url: string) => void
 }
+
 const ImageInput = ({ setShowURLInput, handleImage }: ImageInputProps) => {
   const [url, setUrl] = React.useState('')
   console.log(url)
