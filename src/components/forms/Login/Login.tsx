@@ -40,6 +40,8 @@ const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotP
     }
   }, [methods, setError])
 
+  const password = methods.watch('password')
+
   return (
     <FormProvider {...methods}>
       <form
@@ -58,6 +60,7 @@ const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotP
                 error={!!methods.formState.errors.email}
                 disabled={isLoading}
                 index={<AiOutlineMail color={theme`colors.gray.400`} />}
+                autoComplete="username"
               />
 
               <FieldErrorMessage name="email" errors={methods.formState.errors} />
@@ -71,10 +74,13 @@ const Login = ({ next, handleForgotPassword }: { next: () => void; handleForgotP
                 disabled={isLoading}
                 type={showPassword ? 'text' : 'password'}
                 index={<RiLockPasswordLine color={theme`colors.gray.400`} />}
+                autoComplete="current-password"
               >
-                <IconButton onClick={() => setShowPassword(!showPassword)} css={tw`hover:bg-transparent`}>
-                  {showPassword ? <BsEyeSlash /> : <BsEye />}
-                </IconButton>
+                {password.length > 0 && (
+                  <IconButton onClick={() => setShowPassword(!showPassword)} css={tw`hover:bg-transparent`}>
+                    {showPassword ? <BsEyeSlash /> : <BsEye />}
+                  </IconButton>
+                )}
               </CustomInput>
 
               <FieldErrorMessage name="password" errors={methods.formState.errors} />
