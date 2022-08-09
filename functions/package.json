@@ -5,7 +5,7 @@
     "dev": "npm run build && firebase emulators:start --import ./EmulatorData",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "start-up": "./start-up.bash",
+    "prepare-emulator": "gsutil -m cp -r gs://civic-base.appspot.com/EmulatorData .",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
@@ -14,7 +14,6 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@types/uuid": "^8.3.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase": "^9.8.4",

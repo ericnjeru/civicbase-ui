@@ -56,6 +56,8 @@ const Signup = ({
     }
   }, [shouldReset, methods])
 
+  const password = methods.watch('password')
+
   return (
     <FormProvider {...methods}>
       <form
@@ -87,6 +89,7 @@ const Signup = ({
                 error={!!methods.formState.errors.email}
                 disabled={isLoading}
                 index={<AiOutlineMail color={theme`colors.gray.400`} />}
+                autoComplete="username"
               />
 
               <FieldErrorMessage name="email" errors={methods.formState.errors} />
@@ -101,10 +104,13 @@ const Signup = ({
                 disabled={isLoading}
                 type={showPassword ? 'text' : 'password'}
                 index={<RiLockPasswordLine color={theme`colors.gray.400`} />}
+                autoComplete="new-password"
               >
-                <IconButton onClick={() => setShowPassword(!showPassword)} css={tw`hover:bg-transparent`}>
-                  {showPassword ? <BsEyeSlash /> : <BsEye />}
-                </IconButton>
+                {password.length > 0 && (
+                  <IconButton onClick={() => setShowPassword(!showPassword)} css={tw`hover:bg-transparent`}>
+                    {showPassword ? <BsEyeSlash /> : <BsEye />}
+                  </IconButton>
+                )}
               </CustomInput>
 
               <FieldErrorMessage name="password" errors={methods.formState.errors} />

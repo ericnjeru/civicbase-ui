@@ -13,3 +13,4 @@ firestore-debug.log
 .runtimeconfig.json
 env.json
 EmulatorData/
+start-up.bash
