@@ -4,7 +4,6 @@ import { IconButton } from 'components/Button'
 import Input from 'components/Form/Input'
 import { AiOutlineClose } from 'react-icons/ai'
 import { TiTick } from 'react-icons/ti'
-
 interface ImageInputProps {
   setShowURLInput: (value: boolean) => void
   handleImage: (url: string) => void
