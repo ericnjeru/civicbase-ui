@@ -16,6 +16,7 @@ import {
 } from './api/survey'
 
 import { createAnswer } from './api/answer'
+import { createIndiaAnswer, uploadRecord } from './api/india/answer'
 
 const app = express()
 
@@ -38,5 +39,8 @@ app.delete('/delete/:surveyId', auth, deleteSurvey)
 app.get('/analytics/:surveyId', auth, getSurveyForAnalytics)
 
 app.post('/createAnswer', createAnswer)
+
+app.post('/createIndiaAnswer', createIndiaAnswer)
+app.post('/uploadRecord', uploadRecord)
 
 exports.app = functions.https.onRequest(app)
