@@ -1,4 +1,4 @@
-import { CreateRequest } from '../../types/survey'
+import { CreateSurveyRequest } from '../../types/survey'
 import { db } from '../config/firebase'
 import { Response, Request } from 'express'
 import { incrementAccess, setQuestionsId } from '../utils/survey'
@@ -14,12 +14,11 @@ export enum MethodIds {
   Conjoint = 'C',
 }
 
-export const createSurvey = (req: CreateRequest, res: Response) => {
-  // TODO: create this type
+export const createSurvey = (req: CreateSurveyRequest, res: Response) => {
   const survey: any = {
     ...req.body,
     createdAt: new Date().toISOString(),
-    uid: req.user.uid,
+    uid: req.user?.uid, // user will always be defined at this point
     status: 'pilot',
     analytics: setAnalytics(),
   }
@@ -42,7 +41,7 @@ export const createSurvey = (req: CreateRequest, res: Response) => {
     .catch((error) => res.status(500).json({ ...error }))
 }
 
-export const updateSurvey = (req: CreateRequest, res: Response) => {
+export const updateSurvey = (req: any, res: Response) => {
   const { surveyId } = req.params
   const survey: any = {
     ...req.body,
@@ -115,6 +114,9 @@ export const finishSurvey = (req: Request, res: Response) => {
     .catch((error) => res.status(500).json(error))
 }
 
+/**
+ * TODO: feature is not being clone and has an empty object
+ */
 export const cloneSurvey = (req: Request, res: Response) => {
   const { surveyId } = req.params
 

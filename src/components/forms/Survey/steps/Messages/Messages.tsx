@@ -9,7 +9,7 @@ const Messages = () => {
   return (
     <div css={tw`grid grid-cols-1 gap-8`}>
       <div>
-        <Label>Wecome Message</Label>
+        <Label>Welcome Message</Label>
         <Controller
           name="message.welcome"
           control={control}

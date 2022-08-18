@@ -19,6 +19,7 @@ admin.initializeApp({
     clientEmail: functions.config().client.email,
   }),
   databaseURL: 'https://civic-base.firebaseio.com',
+  projectId: 'civic-base',
 })
 
 const db = admin.firestore()

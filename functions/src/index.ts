@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
-import * as express from 'express'
-import * as cors from 'cors'
+import express from 'express'
+import cors from 'cors'
 import { auth } from './utils/auth'
 import { signup, reset, login, details, logout } from './api/user'
 import {
