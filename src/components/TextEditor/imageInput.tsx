@@ -11,7 +11,7 @@ interface ImageInputProps {
 
 const ImageInput = ({ setShowURLInput, handleImage }: ImageInputProps) => {
   const [url, setUrl] = React.useState('')
-  console.log(url)
+
   return (
     <div css={tw`flex mb-2 mr-1`}>
       <Input placeholder="https://imageurl.com/yourimage.jpg" onChange={(e) => setUrl(e.target.value)} />
