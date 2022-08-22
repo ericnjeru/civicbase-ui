@@ -15,8 +15,7 @@ import {
   getSurveyForAnalytics,
 } from './api/survey'
 
-import { createAnswer } from './api/answer'
-import { createIndiaAnswer, uploadRecord } from './api/india/answer'
+import { createAnswer, createIndiaAnswer, uploadRecord } from './api/answer'
 
 const app = express()
 
