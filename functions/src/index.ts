@@ -40,6 +40,6 @@ app.get('/analytics/:surveyId', auth, getSurveyForAnalytics)
 app.post('/createAnswer', createAnswer)
 
 app.post('/createIndiaAnswer', createIndiaAnswer)
-app.post('/uploadRecord', uploadRecord)
+app.post('/uploadRecord/:fileId', uploadRecord)
 
 exports.app = functions.https.onRequest(app)

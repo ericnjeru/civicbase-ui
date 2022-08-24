@@ -1,28 +1,29 @@
 import { Response } from 'express'
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { CreateAnswerRequest } from '../../types/survey'
 import { db } from '../config/firebase'
 import { incrementRespondent } from '../utils/survey'
-import ShortUniqueId from 'short-unique-id'
-
-const uid = new ShortUniqueId({ length: 16 })
 
 type UploadRecorderRequest = {
-  body: File | Blob
+  body: Blob
+  params: {
+    fileId: string
+  }
 }
 
 export const uploadRecord = (req: UploadRecorderRequest, res: Response) => {
-  const file: any = req.body
-  const fileId = uid()
+  const { fileId } = req.params
+  const file: Blob = req.body
   const metadata = {
     contentType: 'audio/ogg; codecs=opus',
   }
   const storage = getStorage()
   const storageRef = ref(storage, `records/${fileId}.ogg`)
 
-  return uploadBytes(storageRef, file, metadata).then(() => {
-    return getDownloadURL(storageRef).then((downloadUrl) => res.status(201).json({ fileId, downloadUrl }))
-  })
+  return uploadBytes(storageRef, file, metadata).then(() => res.status(201).json({ fileId }))
+  // .then(() => {
+  //   return getDownloadURL(storageRef).then((downloadUrl) => res.status(201).json({ fileId, downloadUrl }))
+  // })
 }
 
 export const createIndiaAnswer = (req: any, res: Response) => {
