@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useState } from 'react'
+import { forwardRef, useEffect, useRef, useState } from 'react'
 import tw from 'twin.macro'
 
 const Pool = ({
@@ -10,37 +10,53 @@ const Pool = ({
   offsetTop?: number
   beginAnimation: boolean
 }) => {
+  const [elementA, setElementA] = useState<any>()
+  const [elementB, setElementB] = useState<any>()
   console.log('offsetLeft ', offsetLeft)
-  console.log('offsetTop', offsetTop)
+  console.log('offsetTop  ', offsetTop)
+  console.log('beginAnimation  ', beginAnimation)
+
+  useEffect(() => {
+    const e1 = document.getElementById('pool-1')
+    const e2 = document.getElementById('circle-1')
+
+    setElementB(e2)
+    setElementA(e1)
+  }, [])
+
+  console.log('elementA', elementA?.getBoundingClientRect())
+  console.log('elementB', elementB?.getBoundingClientRect())
+
+  const x = elementA?.getBoundingClientRect().x - elementB?.getBoundingClientRect().x
+  const y = elementA?.getBoundingClientRect().y - elementB?.getBoundingClientRect().y
+
   return (
     <svg width="100" height="300" overflow="inherit">
       <circle id="circle-1" cx="7" cy="7" r="5"></circle>
 
-      {offsetLeft && offsetTop && (
-        <>
-          <animate
-            xlinkHref="#circle-1"
-            attributeName="cx"
-            from="0"
-            to={offsetLeft - 154}
-            dur="1s"
-            begin={beginAnimation}
-            fill="freeze"
-            d="circ-anim"
-          />
+      <>
+        <animate
+          xlinkHref="#circle-1"
+          attributeName="cx"
+          from="7"
+          to={x}
+          dur="10s"
+          begin={beginAnimation}
+          fill="freeze"
+          d="circ-anim"
+        />
 
-          <animate
-            xlinkHref="#circle-1"
-            attributeName="cy"
-            from="0"
-            to={offsetTop - 96}
-            dur="1s"
-            begin={beginAnimation}
-            fill="freeze"
-            d="circ-anim"
-          />
-        </>
-      )}
+        <animate
+          xlinkHref="#circle-1"
+          attributeName="cy"
+          from="7"
+          to={y}
+          dur="10s"
+          begin={beginAnimation}
+          fill="freeze"
+          d="circ-anim"
+        />
+      </>
 
       <circle cx="21" cy="7" r="5"></circle>
       <circle cx="35" cy="7" r="5"></circle>
@@ -150,7 +166,7 @@ const Diamond = forwardRef<HTMLDivElement | undefined>((props, ref) => {
     <div ref={ref}>
       <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
         <g transform="translate(220,110)">
-          <circle r="5" cx="-20" cy="0" data-level="1" data-ai="0"></circle>
+          <circle id="pool-1" r="5" cx="-20" cy="0" data-level="1" data-ai="0"></circle>
           <circle r="5" cx="-40" cy="0" data-level="2" data-ai="0"></circle>
           <circle r="5" cx="-30" cy="-10" data-level="2" data-ai="1"></circle>
           <circle r="5" cx="-30" cy="10" data-level="2" data-ai="2"></circle>
