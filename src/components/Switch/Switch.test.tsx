@@ -20,6 +20,7 @@ describe('Switch', () => {
             aria-checked="true"
             aria-labelledby="headlessui-label-2"
             class="Switch___StyledSwitchHeadless-sc-4pg7dy-1 edPtVB"
+            data-headlessui-state="checked"
             id="headlessui-switch-1"
             role="switch"
             tabindex="0"

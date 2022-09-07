@@ -1,21 +1,30 @@
 import { Transition } from '@headlessui/react'
-import { ReactNode, Fragment } from 'react'
+import { ReactNode } from 'react'
 import tw, { styled } from 'twin.macro'
 
 const StyledTransition = styled(Transition)`
+  &.enter {
+    ${tw`transition ease-out duration-100`}
+  }
+  &.enterFrom {
+    ${tw`transform opacity-0 scale-95`}
+  }
+  &.enterTo {
+    ${tw`transform opacity-100 scale-100`}
+  }
   &.leave {
-    ${tw`transition ease-in duration-100`}
+    ${tw`transition ease-in duration-75`}
   }
   &.leaveFrom {
-    ${tw`opacity-100`}
+    ${tw`transform opacity-100 scale-100`}
   }
   &.leaveTo {
-    ${tw`opacity-0`}
+    ${tw`transform opacity-0 scale-95`}
   }
 `
 
 const Dropdown = ({ children }: { children: ReactNode }) => {
-  return <StyledTransition as={Fragment as any}>{children}</StyledTransition>
+  return <StyledTransition>{children}</StyledTransition>
 }
 
 export default Dropdown

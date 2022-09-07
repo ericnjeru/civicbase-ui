@@ -23,20 +23,8 @@ const StyledTransition = styled(Transition)`
   }
 `
 
-const FadeInOut = ({ children, show }: { children: ReactNode; show?: boolean }) => {
-  return (
-    <StyledTransition
-      show={show}
-      enter="enter"
-      enterFrom="enterFrom"
-      enterTo="enterTo"
-      leave="leave"
-      leaveFrom="leaveFrom"
-      leaveTo="leaveTo"
-    >
-      {children}
-    </StyledTransition>
-  )
+const FadeInOut = ({ children }: { children: ReactNode }) => {
+  return <StyledTransition>{children}</StyledTransition>
 }
 
 export default FadeInOut

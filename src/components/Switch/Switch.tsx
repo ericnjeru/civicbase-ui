@@ -13,6 +13,7 @@ const Switch = ({
   children?: string | ReactNode
 }) => {
   const { theme } = useTheme()
+
   return (
     <SwitchHeadless.Group>
       <div css={tw`flex items-start`}>

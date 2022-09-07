@@ -37,7 +37,13 @@ const Quadratic = ({ isPublished }: { isPublished: boolean }) => {
               name={`quadratic.${index}.statement`}
               control={control}
               render={({ field }) => (
-                <TextEditor {...field} readOnly={isPublished} error={errors.quadratic && !!errors.quadratic[index]} />
+                <TextEditor
+                  onChange={field.onChange}
+                  value={field.value}
+                  readOnly={isPublished}
+                  error={errors.quadratic && !!errors.quadratic[index]}
+                  enableImage
+                />
               )}
             />
             <FieldErrorMessage name={`quadratic.${index}`} errors={errors} />

@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import tw from 'twin.macro'
-import { convertFromRaw, Editor, EditorState } from 'draft-js'
+import { convertFromRaw, EditorState } from 'draft-js'
+import TextEditor from 'components/TextEditor'
 import { useForm, Controller, SubmitHandler, FormProvider } from 'react-hook-form'
 import RadioButton from 'components/Form/RadioButton'
 import Typography, { Headline } from 'components/Typography'
@@ -94,10 +95,11 @@ const LikertRespondent = ({
                 <div key={question.id} css={tw`mb-32`}>
                   <Headline css={tw`mb-4 flex`}>
                     {questionIndex + 1}.&nbsp;
-                    <Editor
-                      editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
+                    <TextEditor
+                      value={EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))}
                       onChange={() => {}}
                       readOnly
+                      enableImage
                     />
                   </Headline>
 
