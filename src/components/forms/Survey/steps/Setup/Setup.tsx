@@ -48,7 +48,9 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
                   options={methods}
                   error={errors?.setup?.method}
                   modified={isEditing && fieldState.isDirty}
-                  {...field}
+                  value={field.value}
+                  onChange={field.onChange}
+                  // {...field}
                 />
               )
             }}
@@ -76,7 +78,7 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
             name="setup.feedback.active"
             control={control}
             render={({ field }) => (
-              <Switch {...field}>
+              <Switch value={field.value} onChange={field.onChange}>
                 <div css={tw`flex flex-col h-11`}>
                   Enable respondent feedback?
                   <FieldErrorMessage name="setup.feedback" errors={errors} css={tw`ml-0`} />

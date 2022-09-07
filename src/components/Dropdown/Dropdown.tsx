@@ -4,7 +4,7 @@ import { HiOutlineSelector } from 'react-icons/hi'
 import * as Transition from 'components/Transition'
 import tw, { theme } from 'twin.macro'
 
-function Dropdown({
+const Dropdown = ({
   error,
   modified,
   options,
@@ -12,7 +12,6 @@ function Dropdown({
   value,
   placeholder,
   disabled = false,
-  ...props
 }: {
   error?: boolean
   modified?: boolean
@@ -21,9 +20,9 @@ function Dropdown({
   placeholder?: string
   disabled?: boolean
   onChange: (value: string) => void
-}) {
+}) => {
   return (
-    <Listbox onChange={onChange} value={value} disabled={disabled} {...props}>
+    <Listbox onChange={onChange} value={value} disabled={disabled}>
       <div css={tw`relative mt-1`}>
         <Listbox.Button
           css={[

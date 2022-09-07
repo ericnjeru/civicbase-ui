@@ -38,7 +38,8 @@ const Likert = ({ isPublished }: { isPublished: boolean }) => {
               control={control}
               render={({ field }) => (
                 <TextEditor
-                  {...field}
+                  onChange={field.onChange}
+                  value={field.value}
                   readOnly={isPublished}
                   error={errors.likert && !!errors.likert[index]?.statement}
                   enableImage

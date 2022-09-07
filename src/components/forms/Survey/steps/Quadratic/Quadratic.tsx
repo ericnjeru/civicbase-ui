@@ -38,7 +38,8 @@ const Quadratic = ({ isPublished }: { isPublished: boolean }) => {
               control={control}
               render={({ field }) => (
                 <TextEditor
-                  {...field}
+                  onChange={field.onChange}
+                  value={field.value}
                   readOnly={isPublished}
                   error={errors.quadratic && !!errors.quadratic[index]}
                   enableImage

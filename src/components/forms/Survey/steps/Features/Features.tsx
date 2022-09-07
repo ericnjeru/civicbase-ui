@@ -11,25 +11,41 @@ const Features = () => {
         <Controller
           name="features.qualtrics"
           control={control}
-          render={({ field }) => <Switch {...field}>Qualtrics Integration</Switch>}
+          render={({ field }) => (
+            <Switch value={field.value} onChange={field.onChange}>
+              Qualtrics Integration
+            </Switch>
+          )}
         />
 
         <Controller
           name="features.userIdentification"
           control={control}
-          render={({ field }) => <Switch {...field}>Require respondent Identification</Switch>}
+          render={({ field }) => (
+            <Switch value={field.value} onChange={field.onChange}>
+              Require respondent Identification
+            </Switch>
+          )}
         />
 
         <Controller
           name="features.randomQuestions"
           control={control}
-          render={({ field }) => <Switch {...field}>Random questions apresentation</Switch>}
+          render={({ field }) => (
+            <Switch value={field.value} onChange={field.onChange}>
+              Random questions apresentation
+            </Switch>
+          )}
         />
 
         <Controller
           name="features.multipleAnswerFromSameSource"
           control={control}
-          render={({ field }) => <Switch {...field}>Respondent can answer survey more than once</Switch>}
+          render={({ field }) => (
+            <Switch value={field.value} onChange={field.onChange}>
+              Respondent can answer survey more than once
+            </Switch>
+          )}
         />
 
         {/* <Switch>Activate A/B test</Switch> */}
