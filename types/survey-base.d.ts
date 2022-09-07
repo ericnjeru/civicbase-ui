@@ -63,7 +63,9 @@ export type ConjointAttributes = {
 }
 
 export type Features = {
+  multipleAnswerFromSameSource?: boolean
   qualtrics?: boolean
+  randomQuestions?: boolean
   userIdentification?: boolean
 }
 

@@ -11,6 +11,6 @@ ui-debug.log
 firebase-debug.log
 firestore-debug.log
 .runtimeconfig.json
-env.json
 EmulatorData/
 start-up.bash
+.env

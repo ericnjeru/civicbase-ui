@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
-import * as express from 'express'
-import * as cors from 'cors'
+import express from 'express'
+import cors from 'cors'
 import { auth } from './utils/auth'
 import { signup, reset, login, details, logout } from './api/user'
 import {
@@ -15,7 +15,7 @@ import {
   getSurveyForAnalytics,
 } from './api/survey'
 
-import { createAnswer } from './api/answer'
+import { createAnswer, createIndiaAnswer, uploadRecord } from './api/answer'
 
 const app = express()
 
@@ -38,5 +38,8 @@ app.delete('/delete/:surveyId', auth, deleteSurvey)
 app.get('/analytics/:surveyId', auth, getSurveyForAnalytics)
 
 app.post('/createAnswer', createAnswer)
+
+app.post('/createIndiaAnswer', createIndiaAnswer)
+app.post('/uploadRecord/:fileId', uploadRecord)
 
 exports.app = functions.https.onRequest(app)

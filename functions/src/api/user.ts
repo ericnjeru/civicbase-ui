@@ -34,7 +34,7 @@ export const signup = async (req: SignupRequest, res: Response) => {
     })
     .then(() => res.status(201).json({ code: 'auth/verify-email' }))
     .catch((error) => {
-      if (error.code === 'auth/email-already-in-user') {
+      if (error.code === 'auth/email-already-in-use') {
         return res.status(409).json({ ...error })
       } else {
         return res.status(400).json({ ...error })
@@ -42,6 +42,10 @@ export const signup = async (req: SignupRequest, res: Response) => {
     })
 }
 
+/**
+ *
+ * Every time users perform a login, Firebase revoke previous token
+ */
 export const login = async (req: LoginRequest, res: Response) => {
   const auth = getAuth()
   let uid: string

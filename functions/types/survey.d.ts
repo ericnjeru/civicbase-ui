@@ -1,8 +1,15 @@
 import { CreateSurvey } from '../../types/survey'
+import { ConjointItems, Features, Language, LikertItems, Message, Setup } from '../../types/survey-base'
 
-export type CreateRequest = {
-  body: CreateSurvey
-  [key: string]: any // not happy with this, but the only way I found so far to add user to the request
+type AuthRequest = {
+  uid: string
+  email: string
+  token: string
+}
+
+export type CreateSurveyRequest = {
+  body: QVSurveyRequest | LikertSurveyRequest | ConjointSurveyRequest
+  user?: AuthRequest
 }
 
 export type CreateAnswerRequest = {
@@ -34,4 +41,35 @@ type QuadraticAnswer = {
   statement: string
   vote: number
   credits: number
+}
+
+type Survey = {
+  features: Features
+  message: Message
+  setup: Setup
+}
+
+interface QVSurveyRequest extends Survey {
+  quadratic: { statement: string }[]
+  language: Language
+}
+
+interface LikertSurveyRequest extends Survey {
+  likert: {
+    statement: string
+    items: LikertItems[]
+  }[]
+}
+
+interface ConjointSurveyRequest extends Survey {
+  conjoint: {
+    statement: string
+    attributes: {
+      name: string
+      key: string
+    }[]
+    items: {
+      [key: string]: string | number
+    }[]
+  }[]
 }
