@@ -1,9 +1,9 @@
 import { Meta } from '@storybook/react'
-import Diamond from './Diamond'
+import DiamondVote from './DiamondVote'
 
 export default {
   title: 'Components/Diamond',
-  component: Diamond,
+  component: DiamondVote,
 } as Meta
 
-export const Basic = () => <Diamond />
+export const Basic = () => <DiamondVote />
