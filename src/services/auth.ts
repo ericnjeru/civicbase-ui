@@ -11,7 +11,7 @@ export const getUser = () => {
     return Promise.resolve(null)
   }
 
-  return client('user').then(({ user }) => user)
+  return client('userProfile').then(({ user }) => user)
 }
 
 export const login = ({ email, password }: LoginRequest): Promise<LoginReponse> =>
@@ -22,4 +22,5 @@ export const login = ({ email, password }: LoginRequest): Promise<LoginReponse> 
 
 export const logout = () => client('logout').then(() => storage.clearToken())
 
-export const reset = ({ email }: ResetRequest) => client('reset', { body: { email } }).then(({ message }) => message)
+export const reset = ({ email }: ResetRequest) =>
+  client('resetPassword', { body: { email } }).then(({ message }) => message)

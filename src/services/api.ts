@@ -4,7 +4,7 @@ import { BodyRequest } from '../../types/request.d'
 interface Request {
   body?: BodyRequest
   headers?: HeadersInit
-  method?: 'DELETE'
+  method?: 'DELETE' | 'PUT'
 }
 
 const client = async (endpoint: string, { body, ...other }: Request = {}) => {
