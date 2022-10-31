@@ -35,7 +35,7 @@ module.exports = {
         'react/prop-types': 'off',
         'react/react-in-jsx-scope': 'off',
         'jsx-a11y/anchor-is-valid': 'off',
-        '@typescript-eslint/no-unused-vars': ['error'],
+        '@typescript-eslint/no-unused-vars': ['warn'],
         'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Includes .prettierrc.js rules
       },
     },

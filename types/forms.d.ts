@@ -5,6 +5,7 @@ export type SurveyForm = {
   setup: {
     topic: string
     method: Methods | null
+    methodPreference?: 'radius' | 'diamond'
     credits?: number
     feedback?: {
       active: boolean

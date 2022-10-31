@@ -14,6 +14,7 @@ export const validationSchema = z
         .min(3, { message: 'Topic must have at least 3 characters' })
         .max(50, { message: 'Topic must have max 50 characters' }),
       method: z.string({ invalid_type_error: 'Method must be selected' }),
+      methodPreference: z.string().optional(),
       feedback: z
         .object({
           active: z.boolean().optional(),
