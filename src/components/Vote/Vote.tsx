@@ -6,7 +6,7 @@ import { IconButton, PrimaryButton } from 'components/Button'
 import Typography, { Caption } from 'components/Typography'
 import Modal, { ModalContext } from 'components/Modal'
 
-const Display = ({
+export const Display = ({
   total,
   vote,
   creditSpent,

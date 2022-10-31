@@ -33,14 +33,19 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolea
   }
 
   if (survey?.id) {
-    const { method } = survey.setup
+    const { method, methodPreference } = survey.setup
 
     const getQuestions = () => {
       switch (method) {
         case surveyMethods.Conjoint:
           return <Survey.Conjoint survey={survey} handleNext={() => onNext('completion')} preview={preview} />
         case surveyMethods.Quadratic:
-          return <Survey.Quadratic survey={survey} handleNext={() => onNext('completion')} preview={preview} />
+          return methodPreference === 'diamond' ? (
+            <Survey.Quadratic.Diamond survey={survey} handleNext={() => onNext('completion')} preview={preview} />
+          ) : (
+            <Survey.Quadratic.Radius survey={survey} handleNext={() => onNext('completion')} preview={preview} />
+          )
+
         case surveyMethods.Likert:
           return <Survey.Likert survey={survey} handleNext={() => onNext('completion')} preview={preview} />
         default:

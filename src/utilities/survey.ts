@@ -19,6 +19,8 @@ export const createQuestions = (questions: QuadraticForSurvey[]) => {
     vote: 0,
     credits: 0,
     order: 0,
+    status: undefined,
+    animated: [],
   }))
 
   return shuffle(newQs).map((question, index) => ({ ...question, order: index }))

@@ -61,6 +61,10 @@ const transform = (request: SurveyForm): SurveyRequest => {
   }
 
   if (quadratic && quadratic.length > 0 && setup.method === surveyMethods.Quadratic) {
+    if (!setup.methodPreference) {
+      transformedRequest.setup.methodPreference = 'radius'
+    }
+
     if (language) {
       transformedRequest.language = language
     }

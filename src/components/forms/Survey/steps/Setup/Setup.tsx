@@ -9,6 +9,7 @@ import { Methods } from '../../../../../../types/survey-base'
 import Switch from 'components/Switch'
 import FeedbackQuestions from './FeedbackQuestions'
 import { surveyMethods } from 'utilities/constants'
+import { Diamond, Radius } from 'components/Methods'
 
 const Setup = ({ isEditing }: { isEditing: boolean }) => {
   const {
@@ -20,6 +21,7 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
 
   const isActive = useWatch({ name: 'setup.feedback.active' })
   const method = useWatch({ name: 'setup.method' })
+  const credits = useWatch({ name: 'setup.credits' })
   const methods: Methods[] = ['Quadratic', 'Likert', 'Conjoint']
 
   useEffect(() => {
@@ -70,6 +72,15 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
             </>
           )}
         </div>
+
+        {method === surveyMethods.Quadratic && credits === 100 && (
+          <div css={tw`col-span-2`}>
+            <div css={tw`grid grid-cols-2 gap-8 my-4`}>
+              <Diamond onSelect={() => setValue('setup.methodPreference', 'diamond')} />
+              <Radius onSelect={() => setValue('setup.methodPreference', 'radius')} />
+            </div>
+          </div>
+        )}
 
         <div css={tw`col-span-2`}>
           <Controller

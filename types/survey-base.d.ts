@@ -11,6 +11,7 @@ export type Methods = 'Likert' | 'Quadratic' | 'Conjoint'
 export type Setup = {
   topic: string
   method: Methods
+  methodPreference?: 'radius' | 'diamond'
   credits?: number
   feedback?: {
     active: boolean
