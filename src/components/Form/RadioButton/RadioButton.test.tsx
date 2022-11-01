@@ -8,7 +8,7 @@ describe('RadioButton', () => {
     expect(container).toMatchInlineSnapshot(`
       <div>
         <input
-          class="RadioButton___StyledInput-sc-18uwl95-0 kxoxAR"
+          class="RadioButton___StyledInput-sc-1p3b5s4-0 bcKCTg"
           type="radio"
         />
       </div>

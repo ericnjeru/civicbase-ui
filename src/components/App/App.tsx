@@ -7,8 +7,8 @@ import Banner from 'components/Banner'
 import Toast from 'components/Toast'
 import { ToastProvider } from 'contexts/toast'
 
-const AuthenticatedApp = lazy(() => import('./AuthenticatedApp'))
-const UnauthenticatedApp = lazy(() => import('./UnauthenticatedApp'))
+const AuthenticatedApp = lazy(() => import(/* webpackChunkName: "AuthenticatedApp" */ './AuthenticatedApp'))
+const UnauthenticatedApp = lazy(() => import(/* webpackChunkName: "UnauthenticatedApp" */ './UnauthenticatedApp'))
 
 const Fallback = () => <div>fallback</div>
 

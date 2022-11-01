@@ -8,10 +8,10 @@ describe('Spinner', () => {
     expect(container).toMatchInlineSnapshot(`
       <div>
         <div
-          class="Spinner___StyledDiv-sc-16d6pxi-0 gLAAcl"
+          class="Spinner___StyledDiv-sc-1727hth-0 jjloUy"
         >
           <div
-            class="Spinner___StyledDiv2-sc-16d6pxi-1 gGyVQk"
+            class="Spinner___StyledDiv2-sc-1727hth-1 kGhTFL"
           />
         </div>
       </div>

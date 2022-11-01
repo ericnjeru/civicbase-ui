@@ -3,79 +3,79 @@
 exports[`Analytics Status should show access 1`] = `
 <div>
   <div
-    class="Skeleton___StyledDiv-sc-kwhm1a-0 fwAjFi"
+    class="Skeleton___StyledDiv-sc-vmp43t-0 fOItRj"
   >
     <div
-      class="sc-bdnxRM Stats___StyledCard-sc-1kxcxuh-0 YHPbv gaHIkj"
+      class="sc-bdnxRM Stats___StyledCard-sc-1bbp4h3-0 YHPbv irAMoJ"
     >
       <div
-        class="Stats___StyledDiv-sc-1kxcxuh-1 hQrlrK"
+        class="Stats___StyledDiv-sc-1bbp4h3-1 bRvies"
       >
         <div
-          class="Skeleton___StyledDiv-sc-1c2459k-4 eYnWRy"
+          class="Skeleton___StyledDiv-sc-lwldx-4 jDHENG"
         >
           <div
-            class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine-sc-1c2459k-3 dNucIZ gLfvAw"
+            class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine-sc-lwldx-3 bhtXAR fYewdA"
           />
           <div
-            class="Skeleton___StyledDiv2-sc-1c2459k-5 iVxWbW"
+            class="Skeleton___StyledDiv2-sc-lwldx-5 fJpFce"
           >
             <div
-              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine2-sc-1c2459k-2 dNucIZ KMEof"
+              class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine2-sc-lwldx-2 bhtXAR bkepcT"
             />
             <div
-              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine3-sc-1c2459k-1 dNucIZ iqIIgM"
+              class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine3-sc-lwldx-1 bhtXAR bWmReg"
             />
           </div>
         </div>
         <div
-          class="Skeleton___StyledDiv-sc-1c2459k-4 eYnWRy"
+          class="Skeleton___StyledDiv-sc-lwldx-4 jDHENG"
         >
           <div
-            class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine-sc-1c2459k-3 dNucIZ gLfvAw"
+            class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine-sc-lwldx-3 bhtXAR fYewdA"
           />
           <div
-            class="Skeleton___StyledDiv2-sc-1c2459k-5 iVxWbW"
+            class="Skeleton___StyledDiv2-sc-lwldx-5 fJpFce"
           >
             <div
-              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine2-sc-1c2459k-2 dNucIZ KMEof"
+              class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine2-sc-lwldx-2 bhtXAR bkepcT"
             />
             <div
-              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine3-sc-1c2459k-1 dNucIZ iqIIgM"
+              class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine3-sc-lwldx-1 bhtXAR bWmReg"
             />
           </div>
         </div>
         <div
-          class="Skeleton___StyledDiv-sc-1c2459k-4 eYnWRy"
+          class="Skeleton___StyledDiv-sc-lwldx-4 jDHENG"
         >
           <div
-            class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine-sc-1c2459k-3 dNucIZ gLfvAw"
+            class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine-sc-lwldx-3 bhtXAR fYewdA"
           />
           <div
-            class="Skeleton___StyledDiv2-sc-1c2459k-5 iVxWbW"
+            class="Skeleton___StyledDiv2-sc-lwldx-5 fJpFce"
           >
             <div
-              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine2-sc-1c2459k-2 dNucIZ KMEof"
+              class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine2-sc-lwldx-2 bhtXAR bkepcT"
             />
             <div
-              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine3-sc-1c2459k-1 dNucIZ iqIIgM"
+              class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine3-sc-lwldx-1 bhtXAR bWmReg"
             />
           </div>
         </div>
         <div
-          class="Skeleton___StyledDiv-sc-1c2459k-4 eYnWRy"
+          class="Skeleton___StyledDiv-sc-lwldx-4 jDHENG"
         >
           <div
-            class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine-sc-1c2459k-3 dNucIZ gLfvAw"
+            class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine-sc-lwldx-3 bhtXAR fYewdA"
           />
           <div
-            class="Skeleton___StyledDiv2-sc-1c2459k-5 iVxWbW"
+            class="Skeleton___StyledDiv2-sc-lwldx-5 fJpFce"
           >
             <div
-              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine2-sc-1c2459k-2 dNucIZ KMEof"
+              class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine2-sc-lwldx-2 bhtXAR bkepcT"
             />
             <div
-              class="Skeleton__TextLine-sc-1c2459k-0 Skeleton___StyledTextLine3-sc-1c2459k-1 dNucIZ iqIIgM"
+              class="Skeleton__TextLine-sc-lwldx-0 Skeleton___StyledTextLine3-sc-lwldx-1 bhtXAR bWmReg"
             />
           </div>
         </div>

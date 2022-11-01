@@ -14,12 +14,12 @@ describe('Switch', () => {
     expect(container).toMatchInlineSnapshot(`
       <div>
         <div
-          class="Switch___StyledDiv-sc-4pg7dy-0 gsWQSs"
+          class="Switch___StyledDiv-sc-eh9tr0-0 jUWIb"
         >
           <button
             aria-checked="true"
             aria-labelledby="headlessui-label-2"
-            class="Switch___StyledSwitchHeadless-sc-4pg7dy-1 edPtVB"
+            class="Switch___StyledSwitchHeadless-sc-eh9tr0-1 kKuWhq"
             data-headlessui-state="checked"
             id="headlessui-switch-1"
             role="switch"
@@ -27,17 +27,17 @@ describe('Switch', () => {
             type="button"
           >
             <span
-              class="Switch___StyledSpan-sc-4pg7dy-2 gasxrF"
+              class="Switch___StyledSpan-sc-eh9tr0-2 kXmGLe"
             >
               Enable Notification
                
             </span>
             <span
-              class="Switch___StyledSpan2-sc-4pg7dy-3 dWXiOD"
+              class="Switch___StyledSpan2-sc-eh9tr0-3 HKGRA"
             />
           </button>
           <label
-            class="Switch___StyledSwitchHeadlessLabel-sc-4pg7dy-4 hqNEKA"
+            class="Switch___StyledSwitchHeadlessLabel-sc-eh9tr0-4 hQCfSH"
             id="headlessui-label-2"
           >
             Enable Notification
