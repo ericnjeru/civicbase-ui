@@ -1,7 +1,6 @@
 import tw from 'twin.macro'
 import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
 import { PrimaryButton, SecondaryButton, IconButton, PrimaryTextButton } from 'components/Button'
-import { Subtitle } from 'components/Typography'
 import { useTheme } from 'contexts/theme'
 import { useAuth } from 'contexts/auth'
 import Tooltip from 'components/Tooltip'
