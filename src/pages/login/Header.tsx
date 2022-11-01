@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import tw, { theme } from 'twin.macro'
 import { BsArrowLeft } from 'react-icons/bs'
 import { IconButton } from 'components/Button'
@@ -12,7 +12,7 @@ const Header = ({
 }: {
   isActive: boolean
   handleBack?: () => void
-  children: string
+  children: string | ReactNode
 }) => {
   // const { theme: currentTheme } = useTheme()
   const [hovered, setHover] = useState(false)
