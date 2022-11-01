@@ -41,7 +41,7 @@ const DiamondPage: FC<RouteComponentProps> = () => {
       {false && <QSummary questions={questions} pool={pool} />}
 
       <Container css={tw`pt-20 flex`}>
-        <Pool availableCredits={availableCredits} pool={pool} reset={reset} />
+        <Pool availableCredits={availableCredits} reset={reset} />
 
         <div css={tw`flex flex-col flex-1 items-center space-y-16`}>
           {questions.map((question, index) => {
