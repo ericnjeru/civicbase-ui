@@ -29,10 +29,10 @@ const Header = () => {
 
   return (
     <div css={tw`flex items-center w-full fixed z-50 bg-white`}>
-      <div css={[tw`w-full overflow-hidden flex items-center px-6 py-4`, user ? tw`justify-between` : tw`justify-end`]}>
+      <div css={[tw`w-full overflow-hidden flex items-center px-6`, user ? tw`justify-between` : tw`justify-end`]}>
         {user && (
           <PrimaryTextButton as="a" href="/" css={tw`focus:(outline-none ring-0)`}>
-            <Subtitle css={tw`m-0`}>Civicbase</Subtitle>
+            <img src={`${process.env.PUBLIC_URL}/civicbase_logo.svg`} width={250} alt="logo" />
           </PrimaryTextButton>
         )}
         <div css={tw`flex space-x-4`}>

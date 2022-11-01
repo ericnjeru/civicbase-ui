@@ -30,7 +30,6 @@ const Login: FC<RouteComponentProps> = () => {
 
   return (
     <>
-      <Typography css={tw`text-3xl absolute left-4 top-4 mobile:hidden`}>Civicbase</Typography>
       <div css={tw`flex justify-center h-full mobile:items-start items-center overflow-hidden`}>
         <Card
           css={[
@@ -40,7 +39,15 @@ const Login: FC<RouteComponentProps> = () => {
           style={{ maxHeight: 700, width: 528, height: '100%' }}
         >
           <div css={tw`text-center mt-4`}>
-            <Header isActive={isLogin}>Civicbase</Header>
+            <Header isActive={isLogin}>
+              <div css={tw`flex justify-center`}>
+                <img
+                  css={tw`mobile:w-[150px] w-[250px]`}
+                  src={`${process.env.PUBLIC_URL}/civicbase_logo_white.svg`}
+                  alt="logo"
+                />
+              </div>
+            </Header>
 
             <Header isActive={isSignup} handleBack={() => setStep('login')}>
               Sign Up
