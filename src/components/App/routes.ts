@@ -1,7 +1,6 @@
 export const AUTHENTICATED_ROUTES = {
   DASHBOARD: '/',
-  CREATE_SURVEY: '/create-survey',
-  EDIT_SURVEY: '/edit-survey',
+  SURVEY_STEP_FORM: '/surveyForm',
   ANALYTICS: '/analytics/:surveyId',
   SURVEY: '/survey/:surveyId',
   FAQ: '/FAQ',

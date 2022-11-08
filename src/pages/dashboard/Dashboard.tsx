@@ -1,23 +1,32 @@
-import tw from 'twin.macro'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+
 import { RouteComponentProps, useNavigate } from '@reach/router'
-import SurveyCard, { Skeleton } from 'components/SurveyCard'
+import { useActor } from '@xstate/react'
 import AddButton from 'components/AddButton'
-import { useSurveys, SurveyState } from 'contexts/surveys'
+import SurveyCard, { Skeleton } from 'components/SurveyCard'
+import { useDashboard } from 'contexts/dashboard'
+import tw from 'twin.macro'
+
+import { SurveyDashboard } from '../../../types/survey'
 
 const Dashboard: FC<RouteComponentProps> = () => {
+  const dashboardService = useDashboard()
+  const [state, send] = useActor(dashboardService)
   const navigate = useNavigate()
-  const { surveys, isLoading } = useSurveys()
+
+  useEffect(() => {
+    send('FETCH')
+  }, [send])
 
   return (
     <div css={tw`grid mobile:grid-cols-1 tablet:grid-cols-2 grid-cols-3  gap-8 py-8 mx-4`}>
-      {surveys.map((survey: SurveyState) => (
+      <AddButton onClick={() => navigate(`/surveyForm`)}>+ Create Survey</AddButton>
+
+      {state.context.surveys?.map((survey: SurveyDashboard) => (
         <SurveyCard survey={survey} key={survey.id} />
       ))}
 
-      {isLoading && surveys.length === 0 && [1, 2, 3, 4, 5].map((k) => <Skeleton key={k} />)}
-
-      <AddButton onClick={() => navigate(`/create-survey`)}>+ Create Survey</AddButton>
+      {state.matches('loading') && [1, 2, 3, 4, 5].map((k) => <Skeleton key={k} />)}
     </div>
   )
 }

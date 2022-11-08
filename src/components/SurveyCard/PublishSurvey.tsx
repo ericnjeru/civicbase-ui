@@ -1,29 +1,14 @@
-import { useEffect, useCallback } from 'react'
-import useAsync from 'hooks/use-async'
 import { BiPaperPlane } from 'react-icons/bi'
+
 import { IconButton } from 'components/Button'
-import { publish } from 'services/survey'
-import { useSurveys, SurveyActionKind } from 'contexts/surveys'
 import Tooltip from 'components/Tooltip'
+import useAsync from 'hooks/use-async'
+import { publish } from 'services/survey'
 
 const PublishSurvey = ({ surveyId }: { surveyId: string }) => {
-  const { dispatch, isLoading } = useSurveys()
-  const { run, isError, isSuccess } = useAsync()
-
-  const setLoading = useCallback(
-    (isLoading: boolean) => dispatch({ type: SurveyActionKind.LOADING, payload: { id: surveyId, isLoading } }),
-    [dispatch, surveyId],
-  )
-
-  useEffect(() => {
-    if (isError || isSuccess) {
-      setLoading(false)
-      dispatch({ type: SurveyActionKind.UPDATE, payload: { id: surveyId, status: 'published' } })
-    }
-  }, [isError, isSuccess, setLoading, surveyId, dispatch])
+  const { run, isLoading } = useAsync()
 
   const handlePublish = () => {
-    setLoading(true)
     run(publish(surveyId))
   }
 

@@ -1,5 +1,5 @@
-import { SurveyDashboard } from '../../types/survey'
 import { AnswerResponse as Answer, Quadratic } from '../../types/answer'
+import { SurveyDashboard } from '../../types/survey'
 
 export const survey: SurveyDashboard = {
   quadratic: [
@@ -68,6 +68,7 @@ export const survey: SurveyDashboard = {
     thumbsUp: 'Agree',
   },
   id: 'FXvKAFKaYnFKZzKkWg0c',
+  createdAt: '2022-07-07T22:33:43.425Z',
 }
 
 export const answers: Answer<Quadratic>[] = [
