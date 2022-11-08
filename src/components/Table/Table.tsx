@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+
 import tw from 'twin.macro'
 
 const Table = ({ children }: { children: ReactNode[] | ReactNode }) => {

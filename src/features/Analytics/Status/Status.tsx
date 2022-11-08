@@ -1,13 +1,12 @@
-import tw from 'twin.macro'
 // import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai'
 import * as Stats from 'components/Stats'
-// import Badge from 'components/Badge'
-
-import useSurveyAnalytics from 'hooks/use-survey-analytics'
-
-import { toCamelCase } from 'utilities/util'
-import Skeleton from './Skeleton'
 import { useAnalytics } from 'contexts/analytics'
+// import Badge from 'components/Badge'
+import useSurveyAnalytics from 'hooks/use-survey-analytics'
+import tw from 'twin.macro'
+import { toCamelCase } from 'utilities/util'
+
+import Skeleton from './Skeleton'
 
 const Status = () => {
   const { isLoading, survey, mode } = useAnalytics()

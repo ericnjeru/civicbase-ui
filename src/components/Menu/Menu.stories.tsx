@@ -1,7 +1,9 @@
 import { BiCog } from 'react-icons/bi'
+
 import { Meta } from '@storybook/react'
-import Menu from './Menu'
 import { IconButton } from 'components/Button'
+
+import Menu from './Menu'
 
 export default {
   title: 'Elements/Menu',

@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import tw from 'twin.macro'
+
 import DynamicBar from './DynamicBar'
 
 export default {

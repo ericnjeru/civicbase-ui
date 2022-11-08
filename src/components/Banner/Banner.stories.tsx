@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { BannerProvider } from 'contexts/banner'
 import tw from 'twin.macro'
+
 import Banner from './Banner'
 
 export default {

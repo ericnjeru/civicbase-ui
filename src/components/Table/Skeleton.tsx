@@ -1,4 +1,5 @@
 import tw, { styled } from 'twin.macro'
+
 import * as Table from './index'
 
 const TextLine = styled.div(() => tw`bg-gray-200 rounded-full animate-pulse`)

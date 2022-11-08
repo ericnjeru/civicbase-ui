@@ -1,6 +1,7 @@
+import { ReactNode } from 'react'
+
 import { Switch as SwitchHeadless } from '@headlessui/react'
 import { useTheme } from 'contexts/theme'
-import { ReactNode } from 'react'
 import tw from 'twin.macro'
 
 const Switch = ({

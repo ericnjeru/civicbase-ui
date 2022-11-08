@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/react'
 import tw from 'twin.macro'
+
 import Toast from '.'
 
 export default {

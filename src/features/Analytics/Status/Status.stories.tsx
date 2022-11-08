@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { AnalyticsProvider } from 'contexts/analytics'
 import { survey } from 'test/sample'
+
 import Status from './Status'
 
 export default {

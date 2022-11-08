@@ -1,6 +1,8 @@
 import { ReactNode, useCallback, useState, useEffect } from 'react'
-import TabContext from './TabContext'
+
 import usePrevious from 'hooks/use-previos'
+
+import TabContext from './TabContext'
 
 const Tabs = ({
   initial,

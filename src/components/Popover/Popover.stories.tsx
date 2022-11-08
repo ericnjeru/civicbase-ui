@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/react'
 import tw from 'twin.macro'
+
 import Popover from './Popover'
 
 export default {

@@ -1,6 +1,8 @@
-import useAsync from 'hooks/use-async'
 import { createContext, ReactElement, useContext, useEffect, useState } from 'react'
+
+import useAsync from 'hooks/use-async'
 import { analytics } from 'services/survey'
+
 import { SurveyDashboard } from '../../types/survey'
 
 interface Analytics {

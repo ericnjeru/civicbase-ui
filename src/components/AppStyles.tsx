@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import { GlobalStyles } from 'twin.macro'
+
 import { dmsans } from '../utilities/fonts'
 
 const FontStyles = createGlobalStyle`

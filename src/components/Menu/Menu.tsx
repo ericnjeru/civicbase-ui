@@ -1,11 +1,12 @@
-import { Menu } from '@headlessui/react'
 import { ReactNode } from 'react'
-import tw from 'twin.macro'
-import { FadeInOut } from 'components/Transition'
+import { AiOutlineDelete } from 'react-icons/ai'
 import { BiCopy } from 'react-icons/bi'
 import { IoDuplicateOutline } from 'react-icons/io5'
-import { AiOutlineDelete } from 'react-icons/ai'
+
+import { Menu } from '@headlessui/react'
+import { FadeInOut } from 'components/Transition'
 import Typography from 'components/Typography'
+import tw from 'twin.macro'
 
 export default function Example({ children }: { children: ReactNode }) {
   return (

@@ -1,8 +1,9 @@
 import { FC, useState, useEffect, useCallback } from 'react'
+
 import { RouteComponentProps } from '@reach/router'
-import useSurvey from 'hooks/use-survey'
-import * as Survey from 'features/Survey'
 import { MetadataProvider } from 'contexts/metadata'
+import * as Survey from 'features/Survey'
+import useSurvey from 'hooks/use-survey'
 import { surveyMethods } from 'utilities/constants'
 
 // TODO: move the next step to a upper state

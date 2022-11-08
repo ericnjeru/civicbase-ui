@@ -1,4 +1,5 @@
 import tw from 'twin.macro'
+
 import { ModalProps } from './types.d'
 
 const Modal = ({ open, icon, close, header, children, footer, size = 'lg' }: ModalProps) => {

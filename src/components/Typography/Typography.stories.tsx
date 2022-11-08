@@ -1,12 +1,12 @@
 import { Meta } from '@storybook/react'
+import tw from 'twin.macro'
 
-import Subtitle from './Subtitle'
-import Title from './Title'
-import Typography from './Typography'
 import Caption from './Caption'
 import Headline from './Headline'
 import Hint from './Hint'
-import tw from 'twin.macro'
+import Subtitle from './Subtitle'
+import Title from './Title'
+import Typography from './Typography'
 
 export default {
   title: 'Elements/Typography',

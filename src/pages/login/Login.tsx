@@ -1,13 +1,15 @@
 import { FC, useCallback, useState } from 'react'
+
 import { RouteComponentProps } from '@reach/router'
 import Card from 'components/Card'
-import tw from 'twin.macro'
 import Typography from 'components/Typography'
+import ForgotPasswordForm from 'components/forms/ForgotPassword'
 import LoginForm from 'components/forms/Login'
 import SignupForm from 'components/forms/Signup'
-import ForgotPasswordForm from 'components/forms/ForgotPassword'
-import Step from './Step'
+import tw from 'twin.macro'
+
 import Header from './Header'
+import Step from './Step'
 
 type Steps = 'login' | 'signup' | 'verification' | 'forgot' | 'forgotConfirmation'
 

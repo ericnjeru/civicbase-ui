@@ -5,7 +5,6 @@ import { dashboardMachine } from 'machines'
 import NotFound from 'pages/404'
 import Analytics from 'pages/analytics/Analytics'
 import Dashboard from 'pages/dashboard'
-import FAQs from 'pages/faqs'
 import ResearcherSurvey from 'pages/survey/Respondent'
 import SurveyForm from 'pages/survey/SurveyForm'
 import tw from 'twin.macro'
@@ -23,7 +22,6 @@ const AuthenticatedApp = () => {
           <Analytics path={AUTHENTICATED_ROUTES.ANALYTICS} />
           <SurveyForm path={AUTHENTICATED_ROUTES.SURVEY_STEP_FORM} />
           <ResearcherSurvey path={AUTHENTICATED_ROUTES.SURVEY} preview={true} />
-          <FAQs path={AUTHENTICATED_ROUTES.FAQ} />
           <NotFound default />
         </Router>
       </DashboardProvider>

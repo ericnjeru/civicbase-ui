@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react'
-import Status from './Status'
 import { survey } from 'test/sample'
+
+import Status from './Status'
 
 describe('Analytics Status', () => {
   const customComponent = ({ ...props } = {}) => {

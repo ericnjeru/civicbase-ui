@@ -1,5 +1,6 @@
-import Card from 'components/Card'
 import { ReactNode } from 'react'
+
+import Card from 'components/Card'
 import tw from 'twin.macro'
 
 const Stats = ({ children }: { children: ReactNode[] }) => {

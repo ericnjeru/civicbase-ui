@@ -1,20 +1,22 @@
 import { useEffect } from 'react'
-import { RadioGroup } from '@headlessui/react'
-import tw from 'twin.macro'
-import { convertFromRaw, EditorState } from 'draft-js'
-import TextEditor from 'components/TextEditor'
 import { useForm, Controller, SubmitHandler, FormProvider } from 'react-hook-form'
-import RadioButton from 'components/Form/RadioButton'
-import Typography, { Headline } from 'components/Typography'
+
+import { RadioGroup } from '@headlessui/react'
 import { PrimaryButton } from 'components/Button'
-import { SurveyRespondent } from '../../../../types/survey'
+import RadioButton from 'components/Form/RadioButton'
+import TextEditor from 'components/TextEditor'
+import Typography, { Headline } from 'components/Typography'
 import { useMetadata } from 'contexts/metadata'
+import { convertFromRaw, EditorState } from 'draft-js'
 import useAsync from 'hooks/use-async'
-import { createAnswer } from 'services/survey'
-import FeedbackQuestions from '../FeedbackQuestions'
 import RespondentLayout from 'layouts/Respondent'
+import { createAnswer } from 'services/survey'
+import tw from 'twin.macro'
 import { setSurveyTaken } from 'utilities/survey'
+
 import { AnswerRequest as Answer, Likert } from '../../../../types/answer'
+import { SurveyRespondent } from '../../../../types/survey'
+import FeedbackQuestions from '../FeedbackQuestions'
 
 type LikertAnswerForm = {
   feedback?: {

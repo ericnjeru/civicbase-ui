@@ -1,6 +1,6 @@
-import tw from 'twin.macro'
 import * as Table from 'components/Table'
 import { Question } from 'hooks/use-quadratic-animated'
+import tw from 'twin.macro'
 
 const QSummary = ({ questions, pool }: { questions: Question[]; pool: number[] }) => {
   return (

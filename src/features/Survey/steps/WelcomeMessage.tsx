@@ -1,10 +1,11 @@
-import { EditorState, convertFromRaw } from 'draft-js'
+import { PrimaryButton } from 'components/Button'
 import TextEditor from 'components/TextEditor'
+import { useMetadata } from 'contexts/metadata'
+import { EditorState, convertFromRaw } from 'draft-js'
 import 'draft-js/dist/Draft.css'
 import tw from 'twin.macro'
-import { PrimaryButton } from 'components/Button'
+
 import { SurveyRespondent } from '../../../../types/survey'
-import { useMetadata } from 'contexts/metadata'
 
 const WelcomeMessage = ({ survey, handleNext }: { survey: SurveyRespondent; handleNext: () => void }) => {
   const { onStart } = useMetadata()

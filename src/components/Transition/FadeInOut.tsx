@@ -1,6 +1,7 @@
-import tw, { styled } from 'twin.macro'
-import { Transition } from '@headlessui/react'
 import { ReactNode } from 'react'
+
+import { Transition } from '@headlessui/react'
+import tw, { styled } from 'twin.macro'
 
 const StyledTransition = styled(Transition)`
   &.enter {

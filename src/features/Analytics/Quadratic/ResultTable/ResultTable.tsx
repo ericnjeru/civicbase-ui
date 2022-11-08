@@ -1,7 +1,8 @@
-import tw from 'twin.macro'
 import * as Table from 'components/Table'
-import DownloadAnswers from '../DownloadAnswers'
 import { useAnalytics } from 'contexts/analytics'
+import tw from 'twin.macro'
+
+import DownloadAnswers from '../DownloadAnswers'
 
 const ResultTable = () => {
   const { results, mode } = useAnalytics()

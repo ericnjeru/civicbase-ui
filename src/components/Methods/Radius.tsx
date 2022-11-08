@@ -1,6 +1,7 @@
+import { useFormContext } from 'react-hook-form'
+
 import Button from 'components/Button'
 import { Display } from 'components/Vote'
-import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
 
 const RadiusMethod = ({ onSelect }: { onSelect: () => void }) => {

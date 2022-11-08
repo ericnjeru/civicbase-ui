@@ -1,8 +1,9 @@
 import { Router } from '@reach/router'
-import tw from 'twin.macro'
+import NotFound from 'pages/404'
 import Login from 'pages/login'
 import Respondent from 'pages/survey/Respondent'
-import NotFound from 'pages/404'
+import tw from 'twin.macro'
+
 import { UNAUTHENTICATED_ROUTES } from './routes'
 
 const UnauthenticatedApp = () => {

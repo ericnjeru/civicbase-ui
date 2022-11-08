@@ -1,8 +1,8 @@
-import tw from 'twin.macro'
-import { EditorState, convertFromRaw } from 'draft-js'
 import * as Table from 'components/Table'
 import Typography from 'components/Typography'
 import { useAnalytics } from 'contexts/analytics'
+import { EditorState, convertFromRaw } from 'draft-js'
+import tw from 'twin.macro'
 
 const ResultTable = () => {
   const { survey, results } = useAnalytics()

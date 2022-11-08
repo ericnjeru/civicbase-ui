@@ -2,6 +2,7 @@ import Typography, { Headline, Title } from 'components/Typography'
 import { useAnalytics } from 'contexts/analytics'
 import tw from 'twin.macro'
 import { surveyMethods } from 'utilities/constants'
+
 import Mode from './Mode'
 import Skeleton from './Skeleton'
 

@@ -1,11 +1,12 @@
-import tw from 'twin.macro'
 import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
+
 import { PrimaryButton, SecondaryButton, IconButton, PrimaryTextButton } from 'components/Button'
-import { useTheme } from 'contexts/theme'
-import { useAuth } from 'contexts/auth'
-import Tooltip from 'components/Tooltip'
-import useAsync from 'hooks/use-async'
 import Spinner from 'components/Spinner'
+import Tooltip from 'components/Tooltip'
+import { useAuth } from 'contexts/auth'
+import { useTheme } from 'contexts/theme'
+import useAsync from 'hooks/use-async'
+import tw from 'twin.macro'
 
 const Header = () => {
   const { run, isLoading } = useAsync()

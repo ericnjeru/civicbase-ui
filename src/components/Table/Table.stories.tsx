@@ -1,7 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import tw from 'twin.macro'
-import * as Table from './index'
+
 import SkeletonTable from './Skeleton'
+import * as Table from './index'
 
 export default {
   title: 'Elements/Table',
