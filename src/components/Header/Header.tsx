@@ -1,5 +1,6 @@
 import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
 
+import { navigate } from '@reach/router'
 import { PrimaryButton, SecondaryButton, IconButton, PrimaryTextButton } from 'components/Button'
 import Spinner from 'components/Spinner'
 import Tooltip from 'components/Tooltip'
@@ -27,11 +28,15 @@ const Header = () => {
     }
   }
 
+  const handleRedirect = () => {
+    navigate('/')
+  }
+
   return (
     <div css={tw`flex items-center w-full fixed z-50 bg-white`}>
       <div css={[tw`w-full overflow-hidden flex items-center px-6`, user ? tw`justify-between` : tw`justify-end`]}>
         {user && (
-          <PrimaryTextButton as="a" href="/" css={tw`focus:(outline-none ring-0)`}>
+          <PrimaryTextButton onClick={handleRedirect} css={tw`focus:(outline-none ring-0)`}>
             <img src={`${process.env.PUBLIC_URL}/civicbase_logo.svg`} width={250} alt="logo" />
           </PrimaryTextButton>
         )}
