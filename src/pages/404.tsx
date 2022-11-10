@@ -1,8 +1,9 @@
-import tw from 'twin.macro'
-import { RouteComponentProps } from '@reach/router'
 import { FC } from 'react'
+
+import { RouteComponentProps } from '@reach/router'
 import { PrimaryButton } from 'components/Button'
 import Typography, { Title } from 'components/Typography'
+import tw from 'twin.macro'
 
 const NotFound: FC<RouteComponentProps> = () => {
   return (

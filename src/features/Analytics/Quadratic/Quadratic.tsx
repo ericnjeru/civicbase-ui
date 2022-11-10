@@ -1,9 +1,10 @@
-import tw from 'twin.macro'
-import ResultTable from './ResultTable'
-import NoResult from '../NoResult'
-import FeedbackTable from '../FeedbackTable'
 import { useAnalytics } from 'contexts/analytics'
+import tw from 'twin.macro'
 import { toCamelCase } from 'utilities/util'
+
+import FeedbackTable from '../FeedbackTable'
+import NoResult from '../NoResult'
+import ResultTable from './ResultTable'
 
 const QuadraticAnalytics = () => {
   const { hasAnswer, survey, mode } = useAnalytics()

@@ -1,6 +1,7 @@
+import { ReactNode } from 'react'
+
 import { Popover as HeadlessPopover } from '@headlessui/react'
 import { FadeInOut } from 'components/Transition'
-import { ReactNode } from 'react'
 import tw from 'twin.macro'
 
 const Popover = ({ children, action }: { children: ReactNode; action: ReactNode }) => {

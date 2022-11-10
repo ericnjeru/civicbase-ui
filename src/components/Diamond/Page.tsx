@@ -1,11 +1,13 @@
 import { FC } from 'react'
+
 import { RouteComponentProps } from '@reach/router'
 import Container from 'components/Container'
-import Pool from './Pool'
-import tw from 'twin.macro'
-import Diamond from './Diamond'
-import QSummary from './QSummary'
 import useQuadraticAnimated from 'hooks/use-quadratic-animated'
+import tw from 'twin.macro'
+
+import Diamond from './Diamond'
+import Pool from './Pool'
+import QSummary from './QSummary'
 
 const survey: any = {
   setup: { credits: 100 },

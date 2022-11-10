@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react'
-import tw, { theme } from 'twin.macro'
 import { useForm, FormProvider } from 'react-hook-form'
-import Label from 'components/Form/Label'
-import Typography from 'components/Typography'
-import { IconButton, PrimaryButton } from 'components/Button'
+import { AiOutlineMail } from 'react-icons/ai'
+import { BsEyeSlash, BsEye } from 'react-icons/bs'
+import { RiLockPasswordLine } from 'react-icons/ri'
+
 import { zodResolver } from '@hookform/resolvers/zod'
-import { validationSchema } from './validation'
+import { IconButton, PrimaryButton } from 'components/Button'
+import { PrimaryTextButton } from 'components/Button'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import { CustomInput } from 'components/Form/Input'
+import Label from 'components/Form/Label'
+import Spinner from 'components/Spinner'
+import Typography from 'components/Typography'
 import { useAuth } from 'contexts/auth'
 import useAsync from 'hooks/use-async'
-import { PrimaryTextButton } from 'components/Button'
-import Spinner from 'components/Spinner'
-import { CustomInput } from 'components/Form/Input'
-import { AiOutlineMail } from 'react-icons/ai'
-import { RiLockPasswordLine } from 'react-icons/ri'
-import { BsEyeSlash, BsEye } from 'react-icons/bs'
+import tw, { theme } from 'twin.macro'
+
+import { validationSchema } from './validation'
 
 interface LoginFormValues {
   email: string

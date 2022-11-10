@@ -1,35 +1,20 @@
-import { useEffect, useCallback } from 'react'
-import useAsync from 'hooks/use-async'
-import { IconButton } from 'components/Button'
 import { FiPower } from 'react-icons/fi'
-import { finish } from 'services/survey'
-import { useSurveys, SurveyActionKind } from 'contexts/surveys'
+
+import { IconButton } from 'components/Button'
 import Tooltip from 'components/Tooltip'
+import useAsync from 'hooks/use-async'
+import { finish } from 'services/survey'
 
 const FinishSurvey = ({ surveyId }: { surveyId: string }) => {
-  const { dispatch, isLoading } = useSurveys()
-  const { run, isError, isSuccess } = useAsync()
+  const { run, isLoading } = useAsync()
 
-  const setLoading = useCallback(
-    (isLoading: boolean) => dispatch({ type: SurveyActionKind.LOADING, payload: { id: surveyId, isLoading } }),
-    [dispatch, surveyId],
-  )
-
-  useEffect(() => {
-    if (isError || isSuccess) {
-      setLoading(false)
-      dispatch({ type: SurveyActionKind.UPDATE, payload: { id: surveyId, status: 'finished' } })
-    }
-  }, [isError, isSuccess, setLoading, surveyId, dispatch])
-
-  const handlePublish = () => {
-    setLoading(true)
+  const handleFinish = () => {
     run(finish(surveyId))
   }
 
   return (
     <Tooltip label="Finish" popperProps={{ delayShow: 500 }}>
-      <IconButton onClick={handlePublish} disabled={isLoading}>
+      <IconButton onClick={handleFinish} disabled={isLoading}>
         <FiPower size={28} />
       </IconButton>
     </Tooltip>

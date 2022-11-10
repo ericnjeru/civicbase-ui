@@ -1,8 +1,10 @@
 import { FC, memo } from 'react'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import FocusLock from 'react-focus-lock'
 import usePortal from 'react-useportal'
+
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import useUnmount from 'hooks/use-unmount'
+
 import Modal from './Modal'
 import { ModalProps } from './types'
 

@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
-import tw from 'twin.macro'
+
 import Typography, { Subtitle } from 'components/Typography'
+import tw from 'twin.macro'
 
 const Stat = ({ title, metric, children }: { title: string; metric?: number | string; children?: ReactNode }) => {
   return (

@@ -1,9 +1,10 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { LocationProvider, createHistory } from '@reach/router'
-import tw from 'twin.macro'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { survey } from 'test/sample'
-import SurveyCard from './SurveyCard'
+import tw from 'twin.macro'
+
 import SkeletonCard from './Skeleton'
+import SurveyCard from './SurveyCard'
 
 export default {
   title: 'Components/SurveyCard',

@@ -1,10 +1,4 @@
 import { useState } from 'react'
-import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js'
-import Editor from '@draft-js-plugins/editor'
-import createImagePlugin from '@draft-js-plugins/image'
-import 'draft-js/dist/Draft.css'
-import tw, { css } from 'twin.macro'
-import { IconButton } from 'components/Button'
 import {
   FaBold,
   FaItalic,
@@ -16,6 +10,14 @@ import {
   FaAlignRight,
   FaImage,
 } from 'react-icons/fa'
+
+import Editor from '@draft-js-plugins/editor'
+import createImagePlugin from '@draft-js-plugins/image'
+import { IconButton } from 'components/Button'
+import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js'
+import 'draft-js/dist/Draft.css'
+import tw, { css } from 'twin.macro'
+
 import ImageInput from './imageInput'
 
 const TextEditor = ({

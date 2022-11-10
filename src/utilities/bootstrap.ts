@@ -1,4 +1,5 @@
 import * as auth from 'services/auth'
+
 import { CivicbaseUser } from '../../types/user'
 import storage from './storage'
 

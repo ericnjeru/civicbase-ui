@@ -1,29 +1,30 @@
 import { Router } from '@reach/router'
-import Dashboard from 'pages/dashboard'
-import Analytics from 'pages/analytics/Analytics'
-import CreateSurvey from 'pages/survey/Create'
-import EditSurvey from 'pages/survey/Edit'
-import FAQs from 'pages/faqs'
-import { AUTHENTICATED_ROUTES } from './routes'
+import { useInterpret } from '@xstate/react'
+import { DashboardProvider } from 'contexts/dashboard'
+import { dashboardMachine } from 'machines'
 import NotFound from 'pages/404'
-import { SurveysProvider } from 'contexts/surveys'
+import Analytics from 'pages/analytics/Analytics'
+import Dashboard from 'pages/dashboard'
 import ResearcherSurvey from 'pages/survey/Respondent'
+import SurveyForm from 'pages/survey/SurveyForm'
 import tw from 'twin.macro'
 
+import { AUTHENTICATED_ROUTES } from './routes'
+
 const AuthenticatedApp = () => {
+  const dashboardService = useInterpret(dashboardMachine)
+
   return (
     <div css={tw`container mx-auto pt-36 pb-12 h-full`}>
-      <SurveysProvider>
+      <DashboardProvider value={dashboardService}>
         <Router css={tw`h-full`}>
           <Dashboard path={AUTHENTICATED_ROUTES.DASHBOARD} />
           <Analytics path={AUTHENTICATED_ROUTES.ANALYTICS} />
-          <CreateSurvey path={AUTHENTICATED_ROUTES.CREATE_SURVEY} />
-          <EditSurvey path={AUTHENTICATED_ROUTES.EDIT_SURVEY} />
+          <SurveyForm path={AUTHENTICATED_ROUTES.SURVEY_STEP_FORM} />
           <ResearcherSurvey path={AUTHENTICATED_ROUTES.SURVEY} preview={true} />
-          <FAQs path={AUTHENTICATED_ROUTES.FAQ} />
           <NotFound default />
         </Router>
-      </SurveysProvider>
+      </DashboardProvider>
     </div>
   )
 }

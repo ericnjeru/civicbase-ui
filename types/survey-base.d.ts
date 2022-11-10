@@ -89,11 +89,6 @@ type AnalyticStats = {
   }
 }
 
-export type Analytics = {
-  pilot: AnalyticStats
-  published: AnalyticStats
-}
-
 // TODO: This is the quadratic, being use inside  qudratic use hook. Sort it out
 
 // TODO: rename:

@@ -1,6 +1,6 @@
-import { EditorState, convertFromRaw } from 'draft-js'
 import * as Table from 'components/Table'
 import { useAnalytics } from 'contexts/analytics'
+import { EditorState, convertFromRaw } from 'draft-js'
 
 const ResultTable = () => {
   const { survey } = useAnalytics()

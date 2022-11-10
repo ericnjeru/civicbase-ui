@@ -1,10 +1,11 @@
-import { Menu } from '@headlessui/react'
 import { ReactNode } from 'react'
-import tw from 'twin.macro'
+
+import { Menu } from '@headlessui/react'
 import { FadeInOut } from 'components/Transition'
 import Typography from 'components/Typography'
 import { useAuth } from 'contexts/auth'
 import useAsync from 'hooks/use-async'
+import tw from 'twin.macro'
 
 export default function Example({ children }: { children: ReactNode }) {
   const { run, isLoading } = useAsync()

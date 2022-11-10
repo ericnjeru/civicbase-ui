@@ -1,12 +1,14 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
+
 import App from 'components/App'
-import reportWebVitals from './reportWebVitals'
-import GlobalStyles from './styles/GlobalStyles'
 // import { ThemeProvider } from 'contexts/theme'
 import { AuthProvider } from 'contexts/auth'
 import { BannerProvider } from 'contexts/banner'
+
+import reportWebVitals from './reportWebVitals'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import GlobalStyles from './styles/GlobalStyles'
 
 ReactDOM.render(
   <React.StrictMode>

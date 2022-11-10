@@ -1,11 +1,13 @@
-import useAsync from 'hooks/use-async'
 import { createContext, ReactElement, useCallback, useContext, useLayoutEffect, useMemo } from 'react'
-import bootstrapAppData from 'utilities/bootstrap'
+
+import useAsync from 'hooks/use-async'
 import * as authClient from 'services/auth'
+import bootstrapAppData from 'utilities/bootstrap'
 import storage from 'utilities/storage'
-import { CivicbaseUser } from '../../types/user.d'
-import { LoginReponse, SignupResponse, LogoutResponse, ResetResponse } from '../../types/response.d'
+
 import { LoginRequest, SignupRequest, ResetRequest } from '../../types/request.d'
+import { LoginReponse, SignupResponse, LogoutResponse, ResetResponse } from '../../types/response.d'
+import { CivicbaseUser } from '../../types/user.d'
 
 interface Authentication {
   user?: CivicbaseUser

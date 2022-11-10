@@ -1,6 +1,7 @@
+import { createElement } from 'react'
+
 import { TertiaryButton } from 'components/Button'
 import { useBanner } from 'contexts/banner'
-import { createElement } from 'react'
 import tw from 'twin.macro'
 
 const Banner = () => {

@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import tw from 'twin.macro'
+
 import Tooltip from './Tooltip'
 
 export default {

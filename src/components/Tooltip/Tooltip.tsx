@@ -1,5 +1,6 @@
 import { ReactNode, cloneElement, isValidElement } from 'react'
 import { Config, usePopperTooltip } from 'react-popper-tooltip'
+
 import Tooltip from './styles'
 
 const ToolTip: React.FC<{ label: ReactNode; variant?: 'dark' | 'light'; popperProps?: Config }> = ({

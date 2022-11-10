@@ -1,17 +1,17 @@
-import { useCallback, useContext, useEffect } from 'react'
-import tw, { theme } from 'twin.macro'
+import { useContext } from 'react'
 import { AiOutlineDelete, AiOutlineCopy } from 'react-icons/ai'
 import { FaRegClone } from 'react-icons/fa'
-import copy from 'copy-to-clipboard'
+import { HiInformationCircle } from 'react-icons/hi'
+
 import { IconButton, SecondaryButton } from 'components/Button'
+import Modal, { ModalContext } from 'components/Modal'
+import Tooltip from 'components/Tooltip'
+import Typography from 'components/Typography'
+import { useToast } from 'contexts/toast'
+import copy from 'copy-to-clipboard'
 import useAsync from 'hooks/use-async'
 import { deleteSurvey, clone } from 'services/survey'
-import { useSurveys, SurveyActionKind } from 'contexts/surveys'
-import { useToast } from 'contexts/toast'
-import Modal, { ModalContext } from 'components/Modal'
-import Typography from 'components/Typography'
-import { HiInformationCircle } from 'react-icons/hi'
-import Tooltip from 'components/Tooltip'
+import tw, { theme } from 'twin.macro'
 
 const Action = ({ isLoading }: { isLoading: boolean }) => {
   const { openModal } = useContext(ModalContext)
@@ -26,14 +26,8 @@ const Action = ({ isLoading }: { isLoading: boolean }) => {
 }
 
 const InlineMenu = ({ surveyId }: { surveyId: string }) => {
-  const { dispatch } = useSurveys()
-  const { run, data, isLoading } = useAsync()
+  const { run, isLoading } = useAsync()
   const { trigger } = useToast()
-
-  const setLoading = useCallback(
-    (isLoading: boolean) => dispatch({ type: SurveyActionKind.LOADING, payload: { id: surveyId, isLoading } }),
-    [dispatch, surveyId],
-  )
 
   const handleCopy = () => {
     copy(`${window.location.href}survey/${surveyId}`)
@@ -41,29 +35,12 @@ const InlineMenu = ({ surveyId }: { surveyId: string }) => {
   }
 
   const handleDelete = () => {
-    setLoading(true)
     run(deleteSurvey(surveyId))
   }
 
   const handleClone = () => {
-    setLoading(true)
     run(clone(surveyId))
   }
-
-  // CLONE
-  useEffect(() => {
-    if (data && data.id) {
-      dispatch({ type: SurveyActionKind.ADD, payload: data })
-      setLoading(false)
-    }
-  }, [data, dispatch, setLoading])
-
-  useEffect(() => {
-    if (data && data.message === 'Deleted.') {
-      dispatch({ type: SurveyActionKind.DELETE, payload: { id: surveyId } })
-      setLoading(false)
-    }
-  }, [surveyId, data, dispatch, setLoading])
 
   return (
     <div css={tw`justify-around w-full flex`}>

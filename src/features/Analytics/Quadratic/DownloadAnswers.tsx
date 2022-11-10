@@ -1,9 +1,10 @@
-import tw, { theme } from 'twin.macro'
-import { BsDownload } from 'react-icons/bs'
 import { CSVLink } from 'react-csv'
+import { BsDownload } from 'react-icons/bs'
+
 import { PrimaryButton } from 'components/Button'
 import Tooltip from 'components/Tooltip'
 import { useAnalytics } from 'contexts/analytics'
+import tw, { theme } from 'twin.macro'
 
 const DownloadAnswers = () => {
   const { survey, csv, mode } = useAnalytics()

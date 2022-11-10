@@ -1,14 +1,16 @@
 // import { Meta } from '@storybook/react'
-import { IconButton } from 'components/Button'
+import { useForm, FormProvider } from 'react-hook-form'
 import { AiOutlineClose } from 'react-icons/ai'
+
+import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { IconButton } from 'components/Button'
 // import Input from './Input'
 import Label from 'components/Form/Label'
-// import tw from 'twin.macro'
-import CustomInput from './CustomInput'
-import { useForm, FormProvider } from 'react-hook-form'
-import { ComponentMeta, ComponentStory } from '@storybook/react'
 // import { useState } from 'react'
 import tw from 'twin.macro'
+
+// import tw from 'twin.macro'
+import CustomInput from './CustomInput'
 import Input from './Input'
 
 export default {

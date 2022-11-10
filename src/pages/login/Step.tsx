@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
-import tw from 'twin.macro'
+
 import Card from 'components/Card'
+import tw from 'twin.macro'
 
 const Step = ({ children, isActive, ...props }: { children: ReactElement; isActive: boolean }) => {
   return (

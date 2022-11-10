@@ -1,4 +1,5 @@
 import { FiX } from 'react-icons/fi'
+
 import tw, { styled } from 'twin.macro'
 
 const Close = styled.button.attrs({ type: 'button', tabIndex: -1, children: <FiX size={20} /> })(() => [

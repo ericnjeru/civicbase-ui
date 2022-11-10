@@ -1,5 +1,7 @@
 import { ReactNode, useImperativeHandle, forwardRef, ForwardedRef } from 'react'
+
 import { isFunction } from 'utilities/isFunction'
+
 import Close from './Close'
 import ModalContext from './Context'
 import { ModalContextType, ModalProps } from './types.d'

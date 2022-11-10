@@ -1,7 +1,8 @@
 import tw, { styled } from 'twin.macro'
-import * as styles from './styles'
+
 import Subtitle from './Subtitle'
 import Typography from './Typography'
+import * as styles from './styles'
 
 export default styled(Typography).attrs<{ as?: string }>(({ as }) => ({ as: as ?? 'h1' }))`
   ${styles.title}

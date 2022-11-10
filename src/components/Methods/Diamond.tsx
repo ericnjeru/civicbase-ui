@@ -1,7 +1,8 @@
+import { useFormContext } from 'react-hook-form'
+
 import Button from 'components/Button'
 import { DiamondSVG } from 'components/Diamond/Diamond'
 import { Hint } from 'components/Typography'
-import { useFormContext } from 'react-hook-form'
 import tw from 'twin.macro'
 
 const DiamondMethod = ({ onSelect }: { onSelect: () => void }) => {

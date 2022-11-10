@@ -1,5 +1,5 @@
-import { SurveyDashboard } from '../../types/survey'
 import { AnswerResponse as Answer, Quadratic } from '../../types/answer'
+import { SurveyDashboard } from '../../types/survey'
 
 export const survey: SurveyDashboard = {
   quadratic: [
@@ -24,36 +24,6 @@ export const survey: SurveyDashboard = {
       id: 'Q5',
     },
   ],
-  analytics: {
-    pilot: {
-      previous: {
-        respondents: 104,
-        access: 354,
-      },
-      current: {
-        respondents: 121,
-        access: 406,
-      },
-      history: {
-        access: 342,
-        respondents: 97,
-      },
-    },
-    published: {
-      previous: {
-        respondents: 1040,
-        access: 3540,
-      },
-      current: {
-        respondents: 1210,
-        access: 4060,
-      },
-      history: {
-        access: 3420,
-        respondents: 970,
-      },
-    },
-  },
   status: 'published',
   uid: '5rePA4xTN9V8aV5dAJ5aTaHoIFA3',
   setup: {
@@ -68,6 +38,7 @@ export const survey: SurveyDashboard = {
     thumbsUp: 'Agree',
   },
   id: 'FXvKAFKaYnFKZzKkWg0c',
+  createdAt: '2022-07-07T22:33:43.425Z',
 }
 
 export const answers: Answer<Quadratic>[] = [

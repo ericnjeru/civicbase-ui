@@ -1,9 +1,11 @@
 import React from 'react'
+
 import { Meta } from '@storybook/react'
 import tw from 'twin.macro'
-import Tabs from './Tabs'
+
 import TabItem from './TabItem'
 import TabPanel from './TabPanel'
+import Tabs from './Tabs'
 
 export default {
   title: 'Elements/Tabs',

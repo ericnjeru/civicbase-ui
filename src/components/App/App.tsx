@@ -1,11 +1,12 @@
 import { lazy } from 'react'
-import tw from 'twin.macro'
-import Header from 'components/Header'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useAuth } from 'contexts/auth'
+
 import Banner from 'components/Banner'
+import Header from 'components/Header'
 import Toast from 'components/Toast'
+import { useAuth } from 'contexts/auth'
 import { ToastProvider } from 'contexts/toast'
+import tw from 'twin.macro'
 
 const AuthenticatedApp = lazy(() => import(/* webpackChunkName: "AuthenticatedApp" */ './AuthenticatedApp'))
 const UnauthenticatedApp = lazy(() => import(/* webpackChunkName: "UnauthenticatedApp" */ './UnauthenticatedApp'))

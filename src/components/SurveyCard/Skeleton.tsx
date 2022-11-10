@@ -1,5 +1,6 @@
 import Card from 'components/Card'
 import tw, { styled } from 'twin.macro'
+
 import Ping from './Ping'
 
 const TextLine = styled.div(() => tw`bg-gray-200 rounded-full animate-pulse`)

@@ -1,6 +1,7 @@
 import Button from 'components/Button'
 import Typography from 'components/Typography'
 import tw from 'twin.macro'
+
 import { circles } from './utils'
 
 const PoolSVG = () => {

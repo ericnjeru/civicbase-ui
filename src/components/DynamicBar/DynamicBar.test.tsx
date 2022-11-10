@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+
 import DynamicBar from './DynamicBar'
 
 describe('DynamicBar', () => {

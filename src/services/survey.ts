@@ -1,6 +1,6 @@
-import client from './api'
-import { SurveyRequest } from '../../types/survey-request'
 import { AnswerRequest } from '../../types/answer'
+import { SurveyRequest } from '../../types/survey-request'
+import client from './api'
 
 export const createSurvey = (form: SurveyRequest) => client('survey', { body: form })
 export const editSurvey = (form: SurveyRequest, surveyId: string) =>

@@ -1,20 +1,23 @@
-import tw, { theme } from 'twin.macro'
 import { useEffect, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
-import Label from 'components/Form/Label'
-import { IconButton, PrimaryButton } from 'components/Button'
+import { AiOutlineUser, AiOutlineMail } from 'react-icons/ai'
+import { BsEyeSlash, BsEye } from 'react-icons/bs'
+import { RiLockPasswordLine } from 'react-icons/ri'
+
 import { zodResolver } from '@hookform/resolvers/zod'
-import { validationSchema } from './validation'
-import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import { IconButton, PrimaryButton } from 'components/Button'
 import Checkbox from 'components/Form/Checkbox'
+import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import { CustomInput } from 'components/Form/Input'
+import Label from 'components/Form/Label'
+import Spinner from 'components/Spinner'
+import Typography from 'components/Typography'
 import { useAuth } from 'contexts/auth'
 import useAsync from 'hooks/use-async'
-import Spinner from 'components/Spinner'
-import { CustomInput } from 'components/Form/Input'
-import { AiOutlineUser, AiOutlineMail } from 'react-icons/ai'
-import { RiLockPasswordLine } from 'react-icons/ri'
-import { BsEyeSlash, BsEye } from 'react-icons/bs'
-import Typography from 'components/Typography'
+import tw, { theme } from 'twin.macro'
+
+import { validationSchema } from './validation'
+
 interface SignupFormValues {
   name: string
   email: string

@@ -1,7 +1,8 @@
-import Input from 'components/Form/Input'
-import Typography from 'components/Typography'
 import { KeyboardEvent, useEffect, useState } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
+
+import Input from 'components/Form/Input'
+import Typography from 'components/Typography'
 import tw from 'twin.macro'
 
 const EditText = ({ name, placeholder = '', disabled }: { name: string; placeholder?: string; disabled?: boolean }) => {

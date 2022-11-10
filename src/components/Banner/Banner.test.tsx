@@ -1,6 +1,7 @@
 import { render, fireEvent } from '@testing-library/react'
-import Banner from './Banner'
 import { BannerProvider } from 'contexts/banner'
+
+import Banner from './Banner'
 
 describe('Banner', () => {
   const customComponent = ({

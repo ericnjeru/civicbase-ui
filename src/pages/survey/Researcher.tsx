@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { RouteComponentProps } from '@reach/router'
 
 const ResearcherSurvey: FC<RouteComponentProps> = () => {

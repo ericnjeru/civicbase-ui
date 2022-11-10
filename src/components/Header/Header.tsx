@@ -1,11 +1,13 @@
-import tw from 'twin.macro'
 import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi'
+
+import { navigate } from '@reach/router'
 import { PrimaryButton, SecondaryButton, IconButton, PrimaryTextButton } from 'components/Button'
-import { useTheme } from 'contexts/theme'
-import { useAuth } from 'contexts/auth'
-import Tooltip from 'components/Tooltip'
-import useAsync from 'hooks/use-async'
 import Spinner from 'components/Spinner'
+import Tooltip from 'components/Tooltip'
+import { useAuth } from 'contexts/auth'
+import { useTheme } from 'contexts/theme'
+import useAsync from 'hooks/use-async'
+import tw from 'twin.macro'
 
 const Header = () => {
   const { run, isLoading } = useAsync()
@@ -26,11 +28,15 @@ const Header = () => {
     }
   }
 
+  const handleRedirect = () => {
+    navigate('/')
+  }
+
   return (
     <div css={tw`flex items-center w-full fixed z-50 bg-white`}>
       <div css={[tw`w-full overflow-hidden flex items-center px-6`, user ? tw`justify-between` : tw`justify-end`]}>
         {user && (
-          <PrimaryTextButton as="a" href="/" css={tw`focus:(outline-none ring-0)`}>
+          <PrimaryTextButton onClick={handleRedirect} css={tw`focus:(outline-none ring-0)`}>
             <img src={`${process.env.PUBLIC_URL}/civicbase_logo.svg`} width={250} alt="logo" />
           </PrimaryTextButton>
         )}

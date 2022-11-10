@@ -1,7 +1,8 @@
+import { useAnalytics } from 'contexts/analytics'
 import tw from 'twin.macro'
+
 // import FeedbackTable from '../FeedbackTable'
 import ResultTable from './ResultTable'
-import { useAnalytics } from 'contexts/analytics'
 
 const LikertAnalytics = () => {
   const { survey } = useAnalytics()

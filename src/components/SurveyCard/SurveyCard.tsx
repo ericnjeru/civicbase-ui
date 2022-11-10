@@ -1,23 +1,22 @@
 import { useState } from 'react'
-import tw from 'twin.macro'
-import { useNavigate } from '@reach/router'
-// import { AiOutlineArrowUp } from 'react-icons/ai'
-import { FiEdit2, FiEye } from 'react-icons/fi'
 import { BiCog, BiArrowBack } from 'react-icons/bi'
+import { FiEdit2, FiEye } from 'react-icons/fi'
 import { IoAnalyticsOutline } from 'react-icons/io5'
-import Card from 'components/Card'
-import { Subtitle } from 'components/Typography'
+
+import { useNavigate } from '@reach/router'
 import Badge from 'components/Badge'
 import { IconButton } from 'components/Button'
+import Card from 'components/Card'
+import Tooltip from 'components/Tooltip'
+import { Subtitle } from 'components/Typography'
+import tw from 'twin.macro'
+
+import FinishSurvey from './FinishSurvey'
+import InlineMenu from './InlineMenu'
 import Ping from './Ping'
 import PublishSurvey from './PublishSurvey'
-import FinishSurvey from './FinishSurvey'
-import { SurveyState } from 'contexts/surveys'
-// import useSurveyAnalytics from 'hooks/use-survey-analytics'
-import InlineMenu from './InlineMenu'
-import Tooltip from 'components/Tooltip'
 
-const SurveyCard = ({ survey }: { survey: SurveyState }) => {
+const SurveyCard = ({ survey }: { survey: any }) => {
   const {
     id,
     status,
@@ -27,7 +26,6 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
   const navigate = useNavigate()
   const [openMenu, setOpenMenu] = useState(false)
   const [hovered, setHovered] = useState(false)
-  // const { respondentsIncrement } = useSurveyAnalytics(survey)
 
   const handleMouseLeave = () => {
     setHovered(false)
@@ -103,7 +101,7 @@ const SurveyCard = ({ survey }: { survey: SurveyState }) => {
           >
             {status !== 'finished' && (
               <Tooltip label="Edit" popperProps={{ delayShow: 500 }}>
-                <IconButton onClick={() => navigate('/edit-survey', { state: survey })}>
+                <IconButton onClick={() => navigate('/surveyForm', { state: survey })}>
                   <FiEdit2 size={28} />
                 </IconButton>
               </Tooltip>

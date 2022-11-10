@@ -1,10 +1,11 @@
-import tw from 'twin.macro'
+import Container from 'components/Container'
+import { Pool, QSummary, Diamond } from 'components/Diamond'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
-import { SurveyRespondent } from '../../../../types/survey'
 import 'draft-js/dist/Draft.css'
 import useQuadraticAnimated from 'hooks/use-quadratic-animated'
-import { Pool, QSummary, Diamond } from 'components/Diamond'
-import Container from 'components/Container'
+import tw from 'twin.macro'
+
+import { SurveyRespondent } from '../../../../types/survey'
 
 const DiamondRespondendPage = ({ survey }: { survey: SurveyRespondent; handleNext: () => void; preview?: boolean }) => {
   const { canVote, vote, reset, questions, availableCredits, pool } = useQuadraticAnimated(survey)

@@ -1,6 +1,7 @@
-import { Listbox } from '@headlessui/react'
 import { BsCheck } from 'react-icons/bs'
 import { HiOutlineSelector } from 'react-icons/hi'
+
+import { Listbox } from '@headlessui/react'
 import * as Transition from 'components/Transition'
 import tw, { theme } from 'twin.macro'
 

@@ -1,7 +1,8 @@
 import { Meta } from '@storybook/react'
-import Checkbox from './Checkbox'
 import Label from 'components/Form/Label'
 import tw from 'twin.macro'
+
+import Checkbox from './Checkbox'
 
 export default {
   title: 'Elements/Checkbox',

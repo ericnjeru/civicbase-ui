@@ -1,10 +1,11 @@
 import { useContext, MouseEvent } from 'react'
-import tw, { theme } from 'twin.macro'
 import { HiInformationCircle } from 'react-icons/hi'
 import { IoIosThumbsDown, IoIosThumbsUp } from 'react-icons/io'
+
 import { IconButton, PrimaryButton } from 'components/Button'
-import Typography, { Caption } from 'components/Typography'
 import Modal, { ModalContext } from 'components/Modal'
+import Typography, { Caption } from 'components/Typography'
+import tw, { theme } from 'twin.macro'
 
 export const Display = ({
   total,

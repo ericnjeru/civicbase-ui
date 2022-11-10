@@ -1,6 +1,8 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { useForm, FormProvider } from 'react-hook-form'
+
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 import tw from 'twin.macro'
+
 import EditText from './EditText'
 
 export default {

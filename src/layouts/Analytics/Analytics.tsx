@@ -1,10 +1,11 @@
 import { ReactElement, ReactNode } from 'react'
-import tw from 'twin.macro'
+
 import Container from 'components/Container'
+import * as Table from 'components/Table'
 import { useAnalytics } from 'contexts/analytics'
 import * as Analytics from 'features/Analytics'
+import tw from 'twin.macro'
 import { surveyMethods } from 'utilities/constants'
-import * as Table from 'components/Table'
 
 const AnalyticsLayout = ({
   header,
