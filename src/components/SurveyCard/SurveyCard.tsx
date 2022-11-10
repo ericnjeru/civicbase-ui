@@ -26,7 +26,6 @@ const SurveyCard = ({ survey }: { survey: any }) => {
   const navigate = useNavigate()
   const [openMenu, setOpenMenu] = useState(false)
   const [hovered, setHovered] = useState(false)
-  // const { respondentsIncrement } = useSurveyAnalytics(survey)
 
   const handleMouseLeave = () => {
     setHovered(false)

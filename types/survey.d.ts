@@ -1,4 +1,4 @@
-import { Analytics, Conjoint, Message, Status, Survey, Likert } from './survey-base'
+import { Conjoint, Message, Status, Survey, Likert } from './survey-base'
 
 export interface SurveyRespondent extends Survey {
   message?: Message
@@ -43,6 +43,5 @@ export interface SurveyDashboard extends Survey {
   }[]
   conjoint?: Conjoint[]
   likert?: Likert[]
-  analytics: Analytics
   createdAt: string
 }
