@@ -36,7 +36,7 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'jsx-a11y/anchor-is-valid': 'off',
         '@typescript-eslint/ban-types': 'off',
-        '@typescript-eslint/no-unused-vars': ['warn'],
+        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
         'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Includes .prettierrc.js rules
       },
     },
