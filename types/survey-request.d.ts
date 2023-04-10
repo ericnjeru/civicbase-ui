@@ -1,5 +1,5 @@
 // TODO: delete
-import { Setup, Language, Message, Features, Qualtrics, Conjoint, Likert } from './survey-base'
+import { Setup, Language, Message, Features, Qualtrics, Conjoint, Likert, Observations } from './survey-base'
 
 type Question = {
   id?: string
@@ -10,6 +10,7 @@ export interface SurveyRequest {
   language?: Language
   message?: Message
   quadratic?: Question[]
+  costs?: number[]
   conjoint?: Conjoint[]
   likert?: Likert[]
   features?: Features

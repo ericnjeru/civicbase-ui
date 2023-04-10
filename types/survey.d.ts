@@ -11,6 +11,7 @@ export interface SurveyRespondent extends Survey {
   }[]
   conjoint?: Conjoint[]
   likert?: Likert[]
+  costs?: number[]
 }
 
 export interface CreateSurvey extends Survey {
@@ -28,6 +29,7 @@ export interface EditSurvey extends Survey {
     id: string
     statement: string
   }[]
+  costs?: []
   conjoint?: Conjoint[]
   likert?: Likert[]
 }

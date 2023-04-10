@@ -1,4 +1,5 @@
 import { EditorState } from 'draft-js'
+
 import { Language, Features, Qualtrics, Methods, LikertItems } from './survey-base'
 
 export type SurveyForm = {
@@ -20,6 +21,7 @@ export type SurveyForm = {
     welcome: EditorState
     completion: EditorState
   }
+  costs?: number[]
   quadratic?: QuadraticQuestion[]
   conjoint?: ConjointQuestion[]
   likert?: LikertQuestions[]

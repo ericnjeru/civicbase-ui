@@ -27,9 +27,11 @@ const useSurvey = (surveyId?: string): UseSurvey => {
     const item = window.localStorage.getItem('__civicbase_taken_surveys__')
     if (item) {
       const takenSurveys: string[] = JSON.parse(item) || []
-      setTaken(() => !!takenSurveys.find((id) => id === surveyId))
+      const similarSurveys: string[] = takenSurveys.filter((id) => id === surveyId)
+      const totalObservations = survey?.features.totalObservations ? survey?.features.totalObservations : 1
+      setTaken(() => !(similarSurveys.length <= totalObservations))
     }
-  }, [surveyId, setTaken])
+  }, [surveyId, setTaken, survey?.features.totalObservations])
 
   const isSurveyTaken = () => !survey?.features.multipleAnswerFromSameSource && isTaken
 

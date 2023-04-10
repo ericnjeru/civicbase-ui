@@ -35,7 +35,6 @@ const SurveyForm: FC<RouteComponentProps> = ({ location }) => {
 
   const onSubmit: SubmitHandler<SurveyFormProps> = (values) => {
     const transformedSurvey = transform(values as SurveyFormProps)
-
     if (survey?.id) {
       run(editSurvey(transformedSurvey, survey.id))
     } else {

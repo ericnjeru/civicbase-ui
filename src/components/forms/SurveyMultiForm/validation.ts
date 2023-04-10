@@ -34,6 +34,11 @@ const validationSchema = z
           message: 'You should have at least 1 question',
         }),
     }),
+    costs: z.array(
+      z.number().refine((data) => !(data <= 0 || !data), {
+        message: 'Price must be a positive value greater than 0',
+      }),
+    ),
     language: z
       .object({
         jargon: z.string({ invalid_type_error: 'Preferred Language must be selected' }).optional(),
@@ -80,6 +85,7 @@ const validationSchema = z
         userIdentification: z.boolean().optional(),
         randomQuestions: z.boolean().optional(),
         multipleAnswerFromSameSource: z.boolean().optional(),
+        totalObservations: z.number().optional(),
       })
       .optional(),
     conjoint: z

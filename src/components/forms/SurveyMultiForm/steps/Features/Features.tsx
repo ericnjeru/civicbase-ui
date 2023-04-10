@@ -1,11 +1,19 @@
-import { useFormContext, Controller } from 'react-hook-form'
+import { useFormContext, Controller, useWatch } from 'react-hook-form'
 
+import FieldErrorMessage from 'components/Form/FieldErrorMessage'
+import Input from 'components/Form/Input'
+import Label from 'components/Form/Label'
 import Switch from 'components/Switch'
 import tw from 'twin.macro'
 
 const Features = () => {
-  const { control } = useFormContext()
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext()
 
+  const multipleAnswerFromSameSource = useWatch({ name: 'features.multipleAnswerFromSameSource' })
   return (
     <div>
       <div css={tw`grid grid-cols-1 gap-4`}>
@@ -48,6 +56,19 @@ const Features = () => {
             </Switch>
           )}
         />
+        {multipleAnswerFromSameSource && (
+          <div>
+            <Label>Total number of Observations *</Label>
+            <Input
+              {...register('features.totalObservations', { required: true, valueAsNumber: true })}
+              type="number"
+              step={1}
+              defaultValue={10}
+              error={!!errors.observations?.totalObservations}
+            />
+            <FieldErrorMessage name="features.totalObservations" errors={errors} />
+          </div>
+        )}
 
         {/* <Switch>Activate A/B test</Switch> */}
       </div>

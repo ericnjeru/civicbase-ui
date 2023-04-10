@@ -181,6 +181,7 @@ const QuadraticRespondent = ({
                         total={credits}
                         handleVote={(direction: number) => handleVote(direction, index)}
                         vote={question.vote}
+                        cost={question.cost}
                         creditSpent={question.credits}
                         canVoteUp={canVote(index, 1)}
                         canVoteDown={canVote(index, -1)}

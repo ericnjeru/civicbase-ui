@@ -8,10 +8,11 @@ import { SurveyRequest } from '../../../../types/survey-request'
 const transform = (request: SurveyForm): SurveyRequest => {
   const welcome = request.message?.welcome
   const completion = request.message?.completion
-  const { quadratic, likert, conjoint, setup, language, features } = request
+  const { quadratic, likert, conjoint, setup, language, features, costs } = request
 
   const transformedRequest: SurveyRequest = {
     setup: setup as Setup,
+    costs: costs,
   }
 
   if (!transformedRequest.setup.feedback?.active) {

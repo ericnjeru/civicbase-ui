@@ -13,15 +13,22 @@ function shuffle(array: any[]) {
   return array
 }
 
-export const createQuestions = (questions: QuadraticForSurvey[]) => {
-  const newQs = questions.map((question) => ({
-    ...question,
-    vote: 0,
-    credits: 0,
-    order: 0,
-    status: undefined,
-    animated: [],
-  }))
+export const createQuestions = (questions: QuadraticForSurvey[], costs: number[] = []) => {
+  const newQs = questions.map((question, qIndex) => {
+    const min = -10
+    const max = 10
+    const randomInt = Math.floor(Math.random() * (max - min + 1) + min)
+    const cost = costs.length > 0 ? costs[qIndex] : 1
+    return {
+      ...question,
+      vote: 0,
+      credits: randomInt * cost,
+      order: 0,
+      status: undefined,
+      animated: [],
+      cost: cost,
+    }
+  })
 
   return shuffle(newQs).map((question, index) => ({ ...question, order: index }))
 }
@@ -31,11 +38,13 @@ export const setSurveyTaken = (surveyId: string, status: 'pilot' | 'published' |
     const item = window.localStorage.getItem('__civicbase_taken_surveys__')
     const takenSurveys: string[] = item ? JSON.parse(item) : []
 
-    const isExist = takenSurveys.find((id) => id === surveyId)
+    // const isExist = takenSurveys.find((id) => id === surveyId)
 
-    if (!isExist) {
-      takenSurveys.push(surveyId)
-      window.localStorage.setItem('__civicbase_taken_surveys__', JSON.stringify(takenSurveys))
-    }
+    // if (!isExist) {
+    //   takenSurveys.push(surveyId)
+    //   window.localStorage.setItem('__civicbase_taken_surveys__', JSON.stringify(takenSurveys))
+    // }
+    takenSurveys.push(surveyId)
+    window.localStorage.setItem('__civicbase_taken_surveys__', JSON.stringify(takenSurveys))
   }
 }

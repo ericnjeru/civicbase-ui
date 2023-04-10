@@ -38,6 +38,7 @@ const getDefaultValues = (survey: EditSurvey): SurveyForm => {
           statement,
         }
       }),
+      costs: survey.costs,
     }
   } else {
     return {
@@ -50,6 +51,7 @@ const getDefaultValues = (survey: EditSurvey): SurveyForm => {
           questions: [],
         },
       },
+      costs: [],
       language: null,
       message: {
         welcome: EditorState.createEmpty(),

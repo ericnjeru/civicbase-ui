@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form'
 import { AiOutlineSetting } from 'react-icons/ai'
 import { BiMessageDetail } from 'react-icons/bi'
 import { BsQuestionSquare } from 'react-icons/bs'
+import { BsCurrencyDollar } from 'react-icons/bs'
 import { MdOutlineDashboardCustomize, MdOutlineLanguage } from 'react-icons/md'
 
 import { PrimaryButton } from 'components/Button'
@@ -18,6 +19,7 @@ import * as Forms from './steps'
 enum Steps {
   SETUP = 'setup',
   QUADRATIC = 'quadratic',
+  COSTS = 'costs',
   CONJOINT = 'conjoint',
   LIKERT = 'likert',
   LANGUAGE = 'language',
@@ -30,6 +32,7 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
   const [isFinal, setFinal] = useState(!!survey?.id)
   const {
     trigger,
+    getValues,
     watch,
     formState: { errors, isDirty },
   } = useFormContext()
@@ -59,7 +62,10 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
         setActive(Steps.LANGUAGE)
         break
       }
-
+      case Steps.COSTS: {
+        setActive(method?.toLowerCase())
+        break
+      }
       case Steps.LANGUAGE:
       case Steps.LIKERT:
       case Steps.CONJOINT: {
@@ -67,7 +73,7 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
         break
       }
       case Steps.MESSAGE: {
-        setActive(method?.toLowerCase())
+        setActive(Steps.COSTS)
         break
       }
       case Steps.CUSTOMIZE: {
@@ -80,6 +86,8 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
   }
 
   const handleNext = () => {
+    const values = getValues()
+    console.log(values)
     switch (active) {
       case Steps.SETUP: {
         trigger(Steps.SETUP).then((isValid) => {
@@ -109,6 +117,15 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
         trigger(active).then((isValid) => {
           if (isValid) {
             setFinal(true)
+            setActive(Steps.COSTS)
+          }
+        })
+        break
+      }
+
+      case Steps.COSTS: {
+        trigger(Steps.COSTS).then((isValid) => {
+          if (isValid) {
             setActive(Steps.MESSAGE)
           }
         })
@@ -149,6 +166,12 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
           <BsQuestionSquare size={20} />
           <Typography>Questions</Typography>
         </Tab>
+        {method === Steps.QUADRATIC && (
+          <Tab error={!!errors.costs} active={active === Steps.COSTS} onClick={() => handleSelection(Steps.COSTS)}>
+            <BsCurrencyDollar size={20} />
+            <Typography>Price Structures</Typography>
+          </Tab>
+        )}
         <Tab active={active === Steps.MESSAGE} onClick={() => handleSelection(Steps.MESSAGE)}>
           <BiMessageDetail size={20} />
           <Typography>Messages</Typography>
@@ -188,6 +211,7 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
 
         {active === Steps.LIKERT && <Forms.Likert isPublished={survey?.status === 'published'} />}
 
+        {active === Steps.COSTS && <Forms.Costs />}
         {active === Steps.MESSAGE && <Forms.Messages />}
 
         {active === Steps.CUSTOMIZE && <Forms.Features />}
