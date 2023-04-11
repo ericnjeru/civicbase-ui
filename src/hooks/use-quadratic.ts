@@ -8,6 +8,7 @@ type Question = {
   id: string
   statement: string
   vote: number
+  userVote: number
   cost: number
   credits: number
   order: number
@@ -28,8 +29,9 @@ const useQuadratic = (survey: SurveyRespondent) => {
 
     questions.forEach((q, i) => {
       const cost = q.cost ?? 1
+      const absVote = Math.abs(vote)
       if (i === index) {
-        simulatedCost += (q.vote + vote) * cost
+        simulatedCost += (q.userVote + absVote) * cost
       } else {
         simulatedCost += q.credits
       }
@@ -47,8 +49,14 @@ const useQuadratic = (survey: SurveyRespondent) => {
       setQuestions(
         questions.map((question, i) => {
           const cost = question.cost ?? 1
+          const absVote = Math.abs(vote)
           return index === i
-            ? { ...question, vote: question.vote + vote, credits: question.credits + (question.vote + vote) * cost }
+            ? {
+                ...question,
+                vote: question.vote + vote,
+                userVote: question.userVote + absVote,
+                credits: (question.userVote + absVote) * cost,
+              }
             : question
         }),
       )
@@ -66,9 +74,8 @@ const useQuadratic = (survey: SurveyRespondent) => {
   useEffect(() => {
     const totalCost = questions.reduce((cummulativeCost, question) => {
       const cost = question.cost ?? 1
-      return cummulativeCost + question.vote * cost
+      return cummulativeCost + question.userVote * cost
     }, 0)
-
     if (credits) {
       setAvailableCredits(credits - totalCost)
     }

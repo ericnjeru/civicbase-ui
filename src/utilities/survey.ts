@@ -21,8 +21,9 @@ export const createQuestions = (questions: QuadraticForSurvey[], costs: number[]
     const cost = costs.length > 0 ? costs[qIndex] : 1
     return {
       ...question,
-      vote: 0,
-      credits: randomInt * cost,
+      vote: randomInt,
+      userVote: 0,
+      credits: 0,
       order: 0,
       status: undefined,
       animated: [],

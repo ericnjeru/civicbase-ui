@@ -83,7 +83,7 @@ const Action = ({
 
   const handleVoteDown = (e: MouseEvent<HTMLElement>) => {
     if (canVoteDown) {
-      onVote(1)
+      onVote(-1)
     } else {
       openModal(e)
     }
