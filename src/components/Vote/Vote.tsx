@@ -55,7 +55,6 @@ const Action = ({
   canVoteDown,
   thumbsDown,
   vote,
-  cost,
   total,
   creditSpent,
   token,
@@ -66,7 +65,6 @@ const Action = ({
   canVoteDown: boolean
   thumbsDown?: string
   vote: number
-  cost: number
   total?: number
   creditSpent: number
   token: string
@@ -123,7 +121,6 @@ const Vote = ({
   thumbsDown,
   handleVote,
   vote,
-  cost,
   total,
   creditSpent,
   canVoteUp,
@@ -134,7 +131,6 @@ const Vote = ({
   thumbsDown?: string
   handleVote: (direction: number) => void
   vote: number
-  cost: number
   total?: number
   creditSpent: number
   canVoteUp: boolean
@@ -160,7 +156,6 @@ const Vote = ({
             canVoteDown={canVoteDown}
             thumbsDown={thumbsDown}
             vote={vote}
-            cost={cost}
             total={total}
             creditSpent={creditSpent}
             token={token}
