@@ -29,11 +29,11 @@ const useSurvey = (surveyId?: string): UseSurvey => {
       const takenSurveys: string[] = JSON.parse(item) || []
       const similarSurveys: string[] = takenSurveys.filter((id) => id === surveyId)
       const totalObservations = survey?.features.totalObservations ? survey?.features.totalObservations : 1
-      setTaken(() => !(similarSurveys.length <= totalObservations))
+      setTaken(() => !(similarSurveys.length < totalObservations))
     }
   }, [surveyId, setTaken, survey?.features.totalObservations])
 
-  const isSurveyTaken = () => !survey?.features.multipleAnswerFromSameSource && isTaken
+  const isSurveyTaken = () => survey?.features.multipleAnswerFromSameSource && isTaken
 
   return {
     isTaken: isSurveyTaken(),
