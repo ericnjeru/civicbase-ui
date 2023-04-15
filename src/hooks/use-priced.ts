@@ -94,8 +94,6 @@ const usePriced = (survey: SurveyRespondent, currentObservation: number) => {
     if (credits) {
       setAvailableCredits(credits - totalCost)
     }
-    console.log(currentObservation)
-    console.log(questions)
   }, [questions, credits, currentObservation])
 
   return { canVote, vote, questions, availableCredits }

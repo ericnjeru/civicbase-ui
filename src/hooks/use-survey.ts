@@ -29,14 +29,14 @@ const useSurvey = (surveyId?: string): UseSurvey => {
 
   useEffect(() => {
     const item = window.localStorage.getItem('__civicbase_taken_surveys__')
+    const totalObservations = survey?.features.totalObservations ? survey?.features.totalObservations : 1
     if (item) {
       const takenSurveys: string[] = JSON.parse(item) || []
       const similarSurveys: string[] = takenSurveys.filter((id) => id === surveyId)
-      const totalObservations = survey?.features.totalObservations ? survey?.features.totalObservations : 1
       setTaken(() => !(similarSurveys.length < totalObservations))
       setCurrentObservation(similarSurveys.length + 1)
-      setTotalObservations(totalObservations)
     }
+    setTotalObservations(totalObservations)
   }, [surveyId, setTaken, survey?.features.totalObservations])
 
   const isSurveyTaken = () => survey?.features.multipleAnswerFromSameSource && isTaken
