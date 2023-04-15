@@ -17,6 +17,10 @@ const Features = () => {
   const multipleAnswerFromSameSource = useWatch({ name: 'features.multipleAnswerFromSameSource' })
   const totalObservations = useWatch({ name: 'features.totalObservations' })
   const questions = watch('priced')
+  let method = watch('setup.method')
+  if (method) {
+    method = method.toLowerCase()
+  }
   return (
     <div>
       <div css={tw`grid grid-cols-1 gap-4`}>
@@ -59,7 +63,7 @@ const Features = () => {
             </Switch>
           )}
         />
-        {multipleAnswerFromSameSource && (
+        {multipleAnswerFromSameSource && method === 'priced' && (
           <div>
             <div>
               <Label>Total number of Observations *</Label>
@@ -86,7 +90,7 @@ const Features = () => {
                       </Label>
                       <FieldErrorMessage name={`features.priced.${index}`} errors={errors} />
                       <div css={tw`grid grid-cols-3 gap-3`}>
-                        {questions.map((_: any, qIndex: number) => (
+                        {questions?.map((_: any, qIndex: number) => (
                           <div key={`_${index}_${qIndex}`}>
                             <p>Q {qIndex + 1}*</p>
                             <Input
