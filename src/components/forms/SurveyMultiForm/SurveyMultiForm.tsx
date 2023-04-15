@@ -3,7 +3,6 @@ import { useFormContext } from 'react-hook-form'
 import { AiOutlineSetting } from 'react-icons/ai'
 import { BiMessageDetail } from 'react-icons/bi'
 import { BsQuestionSquare } from 'react-icons/bs'
-import { BsCurrencyDollar } from 'react-icons/bs'
 import { MdOutlineDashboardCustomize, MdOutlineLanguage } from 'react-icons/md'
 
 import { PrimaryButton } from 'components/Button'
@@ -19,7 +18,7 @@ import * as Forms from './steps'
 enum Steps {
   SETUP = 'setup',
   QUADRATIC = 'quadratic',
-  COSTS = 'costs',
+  Priced = 'priced',
   CONJOINT = 'conjoint',
   LIKERT = 'likert',
   LANGUAGE = 'language',
@@ -32,7 +31,6 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
   const [isFinal, setFinal] = useState(!!survey?.id)
   const {
     trigger,
-    getValues,
     watch,
     formState: { errors, isDirty },
   } = useFormContext()
@@ -58,12 +56,8 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
 
   const handlePrevious = () => {
     switch (active) {
-      case Steps.QUADRATIC: {
+      case Steps.QUADRATIC || Steps.Priced: {
         setActive(Steps.LANGUAGE)
-        break
-      }
-      case Steps.COSTS: {
-        setActive(method?.toLowerCase())
         break
       }
       case Steps.LANGUAGE:
@@ -73,7 +67,11 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
         break
       }
       case Steps.MESSAGE: {
-        setActive(Steps.COSTS)
+        if (method === Steps.QUADRATIC) {
+          setActive(Steps.QUADRATIC)
+        } else {
+          setActive(method?.toLowerCase())
+        }
         break
       }
       case Steps.CUSTOMIZE: {
@@ -86,13 +84,11 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
   }
 
   const handleNext = () => {
-    const values = getValues()
-    console.log(values)
     switch (active) {
       case Steps.SETUP: {
         trigger(Steps.SETUP).then((isValid) => {
           if (isValid) {
-            if (method === Steps.QUADRATIC) {
+            if (method === Steps.QUADRATIC || method === Steps.Priced) {
               setActive(Steps.LANGUAGE)
             } else {
               setActive(method?.toLowerCase())
@@ -105,27 +101,23 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
       case Steps.LANGUAGE: {
         trigger(Steps.LANGUAGE).then((isValid) => {
           if (isValid) {
-            setActive(Steps.QUADRATIC)
+            if (method === Steps.QUADRATIC) {
+              setActive(Steps.QUADRATIC)
+            } else {
+              setActive(method?.toLowerCase())
+            }
           }
         })
         break
       }
 
       case Steps.QUADRATIC:
+      case Steps.Priced:
       case Steps.LIKERT:
       case Steps.CONJOINT: {
         trigger(active).then((isValid) => {
           if (isValid) {
             setFinal(true)
-            setActive(Steps.COSTS)
-          }
-        })
-        break
-      }
-
-      case Steps.COSTS: {
-        trigger(Steps.COSTS).then((isValid) => {
-          if (isValid) {
             setActive(Steps.MESSAGE)
           }
         })
@@ -156,7 +148,7 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
           <AiOutlineSetting size={20} />
           <Typography>Setup</Typography>
         </Tab>
-        {method === Steps.QUADRATIC && (
+        {(method === Steps.QUADRATIC || method === Steps.Priced) && (
           <Tab active={active === Steps.LANGUAGE} onClick={() => handleSelection(Steps.LANGUAGE)}>
             <MdOutlineLanguage size={20} />
             <Typography>Language</Typography>
@@ -166,12 +158,6 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
           <BsQuestionSquare size={20} />
           <Typography>Questions</Typography>
         </Tab>
-        {method === Steps.QUADRATIC && (
-          <Tab error={!!errors.costs} active={active === Steps.COSTS} onClick={() => handleSelection(Steps.COSTS)}>
-            <BsCurrencyDollar size={20} />
-            <Typography>Price Structures</Typography>
-          </Tab>
-        )}
         <Tab active={active === Steps.MESSAGE} onClick={() => handleSelection(Steps.MESSAGE)}>
           <BiMessageDetail size={20} />
           <Typography>Messages</Typography>
@@ -211,7 +197,7 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
 
         {active === Steps.LIKERT && <Forms.Likert isPublished={survey?.status === 'published'} />}
 
-        {active === Steps.COSTS && <Forms.Costs />}
+        {active === Steps.Priced && <Forms.Priced isPublished={survey?.status === 'published'} />}
         {active === Steps.MESSAGE && <Forms.Messages />}
 
         {active === Steps.CUSTOMIZE && <Forms.Features />}

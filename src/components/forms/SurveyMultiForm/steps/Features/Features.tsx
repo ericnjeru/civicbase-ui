@@ -1,5 +1,6 @@
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 
+import Card from 'components/Card'
 import FieldErrorMessage from 'components/Form/FieldErrorMessage'
 import Input from 'components/Form/Input'
 import Label from 'components/Form/Label'
@@ -10,10 +11,12 @@ const Features = () => {
   const {
     control,
     register,
+    watch,
     formState: { errors },
   } = useFormContext()
-
   const multipleAnswerFromSameSource = useWatch({ name: 'features.multipleAnswerFromSameSource' })
+  const totalObservations = useWatch({ name: 'features.totalObservations' })
+  const questions = watch('priced')
   return (
     <div>
       <div css={tw`grid grid-cols-1 gap-4`}>
@@ -58,15 +61,51 @@ const Features = () => {
         />
         {multipleAnswerFromSameSource && (
           <div>
-            <Label>Total number of Observations *</Label>
-            <Input
-              {...register('features.totalObservations', { required: true, valueAsNumber: true })}
-              type="number"
-              step={1}
-              defaultValue={10}
-              error={!!errors.observations?.totalObservations}
-            />
-            <FieldErrorMessage name="features.totalObservations" errors={errors} />
+            <div>
+              <Label>Total number of Observations *</Label>
+              <Input
+                {...register('features.totalObservations', { required: true, valueAsNumber: true })}
+                type="number"
+                step={1}
+                defaultValue={10}
+                error={!!errors.features?.totalObservations}
+              />
+              <FieldErrorMessage name="features.totalObservations" errors={errors} />
+            </div>
+            <div css={tw`mt-10`}>
+              <Label>Price structure for each observation *</Label>
+            </div>
+            <div css={tw`grid grid-cols-3 gap-3`}>
+              {totalObservations > 0 &&
+                Array(totalObservations)
+                  .fill('Observation')
+                  ?.map((observation: string, index: number) => (
+                    <Card key={`_${index}`} css={tw`my-4`}>
+                      <Label>
+                        {observation} {index + 1}*
+                      </Label>
+                      <FieldErrorMessage name={`features.priced.${index}`} errors={errors} />
+                      <div css={tw`grid grid-cols-3 gap-3`}>
+                        {questions.map((_: any, qIndex: number) => (
+                          <div key={`_${index}_${qIndex}`}>
+                            <p>Q {qIndex + 1}*</p>
+                            <Input
+                              {...register(`features.priced.${index}.${qIndex}`, {
+                                required: true,
+                                valueAsNumber: true,
+                              })}
+                              type="number"
+                              step={1}
+                              defaultValue={10}
+                              error={errors.features && errors.features?.priced && !!errors.features?.priced[index]}
+                            />
+                            <FieldErrorMessage name={`features.priced.${index}.${qIndex}`} errors={errors} />
+                          </div>
+                        ))}
+                      </div>
+                    </Card>
+                  ))}
+            </div>
           </div>
         )}
 

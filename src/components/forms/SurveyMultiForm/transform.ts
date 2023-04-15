@@ -8,11 +8,10 @@ import { SurveyRequest } from '../../../../types/survey-request'
 const transform = (request: SurveyForm): SurveyRequest => {
   const welcome = request.message?.welcome
   const completion = request.message?.completion
-  const { quadratic, likert, conjoint, setup, language, features, costs } = request
+  const { quadratic, likert, conjoint, setup, language, features, priced } = request
 
   const transformedRequest: SurveyRequest = {
     setup: setup as Setup,
-    costs: costs,
   }
 
   if (!transformedRequest.setup.feedback?.active) {
@@ -33,7 +32,11 @@ const transform = (request: SurveyForm): SurveyRequest => {
   }
 
   if (features && Object.keys(features).length > 0) {
-    transformedRequest.features = features
+    const slicedPrices: [number[]] = features?.priced?.slice(0, features?.totalObservations) as [number[]]
+    transformedRequest.features = {
+      ...features,
+      priced: JSON.stringify(slicedPrices),
+    }
   }
 
   if ((likert && likert.length > 0) || (conjoint && conjoint.length > 0)) {
@@ -71,6 +74,25 @@ const transform = (request: SurveyForm): SurveyRequest => {
     }
 
     transformedRequest.quadratic = quadratic.map((question) => {
+      const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
+
+      return {
+        ...question,
+        statement,
+      }
+    })
+  }
+
+  if (priced && priced.length > 0 && setup.method === surveyMethods.Priced) {
+    if (!setup.methodPreference) {
+      transformedRequest.setup.methodPreference = 'radius'
+    }
+
+    if (language) {
+      transformedRequest.language = language
+    }
+
+    transformedRequest.priced = priced.map((question) => {
       const statement = JSON.stringify(convertToRaw(question.statement.getCurrentContent()))
 
       return {

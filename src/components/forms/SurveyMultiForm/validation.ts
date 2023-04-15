@@ -34,11 +34,18 @@ const validationSchema = z
           message: 'You should have at least 1 question',
         }),
     }),
-    costs: z.array(
-      z.number().refine((data) => !(data <= 0 || !data), {
-        message: 'Price must be a positive value greater than 0',
-      }),
-    ),
+    priced: z
+      .array(
+        z
+          .object({
+            statement: z.any(),
+            id: z.string().optional(),
+          })
+          .refine((data) => !(data.statement.getCurrentContent().getPlainText('\u0001') === ''), {
+            message: 'This question is required',
+          }),
+      )
+      .optional(),
     language: z
       .object({
         jargon: z.string({ invalid_type_error: 'Preferred Language must be selected' }).optional(),
@@ -85,7 +92,10 @@ const validationSchema = z
         userIdentification: z.boolean().optional(),
         randomQuestions: z.boolean().optional(),
         multipleAnswerFromSameSource: z.boolean().optional(),
-        totalObservations: z.number().optional(),
+        totalObservations: z.number().min(1, { message: 'Price must be a positive value greater than 0' }).optional(),
+        priced: z
+          .array(z.array(z.number().min(1, { message: 'Price must be a positive value greater than 0' })))
+          .optional(),
       })
       .optional(),
     conjoint: z
@@ -147,6 +157,15 @@ const validationSchema = z
       return true
     },
     { message: 'You should have at least 1 questions', path: ['conjoint'] },
+  )
+  .refine(
+    (data) => {
+      if (data.setup.method === surveyMethods.Priced && data.priced && data.priced.length === 0) {
+        return false
+      }
+      return true
+    },
+    { message: 'You should have at least 1 questions', path: ['priced'] },
   )
 
 export default validationSchema

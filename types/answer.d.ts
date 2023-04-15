@@ -40,6 +40,13 @@ type Quadratic = {
   order: number
 }
 
+type Priced = {
+  id: string
+  vote: number
+  credits: number
+  order: number
+}
+
 type Conjoint = {
   id: string
   attributes: ConjointAttributes[]

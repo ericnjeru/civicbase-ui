@@ -1,3 +1,4 @@
+import { Features } from './response'
 import { Conjoint, Message, Status, Survey, Likert } from './survey-base'
 
 export interface SurveyRespondent extends Survey {
@@ -11,12 +12,20 @@ export interface SurveyRespondent extends Survey {
   }[]
   conjoint?: Conjoint[]
   likert?: Likert[]
-  costs?: number[]
+  priced?: {
+    id: string
+    statement: string
+  }[]
+  features?: Features
 }
 
 export interface CreateSurvey extends Survey {
   message?: Message
   quadratic?: {
+    statement: string
+  }[]
+  priced?: {
+    id: string
     statement: string
   }[]
   conjoint?: Conjoint[]
@@ -29,7 +38,10 @@ export interface EditSurvey extends Survey {
     id: string
     statement: string
   }[]
-  costs?: []
+  priced?: {
+    id: string
+    statement: string
+  }[]
   conjoint?: Conjoint[]
   likert?: Likert[]
 }
@@ -43,7 +55,12 @@ export interface SurveyDashboard extends Survey {
     id: string
     statement: string
   }[]
+  priced?: {
+    id: string
+    statement: string
+  }[]
   conjoint?: Conjoint[]
   likert?: Likert[]
   createdAt: string
+  features?: Features
 }

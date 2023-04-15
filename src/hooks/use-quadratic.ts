@@ -8,8 +8,6 @@ type Question = {
   id: string
   statement: string
   vote: number
-  userVote: number
-  cost: number
   credits: number
   order: number
 }
@@ -18,7 +16,6 @@ const useQuadratic = (survey: SurveyRespondent) => {
   const {
     setup: { credits },
     quadratic,
-    costs,
   } = survey
 
   const [questions, setQuestions] = useState<Question[]>([])
@@ -28,10 +25,8 @@ const useQuadratic = (survey: SurveyRespondent) => {
     let simulatedCost = 0
 
     questions.forEach((q, i) => {
-      const cost = q.cost ?? 1
-      const absVote = Math.abs(vote)
       if (i === index) {
-        simulatedCost += (q.userVote + absVote) * cost
+        simulatedCost += Math.pow(q.vote + vote, 2)
       } else {
         simulatedCost += q.credits
       }
@@ -48,15 +43,8 @@ const useQuadratic = (survey: SurveyRespondent) => {
     if (canVote(index, vote)) {
       setQuestions(
         questions.map((question, i) => {
-          const cost = question.cost ?? 1
-          const absVote = Math.abs(vote)
           return index === i
-            ? {
-                ...question,
-                vote: question.vote + vote,
-                userVote: question.userVote + absVote,
-                credits: (question.userVote + absVote) * cost,
-              }
+            ? { ...question, vote: question.vote + vote, credits: Math.pow(question.vote + vote, 2) }
             : question
         }),
       )
@@ -66,16 +54,14 @@ const useQuadratic = (survey: SurveyRespondent) => {
   //   Setup questions for survey
   useEffect(() => {
     if (quadratic) {
-      setQuestions(createQuestions(quadratic, costs))
+      setQuestions(createQuestions(quadratic))
     }
-  }, [quadratic, costs])
+  }, [quadratic])
 
   //   Update available credits
   useEffect(() => {
-    const totalCost = questions.reduce((cummulativeCost, question) => {
-      const cost = question.cost ?? 1
-      return cummulativeCost + question.userVote * cost
-    }, 0)
+    const totalCost = questions.reduce((cost, question) => cost + Math.pow(question.vote, 2), 0)
+
     if (credits) {
       setAvailableCredits(credits - totalCost)
     }

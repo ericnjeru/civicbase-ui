@@ -21,7 +21,7 @@ export type SurveyForm = {
     welcome: EditorState
     completion: EditorState
   }
-  costs?: number[]
+  priced?: PricedQuestion[]
   quadratic?: QuadraticQuestion[]
   conjoint?: ConjointQuestion[]
   likert?: LikertQuestions[]
@@ -34,7 +34,10 @@ type QuadraticQuestion = {
   id: string
   statement: EditorState
 }
-
+type PricedQuestion = {
+  id: string
+  statement: EditorState
+}
 type LikertQuestions = {
   id?: string
   statement: EditorState

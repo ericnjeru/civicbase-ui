@@ -38,7 +38,14 @@ const getDefaultValues = (survey: EditSurvey): SurveyForm => {
           statement,
         }
       }),
-      costs: survey.costs,
+      priced: survey.priced?.map((question) => {
+        const statement = EditorState.createWithContent(convertFromRaw(JSON.parse(question.statement)))
+
+        return {
+          ...question,
+          statement,
+        }
+      }),
     }
   } else {
     return {
@@ -51,7 +58,6 @@ const getDefaultValues = (survey: EditSurvey): SurveyForm => {
           questions: [],
         },
       },
-      costs: [],
       language: null,
       message: {
         welcome: EditorState.createEmpty(),

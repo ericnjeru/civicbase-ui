@@ -24,10 +24,10 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
   const isActive = useWatch({ name: 'setup.feedback.active' })
   const method = useWatch({ name: 'setup.method' })
   const credits = useWatch({ name: 'setup.credits' })
-  const methods: Methods[] = ['Quadratic', 'Likert', 'Conjoint']
+  const methods: Methods[] = ['Quadratic', 'Likert', 'Conjoint', 'Priced']
 
   useEffect(() => {
-    if (method !== surveyMethods.Quadratic) {
+    if (method !== (method === surveyMethods.Quadratic || method === surveyMethods.Priced)) {
       setValue('language', null)
     }
   }, [method, setValue])
@@ -62,7 +62,7 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
         </div>
 
         <div>
-          {method === surveyMethods.Quadratic && (
+          {(method === surveyMethods.Quadratic || method === surveyMethods.Priced) && (
             <>
               <Label>Total number of credits *</Label>
               <Input
@@ -76,10 +76,12 @@ const Setup = ({ isEditing }: { isEditing: boolean }) => {
           )}
         </div>
 
-        {method === surveyMethods.Quadratic && credits === 100 && (
+        {(method === surveyMethods.Quadratic || method === surveyMethods.Priced) && credits === 100 && (
           <div css={tw`col-span-2`}>
             <div css={tw`grid grid-cols-2 gap-8 my-4`}>
-              <Diamond onSelect={() => setValue('setup.methodPreference', 'diamond')} />
+              {method === surveyMethods.Quadratic && (
+                <Diamond onSelect={() => setValue('setup.methodPreference', 'diamond')} />
+              )}
               <Radius onSelect={() => setValue('setup.methodPreference', 'radius')} />
             </div>
           </div>

@@ -16,3 +16,12 @@ export interface LogoutResponse {
 export interface ResetResponse {
   message: string
 }
+
+export interface Features {
+  multipleAnswerFromSameSource?: boolean
+  totalObservations?: number
+  priced?: string
+  qualtrics?: boolean
+  randomQuestions?: boolean
+  userIdentification?: boolean
+}

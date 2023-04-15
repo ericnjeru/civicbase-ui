@@ -23,7 +23,16 @@ const Dashboard: FC<RouteComponentProps> = () => {
       <AddButton onClick={() => navigate(`/surveyForm`)}>+ Create Survey</AddButton>
 
       {state.context.surveys?.map((survey: SurveyDashboard) => (
-        <SurveyCard survey={survey} key={survey.id} />
+        <SurveyCard
+          survey={{
+            ...survey,
+            features: {
+              ...survey?.features,
+              priced: survey?.features?.priced ? JSON.parse(survey?.features?.priced) : [],
+            },
+          }}
+          key={survey.id}
+        />
       ))}
 
       {state.matches('loading') && [1, 2, 3, 4, 5].map((k) => <Skeleton key={k} />)}

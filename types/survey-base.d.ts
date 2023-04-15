@@ -6,7 +6,7 @@ export interface Survey {
 
 export type Status = 'pilot' | 'published' | 'finished'
 
-export type Methods = 'Likert' | 'Quadratic' | 'Conjoint'
+export type Methods = 'Likert' | 'Quadratic' | 'Conjoint' | 'Priced'
 
 export type Setup = {
   topic: string
@@ -39,7 +39,10 @@ export type Quadratic = {
   id?: string
   statement: string
 }
-
+export type Priced = {
+  id?: string
+  statement: string
+}
 export type Likert = {
   id?: string
   statement: string
@@ -66,6 +69,7 @@ export type ConjointAttributes = {
 export type Features = {
   multipleAnswerFromSameSource?: boolean
   totalObservations?: number
+  priced?: [number[]]
   qualtrics?: boolean
   randomQuestions?: boolean
   userIdentification?: boolean
@@ -97,7 +101,10 @@ export type QuadraticForSurvey = {
   id: string
   statement: string
 }
-
+export type PricedForSurvey = {
+  id: string
+  statement: string
+}
 export type ConjointQuestions = {
   id: string
   statement: string

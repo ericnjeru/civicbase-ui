@@ -7,6 +7,8 @@ import useAsync from './use-async'
 
 type UseSurvey = {
   isTaken: boolean
+  currentObservation: number
+  totalObservations: number
   survey: SurveyRespondent
   isLoading: boolean
   isError: boolean
@@ -15,6 +17,8 @@ type UseSurvey = {
 
 const useSurvey = (surveyId?: string): UseSurvey => {
   const [isTaken, setTaken] = useState(false)
+  const [currentObservation, setCurrentObservation] = useState(1)
+  const [totalObservations, setTotalObservations] = useState(1)
   const { run, data: survey, isLoading, isError, isSuccess } = useAsync()
 
   useEffect(() => {
@@ -30,6 +34,8 @@ const useSurvey = (surveyId?: string): UseSurvey => {
       const similarSurveys: string[] = takenSurveys.filter((id) => id === surveyId)
       const totalObservations = survey?.features.totalObservations ? survey?.features.totalObservations : 1
       setTaken(() => !(similarSurveys.length < totalObservations))
+      setCurrentObservation(similarSurveys.length + 1)
+      setTotalObservations(totalObservations)
     }
   }, [surveyId, setTaken, survey?.features.totalObservations])
 
@@ -37,6 +43,8 @@ const useSurvey = (surveyId?: string): UseSurvey => {
 
   return {
     isTaken: isSurveyTaken(),
+    currentObservation,
+    totalObservations,
     survey,
     isSuccess,
     isLoading,
