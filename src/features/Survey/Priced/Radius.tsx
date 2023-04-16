@@ -151,6 +151,8 @@ const PricedRespondent = ({
       } else {
         handleNext()
       }
+    } else {
+      alert('Can not submit survey. You must be logged out from current browser.')
     }
   }
   return (

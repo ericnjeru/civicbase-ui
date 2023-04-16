@@ -33,9 +33,12 @@ const DynamicBar = ({
         ]}
         style={{ width: `${progress}%` }}
       />
-      <div css={tw`absolute inset-x-1/2 w-full`}>
+      <div css={tw`absolute  justify-around flex w-full`}>
         <Typography css={tw`text-white`}>
-          Observation {currentObservation}/{totalObservations} | {availableCredits}/{total} {language}
+          Observation {currentObservation}/{totalObservations}
+        </Typography>
+        <Typography css={tw`text-white`}>
+          {availableCredits}/{total} {language}
         </Typography>
       </div>
     </div>
