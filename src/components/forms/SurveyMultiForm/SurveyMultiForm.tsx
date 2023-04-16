@@ -39,7 +39,6 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
   if (method) {
     method = method.toLowerCase()
   }
-
   console.log('errors', errors)
 
   const handleSelection = (step: Steps) => {
@@ -47,7 +46,12 @@ const SurveyMultiForm = ({ survey, isLoading }: { survey: EditSurvey; isLoading:
       if (isValid) {
         setActive(step)
 
-        if (active === Steps.CONJOINT || active === Steps.LIKERT || active === Steps.QUADRATIC) {
+        if (
+          active === Steps.CONJOINT ||
+          active === Steps.LIKERT ||
+          active === Steps.QUADRATIC ||
+          active === Steps.Priced
+        ) {
           setFinal(true)
         }
       }

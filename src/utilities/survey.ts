@@ -45,8 +45,9 @@ export const createPricedQuestions = (questions: PricedForSurvey[], currentObser
     return {
       ...question,
       vote: randomInt,
-      preVotes: randomInt,
+      ogVotes: randomInt,
       userVotes: 0,
+      previousVote: 0,
       credits: 0,
       order: 0,
       status: undefined,

@@ -8,8 +8,9 @@ type Question = {
   id: string
   statement: string
   vote: number
-  preVotes: number
+  ogVotes: number
   userVotes: number
+  previousVote: number
   cost: number
   credits: number
   order: number
@@ -25,13 +26,44 @@ const usePriced = (survey: SurveyRespondent, currentObservation: number) => {
   const [questions, setQuestions] = useState<Question[]>([])
   const [availableCredits, setAvailableCredits] = useState(credits || 0)
 
+  const isGettingCloserToDefault = (defaultValue: number, currentValue: number, previousValue: number) => {
+    const currDistance = Math.abs(defaultValue - currentValue)
+    const prevDistance = Math.abs(defaultValue - previousValue)
+
+    if (currDistance < prevDistance) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  const calculateCredits = (
+    userVotes: number,
+    cost: number,
+    absVote: number,
+    preVote: number,
+    votes: number,
+    ogVotes: number,
+  ) => {
+    if (isGettingCloserToDefault(ogVotes, votes, preVote)) {
+      return (userVotes - absVote) * cost
+    }
+    const credits: number = (userVotes + absVote) * cost
+    return credits
+  }
+  const calculateUserVotes = (userVotes: number, absVote: number, preVote: number, votes: number, ogVotes: number) => {
+    if (isGettingCloserToDefault(ogVotes, votes, preVote)) {
+      return userVotes - absVote
+    }
+    return userVotes + absVote
+  }
   const canVote = (index: number, vote: number) => {
     let simulatedCost = 0
 
     questions.forEach((q, i) => {
       const cost = q.cost ?? 1
       const absVote = Math.abs(vote)
-      if (i === index) {
+      if (i === index && !isGettingCloserToDefault(q.ogVotes, q.vote + vote, q.vote)) {
         simulatedCost += (q.userVotes + absVote) * cost
       } else {
         simulatedCost += q.credits
@@ -45,19 +77,6 @@ const usePriced = (survey: SurveyRespondent, currentObservation: number) => {
     return simulatedCost <= credits
   }
 
-  const calculateCredits = (userVotes: number, cost: number, absVote: number, votes: number, preVotes: number) => {
-    if (votes === preVotes) {
-      return userVotes * cost
-    }
-    const credits: number = (userVotes + absVote) * cost
-    return credits
-  }
-  const calculateUserVotes = (userVotes: number, absVote: number, votes: number, preVotes: number) => {
-    if (votes === preVotes) {
-      return userVotes
-    }
-    return userVotes + absVote
-  }
   const vote = (index: number, vote: number) => {
     if (canVote(index, vote)) {
       setQuestions(
@@ -68,8 +87,21 @@ const usePriced = (survey: SurveyRespondent, currentObservation: number) => {
             ? {
                 ...question,
                 vote: question.vote + vote,
-                userVotes: calculateUserVotes(question.userVotes, absVote, question.vote + vote, question.preVotes),
-                credits: calculateCredits(question.userVotes, cost, absVote, question.vote + vote, question.preVotes),
+                userVotes: calculateUserVotes(
+                  question.userVotes,
+                  absVote,
+                  question.vote,
+                  question.vote + vote,
+                  question.ogVotes,
+                ),
+                credits: calculateCredits(
+                  question.userVotes,
+                  cost,
+                  absVote,
+                  question.vote,
+                  question.vote + vote,
+                  question.ogVotes,
+                ),
               }
             : question
         }),

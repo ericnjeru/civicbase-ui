@@ -116,7 +116,7 @@ const PricedRespondent = ({
         id: question.id,
         vote: question.vote,
         credits: question.credits,
-        defaultAnswer: question.preVotes,
+        defaultAnswer: question.ogVotes,
         order: question.order,
       }
     })
@@ -172,7 +172,7 @@ const PricedRespondent = ({
             <div css={tw`flex flex-col items-center space-y-24 pt-20 pb-20 mobile:mx-3`}>
               {questions.map((question, index) => {
                 return (
-                  <div key={question.id || `${question.preVotes}_${index}`} css={tw`flex w-full flex-col`}>
+                  <div key={question.id || `${question.ogVotes}_${index}`} css={tw`flex w-full flex-col`}>
                     <Headline css={tw`mb-4 flex`}>
                       {index + 1}.&nbsp;
                       <TextEditor

@@ -31,7 +31,7 @@ const DynamicBar = ({
       />
       <div css={tw`absolute inset-x-1/2 w-full`}>
         <Typography css={tw`text-white`}>
-          {availableCredits}/{total} {language}
+          Observation 1/15 | {availableCredits}/{total} {language}
         </Typography>
       </div>
     </div>
