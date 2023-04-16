@@ -4,6 +4,8 @@ type AnswerRequest<Type> = {
   surveyId: string
   status: Status
   leftCredits?: number
+  totalObservations?: number
+  currentObservation?: number
   time: Time
   questions: Type[]
   feedback?: Feedback[]
