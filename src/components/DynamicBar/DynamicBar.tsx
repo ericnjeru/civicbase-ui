@@ -5,10 +5,14 @@ const DynamicBar = ({
   total,
   availableCredits,
   language,
+  currentObservation,
+  totalObservations,
 }: {
   total: number
   availableCredits: number
   language: string
+  currentObservation?: number
+  totalObservations?: number
 }) => {
   if (total < 0 || availableCredits > total || availableCredits < 0) {
     return null
@@ -31,7 +35,7 @@ const DynamicBar = ({
       />
       <div css={tw`absolute inset-x-1/2 w-full`}>
         <Typography css={tw`text-white`}>
-          Observation 1/15 | {availableCredits}/{total} {language}
+          Observation {currentObservation}/{totalObservations} | {availableCredits}/{total} {language}
         </Typography>
       </div>
     </div>

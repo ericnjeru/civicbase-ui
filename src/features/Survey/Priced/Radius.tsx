@@ -130,6 +130,8 @@ const PricedRespondent = ({
         submitedAt: new Date().toISOString(),
       },
       leftCredits: availableCredits,
+      totalObservations: totalObservations,
+      currentObservation: currentObservation,
       ...params,
     }
 
@@ -163,6 +165,8 @@ const PricedRespondent = ({
                     total={credits}
                     availableCredits={availableCredits}
                     language={token === 'Custom' ? customToken : token}
+                    currentObservation={currentObservation}
+                    totalObservations={totalObservations}
                   />
                 </div>
               )}
