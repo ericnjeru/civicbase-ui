@@ -5,6 +5,7 @@ import { HiInformationCircle } from 'react-icons/hi'
 import { PrimaryButton, SecondaryButton } from 'components/Button'
 import DynamicBar from 'components/DynamicBar'
 import Modal, { ModalContext } from 'components/Modal'
+import Close from 'components/Modal/Close'
 import Spinner from 'components/Spinner'
 import TextEditor from 'components/TextEditor'
 import Typography, { Headline } from 'components/Typography'
@@ -238,6 +239,7 @@ const PricedRespondent = ({
           footer={
             <Modal
               open={isModalOpen}
+              close={<Close onClick={() => setModalOpen(false)} />}
               header={<Typography css={tw`text-black`}>Credit Left</Typography>}
               icon={<HiInformationCircle size="24" color={theme`colors.black`} />}
               action={
