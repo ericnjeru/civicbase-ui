@@ -247,7 +247,7 @@ const PricedRespondent = ({
                   availableCredits={availableCredits}
                   disabled={isLoading}
                   isLoading={isLoading}
-                  buttonText={currentObservation < totalObservations ? 'Next' : 'Submit'}
+                  buttonText={currentObservation < totalObservations ? 'Next' : 'Finish'}
                   setModalOpen={setModalOpen}
                 />
               }
@@ -258,7 +258,7 @@ const PricedRespondent = ({
                   disabled={isLoading}
                 >
                   {isLoading && <Spinner variant="light" />}
-                  <div>{currentObservation < totalObservations ? 'Next' : 'Submit'}</div>
+                  <div>{currentObservation < totalObservations ? 'Next' : 'Finish'}</div>
                 </SecondaryButton>
               }
             >
