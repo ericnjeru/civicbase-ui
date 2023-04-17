@@ -15,11 +15,11 @@ import 'draft-js/dist/Draft.css'
 import useAsync from 'hooks/use-async'
 import usePriced from 'hooks/use-priced'
 import RespondentLayout from 'layouts/Respondent'
-import { createAnswer } from 'services/survey'
+import { createPricedAnswer } from 'services/survey'
 import tw, { theme } from 'twin.macro'
 import { setSurveyTaken } from 'utilities/survey'
 
-import { AnswerRequest as Answer, Priced } from '../../../../types/answer'
+import { PricedAnswerRequest as Answer, ObservationAnswer, Priced } from '../../../../types/answer'
 import { SurveyRespondent } from '../../../../types/survey'
 import FeedbackQuestions from '../FeedbackQuestions'
 
@@ -27,17 +27,25 @@ const Action = ({
   availableCredits,
   disabled,
   isLoading,
+  buttonText,
+  setModalOpen,
 }: {
   availableCredits: number
   disabled: boolean
   isLoading?: boolean
+  buttonText: string
+  setModalOpen: (status: boolean) => void
 }) => {
   const { openModal } = useContext(ModalContext)
   const hasCreditLeft = availableCredits > 0
 
   const handleConfirmation = (e: any) => {
     if (hasCreditLeft) {
-      openModal(e)
+      if (setModalOpen) {
+        setModalOpen(true)
+      } else {
+        openModal(e)
+      }
     }
   }
 
@@ -50,7 +58,7 @@ const Action = ({
         css={tw`flex justify-center items-center space-x-4`}
       >
         {isLoading && <Spinner variant="light" />}
-        <div>Submit</div>
+        <div>{buttonText}</div>
       </PrimaryButton>
     </div>
   )
@@ -67,21 +75,21 @@ type PricedAnswerForm = {
 
 const PricedRespondent = ({
   survey,
-  currentObservation,
-  totalObservations,
   handleNext,
   preview,
 }: {
   survey: SurveyRespondent
-  currentObservation: number
-  totalObservations: number
   handleNext: () => void
   preview?: boolean
 }) => {
   const { run, isLoading } = useAsync()
+  const [currentObservation, setCurrentObservation] = useState(1)
+  const [totalObservations, setTotalObservations] = useState(1)
   const { questions, availableCredits, vote, canVote } = usePriced(survey, currentObservation)
   const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
   const [isFirstVote, setFirstVote] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [observationAnswers, setObservationAswers] = useState<ObservationAnswer<Priced>[]>([])
   const {
     setup: { credits, feedback },
     language: { thumbsDown, thumbsUp, token, customToken = '' },
@@ -101,6 +109,13 @@ const PricedRespondent = ({
     onQuestionPageLoad()
   }, [onQuestionPageLoad])
 
+  useEffect(() => {
+    if (survey) {
+      const totalObservations: number = survey.features?.totalObservations ?? 1
+      setTotalObservations(totalObservations)
+    }
+  }, [survey])
+
   const handleVote = (direction: number, index: number) => {
     vote(index, direction)
 
@@ -110,27 +125,26 @@ const PricedRespondent = ({
     }
   }
 
-  const onSubmit: SubmitHandler<PricedAnswerForm> = (values) => {
+  const createObservationAnswer: SubmitHandler<PricedAnswerForm> = (values) => {
     const newQuestions = questions.map((question) => {
       return {
         id: question.id,
         vote: question.vote,
+        userVotes: question.userVotes,
         credits: question.credits,
         defaultAnswer: question.ogVotes,
+        cost: question.cost,
         order: question.order,
       }
     })
 
-    const answer: Answer<Priced> = {
-      surveyId: survey.id,
+    const observationAnswer: ObservationAnswer<Priced> = {
       questions: newQuestions,
-      status: survey.status,
       time: {
         ...metadata,
         submitedAt: new Date().toISOString(),
       },
       leftCredits: availableCredits,
-      totalObservations: totalObservations,
       currentObservation: currentObservation,
       ...params,
     }
@@ -139,20 +153,33 @@ const PricedRespondent = ({
       const newFeedback = values.feedback.questions.filter((q) => q.answer !== '')
 
       if (newFeedback.length > 0) {
-        answer.feedback = newFeedback
+        observationAnswer.feedback = newFeedback
       }
     }
+    return observationAnswer
+  }
+  const onSubmit: SubmitHandler<PricedAnswerForm> = (values) => {
+    if (isModalOpen) {
+      setModalOpen(false)
+    }
 
-    if (!preview) {
-      run(createAnswer(answer))
-      setSurveyTaken(survey.id, survey.status)
-      if (currentObservation < totalObservations) {
-        location.reload()
-      } else {
-        handleNext()
-      }
+    const observationAnswer = createObservationAnswer(values)
+    if (currentObservation < totalObservations) {
+      setObservationAswers((prevObservations) => [...prevObservations, observationAnswer])
+      setCurrentObservation((curr) => curr + 1)
     } else {
-      alert('Can not submit survey. You must be logged out from current browser.')
+      if (!preview) {
+        const answer: Answer<Priced> = {
+          surveyId: survey.id,
+          status: survey.status,
+          observations: [...observationAnswers, observationAnswer],
+        }
+        run(createPricedAnswer(answer))
+        setSurveyTaken(survey.id, survey.status)
+        handleNext()
+      } else {
+        alert('Can not submit survey. You must be logged out from current browser.')
+      }
     }
   }
   return (
@@ -210,9 +237,18 @@ const PricedRespondent = ({
           feedback={<>{feedback?.active && <FeedbackQuestions questions={feedback.questions} />}</>}
           footer={
             <Modal
+              open={isModalOpen}
               header={<Typography css={tw`text-black`}>Credit Left</Typography>}
               icon={<HiInformationCircle size="24" color={theme`colors.black`} />}
-              action={<Action availableCredits={availableCredits} disabled={isLoading} isLoading={isLoading} />}
+              action={
+                <Action
+                  availableCredits={availableCredits}
+                  disabled={isLoading}
+                  isLoading={isLoading}
+                  buttonText={currentObservation < totalObservations ? 'Next' : 'Submit'}
+                  setModalOpen={setModalOpen}
+                />
+              }
               footer={
                 <SecondaryButton
                   onClick={methods.handleSubmit(onSubmit)}
@@ -220,13 +256,13 @@ const PricedRespondent = ({
                   disabled={isLoading}
                 >
                   {isLoading && <Spinner variant="light" />}
-                  <div>Submit</div>
+                  <div>{currentObservation < totalObservations ? 'Next' : 'Submit'}</div>
                 </SecondaryButton>
               }
             >
               <Typography css={tw`text-black`}>
                 You have {availableCredits} {token === 'Custom' ? customToken : token} left, please confirm if you want
-                to submit your answer anyway.
+                to proceed with your answer anyway.
               </Typography>
             </Modal>
           }

@@ -1,11 +1,23 @@
 import { Status, ConjointAttributes, ConjointItems } from './survey-base'
 
+type ObservationAnswer<Type> = {
+  leftCredits?: number
+  currentObservation?: number
+  time: Time
+  questions: Type[]
+  feedback?: Feedback[]
+  [key: string]: any
+}
+type PricedAnswerRequest<Type> = {
+  surveyId: string
+  status: Status
+  observations: ObservationAnswer<Type>[]
+}
+
 type AnswerRequest<Type> = {
   surveyId: string
   status: Status
   leftCredits?: number
-  totalObservations?: number
-  currentObservation?: number
   time: Time
   questions: Type[]
   feedback?: Feedback[]

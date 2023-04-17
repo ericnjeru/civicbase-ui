@@ -1,4 +1,4 @@
-import { AnswerRequest } from '../../types/answer'
+import { AnswerRequest, PricedAnswerRequest } from '../../types/answer'
 import { SurveyRequest } from '../../types/survey-request'
 import client from './api'
 
@@ -12,4 +12,5 @@ export const clone = (surveyId: string) => client(`cloneSurvey/${surveyId}`)
 export const deleteSurvey = (surveyId: string) => client(`survey/${surveyId}`, { method: 'DELETE' })
 export const getSurvey = (surveyId: string) => client(`survey/${surveyId}`)
 export const createAnswer = (answer: AnswerRequest<unknown>) => client('answer', { body: answer })
+export const createPricedAnswer = (answer: PricedAnswerRequest<unknown>) => client('answer', { body: answer })
 export const analytics = (surveyId: string) => client(`surveyAnalytics/${surveyId}`)

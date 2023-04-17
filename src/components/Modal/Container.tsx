@@ -36,7 +36,7 @@ const ModalContainer = (
   return (
     <ModalContext.Provider value={{ ref, isOpen, openModal, closeModal, toggleModal }}>
       {isFunction(action) ? action({ ref, isOpen, openModal, closeModal, toggleModal }) : action}
-      <Modal {...props} open={isOpen} close={close ?? <Close onClick={closeModal} />}>
+      <Modal {...props} open={props.open || isOpen} close={close ?? <Close onClick={closeModal} />}>
         {isFunction(children) ? children({ ref, isOpen, openModal, closeModal, toggleModal }) : children}
       </Modal>
     </ModalContext.Provider>

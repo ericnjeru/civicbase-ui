@@ -64,13 +64,13 @@ export const setSurveyTaken = (surveyId: string, status: 'pilot' | 'published' |
     const item = window.localStorage.getItem('__civicbase_taken_surveys__')
     const takenSurveys: string[] = item ? JSON.parse(item) : []
 
-    // const isExist = takenSurveys.find((id) => id === surveyId)
+    const isExist = takenSurveys.find((id) => id === surveyId)
 
-    // if (!isExist) {
-    //   takenSurveys.push(surveyId)
-    //   window.localStorage.setItem('__civicbase_taken_surveys__', JSON.stringify(takenSurveys))
-    // }
-    takenSurveys.push(surveyId)
-    window.localStorage.setItem('__civicbase_taken_surveys__', JSON.stringify(takenSurveys))
+    if (!isExist) {
+      takenSurveys.push(surveyId)
+      window.localStorage.setItem('__civicbase_taken_surveys__', JSON.stringify(takenSurveys))
+    }
+    // takenSurveys.push(surveyId)
+    // window.localStorage.setItem('__civicbase_taken_surveys__', JSON.stringify(takenSurveys))
   }
 }

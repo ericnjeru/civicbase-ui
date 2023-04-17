@@ -10,8 +10,8 @@ import { surveyMethods } from 'utilities/constants'
 type Step = 'welcome' | 'questions' | 'completion'
 
 const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolean }> = ({ surveyId, preview }) => {
-  const { survey, isLoading, isTaken, currentObservation, totalObservations } = useSurvey(surveyId)
-  const [step, setStep] = useState<Step>(currentObservation > 1 ? 'welcome' : 'questions')
+  const { survey, isLoading, isTaken } = useSurvey(surveyId)
+  const [step, setStep] = useState<Step>('welcome')
 
   useEffect(() => {
     if (survey && !survey.message?.welcome && step === 'welcome') {
@@ -47,15 +47,7 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolea
             <Survey.Quadratic.Radius survey={survey} handleNext={() => onNext('completion')} preview={preview} />
           )
         case surveyMethods.Priced:
-          return (
-            <Survey.Priced.Radius
-              survey={survey}
-              currentObservation={currentObservation}
-              totalObservations={totalObservations}
-              handleNext={() => onNext('completion')}
-              preview={preview}
-            />
-          )
+          return <Survey.Priced.Radius survey={survey} handleNext={() => onNext('completion')} preview={preview} />
 
         case surveyMethods.Likert:
           return <Survey.Likert survey={survey} handleNext={() => onNext('completion')} preview={preview} />
