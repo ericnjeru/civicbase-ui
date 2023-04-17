@@ -9,6 +9,7 @@ type ObservationAnswer<Type> = {
   [key: string]: any
 }
 type PricedAnswerRequest<Type> = {
+  identifier: string
   surveyId: string
   status: Status
   observations: ObservationAnswer<Type>[]

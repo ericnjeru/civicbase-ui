@@ -7,17 +7,27 @@ import useSurvey from 'hooks/use-survey'
 import { surveyMethods } from 'utilities/constants'
 
 // TODO: move the next step to a upper state
-type Step = 'welcome' | 'questions' | 'completion'
+type Step = 'welcome' | 'questions' | 'completion' | 'identifier'
 
 const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolean }> = ({ surveyId, preview }) => {
   const { survey, isLoading, isTaken } = useSurvey(surveyId)
-  const [step, setStep] = useState<Step>('welcome')
+  const [step, setStep] = useState<Step>('identifier')
+  const [identifier, setIdentifier] = useState<string>('')
 
   useEffect(() => {
     if (survey && !survey.message?.welcome && step === 'welcome') {
       setStep('questions')
     }
   }, [survey, step])
+
+  useEffect(() => {
+    if (survey?.id) {
+      const { method } = survey.setup
+      if (method === surveyMethods.Priced) {
+        setStep('identifier')
+      }
+    }
+  }, [survey])
 
   const hasMessage = (message: 'welcome' | 'completion') => survey?.message && !!survey.message[message]
 
@@ -47,7 +57,14 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolea
             <Survey.Quadratic.Radius survey={survey} handleNext={() => onNext('completion')} preview={preview} />
           )
         case surveyMethods.Priced:
-          return <Survey.Priced.Radius survey={survey} handleNext={() => onNext('completion')} preview={preview} />
+          return (
+            <Survey.Priced.Radius
+              survey={survey}
+              identifier={identifier}
+              handleNext={() => onNext('completion')}
+              preview={preview}
+            />
+          )
 
         case surveyMethods.Likert:
           return <Survey.Likert survey={survey} handleNext={() => onNext('completion')} preview={preview} />
@@ -58,6 +75,13 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolea
 
     return (
       <MetadataProvider>
+        {step === 'identifier' && method === surveyMethods.Priced && (
+          <Survey.Identifier
+            setIdentifier={setIdentifier}
+            identifier={identifier}
+            handleNext={() => onNext('welcome')}
+          />
+        )}
         {step === 'welcome' && hasMessage('welcome') && (
           <Survey.WelcomeMessage survey={survey} handleNext={() => onNext('questions')} />
         )}

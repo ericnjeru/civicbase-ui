@@ -78,10 +78,12 @@ const PricedRespondent = ({
   survey,
   handleNext,
   preview,
+  identifier,
 }: {
   survey: SurveyRespondent
   handleNext: () => void
   preview?: boolean
+  identifier: string
 }) => {
   const { run, isLoading } = useAsync()
   const [currentObservation, setCurrentObservation] = useState(1)
@@ -171,6 +173,7 @@ const PricedRespondent = ({
     } else {
       if (!preview) {
         const answer: Answer<Priced> = {
+          identifier: identifier,
           surveyId: survey.id,
           status: survey.status,
           observations: [...observationAnswers, observationAnswer],
