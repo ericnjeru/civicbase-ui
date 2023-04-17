@@ -1,15 +1,15 @@
 {
   "projects": {
-    "default": "civic-base"
+    "default": "civicbase-functions"
   },
   "targets": {
-    "civic-base": {
+    "civicbase-functions": {
       "hosting": {
         "app": [
-          "civic-base"
+          "civicbase-functions"
         ],
         "storybook": [
-          "storybook-civic-base"
+          
         ]
       }
     }

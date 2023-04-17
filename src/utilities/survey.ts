@@ -35,8 +35,8 @@ export const createQuestions = (questions: QuadraticForSurvey[], priced: number[
 }
 export const createPricedQuestions = (questions: PricedForSurvey[], currentObservation: number, costs?: [number[]]) => {
   const newQs = questions.map((question, qIndex) => {
-    const min = -10
-    const max = 10
+    const min = -5
+    const max = 5
     const randomInt = Math.floor(Math.random() * (max - min + 1) + min)
     let cost = 1
     if (costs && costs?.length > 0) {

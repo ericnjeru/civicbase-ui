@@ -38,10 +38,6 @@
           ]
         }
       ]
-    },
-    {
-      "target": "storybook",
-      "public": "storybook-static"
     }
   ],
   "emulators": {
