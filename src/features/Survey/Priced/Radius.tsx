@@ -89,7 +89,7 @@ const PricedRespondent = ({
   const [currentObservation, setCurrentObservation] = useState(1)
   const [totalObservations, setTotalObservations] = useState(1)
   const { questions, availableCredits, vote, canVote } = usePriced(survey, currentObservation)
-  const { metadata, params, onQuestionPageLoad, onStart } = useMetadata()
+  const { metadata, params, onQuestionPageLoad, onObservationLoad, onStart } = useMetadata()
   const [isFirstVote, setFirstVote] = useState(false)
   const [isModalOpen, setModalOpen] = useState(false)
   const [observationAnswers, setObservationAswers] = useState<ObservationAnswer<Priced>[]>([])
@@ -111,6 +111,12 @@ const PricedRespondent = ({
   useEffect(() => {
     onQuestionPageLoad()
   }, [onQuestionPageLoad])
+
+  useEffect(() => {
+    if (onObservationLoad) {
+      onObservationLoad()
+    }
+  }, [currentObservation, onObservationLoad])
 
   useEffect(() => {
     if (survey) {
