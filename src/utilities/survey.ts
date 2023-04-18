@@ -13,21 +13,16 @@ function shuffle(array: any[]) {
   return array
 }
 
-export const createQuestions = (questions: QuadraticForSurvey[], priced: number[] = []) => {
-  const newQs = questions.map((question, qIndex) => {
-    const min = -10
-    const max = 10
-    const randomInt = Math.floor(Math.random() * (max - min + 1) + min)
-    const cost = priced.length > 0 ? priced[qIndex] : 1
+export const createQuestions = (questions: QuadraticForSurvey[]) => {
+  const newQs = questions.map((question) => {
     return {
       ...question,
-      vote: randomInt,
+      vote: 0,
       userVotes: 0,
       credits: 0,
       order: 0,
       status: undefined,
       animated: [],
-      cost: cost,
     }
   })
 

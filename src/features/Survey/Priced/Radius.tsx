@@ -192,6 +192,7 @@ const PricedRespondent = ({
       }
     }
   }
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>

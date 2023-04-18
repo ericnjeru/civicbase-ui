@@ -61,7 +61,6 @@ const useQuadratic = (survey: SurveyRespondent) => {
   //   Update available credits
   useEffect(() => {
     const totalCost = questions.reduce((cost, question) => cost + Math.pow(question.vote, 2), 0)
-
     if (credits) {
       setAvailableCredits(credits - totalCost)
     }

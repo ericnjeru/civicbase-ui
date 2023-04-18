@@ -34,9 +34,11 @@ const DynamicBar = ({
         style={{ width: `${progress}%` }}
       />
       <div css={tw`absolute  justify-around flex w-full`}>
-        <Typography css={tw`text-white`}>
-          Observation {currentObservation}/{totalObservations}
-        </Typography>
+        {currentObservation && totalObservations && (
+          <Typography css={tw`text-white`}>
+            Observation {currentObservation}/{totalObservations}
+          </Typography>
+        )}
         <Typography css={tw`text-white`}>
           {availableCredits}/{total} {language}
         </Typography>

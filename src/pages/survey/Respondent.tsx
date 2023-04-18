@@ -23,7 +23,6 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolea
   useEffect(() => {
     if (survey?.id) {
       const { method } = survey.setup
-      console.log(method)
       if (method === surveyMethods.Priced) {
         setStep('identifier')
       }

@@ -142,6 +142,7 @@ const QuadraticRespondent = ({
       handleNext()
     }
   }
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
