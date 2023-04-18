@@ -11,7 +11,7 @@ type Step = 'welcome' | 'questions' | 'completion' | 'identifier'
 
 const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolean }> = ({ surveyId, preview }) => {
   const { survey, isLoading, isTaken } = useSurvey(surveyId)
-  const [step, setStep] = useState<Step>('identifier')
+  const [step, setStep] = useState<Step>('welcome')
   const [identifier, setIdentifier] = useState<string>('')
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const Respondent: FC<RouteComponentProps & { surveyId?: string; preview?: boolea
   useEffect(() => {
     if (survey?.id) {
       const { method } = survey.setup
+      console.log(method)
       if (method === surveyMethods.Priced) {
         setStep('identifier')
       }

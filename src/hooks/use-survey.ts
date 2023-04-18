@@ -33,6 +33,7 @@ const useSurvey = (surveyId?: string): UseSurvey => {
 
   const isSurveyTaken = () =>
     (survey?.features.totalObservations || !survey?.features.multipleAnswerFromSameSource) && isTaken
+
   return {
     isTaken: isSurveyTaken(),
     survey,
