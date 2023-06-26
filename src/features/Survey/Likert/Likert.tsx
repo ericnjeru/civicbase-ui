@@ -12,7 +12,6 @@ import useAsync from 'hooks/use-async'
 import RespondentLayout from 'layouts/Respondent'
 import { createAnswer } from 'services/survey'
 import tw from 'twin.macro'
-import { setSurveyTaken } from 'utilities/survey'
 
 import { AnswerRequest as Answer, Likert } from '../../../../types/answer'
 import { SurveyRespondent } from '../../../../types/survey'
@@ -56,7 +55,6 @@ const LikertRespondent = ({
 
   useEffect(() => {
     if (isSuccess) {
-      setSurveyTaken(survey.id, survey.status)
       handleNext()
     }
   }, [isSuccess, handleNext, survey])

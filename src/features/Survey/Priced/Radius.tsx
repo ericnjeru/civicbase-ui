@@ -18,7 +18,6 @@ import usePriced from 'hooks/use-priced'
 import RespondentLayout from 'layouts/Respondent'
 import { createPricedAnswer } from 'services/survey'
 import tw, { theme } from 'twin.macro'
-import { setSurveyTaken } from 'utilities/survey'
 
 import { PricedAnswerRequest as Answer, ObservationAnswer, Priced } from '../../../../types/answer'
 import { SurveyRespondent } from '../../../../types/survey'
@@ -185,7 +184,6 @@ const PricedRespondent = ({
           observations: [...observationAnswers, observationAnswer],
         }
         run(createPricedAnswer(answer))
-        setSurveyTaken(survey.id, survey.status)
         handleNext()
       } else {
         alert('Can not submit survey. You must be logged out from current browser.')

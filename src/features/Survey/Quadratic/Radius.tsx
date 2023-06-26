@@ -17,7 +17,6 @@ import useQuadratic from 'hooks/use-quadratic'
 import RespondentLayout from 'layouts/Respondent'
 import { createAnswer } from 'services/survey'
 import tw, { theme } from 'twin.macro'
-import { setSurveyTaken } from 'utilities/survey'
 
 import { AnswerRequest as Answer, Quadratic } from '../../../../types/answer'
 import { SurveyRespondent } from '../../../../types/survey'
@@ -138,7 +137,6 @@ const QuadraticRespondent = ({
 
     if (!preview) {
       run(createAnswer(answer))
-      setSurveyTaken(survey.id, survey.status)
       handleNext()
     }
   }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { getSurvey } from 'services/survey'
 
@@ -14,7 +14,7 @@ type UseSurvey = {
 }
 
 const useSurvey = (surveyId?: string): UseSurvey => {
-  const [isTaken, setTaken] = useState(false)
+  // const [isTaken, setTaken] = useState(false)
   const { run, data: survey, isLoading, isError, isSuccess } = useAsync()
 
   useEffect(() => {
@@ -23,19 +23,19 @@ const useSurvey = (surveyId?: string): UseSurvey => {
     }
   }, [run, surveyId])
 
-  useEffect(() => {
-    const item = window.localStorage.getItem('__civicbase_taken_surveys__')
-    if (item) {
-      const takenSurveys: string[] = JSON.parse(item) || []
-      setTaken(() => !!takenSurveys.find((id) => id === surveyId))
-    }
-  }, [surveyId, setTaken])
+  // useEffect(() => {
+  //   const item = window.localStorage.getItem('__civicbase_taken_surveys__')
+  //   if (item) {
+  //     const takenSurveys: string[] = JSON.parse(item) || []
+  //     setTaken(() => !!takenSurveys.find((id) => id === surveyId))
+  //   }
+  // }, [surveyId, setTaken])
 
-  const isSurveyTaken = () =>
-    (survey?.features.totalObservations || !survey?.features.multipleAnswerFromSameSource) && isTaken
+  // const isSurveyTaken = () =>
+  //   (survey?.features.totalObservations || !survey?.features.multipleAnswerFromSameSource) && isTaken
 
   return {
-    isTaken: isSurveyTaken(),
+    isTaken: false,
     survey,
     isSuccess,
     isLoading,

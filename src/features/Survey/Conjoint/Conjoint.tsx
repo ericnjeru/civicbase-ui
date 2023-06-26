@@ -14,7 +14,6 @@ import useConjoint from 'hooks/use-conjoint'
 import RespondentLayout from 'layouts/Respondent'
 import { createAnswer } from 'services/survey'
 import tw, { theme } from 'twin.macro'
-import { setSurveyTaken } from 'utilities/survey'
 
 import { AnswerRequest as Answer, Conjoint } from '../../../../types/answer'
 import { SurveyRespondent } from '../../../../types/survey'
@@ -58,7 +57,6 @@ const ConjointRespondent = ({
 
   useEffect(() => {
     if (isSuccess) {
-      setSurveyTaken(survey.id, survey.status)
       handleNext()
     }
   }, [isSuccess, handleNext, survey])
